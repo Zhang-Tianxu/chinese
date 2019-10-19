@@ -92,12 +92,12 @@ index_with_subtitle: false
 # Value before `||` delimeter is the target link.
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, question icon will be loaded.
 menu:
-  home: / || home //首页
+  home: /|| home //首页
   #about: /about/ || user
-  tags: /tags/ || tags //标签
-  categories: /categories/ || th // 目录
-  archives: /archives/ || archive // 归档
-  schedule: /schedule/ || calendar //日历
+  tags: /tags/|| tags //标签
+  categories: /categories/|| th // 目录
+  archives: /archives/|| archive // 归档
+  schedule: /schedule/|| calendar //日历
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
 
@@ -580,9 +580,9 @@ baidu_push: false
 # API Documentation:
 # https://developers.google.com/google-apps/calendar/v3/reference/events/list
 calendar:
-  enable: false
-  calendar_id: <required>
-  api_key: <required>
+  enable: true
+  calendar_id: jeomr6ku7eb8v78rt58l39s0co@group.calendar.google.com
+  api_key: AIzaSyBDbYfv3Fie-srVETxcSxZ2Y9w3phKhNHA
   orderBy: startTime
   offsetMax: 24
   offsetMin: 4
