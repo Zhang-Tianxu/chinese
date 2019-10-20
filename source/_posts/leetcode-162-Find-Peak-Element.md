@@ -13,7 +13,7 @@ categories:
   - 数据结构与算法
   - leetcode
 mathjax: true
-top:5162
+top: 5162
 ---
 
 # leetcode 162 Find Peak Element
