@@ -295,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/10/20/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/07/08/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94Scaling-Intel-SGE-Apps-with-Intel-SGX-Card/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张天诩">
@@ -314,7 +314,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/chinese/2019/10/20/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/chinese/2019/07/08/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94Scaling-Intel-SGE-Apps-with-Intel-SGX-Card/" itemprop="url">论文笔记——Scaling Intel SGX Apps with Intel SGX Card</a></h1>
         
 
         <div class="post-meta">
@@ -326,8 +326,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-20T00:55:35+00:00">
-                2019-10-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-08T20:04:21+00:00">
+                2019-07-08
               </time>
             
 
@@ -336,6 +336,791 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机及软件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/%E8%AE%BA%E6%96%87/" itemprop="url" rel="index">
+                    <span itemprop="name">论文</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/%E8%AE%BA%E6%96%87/secure-trust/" itemprop="url" rel="index">
+                    <span itemprop="name">secure&trust</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Scaling-Intel-SGX-Apps-with-Intel-SGX-Card"><a href="#Scaling-Intel-SGX-Apps-with-Intel-SGX-Card" class="headerlink" title="Scaling Intel SGX Apps with Intel SGX Card"></a>Scaling Intel SGX Apps with Intel SGX Card</h1><p>这边笔记完全来自下面这篇论文：</p>
+<p>Chakrabarti S, Hoekstra M, Kuvaiskii D, et al. Scaling Intel® Software Guard Extensions Applications with Intel® SGX Card[C]//Proceedings of the 8th International Workshop on Hardware and Architectural Support for Security and Privacy. ACM, 2019: 6.</p>
+<h2 id="太长不看版"><a href="#太长不看版" class="headerlink" title="太长不看版"></a>太长不看版</h2><p>本文介绍了一个Intel 提出的一个新硬件——Intel SGX Card，这个SGX Card可以直接插在普通服务器的PCIe插槽上，有了这个新硬件带来一下好处：</p>
+<ol>
+<li>使得普通服务器据有SGX特性</li>
+<li>突破SGX的128MB的内存限制，使SGX应用程序得到扩展。但是在维持SGX特性的同时实现这种扩展是要在一定程度上牺牲性能的。</li>
+</ol>
+<p>本文演示了在不可信数据中心中利用Intel SGX Card部署Intel SGX应用程序的四种方法。 为了加速Intel SGX应用程序的内存扩展部署，论文作者们开发了一个内存共享库，用于主机和SGX Card之间的快速异步通信，并通过VNF用例突出显示SGX Card的能力。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2019/07/08/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94Scaling-Intel-SGE-Apps-with-Intel-SGX-Card/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/06/26/%E5%9C%A8k8s%E4%B8%8A%E9%83%A8%E7%BD%B2Jenkins/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张天诩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天诩的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2019/06/26/%E5%9C%A8k8s%E4%B8%8A%E9%83%A8%E7%BD%B2Jenkins/" itemprop="url">在k8s上部署Jenkins</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-26T21:04:50+00:00">
+                2019-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机及软件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/DevOps/Jenkins/" itemprop="url" rel="index">
+                    <span itemprop="name">Jenkins</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="在k8s上部署Jenkins"><a href="#在k8s上部署Jenkins" class="headerlink" title="在k8s上部署Jenkins"></a>在k8s上部署Jenkins</h1><p>谷歌在k8s上部署Jenkins的方法，都写的很复杂，各种配置文件一堆，还都失败了！<strong>最终部署成功后发现只需要一句命令就可以了。</strong></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2019/06/26/%E5%9C%A8k8s%E4%B8%8A%E9%83%A8%E7%BD%B2Jenkins/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/06/24/%E4%B8%BAk8s%E9%85%8D%E7%BD%AE%E5%8F%AF%E8%A7%86%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张天诩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天诩的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2019/06/24/%E4%B8%BAk8s%E9%85%8D%E7%BD%AE%E5%8F%AF%E8%A7%86%E5%8C%96/" itemprop="url">为k8s配置可视化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-24T20:53:54+00:00">
+                2019-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机及软件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/DevOps/k8s/" itemprop="url" rel="index">
+                    <span itemprop="name">k8s</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="为k8s配置可视化"><a href="#为k8s配置可视化" class="headerlink" title="为k8s配置可视化"></a>为k8s配置可视化</h1><p>K8s dashboard是k8s集群的web-based UI工具，用户可以通过dashboard管理运行在集群上的应用以及集群自身。</p>
+<p>安装本身非常容易，只需要下面一条语句就可以</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml</span><br></pre></td></tr></table></figure>
+
+<p>但是再次由于墙的原因，国内执行这条语句会出现<code>ErrImagePull</code>的错误。如果你已经执行了，就需要删除这个pod。但是如果直接用<code>kubectl delete pods &lt;pod name&gt; --namespace=&lt;namespace&gt;</code>的话，通过<code>kubectl get pods --all-namespaces</code>查看会发现它马上就会重新建立。这是因为要直接删除<code>kubectl delete deployment &lt;deployment name&gt;</code>。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2019/06/24/%E4%B8%BAk8s%E9%85%8D%E7%BD%AE%E5%8F%AF%E8%A7%86%E5%8C%96/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/06/24/%E5%AE%89%E8%A3%85kubelet%E3%80%81kubeadm%E5%92%8Ckubectl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张天诩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天诩的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2019/06/24/%E5%AE%89%E8%A3%85kubelet%E3%80%81kubeadm%E5%92%8Ckubectl/" itemprop="url">安装kubelet、kubeadm和kubectl</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-24T20:53:21+00:00">
+                2019-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机及软件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/DevOps/k8s/" itemprop="url" rel="index">
+                    <span itemprop="name">k8s</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="通过kubeadm部署k8s-cluster"><a href="#通过kubeadm部署k8s-cluster" class="headerlink" title="通过kubeadm部署k8s cluster"></a>通过kubeadm部署k8s cluster</h1><p>Kubeadm 是一个工具，通过提供 <code>kubeadm init</code> 和 <code>kubeadm join</code> 来作为创建 Kubernetes 集群的最佳实践“快速路径”。</p>
+<h2 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h2><p>我在配置时一共使用了4台内存为16G，有4个CPU的服务器，它们的配置相同，具体如下：</p>
+<p>操作系统：Ubuntu 16.04.6 LTS</p>
+<p>内核版本：4.4.0-146-generic</p>
+<p>架构：amd64</p>
+<p>docker版本：18.9.5/18.9.6</p>
+<p>Kubelet版本：v1.15.0</p>
+<table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">内部ip</th>
+<th align="center">角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">master</td>
+<td align="center">10.0.0.23</td>
+<td align="center">kubernetes主节点</td>
+</tr>
+<tr>
+<td align="center">node1</td>
+<td align="center">10.0.0.66</td>
+<td align="center">kubernetes从节点</td>
+</tr>
+<tr>
+<td align="center">node2</td>
+<td align="center">10.0.0.53</td>
+<td align="center">kubernetes从节点</td>
+</tr>
+<tr>
+<td align="center">Slaver03</td>
+<td align="center">10.0.0.69</td>
+<td align="center">kubernetes从节点</td>
+</tr>
+<tr>
+<td align="center">
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2019/06/24/%E5%AE%89%E8%A3%85kubelet%E3%80%81kubeadm%E5%92%8Ckubectl/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/04/23/Copyright-Notices/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张天诩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天诩的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2019/04/23/Copyright-Notices/" itemprop="url">Copyright Notices</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-23T16:15:45+00:00">
+                2019-04-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%A3%B0%E6%98%8E/" itemprop="url" rel="index">
+                    <span itemprop="name">声明</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -366,21 +1151,1039 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+            <h1 id="关于引用"><a href="#关于引用" class="headerlink" title="关于引用"></a>关于引用</h1><p>写博客的过程中不可避免的要引用他人知识产权，作为一名学生我也<strong>非常赞同对知识产权的保护</strong>。无论内容来自哪里，无论是<strong>释义</strong>还是<strong>原文引用</strong>我都会<strong>尽最大努力标明来源</strong>，若有疏忽，请大家批评指正。</p>
+<p>对于如何正确引用，我查看了麻省理工学院的<a href="https://integrity.mit.edu/handbook/academic-writing/avoiding-plagiarism-quoting" target="_blank" rel="noopener">Academic Integrity At MIT</a>和印第安纳大学的<a href="https://www.indiana.edu/~academy/firstPrinciples/index.html" target="_blank" rel="noopener">How to Recognize Plagiarism</a>，也在拿到了后者的测试证书。我会尽量采用<a href="http://owl.english.purdue.edu/owl/resource/560/10/" target="_blank" rel="noopener">American Psychological Association (APA)</a>格式，但是还未真正上手应用，在保证信息来源精确的前提下引用<strong>格式可能会有混乱</strong>。</p>
+<p>其他一些国际通用的引用格式：</p>
+<ul>
+<li><a href="http://owl.english.purdue.edu/owl/resource/747/08/" target="_blank" rel="noopener">Modern Language Association (MLA)</a></li>
+<li><a href="http://owl.english.purdue.edu/owl/resource/717/05/" target="_blank" rel="noopener">Chicago Manual of Style (CMS)</a></li>
+<li><a href="https://www.library.wisc.edu/chemistry/research-help/write-and-cite/acs-style-guide/" target="_blank" rel="noopener">American Chemical Society (ACS)</a></li>
+<li>[Council of Science Editors (CSE)]([<a href="http://bcs.bedfordstmartins.com/webpub/Ektron/ReWriting_basics%202e/rewritingbasics2e/resdoc5e/RES5e_ch11_o.html]" target="_blank" rel="noopener">http://bcs.bedfordstmartins.com/webpub/Ektron/ReWriting_basics%202e/rewritingbasics2e/resdoc5e/RES5e_ch11_o.html]</a>(<a href="http://bcs.bedfordstmartins.com/webpub/Ektron/ReWriting_basics" target="_blank" rel="noopener">http://bcs.bedfordstmartins.com/webpub/Ektron/ReWriting_basics</a> 2e/rewritingbasics2e/resdoc5e/RES5e_ch11_o.html))</li>
+<li><a href="https://www.ieee.org/publications/rights/plagiarism/plagiarism.html" target="_blank" rel="noopener">Institute of Electronics &amp; Electrical Engineers (IEEE)</a></li>
+<li><a href="https://www.ncbi.nlm.nih.gov/books/NBK7256/" target="_blank" rel="noopener">National Library of Medicine or <strong>AMA</strong>: American Medical Association (NLM)</a></li>
+</ul>
+<p>国内没有找到<strong>权威的引用标准格式</strong>。</p>
 
           
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/03/21/centos%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEJenkins/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张天诩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天诩的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2019/03/21/centos%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEJenkins/" itemprop="url">centos安装和配置Jenkins</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-21T16:19:28+00:00">
+                2019-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机及软件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/DevOps/Jenkins/" itemprop="url" rel="index">
+                    <span itemprop="name">Jenkins</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="centOS-安装配置Jenkins"><a href="#centOS-安装配置Jenkins" class="headerlink" title="centOS 安装配置Jenkins"></a>centOS 安装配置Jenkins</h1><p><img src="data:image/png;base64,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" alt="jenkins"></p>
+<p>我是在阿里云的ECS上部署Jenkins的，ECS无法提供图形界面的显示，这带来了几个问题：</p>
+<ol>
+<li><p>文件下载和传输不方便<br>采用Xftp等ftp工具。</p>
+</li>
+<li><p>配置Jenkins要访问localhost，ECS上没办法使用浏览器</p>
+<p>利用公网IP，在其他机器上访问和控制。</p>
+</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2019/03/21/centos%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEJenkins/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/02/26/leetcode-53-Maximum-SubArray/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张天诩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天诩的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2019/02/26/leetcode-53-Maximum-SubArray/" itemprop="url">leetcode 53 Maximum SubArray</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-26T18:38:34+00:00">
+                2019-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机及软件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/%E7%AE%97%E6%B3%95/leetcode/%E7%AE%80%E5%8D%95/" itemprop="url" rel="index">
+                    <span itemprop="name">简单</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="leetcode-53-Maximum-Subarray"><a href="#leetcode-53-Maximum-Subarray" class="headerlink" title="leetcode 53 Maximum Subarray"></a>leetcode 53 Maximum Subarray</h1><p><strong>最大子序列和</strong>问题是用于讲解<strong>分治策略</strong>的一个经典例题，这个例题可以帮助我们很好的理解分治策略。但对于这个问题，分治策略并不是最高效的算法。</p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>给定一个整数数组 <code>nums</code> ，找到<strong>其中一个</strong>具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+<p><strong>示例:</strong></p>
+<blockquote>
+<p>输入: [-2,1,-3,4,-1,2,1,-5,4],</p>
+<p>输出: 6</p>
+<p>解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2019/02/26/leetcode-53-Maximum-SubArray/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/02/22/%E5%88%A9%E7%94%A8Hexo%E5%92%8CGithub-Pages%E5%AE%9E%E7%8E%B0%E6%B0%B8%E4%B8%8D%E4%B8%A2%E5%A4%B1%E7%9A%84%E5%85%8D%E8%B4%B9%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张天诩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天诩的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2019/02/22/%E5%88%A9%E7%94%A8Hexo%E5%92%8CGithub-Pages%E5%AE%9E%E7%8E%B0%E6%B0%B8%E4%B8%8D%E4%B8%A2%E5%A4%B1%E7%9A%84%E5%85%8D%E8%B4%B9%E5%8D%9A%E5%AE%A2/" itemprop="url">利用Hexo和Github Pages实现永不丢失的免费博客</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-22T11:12:26+00:00">
+                2019-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机及软件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/Web%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">Web开发</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/Web%E5%BC%80%E5%8F%91/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index">
+                    <span itemprop="name">个人博客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="利用Hexo-Github-Pages实现永不丢失的免费博客"><a href="#利用Hexo-Github-Pages实现永不丢失的免费博客" class="headerlink" title="利用Hexo + Github Pages实现永不丢失的免费博客"></a>利用Hexo + Github Pages实现永不丢失的免费博客</h1><h2 id="组件安装"><a href="#组件安装" class="headerlink" title="组件安装"></a>组件安装</h2><p><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">Hexo官方网站</a>给出的介绍：</p>
+<blockquote>
+<p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 <a href="http://daringfireball.net/projects/markdown/" target="_blank" rel="noopener">Markdown</a>（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+</blockquote>
+<p>Hexo是基于Node.js的，所以安装并使用Hexo之前，必须先安装<strong>Node.js</strong>。</p>
+<p><a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages官方</a>给出的介绍：</p>
+<blockquote>
+<p>GitHub Pages is a static site hosting service designed to host your personal, organization, or project pages directly from a GitHub repository.</p>
+<p>GitHub Pages是一种<strong>静态网站托管服务</strong>，用来托管GitHub仓库中的个人、组织或者项目的网页。</p>
+</blockquote>
+<p>为了将博客部署/备份到github上，我们不仅需要有github账户，还需要下载<strong>Git</strong>。综上我们需要安装的组件有：</p>
+<ol>
+<li><strong>Node.js</strong></li>
+<li><strong>Git</strong></li>
+<li><strong>Hexo</strong></li>
+</ol>
+<p>安装方法在网上很容易找到，就不再细说了。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2019/02/22/%E5%88%A9%E7%94%A8Hexo%E5%92%8CGithub-Pages%E5%AE%9E%E7%8E%B0%E6%B0%B8%E4%B8%8D%E4%B8%A2%E5%A4%B1%E7%9A%84%E5%85%8D%E8%B4%B9%E5%8D%9A%E5%AE%A2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/02/22/NexT%E4%B8%BB%E9%A2%98%E5%9F%BA%E7%A1%80%E5%A4%96%E8%A7%82%E8%AE%BE%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张天诩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天诩的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2019/02/22/NexT%E4%B8%BB%E9%A2%98%E5%9F%BA%E7%A1%80%E5%A4%96%E8%A7%82%E8%AE%BE%E7%BD%AE/" itemprop="url">NexT主题基础外观设置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-22T10:45:15+00:00">
+                2019-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机及软件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/Web%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">Web开发</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/Web%E5%BC%80%E5%8F%91/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index">
+                    <span itemprop="name">个人博客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="NexT主题基础外观设置"><a href="#NexT主题基础外观设置" class="headerlink" title="NexT主题基础外观设置"></a>NexT主题基础外观设置</h1><h2 id="更换语言"><a href="#更换语言" class="headerlink" title="更换语言"></a>更换语言</h2><p>NexT支持多种语言：</p>
+<table>
+<thead>
+<tr>
+<th>语言</th>
+<th>代码</th>
+<th>设定示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>English</td>
+<td><code>en</code></td>
+<td><code>language: en</code></td>
+</tr>
+<tr>
+<td>简体中文</td>
+<td><code>zh-Hans</code></td>
+<td><code>language: zh-Hans</code></td>
+</tr>
+<tr>
+<td>Français</td>
+<td><code>fr-FR</code></td>
+<td><code>language: fr-FR</code></td>
+</tr>
+<tr>
+<td>Português</td>
+<td><code>pt</code></td>
+<td><code>language: pt</code> or <code>language: pt-BR</code></td>
+</tr>
+<tr>
+<td>繁體中文</td>
+<td><code>zh-hk</code> 或者 <code>zh-tw</code></td>
+<td><code>language: zh-hk</code></td>
+</tr>
+<tr>
+<td>Русский язык</td>
+<td><code>ru</code></td>
+<td><code>language: ru</code></td>
+</tr>
+<tr>
+<td>Deutsch</td>
+<td><code>de</code></td>
+<td><code>language: de</code></td>
+</tr>
+<tr>
+<td>日本語</td>
+<td><code>ja</code></td>
+<td><code>language: ja</code></td>
+</tr>
+<tr>
+<td>Indonesian</td>
+<td><code>id</code></td>
+<td><code>language: id</code></td>
+</tr>
+<tr>
+<td>Korean</td>
+<td><code>ko</code></td>
+<td><code>language: ko</code></td>
+</tr>
+</tbody></table>
+<p>想要切换语言只需要编辑<strong>hexo 配置文件</strong><code>_config.yml</code>(注意区分主题配置文件)中的<code>language</code>项。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2019/02/22/NexT%E4%B8%BB%E9%A2%98%E5%9F%BA%E7%A1%80%E5%A4%96%E8%A7%82%E8%AE%BE%E7%BD%AE/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/02/13/leetcode-56-Merge-Intervals/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张天诩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天诩的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2019/02/13/leetcode-56-Merge-Intervals/" itemprop="url">leetcode 56 Merge Intervals</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-13T17:41:27+00:00">
+                2019-02-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机及软件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/%E7%AE%97%E6%B3%95/leetcode/%E7%AE%80%E5%8D%95/" itemprop="url" rel="index">
+                    <span itemprop="name">简单</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="leetcode-56-区间合并——Merge-Intervals"><a href="#leetcode-56-区间合并——Merge-Intervals" class="headerlink" title="leetcode 56 区间合并——Merge Intervals"></a>leetcode 56 区间合并——Merge Intervals</h1><p>排序算法有很多应用，区间排序就是一种典型的应用。</p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>给定一组区间，合并所有重叠的区间。</p>
+<p>例子1：</p>
+<blockquote>
+<p>输入：[[1,3],[2,6],[8,10],[15,18]]</p>
+<p>输出：[[1,6],[8,10],[15,18]]</p>
+</blockquote>
+<p>例子2：</p>
+<blockquote>
+<p>输入：[[1,4],[4,5]]</p>
+<p>输出：[[1,5]]</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2019/02/13/leetcode-56-Merge-Intervals/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -417,6 +2220,10 @@
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/chinese/page/2/">2</a><a class="extend next" rel="next" href="/chinese/page/2/">&lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+  </nav>
+
 
 
           </div>
@@ -464,14 +2271,32 @@
               
                 <a href="/chinese/archives/%7C%7C%20archive%20/%20%E5%BD%92%E6%A1%A3">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/chinese/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/chinese/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -482,13 +2307,13 @@
             <div class="links-of-author motion-element">
                 
                   <span class="links-of-author-item">
-                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                    <a href="mailto:hanerzamora@gmail.com" target="_blank" title="E-Mail">
                       
                         <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="https://stackoverflow.com/yourname" target="_blank" title="StackOverflow">
+                    <a href="https://stackoverflow.com/users/11525738/tianxu" target="_blank" title="StackOverflow">
                       
                         <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
                   </span>
