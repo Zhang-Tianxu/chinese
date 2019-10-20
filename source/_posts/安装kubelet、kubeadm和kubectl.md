@@ -11,6 +11,7 @@ categories:
   - 计算机及软件
   - DevOps
   - k8s
+top: 9050
 ---
 # 通过kubeadm部署k8s cluster
 

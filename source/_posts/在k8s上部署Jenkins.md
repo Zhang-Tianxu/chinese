@@ -12,6 +12,7 @@ categories:
   - 计算机及软件
   - DevOps
   - Jenkins
+top: 9048
 ---
 # 在k8s上部署Jenkins
 

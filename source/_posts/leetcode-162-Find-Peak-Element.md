@@ -15,6 +15,7 @@ categories:
   - leetcode
   - 中等
 mathjax: true
+top:5162
 ---
 
 # leetcode 162 Find Peak Element

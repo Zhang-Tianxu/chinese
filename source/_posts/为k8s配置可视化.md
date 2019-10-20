@@ -11,6 +11,7 @@ categories:
   - 计算机及软件
   - DevOps
   - k8s
+top: 9049
 ---
 # 为k8s配置可视化
 

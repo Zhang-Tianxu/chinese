@@ -14,6 +14,7 @@ categories:
   - leetcode
   - 简单
 mathjax: true
+top: 5001
 date: 2018-11-15 17:29:39
 ---
 

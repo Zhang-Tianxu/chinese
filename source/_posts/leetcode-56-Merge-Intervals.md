@@ -15,6 +15,7 @@ categories:
   - leetcode
   - 简单
 mathjax: true
+top: 5056
 ---
 
 # leetcode 56 区间合并——Merge Intervals
