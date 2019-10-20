@@ -369,12 +369,9 @@
 <td align="center">10.0.0.69</td>
 <td align="center">kubernetes从节点</td>
 </tr>
-<tr>
-<td align="center"><a id="more"></a></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
 </tbody></table>
+<a id="more"></a>
+
 <h2 id="硬件要求"><a href="#硬件要求" class="headerlink" title="硬件要求"></a>硬件要求</h2><ol>
 <li>一台或多台运行Ubuntu 16.04+, CentOS 7 或 HypriotOS v1.0.1+</li>
 <li>每台机器1GB 或者更多内存，太少可能无法运行你的应用。</li>
