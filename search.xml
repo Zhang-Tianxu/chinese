@@ -194,10 +194,9 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>论文</category>
-        <category>secure&amp;trust</category>
+        <category>专业学习</category>
+        <category>学术</category>
+        <category>论文阅读</category>
       </categories>
       <tags>
         <tag>paper</tag>
@@ -253,9 +252,9 @@
 <h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><p>Jenkins官方文档：<a href="https://jenkins.io/zh/doc/book/installing/#setup-wizard" target="_blank" rel="noopener">https://jenkins.io/zh/doc/book/installing/#setup-wizard</a></p>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
+        <category>专业学习</category>
         <category>DevOps</category>
+        <category>CI&amp;CD</category>
         <category>Jenkins</category>
       </categories>
       <tags>
@@ -319,9 +318,9 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
+        <category>专业学习</category>
         <category>DevOps</category>
+        <category>容器</category>
         <category>k8s</category>
       </categories>
       <tags>
@@ -503,9 +502,9 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
+        <category>专业学习</category>
         <category>DevOps</category>
+        <category>容器</category>
         <category>k8s</category>
       </categories>
       <tags>
@@ -616,9 +615,9 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
+        <category>专业学习</category>
         <category>DevOps</category>
+        <category>CI&amp;CD</category>
         <category>Jenkins</category>
       </categories>
       <tags>
@@ -681,11 +680,9 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>算法</category>
+        <category>专业学习</category>
+        <category>数据结构与算法</category>
         <category>leetcode</category>
-        <category>简单</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
@@ -759,10 +756,9 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>Web开发</category>
-        <category>个人博客</category>
+        <category>专业学习</category>
+        <category>前端</category>
+        <category>Web</category>
       </categories>
       <tags>
         <tag>博客搭建</tag>
@@ -919,10 +915,9 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>Web开发</category>
-        <category>个人博客</category>
+        <category>专业学习</category>
+        <category>前端</category>
+        <category>Web</category>
       </categories>
       <tags>
         <tag>博客搭建</tag>
@@ -979,11 +974,9 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>算法</category>
+        <category>专业学习</category>
+        <category>数据结构与算法</category>
         <category>leetcode</category>
-        <category>简单</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
@@ -1032,11 +1025,9 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>算法</category>
+        <category>专业学习</category>
+        <category>数据结构与算法</category>
         <category>leetcode</category>
-        <category>中等</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
@@ -1078,8 +1069,7 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
+        <category>专业学习</category>
         <category>编程语言</category>
         <category>Python</category>
       </categories>
@@ -1132,11 +1122,9 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>算法</category>
+        <category>专业学习</category>
+        <category>数据结构与算法</category>
         <category>leetcode</category>
-        <category>简单</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
@@ -1172,11 +1160,9 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>算法</category>
+        <category>专业学习</category>
+        <category>数据结构与算法</category>
         <category>leetcode</category>
-        <category>简单</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
