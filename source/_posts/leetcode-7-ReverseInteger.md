@@ -8,11 +8,9 @@ tags:
   - easy
   - 简单
 categories:
-  - 学习
-  - 计算机及软件
-  - 算法
+  - 专业学习
+  - 数据结构与算法
   - leetcode
-  - 简单
 mathjax: true
 date: 2018-11-19 15:47:02
 top: 5007

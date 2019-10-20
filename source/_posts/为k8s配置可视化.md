@@ -7,9 +7,9 @@ tags:
   - 环境配置
   - DevOps
 categories:
-  - 学习
-  - 计算机及软件
+  - 专业学习
   - DevOps
+  - 容器
   - k8s
 top: 9049
 ---

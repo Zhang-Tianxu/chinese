@@ -5,9 +5,9 @@ tags:
   - Jenkins
   - CI/CD
 categories:
-  - 学习
-  - 计算机及软件
+  - 专业学习
   - DevOps
+  - CI&CD
   - Jenkins
 top: 9047
 date: 2019-03-21 16:19:28

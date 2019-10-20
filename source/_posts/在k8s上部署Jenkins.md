@@ -8,9 +8,9 @@ tags:
   - 环境配置
   - DevOps
 categories:
-  - 学习
-  - 计算机及软件
+  - 专业学习
   - DevOps
+  - CI&CD
   - Jenkins
 top: 9048
 ---

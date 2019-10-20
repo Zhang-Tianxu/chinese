@@ -9,11 +9,9 @@ tags:
   - easy
   - 中等
 categories:
-  - 学习
-  - 计算机及软件
-  - 算法
+  - 专业学习
+  - 数据结构与算法
   - leetcode
-  - 中等
 mathjax: true
 top:5162
 ---
