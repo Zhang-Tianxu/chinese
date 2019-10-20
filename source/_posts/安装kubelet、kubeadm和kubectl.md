@@ -36,6 +36,7 @@ Kubelet版本：v1.15.0
 |  node1   | 10.0.0.66 | kubernetes从节点 |
 |  node2   | 10.0.0.53 | kubernetes从节点 |
 | Slaver03 | 10.0.0.69 | kubernetes从节点 |
+
 <!--more-->
 
 ## 硬件要求
