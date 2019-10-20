@@ -45,7 +45,7 @@ rss:
 footer:
   # Specify the date when the site was setup.
   # If not defined, current year will be used.
-  #since: 2015
+  since: 2018
 
   # Icon between year and copyright info.
   icon: user
@@ -97,6 +97,7 @@ menu:
   tags: /tags/|| tags //标签
   categories: /categories/|| th // 目录
   archives: /archives/|| archive // 归档
+  english: https://zhang-tianxu.github.io/ || language // 英文
   #schedule: /schedule/|| calendar //日历
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
