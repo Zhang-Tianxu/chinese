@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="天诩的博客">
 <meta property="og:description" content="RSA是一种非对称加密算法，是以三位发明者（Ron Rivest、Adi Shamir、Leonard Adleman）的last name的首字母组成的。（来自：维基百科，RSA加密算法） 目前RSA被广泛使用，尤其在web server的密钥、SSH等领域。因其应用广泛，所以值得学习一下。我主要用一个简单的例子来解释RSA的运行原理，以及怎么（理论上）破解它。 但是讲解之前还是要强调，大家都在">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-15T12:11:28.419Z">
+<meta property="og:updated_time" content="2019-11-15T12:20:00.871Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -426,28 +426,28 @@
 <h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>假设Alice想要通过一个不可靠的媒体接收Bob的一条私密消息，假设这个私密消息是99（如果像发送其他格式的消息，也需要转化为整数才行，这是不难的），那么详细过程如下：</p>
 <ol>
 <li>生成共私钥：<ol>
-<li>选择两个素数11和17，那么$$N = 11 \times 17 = 187$$</li>
-<li>$$r = (11 -1) \times (17 -1) = 160$$</li>
-<li>找到一个与$$r$$互质的整数$$e = 3$$</li>
-<li>由$$( 3 \times d)\  mod\ \ 1 = 160$$的$$d$$可为107。</li>
-<li>将$$N = 187$$和$$e = 3$$作为公钥发给Bob，自己保留$$N=187$$和$$d = 107$$</li>
+<li>选择两个素数11和17，那么$N = 11 \times 17 = 187$</li>
+<li>$r = (11 -1) \times (17 -1) = 160$</li>
+<li>找到一个与$r$互质的整数$e = 3$</li>
+<li>由$( 3 \times d)\  mod\ \ 1 = 160$的$d$可为107。</li>
+<li>将$N = 187$和$e = 3$作为公钥发给Bob，自己保留$N=187$和$d = 107$</li>
 </ol>
 </li>
 <li>加密消息<ol>
 <li>Bob想要发送私密消息99</li>
-<li>$$密文 = 99^e\  mod\ \ N = 99^3\ mod\ \ 187 = 143$$</li>
+<li>$密文 = 99^e\  mod\ \ N = 99^3\ mod\ \ 187 = 143$</li>
 <li>将密文143发送给Alice</li>
 </ol>
 </li>
 <li>解密消息<ol>
 <li>Alice拿到密文143</li>
-<li>$$明文 = 143^d\ mod\ \ N = 143^{107}\ mod\ \ 187 = 99$$</li>
+<li>$明文 = 143^d\ mod\ \ N = 143^{107}\ mod\ \ 187 = 99$</li>
 <li>这样Alice拿到了私密消息99</li>
 </ol>
 </li>
 </ol>
 <h2 id="破解RSA"><a href="#破解RSA" class="headerlink" title="破解RSA"></a>破解RSA</h2><p>从上面加解密的过程可以意识到开始时选择的两个素数的重要性。</p>
-<p>拥有公钥（$$N$$和$$e$$）再算出开始时使用的两个素数，很容易就可以算出私钥：<br>$$<br>私钥d = ((11 - 1) \times (17 - 1) \times n + 1) \div e\<br> = (160 \times n + 1) \div 3\<br> = (160 \times 2 + 1) \div 3\<br> = 107<br>$$<br>其中$$n$$为正整数。</p>
+<p>拥有公钥（$N$和$e$）再算出开始时使用的两个素数，很容易就可以算出私钥：<br>$$<br>私钥d = ((11 - 1) \times (17 - 1) \times n + 1) \div e\<br> = (160 \times n + 1) \div 3\<br> = (160 \times 2 + 1) \div 3\<br> = 107<br>$$<br>其中$n$为正整数。</p>
 <p><strong>所以将N分解为两个素数就等同于破解了密码</strong>，好在大素数分解目前还没有多项式时间算法，只能用暴力法试。但是只要算力和时间足够，这并没有想象中的困难，而且密钥生成的过程中有很多因素会削弱密钥的安全性。想具体了解，大家可以看 <strong><em>trailofbits</em></strong> 的博客 <em><a href="https://blog.trailofbits.com/2019/07/08/fuck-rsa/" target="_blank" rel="noopener">Seriously, stop using RSA</a></em></p>
 
       
