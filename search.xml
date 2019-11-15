@@ -1,6 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>用一个例子解释RSA原理</title>
+    <url>/chinese/2019/11/15/%E7%94%A8%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90%E8%A7%A3%E9%87%8ARSA%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<p>RSA是一种非对称加密算法，是以三位发明者（Ron <strong>R</strong>ivest、Adi <strong>S</strong>hamir、Leonard <strong>A</strong>dleman）的last name的首字母组成的。（来自：<a href="[https://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95](https://zh.wikipedia.org/wiki/RSA加密演算法)">维基百科，RSA加密算法</a>）</p>
+<p>目前RSA被广泛使用，尤其在web server的密钥、SSH等领域。因其应用广泛，所以值得学习一下。我主要用一个简单的例子来解释RSA的运行原理，以及怎么（理论上）破解它。</p>
+<p>但是讲解之前还是要强调，大家都在用并不代表就是安全的。抛去各种因素不考虑，单是计算机计算能力的快速提升就让RSA加密算法越来越不安全了。看完大家就有大概的了解了。</p>
+<a id="more"></a>
+
+<h2 id="概念解释（来自：维基百科，RSA加密算法）"><a href="#概念解释（来自：维基百科，RSA加密算法）" class="headerlink" title="概念解释（来自：维基百科，RSA加密算法）"></a>概念解释（来自：<a href="[https://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95](https://zh.wikipedia.org/wiki/RSA加密演算法)">维基百科，RSA加密算法</a>）</h2><blockquote>
+<p><strong>公钥与私钥的产生</strong></p>
+<ol>
+<li>随意选择两个大的素数$$p$$和$$q$$，$$p$$不等于$$q$$，计算$$N=pq$$。</li>
+<li>$$r =(p-1)(q-1)$$</li>
+<li>选择一个小于$$r$$的整数$$e$$，使$$e$$与$$r$$互质。</li>
+<li>求得$$e$$关于$$r$$的模逆元，命名为$$d$$（既$$(e \times d)\ \ mod\ \ 1 = r$$）</li>
+<li>将$$p$$和$$q$$的记录销毁。</li>
+<li>$$(N,e)$$是公钥，$$(N,d)$$是私钥。Alice将她的公钥$$(N,e)$$传给Bob，而将她的私钥$$(N,d)$$藏起来。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p><strong>加密消息</strong><br>$$密文 = 明文^e\ mod\ \ N\ $$</p>
+</blockquote>
+<blockquote>
+<p><strong>解密消息</strong></p>
+<p>$$明文 = 密文^d\ mod\ \ N$$</p>
+</blockquote>
+<blockquote>
+<p><strong>签名</strong></p>
+<p>签名过程其实就是用私钥加密，公钥解密的过程，因为公钥智能解密对应私钥加密的消息，而私钥（理论上）不会被泄露，所以能够确定就是拥有私钥的人签的名。</p>
+</blockquote>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>假设Alice想要通过一个不可靠的媒体接收Bob的一条私密消息，假设这个私密消息是99（如果像发送其他格式的消息，也需要转化为整数才行，这是不难的），那么详细过程如下：</p>
+<ol>
+<li>生成共私钥：<ol>
+<li>选择两个素数11和17，那么$$N = 11 \times 17 = 187$$</li>
+<li>$$r = (11 -1) \times (17 -1) = 160$$</li>
+<li>找到一个与$$r$$互质的整数$$e = 3$$</li>
+<li>由$$( 3 \times d)\  mod\ \ 1 = 160$$的$$d$$可为107。</li>
+<li>将$$N = 187$$和$$e = 3$$作为公钥发给Bob，自己保留$$N=187$$和$$d = 107$$</li>
+</ol>
+</li>
+<li>加密消息<ol>
+<li>Bob想要发送私密消息99</li>
+<li>$$密文 = 99^e\  mod\ \ N = 99^3\ mod\ \ 187 = 143$$</li>
+<li>将密文143发送给Alice</li>
+</ol>
+</li>
+<li>解密消息<ol>
+<li>Alice拿到密文143</li>
+<li>$$明文 = 143^d\ mod\ \ N = 143^{107}\ mod\ \ 187 = 99$$</li>
+<li>这样Alice拿到了私密消息99</li>
+</ol>
+</li>
+</ol>
+<h2 id="破解RSA"><a href="#破解RSA" class="headerlink" title="破解RSA"></a>破解RSA</h2><p>从上面加解密的过程可以意识到开始时选择的两个素数的重要性。</p>
+<p>拥有公钥（$$N$$和$$e$$）再算出开始时使用的两个素数，很容易就可以算出私钥：<br>$$<br>私钥d = ((11 - 1) \times (17 - 1) \times n + 1) \div e\<br> = (160 \times n + 1) \div 3\<br> = (160 \times 2 + 1) \div 3\<br> = 107<br>$$<br>其中$$n$$为正整数。</p>
+<p><strong>所以将N分解为两个素数就等同于破解了密码</strong>，好在大素数分解目前还没有多项式时间算法，只能用暴力法试。但是只要算力和时间足够，这并没有想象中的困难，而且密钥生成的过程中有很多因素会削弱密钥的安全性。想具体了解，大家可以看 <strong><em>trailofbits</em></strong> 的博客 <em><a href="https://blog.trailofbits.com/2019/07/08/fuck-rsa/" target="_blank" rel="noopener">Seriously, stop using RSA</a></em></p>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>安全</category>
+      </categories>
+      <tags>
+        <tag>encryption</tag>
+        <tag>加密</tag>
+        <tag>secure</tag>
+        <tag>RSA</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C与Python中的socket</title>
     <url>/chinese/2019/11/15/C%E4%B8%8EPython%E4%B8%AD%E7%9A%84socket/</url>
     <content><![CDATA[<h1 id="C与Python中的socket"><a href="#C与Python中的socket" class="headerlink" title="C与Python中的socket"></a>C与Python中的socket</h1><p>本文主要是想实现一下C与Python的socket通信，顺便说一下两者各自的socket编程。所以全篇结构如下：</p>
