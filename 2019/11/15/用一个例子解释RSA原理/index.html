@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="天诩的博客">
 <meta property="og:description" content="RSA是一种非对称加密算法，是以三位发明者（Ron Rivest、Adi Shamir、Leonard Adleman）的last name的首字母组成的。（来自：维基百科，RSA加密算法） 目前RSA被广泛使用，尤其在web server的密钥、SSH等领域。因其应用广泛，所以值得学习一下。我主要用一个简单的例子来解释RSA的运行原理，以及怎么（理论上）破解它。 但是讲解之前还是要强调，大家都在">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-15T12:20:00.871Z">
+<meta property="og:updated_time" content="2019-11-15T12:28:59.810Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -404,20 +404,20 @@
 <h2 id="概念解释（来自：维基百科，RSA加密算法）"><a href="#概念解释（来自：维基百科，RSA加密算法）" class="headerlink" title="概念解释（来自：维基百科，RSA加密算法）"></a>概念解释（来自：<a href="[https://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95](https://zh.wikipedia.org/wiki/RSA加密演算法)">维基百科，RSA加密算法</a>）</h2><blockquote>
 <p><strong>公钥与私钥的产生</strong></p>
 <ol>
-<li>随意选择两个大的素数$$p$$和$$q$$，$$p$$不等于$$q$$，计算$$N=pq$$。</li>
-<li>$$r =(p-1)(q-1)$$</li>
-<li>选择一个小于$$r$$的整数$$e$$，使$$e$$与$$r$$互质。</li>
-<li>求得$$e$$关于$$r$$的模逆元，命名为$$d$$（既$$(e \times d)\ \ mod\ \ 1 = r$$）</li>
-<li>将$$p$$和$$q$$的记录销毁。</li>
-<li>$$(N,e)$$是公钥，$$(N,d)$$是私钥。Alice将她的公钥$$(N,e)$$传给Bob，而将她的私钥$$(N,d)$$藏起来。</li>
+<li>随意选择两个大的素数$p$和$q$，$p$不等于$q$，计算$N=pq$。</li>
+<li>$r =(p-1)(q-1)$</li>
+<li>选择一个小于$r$的整数$e$，使$e$与$r$互质。</li>
+<li>求得$e$关于$r$的模逆元，命名为$d$（既$(e \times d)\ \ mod\ \ 1 = r$）</li>
+<li>将$p$和$q$的记录销毁。</li>
+<li>$(N,e)$是公钥，$(N,d)$是私钥。Alice将她的公钥$(N,e)$传给Bob，而将她的私钥$(N,d)$藏起来。</li>
 </ol>
 </blockquote>
 <blockquote>
-<p><strong>加密消息</strong><br>$$密文 = 明文^e\ mod\ \ N\ $$</p>
+<p><strong>加密消息</strong><br>$密文 = 明文^e\ mod\ \ N\ $</p>
 </blockquote>
 <blockquote>
 <p><strong>解密消息</strong></p>
-<p>$$明文 = 密文^d\ mod\ \ N$$</p>
+<p>$明文 = 密文^d\ mod\ \ N$</p>
 </blockquote>
 <blockquote>
 <p><strong>签名</strong></p>
