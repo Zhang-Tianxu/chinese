@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>比特币和区块链的运行原理</title>
+    <url>/chinese/2019/11/17/%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<p>比特币和区块链技术出现很久了，大家或多或少都有耳闻。不管是对比特币暴涨的羡慕，还是对背后技术的科普。笔者也是一样多少看过一些相关资料，但最近读区块链支付领域的顶会<a href="SOSP">^1</a>论文[^2]时还是发现自己对技术细节了解太少，甚至存在一些误解。</p>
+<p>本文会介绍一些比特币和区块链的技术细节，同时尽力使其容易理解。</p>
+<a id="more"></a>
+
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g90w009p7uj30w60jqdi9.jpg" alt=""></p>
+<p>[^2]:Lind, J., Naor, O., Eyal, I., Kelbert, F., Sirer, E. G., &amp; Pietzuch, P. (2019, October). Teechain: a secure payment network with asynchronous blockchain access. In <em>Proceedings of the 27th ACM Symposium on Operating Systems Principles</em> (pp. 63-79). ACM.</p>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>安全</category>
+        <category>区块链</category>
+      </categories>
+      <tags>
+        <tag>bitcoin</tag>
+        <tag>blockchain</tag>
+        <tag>比特币</tag>
+        <tag>区块链</tag>
+        <tag>科普</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>用一个例子解释RSA原理</title>
     <url>/chinese/2019/11/15/%E7%94%A8%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90%E8%A7%A3%E9%87%8ARSA%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<p>RSA是一种非对称加密算法，是以三位发明者（Ron <strong>R</strong>ivest、Adi <strong>S</strong>hamir、Leonard <strong>A</strong>dleman）的last name的首字母组成的。（来自：<a href="[https://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95](https://zh.wikipedia.org/wiki/RSA加密演算法)">维基百科，RSA加密算法</a>）</p>
