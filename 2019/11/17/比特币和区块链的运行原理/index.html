@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="比特币和区块链技术出现很久了，大家或多或少都有耳闻。不管是对比特币暴涨的羡慕，还是对背后技术的科普。笔者也是一样多少看过一些相关资料，但最近读区块链支付领域的顶会^1论文[^2]时还是发现自己对技术细节了解太少，甚至存在一些误解。 本文会介绍一些比特币和区块链的技术细节，同时尽力使其容易理解。[TOC]">
+<meta name="description" content="比特币和区块链技术出现很久了，大家或多或少都有耳闻。不管是对比特币暴涨的羡慕，还是对背后技术的科普。笔者也是一样多少看过一些相关资料，但最近读区块链支付领域的顶会[1]论文[2]时还是发现自己对技术细节了解太少，甚至存在一些误解。 本文会介绍一些比特区块链的技术细节，同时尽力使其容易理解。">
 <meta name="keywords" content="bitcoin,blockchain,比特币,区块链,科普">
 <meta property="og:type" content="article">
 <meta property="og:title" content="比特币和区块链的运行原理">
 <meta property="og:url" content="https:&#x2F;&#x2F;zhang-tianxu.github.io&#x2F;chinese&#x2F;2019&#x2F;11&#x2F;17&#x2F;%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86&#x2F;index.html">
 <meta property="og:site_name" content="天诩的博客">
-<meta property="og:description" content="比特币和区块链技术出现很久了，大家或多或少都有耳闻。不管是对比特币暴涨的羡慕，还是对背后技术的科普。笔者也是一样多少看过一些相关资料，但最近读区块链支付领域的顶会^1论文[^2]时还是发现自己对技术细节了解太少，甚至存在一些误解。 本文会介绍一些比特币和区块链的技术细节，同时尽力使其容易理解。[TOC]">
+<meta property="og:description" content="比特币和区块链技术出现很久了，大家或多或少都有耳闻。不管是对比特币暴涨的羡慕，还是对背后技术的科普。笔者也是一样多少看过一些相关资料，但最近读区块链支付领域的顶会[1]论文[2]时还是发现自己对技术细节了解太少，甚至存在一些误解。 本文会介绍一些比特区块链的技术细节，同时尽力使其容易理解。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;large&#x2F;006y8mN6ly1g90w009p7uj30w60jqdi9.jpg">
-<meta property="og:updated_time" content="2019-11-17T22:12:35.587Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;large&#x2F;006y8mN6gy1g91yo948kjj30lw0crab5.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;large&#x2F;006y8mN6ly1g926rnfzp5j30om07gq38.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;large&#x2F;006y8mN6ly1g9281qoyhej30ow06smxl.jpg">
+<meta property="og:updated_time" content="2019-11-18T07:41:58.970Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;large&#x2F;006y8mN6ly1g90w009p7uj30w60jqdi9.jpg">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;large&#x2F;006y8mN6gy1g91yo948kjj30lw0crab5.jpg">
 
 
 
@@ -409,12 +411,64 @@
       
 
       
-        <p>比特币和区块链技术出现很久了，大家或多或少都有耳闻。不管是对比特币暴涨的羡慕，还是对背后技术的科普。笔者也是一样多少看过一些相关资料，但最近读区块链支付领域的顶会<a href="SOSP">^1</a>论文[^2]时还是发现自己对技术细节了解太少，甚至存在一些误解。</p>
-<p>本文会介绍一些比特币和区块链的技术细节，同时尽力使其容易理解。<br>[TOC]</p>
+        <p>比特币和区块链技术出现很久了，大家或多或少都有耳闻。不管是对比特币暴涨的羡慕，还是对背后技术的科普。笔者也是一样多少看过一些相关资料，但最近读区块链支付领域的顶会<sup><a href="#foot_note_1">[1]</a></sup>论文<sup><a href="#foot_note_2">[2]</a></sup>时还是发现自己对技术细节了解太少，甚至存在一些误解。</p>
+<p>本文会介绍一些比特区块链的技术细节，同时尽力使其容易理解。</p>
 <a id="more"></a>
 
-<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g90w009p7uj30w60jqdi9.jpg" alt=""></p>
-<p>[^2]:Lind, J., Naor, O., Eyal, I., Kelbert, F., Sirer, E. G., &amp; Pietzuch, P. (2019, October). Teechain: a secure payment network with asynchronous blockchain access. In <em>Proceedings of the 27th ACM Symposium on Operating Systems Principles</em> (pp. 63-79). ACM.</p>
+<h2 id="比特币-bitcoin"><a href="#比特币-bitcoin" class="headerlink" title="比特币 bitcoin"></a>比特币 bitcoin</h2><p>所谓的比特币其实是<strong>交易</strong>组成的链。每个<strong>交易</strong>中包含大概信息就是<strong><em>谁把这个比特币转账给了谁，并且由转出比特币的人签字画押（数字签名<sup><a href="#foot_note_3">[3]</a></sup>）</em></strong>，具体来说如<a href="#pic_1">图1</a>，每个交易中包含</p>
+<ul>
+<li>收到比特币的人的公钥</li>
+<li>由<strong>上一个交易</strong>和<strong>收到比特币的人的公钥</strong>组成的数据的哈希</li>
+<li><strong>转出比特币的人的数字签名</strong>。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g91yo948kjj30lw0crab5.jpg" alt=""></p>
+<center><span id="pic_1"><sub>图1： 交易链</sub></span></center>
+这样做的话，应该收到比特币的人就可以验证转出比特币的人是不是真的拥有这个比特币。方法就是用**上一个**交易中所有者的公钥去验证**这次**交易中的数字签名，这样就能知道这个比特币上一次被转账给了这次的转出者。
+
+<p>这里有个问题是转出比特币的人可能将同一个比特币转账给多个人，这样上面的交易链就会分叉。然而其实只有最早的那次转账是有效的，后面的转账都是非法的。为了验证交易是不是最早的一次转账，就需要一个<strong>公认的顺序</strong>。传统的方法是由中心节点指定一个顺序，大家被动接受。而比特币是通过多数人同意来认定一个顺序是不是<strong>公认</strong>的，这似乎也更符合<strong>公认</strong>这个词的含义。想要让（比特币系统所有参与者中的）多数人<strong>公认</strong>一个顺序，需要：</p>
+<ul>
+<li>向所有参与者广播所有的交易</li>
+<li>多数参与者同意一个顺序</li>
+</ul>
+<p>在每次交易时，交易的接收者需要证明多数节点同意这次交易是最先收到的交易，这样接收者就能安心的完成交易了。</p>
+<p><strong><em>区块链的主要任务就是达成这样的一个公认的顺序</em></strong>。</p>
+<h2 id="区块链-blockchain"><a href="#区块链-blockchain" class="headerlink" title="区块链 blockchain"></a>区块链 blockchain</h2><p>区块链的基础是<strong>时间戳服务器</strong>，如<a href="#pic_2">图2</a>。</p>
+<h3 id="时间戳服务器"><a href="#时间戳服务器" class="headerlink" title="时间戳服务器"></a>时间戳服务器</h3><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g926rnfzp5j30om07gq38.jpg" alt=""></p>
+<center><span id="pic_2"><sub>图2： 时间戳服务器</sub></span></center>
+> 时间戳服务器计算包含多个需要被打时间戳的数据项的区块的哈希值并广泛地发布这个哈希值。时间戳能证明要得到这个哈希值，显然这些数据当时一定是存在的。每个时间戳的哈希值都纳入了上一个时间戳，形成一条链，后面的时间戳进一步增强前一个时间戳。
+>
+> *Bitcoin: A Peer-to-Peer Electronic Cash System<sup><a href="#foot_note_4">[4]</a></sup>*
+
+<p>系统参与者通过在某个时间戳之后计算哈希来表示对某个顺序的认同，这样最长的链就是最多人认同的链，也就是我们想要的公认的顺序。</p>
+<p>如果某个恶意参与者想要修改链中某个区块的内容，那必须把这个区块之后的哈希全部重算一遍，并且快速计算使自己这条链成为最长的，在所有人之前将最新哈希广播出去。这看上去是个比较难的任务，但并非不可完成，只要有足够快的计算机就可能做到。<strong>解决方法就是为计算哈希增加难度</strong>。</p>
+<h3 id="工作量证明-Proof-of-Work"><a href="#工作量证明-Proof-of-Work" class="headerlink" title="工作量证明 Proof-of-Work"></a>工作量证明 Proof-of-Work</h3><p><a href="#pic_3">图3</a>是区块链中区块的内容：</p>
+<ul>
+<li>上一个区块的哈希</li>
+<li>上面提到的比特币交易</li>
+<li>一个随机数（这个随机数是用来调整计算哈希的难度的，也是工作量证明的关键）</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9281qoyhej30ow06smxl.jpg" alt=""></p>
+<center><span id="pic_3"><sub>图3： 区块链</sub></span></center>
+
+<blockquote>
+<p>工作量证明采取搜索一个随机数，使得被哈希时，如使用 SHA-256，得到的哈希值以数个 0 比特开始。平均所需工作 量将随所需 0 比特呈指数级增长而验证却只需执行一次哈希。</p>
+<p><em>Bitcoin: A Peer-to-Peer Electronic Cash System<sup><a href="#foot_note_4">[4]</a></sup></em></p>
+</blockquote>
+<p>比特币运行的步骤：</p>
+<blockquote>
+<ol>
+<li>向所有节点广播<strong>新交易</strong></li>
+<li>区块链节点将收集的新交易组成一个区块（如<a href="#pic_3">图3</a>）</li>
+<li>计算满足要求（<em>工作量证明</em>）的哈希，既得到某个随机数</li>
+<li>将这个区块（包含了满足要求的随机数）广播</li>
+<li>其他节点确认区块中所有交易都没有被支付过，而且区块确实能够计算出满足要求的哈希</li>
+<li>节点通过在这个区块之上继续计算表示对这个区块的接受</li>
+</ol>
+</blockquote>
+<p>这样计算哈希的难度大大增加，恶意节点想要赶上并超过其他所有节点计算哈希的速度，就必须拥有巨量的计算力，而如果拥有这样的计算力，用作正常贡献获得的激励会超过作恶，这样就从动机上消除了作恶。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><span id="foot_note_1"><sub>[1]: SOSP</sub></span><br><span id="foot_note_2"><sub>[2]: Lind, J., Naor, O., Eyal, I., Kelbert, F., Sirer, E. G., &amp; Pietzuch, P. (2019, October). Teechain: a secure payment network with asynchronous blockchain access. In <em>Proceedings of the 27th ACM Symposium on Operating Systems Principles</em> (pp. 63-79). ACM.</sub></span></p>
+<p><span id="foot_note_3"><sub>[3]: 可以通过我另一片博客了解：<a href="[https://zhang-tianxu.github.io/chinese/2019/11/15/%E7%94%A8%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90%E8%A7%A3%E9%87%8ARSA%E5%8E%9F%E7%90%86/](https://zhang-tianxu.github.io/chinese/2019/11/15/用一个例子解释RSA原理/)">《用一个例子解释RSA原理》</a></sub></span></p>
+<p><span id="foot_note_4"><sub>[4]: Bitcoin: A Peer-to-Peer Electronic Cash System. Satoshi Nakamoto.<a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener">https://bitcoin.org/bitcoin.pdf</a></sub></span></p>
 
       
     </div>
@@ -513,8 +567,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -594,6 +657,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#比特币-bitcoin"><span class="nav-number">1.</span> <span class="nav-text">比特币 bitcoin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区块链-blockchain"><span class="nav-number">2.</span> <span class="nav-text">区块链 blockchain</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时间戳服务器"><span class="nav-number">2.1.</span> <span class="nav-text">时间戳服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工作量证明-Proof-of-Work"><span class="nav-number">2.2.</span> <span class="nav-text">工作量证明 Proof-of-Work</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">3.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
