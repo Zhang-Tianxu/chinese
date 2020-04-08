@@ -12,7 +12,6 @@ categories:
   - DevOps
   - CI&CD
   - Jenkins
-top: 9048
 ---
 # 在k8s上部署Jenkins
 

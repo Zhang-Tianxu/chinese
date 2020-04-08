@@ -11,7 +11,6 @@ categories:
   - DevOps
   - 容器
   - k8s
-top: 9050
 ---
 # 通过kubeadm部署k8s cluster
 

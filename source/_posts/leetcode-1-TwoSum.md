@@ -12,7 +12,6 @@ categories:
   - 数据结构与算法
   - leetcode
 mathjax: true
-top: 5001
 date: 2018-11-15 17:29:39
 ---
 

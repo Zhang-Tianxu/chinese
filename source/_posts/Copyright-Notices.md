@@ -12,9 +12,10 @@ top: 10000
 
 # 关于引用
 
-写博客的过程中不可避免的要引用他人知识产权，作为一名学生我也**非常赞同对知识产权的保护**。无论内容来自哪里，无论是**释义**还是**原文引用**我都会**尽最大努力标明来源**，若有疏忽，请大家批评指正。
+写博客的过程中不可避免的要引用他人知识产权，我也**非常赞同对知识产权的保护**。无论内容来自哪里，无论是**释义**还是**原文引用**我都会**尽最大努力标明来源**，若有疏忽，请大家批评指正。
 
 对于如何正确引用，我查看了麻省理工学院的[Academic Integrity At MIT](<https://integrity.mit.edu/handbook/academic-writing/avoiding-plagiarism-quoting>)和印第安纳大学的[How to Recognize Plagiarism](<https://www.indiana.edu/~academy/firstPrinciples/index.html>)，也在拿到了后者的测试证书。我会尽量采用[American Psychological Association (APA)](http://owl.english.purdue.edu/owl/resource/560/10/)格式，但是还未真正上手应用，在保证信息来源精确的前提下引用**格式可能会有混乱**。
+<!--more-->
 
 其他一些国际通用的引用格式：
 

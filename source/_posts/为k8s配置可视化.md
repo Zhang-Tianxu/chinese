@@ -11,7 +11,6 @@ categories:
   - DevOps
   - 容器
   - k8s
-top: 9049
 ---
 # 为k8s配置可视化
 

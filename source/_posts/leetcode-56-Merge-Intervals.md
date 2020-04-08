@@ -13,7 +13,6 @@ categories:
   - 数据结构与算法
   - leetcode
 mathjax: true
-top: 5056
 ---
 
 # leetcode 56 区间合并——Merge Intervals

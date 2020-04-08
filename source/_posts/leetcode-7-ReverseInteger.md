@@ -13,7 +13,6 @@ categories:
   - leetcode
 mathjax: true
 date: 2018-11-19 15:47:02
-top: 5007
 ---
 
 # Reverse Integer
