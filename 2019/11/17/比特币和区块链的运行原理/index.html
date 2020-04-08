@@ -89,7 +89,7 @@
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g926rnfzp5j30om07gq38.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g9281qoyhej30ow06smxl.jpg">
 <meta property="article:published_time" content="2019-11-17T11:13:13.000Z">
-<meta property="article:modified_time" content="2020-04-08T02:56:42.713Z">
+<meta property="article:modified_time" content="2020-04-08T03:28:45.120Z">
 <meta property="article:author" content="张天诩">
 <meta property="article:tag" content="bitcoin">
 <meta property="article:tag" content="blockchain">
@@ -326,6 +326,11 @@
         
 
         <div class="post-meta">
+        
+          <i class="fa fa-thumb-tack"></i>
+          <font color=7D26CD>置顶</font>
+          <span class="post-meta-divider">|</span>
+        
           <span class="post-time">
             
               <span class="post-meta-item-icon">
@@ -428,8 +433,8 @@
 </ul>
 <p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g91yo948kjj30lw0crab5.jpg" alt=""></p>
 <center><span id="pic_1"><sub>图1： 交易链</sub></span></center>
-这样做的话，应该收到比特币的人就可以验证转出比特币的人是不是真的拥有这个比特币。方法就是用**上一个**交易中所有者的公钥去验证**这次**交易中的数字签名，这样就能知道这个比特币上一次被转账给了这次的转出者。
 
+<p>这样做的话，应该收到比特币的人就可以验证转出比特币的人是不是真的拥有这个比特币。方法就是用<strong>上一个</strong>交易中所有者的公钥去验证<strong>这次</strong>交易中的数字签名，这样就能知道这个比特币上一次被转账给了这次的转出者。</p>
 <p>这里有个问题是转出比特币的人可能将同一个比特币转账给多个人，这样上面的交易链就会分叉。然而其实只有最早的那次转账是有效的，后面的转账都是非法的。为了验证交易是不是最早的一次转账，就需要一个<strong>公认的顺序</strong>。传统的方法是由中心节点指定一个顺序，大家被动接受。而比特币是通过多数人同意来认定一个顺序是不是<strong>公认</strong>的，这似乎也更符合<strong>公认</strong>这个词的含义。想要让（比特币系统所有参与者中的）多数人<strong>公认</strong>一个顺序，需要：</p>
 <ul>
 <li>向所有参与者广播所有的交易</li>
@@ -440,10 +445,11 @@
 <h2 id="区块链-blockchain"><a href="#区块链-blockchain" class="headerlink" title="区块链 blockchain"></a>区块链 blockchain</h2><p>区块链的基础是<strong>时间戳服务器</strong>，如<a href="#pic_2">图2</a>。</p>
 <h3 id="时间戳服务器"><a href="#时间戳服务器" class="headerlink" title="时间戳服务器"></a>时间戳服务器</h3><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g926rnfzp5j30om07gq38.jpg" alt=""></p>
 <center><span id="pic_2"><sub>图2： 时间戳服务器</sub></span></center>
-> 时间戳服务器计算包含多个需要被打时间戳的数据项的区块的哈希值并广泛地发布这个哈希值。时间戳能证明要得到这个哈希值，显然这些数据当时一定是存在的。每个时间戳的哈希值都纳入了上一个时间戳，形成一条链，后面的时间戳进一步增强前一个时间戳。
->
-> *Bitcoin: A Peer-to-Peer Electronic Cash System<sup><a href="#foot_note_4">[4]</a></sup>*
 
+<blockquote>
+<p>时间戳服务器计算包含多个需要被打时间戳的数据项的区块的哈希值并广泛地发布这个哈希值。时间戳能证明要得到这个哈希值，显然这些数据当时一定是存在的。每个时间戳的哈希值都纳入了上一个时间戳，形成一条链，后面的时间戳进一步增强前一个时间戳。</p>
+<p><em>Bitcoin: A Peer-to-Peer Electronic Cash System<sup><a href="#foot_note_4">[4]</a></sup></em></p>
+</blockquote>
 <p>系统参与者通过在某个时间戳之后计算哈希来表示对某个顺序的认同，这样最长的链就是最多人认同的链，也就是我们想要的公认的顺序。</p>
 <p>如果某个恶意参与者想要修改链中某个区块的内容，那必须把这个区块之后的哈希全部重算一遍，并且快速计算使自己这条链成为最长的，在所有人之前将最新哈希广播出去。这看上去是个比较难的任务，但并非不可完成，只要有足够快的计算机就可能做到。<strong>解决方法就是为计算哈希增加难度</strong>。</p>
 <h3 id="工作量证明-Proof-of-Work"><a href="#工作量证明-Proof-of-Work" class="headerlink" title="工作量证明 Proof-of-Work"></a>工作量证明 Proof-of-Work</h3><p><a href="#pic_3">图3</a>是区块链中区块的内容：</p>
