@@ -79,21 +79,25 @@
 
 
 
-<meta name="description" content="为k8s配置可视化K8s dashboard是k8s集群的web-based UI工具，用户可以通过dashboard管理运行在集群上的应用以及集群自身。 安装本身非常容易，只需要下面一条语句就可以 1kubectl apply -f https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;kubernetes&#x2F;dashboard&#x2F;v1.10.1&#x2F;src&#x2F;deploy&#x2F;recommen">
-<meta name="keywords" content="k8s,kubernetes,环境配置,DevOps">
+<meta name="description" content="为k8s配置可视化K8s dashboard是k8s集群的web-based UI工具，用户可以通过dashboard管理运行在集群上的应用以及集群自身。 安装本身非常容易，只需要下面一条语句就可以 1kubectl apply -f https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;kubernetes&#x2F;dashboard&#x2F;v1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为k8s配置可视化">
-<meta property="og:url" content="https:&#x2F;&#x2F;zhang-tianxu.github.io&#x2F;chinese&#x2F;2019&#x2F;06&#x2F;24&#x2F;%E4%B8%BAk8s%E9%85%8D%E7%BD%AE%E5%8F%AF%E8%A7%86%E5%8C%96&#x2F;index.html">
+<meta property="og:url" content="https://zhang-tianxu.github.io/chinese/2019/06/24/%E4%B8%BAk8s%E9%85%8D%E7%BD%AE%E5%8F%AF%E8%A7%86%E5%8C%96/index.html">
 <meta property="og:site_name" content="天诩的博客">
-<meta property="og:description" content="为k8s配置可视化K8s dashboard是k8s集群的web-based UI工具，用户可以通过dashboard管理运行在集群上的应用以及集群自身。 安装本身非常容易，只需要下面一条语句就可以 1kubectl apply -f https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;kubernetes&#x2F;dashboard&#x2F;v1.10.1&#x2F;src&#x2F;deploy&#x2F;recommen">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https:&#x2F;&#x2F;my-blog-1256501598.cos.ap-beijing.myqcloud.com&#x2F;github-page&#x2F;learn&#x2F;CS&#x2F;DevOps&#x2F;k8s&#x2F;kubectl_edit_service.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;my-blog-1256501598.cos.ap-beijing.myqcloud.com&#x2F;github-page&#x2F;learn&#x2F;CS&#x2F;DevOps&#x2F;k8s&#x2F;k8s_dashboard.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;my-blog-1256501598.cos.ap-beijing.myqcloud.com&#x2F;github-page&#x2F;learn&#x2F;CS&#x2F;DevOps&#x2F;k8s&#x2F;kubectl_edit_service_2.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;my-blog-1256501598.cos.ap-beijing.myqcloud.com&#x2F;github-page&#x2F;learn&#x2F;CS&#x2F;DevOps&#x2F;k8s&#x2F;sock_shop.png">
-<meta property="og:updated_time" content="2019-11-18T07:41:58.970Z">
+<meta property="og:description" content="为k8s配置可视化K8s dashboard是k8s集群的web-based UI工具，用户可以通过dashboard管理运行在集群上的应用以及集群自身。 安装本身非常容易，只需要下面一条语句就可以 1kubectl apply -f https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;kubernetes&#x2F;dashboard&#x2F;v1">
+<meta property="og:image" content="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/k8s/kubectl_edit_service.png">
+<meta property="og:image" content="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/k8s/k8s_dashboard.png">
+<meta property="og:image" content="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/k8s/kubectl_edit_service_2.png">
+<meta property="og:image" content="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/k8s/sock_shop.png">
+<meta property="article:published_time" content="2019-06-24T20:53:54.000Z">
+<meta property="article:modified_time" content="2020-04-08T02:56:42.713Z">
+<meta property="article:author" content="张天诩">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="kubernetes">
+<meta property="article:tag" content="环境配置">
+<meta property="article:tag" content="DevOps">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;my-blog-1256501598.cos.ap-beijing.myqcloud.com&#x2F;github-page&#x2F;learn&#x2F;CS&#x2F;DevOps&#x2F;k8s&#x2F;kubectl_edit_service.png">
+<meta name="twitter:image" content="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/k8s/kubectl_edit_service.png">
 
 
 
@@ -139,7 +143,7 @@
 
 
 
-</head>
+<meta name="generator" content="Hexo 4.2.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -425,16 +429,16 @@
       
         <h1 id="为k8s配置可视化"><a href="#为k8s配置可视化" class="headerlink" title="为k8s配置可视化"></a>为k8s配置可视化</h1><p>K8s dashboard是k8s集群的web-based UI工具，用户可以通过dashboard管理运行在集群上的应用以及集群自身。</p>
 <p>安装本身非常容易，只需要下面一条语句就可以</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;kubernetes&#x2F;dashboard&#x2F;v1.10.1&#x2F;src&#x2F;deploy&#x2F;recommended&#x2F;kubernetes-dashboard.yaml</span><br></pre></td></tr></table></figure>
 
 <p>但是再次由于墙的原因，国内执行这条语句会出现<code>ErrImagePull</code>的错误。如果你已经执行了，就需要删除这个pod。但是如果直接用<code>kubectl delete pods &lt;pod name&gt; --namespace=&lt;namespace&gt;</code>的话，通过<code>kubectl get pods --all-namespaces</code>查看会发现它马上就会重新建立。这是因为要直接删除<code>kubectl delete deployment &lt;deployment name&gt;</code>。</p>
 <a id="more"></a>
 
 <p>所以在国内还得需要镜像</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull registry.cn-qingdao.aliyuncs.com/wangxiaoke/kubernetes-dashboard-amd64:v1.10.0</span><br><span class="line">docker tag registry.cn-qingdao.aliyuncs.com/wangxiaoke/kubernetes-dashboard-amd64:v1.10.0 k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.0</span><br><span class="line">docker image rm registry.cn-qingdao.aliyuncs.com/wangxiaoke/kubernetes-dashboard-amd64:v1.10.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull registry.cn-qingdao.aliyuncs.com&#x2F;wangxiaoke&#x2F;kubernetes-dashboard-amd64:v1.10.0</span><br><span class="line">docker tag registry.cn-qingdao.aliyuncs.com&#x2F;wangxiaoke&#x2F;kubernetes-dashboard-amd64:v1.10.0 k8s.gcr.io&#x2F;kubernetes-dashboard-amd64:v1.10.0</span><br><span class="line">docker image rm registry.cn-qingdao.aliyuncs.com&#x2F;wangxiaoke&#x2F;kubernetes-dashboard-amd64:v1.10.0</span><br></pre></td></tr></table></figure>
 
 <p>下载完镜像后执行<code>kubectl apply -f http://mirror.faasx.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml</code>就部署完成了，可以通过命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`kubectl get pods --namespace=kube-system`</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#96;kubectl get pods --namespace&#x3D;kube-system&#96;</span><br></pre></td></tr></table></figure>
 
 <p>查看，然后可以通过<code>kubectl get service --namespace=kube-system</code>查看dashboard的外网暴露端口。如果发现暴露的端口类型是<code>ClusterIP</code>，可以运行<code>kubectl edit service  kubernetes-dashboard --namespace=kube-system</code>大概配置文件，找到type，将ClusterIP改成NodePort。同时也可以通过这个命令修改<code>NodePort</code>以达到修改暴露端口的目的。</p>
 <p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/k8s/kubectl_edit_service.png" alt="image-20190624073355080"></p>
@@ -448,10 +452,10 @@
 </li>
 <li><p>创建dashboard用户</p>
 <p>执行<code>kubectl create -f dashboard-user-role.yaml</code>命令，其中<code>dashboard-user-role.yaml</code>内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">kind: ClusterRoleBinding</span><br><span class="line">apiVersion: rbac.authorization.k8s.io/v1beta1</span><br><span class="line">metadata:</span><br><span class="line">  name: admin</span><br><span class="line">  annotations:</span><br><span class="line">    rbac.authorization.kubernetes.io/autoupdate: &quot;true&quot;</span><br><span class="line">roleRef:</span><br><span class="line">  kind: ClusterRole</span><br><span class="line">  name: cluster-admin</span><br><span class="line">  apiGroup: rbac.authorization.k8s.io</span><br><span class="line">subjects:</span><br><span class="line">- kind: ServiceAccount</span><br><span class="line">  name: admin</span><br><span class="line">  namespace: kube-system</span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ServiceAccount</span><br><span class="line">metadata:</span><br><span class="line">  name: admin</span><br><span class="line">  namespace: kube-system</span><br><span class="line">  labels:</span><br><span class="line">    kubernetes.io/cluster-service: &quot;true&quot;</span><br><span class="line">    addonmanager.kubernetes.io/mode: Reconcile</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">kind: ClusterRoleBinding</span><br><span class="line">apiVersion: rbac.authorization.k8s.io&#x2F;v1beta1</span><br><span class="line">metadata:</span><br><span class="line">  name: admin</span><br><span class="line">  annotations:</span><br><span class="line">    rbac.authorization.kubernetes.io&#x2F;autoupdate: &quot;true&quot;</span><br><span class="line">roleRef:</span><br><span class="line">  kind: ClusterRole</span><br><span class="line">  name: cluster-admin</span><br><span class="line">  apiGroup: rbac.authorization.k8s.io</span><br><span class="line">subjects:</span><br><span class="line">- kind: ServiceAccount</span><br><span class="line">  name: admin</span><br><span class="line">  namespace: kube-system</span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ServiceAccount</span><br><span class="line">metadata:</span><br><span class="line">  name: admin</span><br><span class="line">  namespace: kube-system</span><br><span class="line">  labels:</span><br><span class="line">    kubernetes.io&#x2F;cluster-service: &quot;true&quot;</span><br><span class="line">    addonmanager.kubernetes.io&#x2F;mode: Reconcile</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>获取登陆dashboard的token</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe secret/$(kubectl get secret -nkube-system |grep admin|awk &apos;&#123;print $1&#125;&apos;) -nkube-system</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe secret&#x2F;$(kubectl get secret -nkube-system |grep admin|awk &#39;&#123;print $1&#125;&#39;) -nkube-system</span><br></pre></td></tr></table></figure>
 
 <p>该语句返回的结果中会包含token</p>
 </li>
@@ -461,7 +465,7 @@
 </li>
 </ol>
 <h2 id="部署官方用例"><a href="#部署官方用例" class="headerlink" title="部署官方用例"></a>部署官方用例</h2><p>官方给出了用于测试的用例，如果k8s部署正确的话，可以直接通过下面的两条命令部署：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl create namespace sock-shop</span><br><span class="line"></span><br><span class="line">kubectl apply -n sock-shop -f &quot;https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl create namespace sock-shop</span><br><span class="line"></span><br><span class="line">kubectl apply -n sock-shop -f &quot;https:&#x2F;&#x2F;github.com&#x2F;microservices-demo&#x2F;microservices-demo&#x2F;blob&#x2F;master&#x2F;deploy&#x2F;kubernetes&#x2F;complete-demo.yaml?raw&#x3D;true&quot;</span><br></pre></td></tr></table></figure>
 
 <p><code>kubectl edit service  front-end --namespace=sock-shop</code>来编辑服务的配置，主要是端口。</p>
 <p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/k8s/kubectl_edit_service_2.png" alt="image-20190624073309186"></p>
@@ -600,7 +604,7 @@
               
                 <a href="/chinese/archives/%7C%7C%20archive%20/%20%E5%BD%92%E6%A1%A3">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -611,7 +615,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/chinese/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -622,7 +626,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/chinese/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -691,7 +695,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

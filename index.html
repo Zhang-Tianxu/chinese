@@ -82,10 +82,10 @@
 <meta name="description" content="我像猫，但我喜欢狗">
 <meta property="og:type" content="website">
 <meta property="og:title" content="天诩的博客">
-<meta property="og:url" content="https:&#x2F;&#x2F;zhang-tianxu.github.io&#x2F;chinese&#x2F;index.html">
+<meta property="og:url" content="https://zhang-tianxu.github.io/chinese/index.html">
 <meta property="og:site_name" content="天诩的博客">
 <meta property="og:description" content="我像猫，但我喜欢狗">
-<meta property="og:locale" content="zh-Hans">
+<meta property="article:author" content="张天诩">
 <meta name="twitter:card" content="summary">
 
 
@@ -132,7 +132,7 @@
 
 
 
-</head>
+<meta name="generator" content="Hexo 4.2.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -281,6 +281,191 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2020/04/08/%E5%BC%BA%E5%A4%A7%E7%9A%84%E5%8F%8D%E7%88%AC%E8%99%AB%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张天诩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天诩的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2020/04/08/%E5%BC%BA%E5%A4%A7%E7%9A%84%E5%8F%8D%E7%88%AC%E8%99%AB%E6%9C%BA%E5%88%B6/" itemprop="url">强大的反爬虫机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-08T10:21:52+00:00">
+                2020-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E4%B8%93%E4%B8%9A%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">专业学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E4%B8%93%E4%B8%9A%E5%AD%A6%E4%B9%A0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index">
+                    <span itemprop="name">编程语言</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E4%B8%93%E4%B8%9A%E5%AD%A6%E4%B9%A0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E4%B8%93%E4%B8%9A%E5%AD%A6%E4%B9%A0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>需求：拥有招聘网站的招聘者账户，爬取求职者们的简历信息。（不过这个好像是违法的，还好我失败了，不建议尝试)</p>
+<p>尝试过的工具：</p>
+<ul>
+<li><a href="https://docs.scrapy.org/en/latest/" target="_blank" rel="noopener">Scrapy</a></li>
+<li><a href="https://splash.readthedocs.io/en/3.4.1/" target="_blank" rel="noopener">Splash</a></li>
+<li><a href="https://www.selenium.dev/documentation/en/" target="_blank" rel="noopener">selenium</a></li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2020/04/08/%E5%BC%BA%E5%A4%A7%E7%9A%84%E5%8F%8D%E7%88%AC%E8%99%AB%E6%9C%BA%E5%88%B6/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1277,7 +1462,7 @@
         
           <h1 id="为k8s配置可视化"><a href="#为k8s配置可视化" class="headerlink" title="为k8s配置可视化"></a>为k8s配置可视化</h1><p>K8s dashboard是k8s集群的web-based UI工具，用户可以通过dashboard管理运行在集群上的应用以及集群自身。</p>
 <p>安装本身非常容易，只需要下面一条语句就可以</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;kubernetes&#x2F;dashboard&#x2F;v1.10.1&#x2F;src&#x2F;deploy&#x2F;recommended&#x2F;kubernetes-dashboard.yaml</span><br></pre></td></tr></table></figure>
 
 <p>但是再次由于墙的原因，国内执行这条语句会出现<code>ErrImagePull</code>的错误。如果你已经执行了，就需要删除这个pod。但是如果直接用<code>kubectl delete pods &lt;pod name&gt; --namespace=&lt;namespace&gt;</code>的话，通过<code>kubectl get pods --all-namespaces</code>查看会发现它马上就会重新建立。这是因为要直接删除<code>kubectl delete deployment &lt;deployment name&gt;</code>。</p>
           <!--noindex-->
@@ -3548,7 +3733,7 @@
               
                 <a href="/chinese/archives/%7C%7C%20archive%20/%20%E5%BD%92%E6%A1%A3">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3559,7 +3744,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/chinese/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -3570,7 +3755,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/chinese/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -3623,7 +3808,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

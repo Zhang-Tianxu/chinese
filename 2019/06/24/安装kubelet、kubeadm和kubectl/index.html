@@ -80,14 +80,18 @@
 
 
 <meta name="description" content="通过kubeadm部署k8s clusterKubeadm 是一个工具，通过提供 kubeadm init 和 kubeadm join 来作为创建 Kubernetes 集群的最佳实践“快速路径”。 服务器配置我在配置时一共使用了4台内存为16G，有4个CPU的服务器，它们的配置相同，具体如下： 操作系统：Ubuntu 16.04.6 LTS 内核版本：4.4.0-146-generic 架构：">
-<meta name="keywords" content="k8s,kubernetes,环境配置,DevOps">
 <meta property="og:type" content="article">
 <meta property="og:title" content="安装kubelet、kubeadm和kubectl">
-<meta property="og:url" content="https:&#x2F;&#x2F;zhang-tianxu.github.io&#x2F;chinese&#x2F;2019&#x2F;06&#x2F;24&#x2F;%E5%AE%89%E8%A3%85kubelet%E3%80%81kubeadm%E5%92%8Ckubectl&#x2F;index.html">
+<meta property="og:url" content="https://zhang-tianxu.github.io/chinese/2019/06/24/%E5%AE%89%E8%A3%85kubelet%E3%80%81kubeadm%E5%92%8Ckubectl/index.html">
 <meta property="og:site_name" content="天诩的博客">
 <meta property="og:description" content="通过kubeadm部署k8s clusterKubeadm 是一个工具，通过提供 kubeadm init 和 kubeadm join 来作为创建 Kubernetes 集群的最佳实践“快速路径”。 服务器配置我在配置时一共使用了4台内存为16G，有4个CPU的服务器，它们的配置相同，具体如下： 操作系统：Ubuntu 16.04.6 LTS 内核版本：4.4.0-146-generic 架构：">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-18T07:41:58.970Z">
+<meta property="article:published_time" content="2019-06-24T20:53:21.000Z">
+<meta property="article:modified_time" content="2020-04-08T02:56:42.713Z">
+<meta property="article:author" content="张天诩">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="kubernetes">
+<meta property="article:tag" content="环境配置">
+<meta property="article:tag" content="DevOps">
 <meta name="twitter:card" content="summary">
 
 
@@ -134,7 +138,7 @@
 
 
 
-</head>
+<meta name="generator" content="Hexo 4.2.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -462,7 +466,7 @@
 <li>集群中完整的网络连接，公网或者私网都可以。</li>
 </ol>
 <h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><p>官方提供了安装脚本，在root模式下一条命令即可完成安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -s https://get.docker.com/ | sudo sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -s https:&#x2F;&#x2F;get.docker.com&#x2F; | sudo sh</span><br></pre></td></tr></table></figure>
 
 <p>在我安装时<code>https://get.docker.com/</code>没有被墙，如果被墙，也可以替换为国内镜像。我知道的国内镜像有：</p>
 <ul>
@@ -485,11 +489,11 @@
 </ol>
 <h2 id="安装kubelet、kubeadm-和-kubectl"><a href="#安装kubelet、kubeadm-和-kubectl" class="headerlink" title="安装kubelet、kubeadm 和 kubectl"></a>安装kubelet、kubeadm 和 kubectl</h2><p>kubernetes的国外安装其实非常简单，国内安装的主要问题在于kubernetes部件所需的官方镜像在 <a href="https://link.zhihu.com/?target=http%3A//gcr.io">http://gcr.io</a>(Google Cloud Container Registry)上，很不幸，这个网站被墙了。所以解决了这个问题，国内环境的安装也就简单了。</p>
 <p>解决方法也很简单，用国内的一个景象来替换掉官方景象就可以了。以Ubuntu为例，替换方法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;/etc/apt/sources.list.d/kubernetes.list</span><br><span class="line">deb 国内镜像链接 kubernetes-xenial main</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;&#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;kubernetes.list</span><br><span class="line">deb 国内镜像链接 kubernetes-xenial main</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
 
 <p>目前我知道的国内还能用的景象是阿里的：<a href="https://mirrors.aliyun.com/kubernetes/apt/" target="_blank" rel="noopener">https://mirrors.aliyun.com/kubernetes/apt/</a></p>
 <p>所以将官方镜像替换为阿里镜像的方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;/etc/apt/sources.list.d/kubernetes.list</span><br><span class="line">deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;&#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;kubernetes.list</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;apt&#x2F; kubernetes-xenial main</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
 
 <p>替换完整后执行下面两条命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install -y kubelet kubeadm kubectl</span><br></pre></td></tr></table></figure>
@@ -501,11 +505,11 @@
 <h2 id="初始化master"><a href="#初始化master" class="headerlink" title="初始化master"></a>初始化master</h2><p>初始化master本身也很简单，只需要一条语句<code>kubeadm init</code>，但是因为墙的原因，又一次变得复杂。由于官方镜像地址被墙，所以我们需要首先获取所需镜像以及它们的版本。然后从国内镜像站获取。</p>
 <p>首先通过<code>kubeadm config images list</code>获取完成<code>kubeadm init</code>需要的一些镜像，这些镜像本来需要从google的服务器pull，现在我们从国内镜像中下载下来然后更改它们的tag，使得<code>kubeadm init</code>知道需要的镜像已经下载完成，然后在执行<code>kubeadm init</code>就可以不用pull，直接顺利完成。</p>
 <p>下面是我使用<code>kubeadm config images list</code>获取的需要的镜像</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">k8s.gcr.io/kube-apiserver:v1.15.0</span><br><span class="line">k8s.gcr.io/kube-controller-manager:v1.15.0</span><br><span class="line">k8s.gcr.io/kube-scheduler:v1.15.0</span><br><span class="line">k8s.gcr.io/kube-proxy:v1.15.0</span><br><span class="line">k8s.gcr.io/pause:3.1</span><br><span class="line">k8s.gcr.io/etcd:3.3.10</span><br><span class="line">k8s.gcr.io/coredns:1.3.1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">k8s.gcr.io&#x2F;kube-apiserver:v1.15.0</span><br><span class="line">k8s.gcr.io&#x2F;kube-controller-manager:v1.15.0</span><br><span class="line">k8s.gcr.io&#x2F;kube-scheduler:v1.15.0</span><br><span class="line">k8s.gcr.io&#x2F;kube-proxy:v1.15.0</span><br><span class="line">k8s.gcr.io&#x2F;pause:3.1</span><br><span class="line">k8s.gcr.io&#x2F;etcd:3.3.10</span><br><span class="line">k8s.gcr.io&#x2F;coredns:1.3.1</span><br></pre></td></tr></table></figure>
 
 <p>国内镜像仓库我知道的有两个，dockerhub的：<code>mirrorgooglecontainers/</code> 和阿里的：<code>registry.cn-hangzhou.aliyuncs.com</code></p>
 <p>可以直接通过<code>docker pull 镜像仓库地址/需要的镜像</code>下载，然后通过<code>docker tag 原标签 需要的标签</code>将镜像的标签改为<code>kubeadm init</code>需要的标签就可以了，针对上面列出的我需要的镜像，下面这些命令完成了镜像的下载和标签更改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">docker pull mirrorgooglecontainers/kube-apiserver:v1.15.0</span><br><span class="line">docker tag mirrorgooglecontainers/kube-apiserver:v1.15.0 k8s.gcr.io/kube-apiserver:v1.15.0</span><br><span class="line">docker pull mirrorgooglecontainers/kube-controller-manager:v1.15.0</span><br><span class="line">docker tag mirrorgooglecontainers/kube-controller-manager:v1.15.0 k8s.gcr.io/kube-controller-manager:v1.15.0</span><br><span class="line">docker pull mirrorgooglecontainers/kube-scheduler:v1.15.0</span><br><span class="line">docker tag mirrorgooglecontainers/kube-scheduler:v1.15.0 k8s.gcr.io/kube-scheduler:v1.15.0</span><br><span class="line">docker pull mirrorgooglecontainers/kube-proxy:v1.15.0</span><br><span class="line">docker tag mirrorgooglecontainers/kube-proxy:v1.15.0 k8s.gcr.io/kube-proxy:v1.15.0</span><br><span class="line">docker pull mirrorgooglecontainers/pause:3.1</span><br><span class="line">docker tag mirrorgooglecontainers/pause:3.1 k8s.gcr.io/pause:3.1</span><br><span class="line">docker pull mirrorgooglecontainers/etcd:3.3.10</span><br><span class="line">docker tag mirrorgooglecontainers/etcd:3.3.10 k8s.gcr.io/etcd:3.3.10</span><br><span class="line">docker pull registry.cn-hangzhou.aliyuncs.com/coredns:1.3.1</span><br><span class="line">docker tag registry.cn-hangzhou.aliyuncs.com/coredns:1.3.1 k8s.gcr.io/coredns:1.3.1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">docker pull mirrorgooglecontainers&#x2F;kube-apiserver:v1.15.0</span><br><span class="line">docker tag mirrorgooglecontainers&#x2F;kube-apiserver:v1.15.0 k8s.gcr.io&#x2F;kube-apiserver:v1.15.0</span><br><span class="line">docker pull mirrorgooglecontainers&#x2F;kube-controller-manager:v1.15.0</span><br><span class="line">docker tag mirrorgooglecontainers&#x2F;kube-controller-manager:v1.15.0 k8s.gcr.io&#x2F;kube-controller-manager:v1.15.0</span><br><span class="line">docker pull mirrorgooglecontainers&#x2F;kube-scheduler:v1.15.0</span><br><span class="line">docker tag mirrorgooglecontainers&#x2F;kube-scheduler:v1.15.0 k8s.gcr.io&#x2F;kube-scheduler:v1.15.0</span><br><span class="line">docker pull mirrorgooglecontainers&#x2F;kube-proxy:v1.15.0</span><br><span class="line">docker tag mirrorgooglecontainers&#x2F;kube-proxy:v1.15.0 k8s.gcr.io&#x2F;kube-proxy:v1.15.0</span><br><span class="line">docker pull mirrorgooglecontainers&#x2F;pause:3.1</span><br><span class="line">docker tag mirrorgooglecontainers&#x2F;pause:3.1 k8s.gcr.io&#x2F;pause:3.1</span><br><span class="line">docker pull mirrorgooglecontainers&#x2F;etcd:3.3.10</span><br><span class="line">docker tag mirrorgooglecontainers&#x2F;etcd:3.3.10 k8s.gcr.io&#x2F;etcd:3.3.10</span><br><span class="line">docker pull registry.cn-hangzhou.aliyuncs.com&#x2F;coredns:1.3.1</span><br><span class="line">docker tag registry.cn-hangzhou.aliyuncs.com&#x2F;coredns:1.3.1 k8s.gcr.io&#x2F;coredns:1.3.1</span><br></pre></td></tr></table></figure>
 
 <p>上面的命令完成后，<code>kubeadm init</code>命令就可以顺利完成了。</p>
 <p>接下来的安装变得简单起来，可以参考官网文档中<a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/" target="_blank" rel="noopener">利用kubeadm 建立一个集群</a>。</p>
@@ -516,7 +520,7 @@
 </li>
 <li><p>安装网络插件</p>
 <p>使得各个pod之间可以通信，有多种选择，每中网络插件支持的架构有所不同，我选了<em>Weave Net<em>，</em>Weave Net</em> 只能在<code>amd64</code>, <code>arm</code> 和 <code>arm64</code> 上运行。可以通过下面两条命令完成安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export kubever=$(kubectl version | base64 | tr -d &apos;\n&apos;)</span><br><span class="line">kubectl apply -f &quot;https://cloud.weave.works/k8s/net?k8s-version=$kubever&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export kubever&#x3D;$(kubectl version | base64 | tr -d &#39;\n&#39;)</span><br><span class="line">kubectl apply -f &quot;https:&#x2F;&#x2F;cloud.weave.works&#x2F;k8s&#x2F;net?k8s-version&#x3D;$kubever&quot;</span><br></pre></td></tr></table></figure>
 
 <p>安装后通过<code>kubectl get pods --all-namespaces</code>命令查看各个pod的状态，如果都是Runing，就可以开始添加从节点了。</p>
 <p>注：如果选择<em>Calico</em>、<em>flannel</em>，为了可以让网络协议正确运行，必须在执行<code>kubeadm init</code>时添加参数<code>--pod-network-cidr=192.168.0.0/16</code></p>
@@ -561,7 +565,7 @@
 </ol>
 </li>
 <li><p>尝试登陆</p>
-<p>ssh <a href="mailto:ubuntu@10.0.0.23" target="_blank" rel="noopener">ubuntu@10.0.0.23</a></p>
+<p>ssh <a href="mailto:ubuntu@10.0.0.23">ubuntu@10.0.0.23</a></p>
 </li>
 </ol>
 <h3 id="更改主机名称"><a href="#更改主机名称" class="headerlink" title="更改主机名称"></a>更改主机名称</h3><p>可以通过下面这个命令把主机名称修改为<code>new_host_name</code></p>
@@ -714,7 +718,7 @@
               
                 <a href="/chinese/archives/%7C%7C%20archive%20/%20%E5%BD%92%E6%A1%A3">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -725,7 +729,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/chinese/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -736,7 +740,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/chinese/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -805,7 +809,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

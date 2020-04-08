@@ -80,18 +80,23 @@
 
 
 <meta name="description" content="在k8s上部署Jenkins谷歌在k8s上部署Jenkins的方法，都写的很复杂，各种配置文件一堆，还都失败了！最终部署成功后发现只需要一句命令就可以了。">
-<meta name="keywords" content="k8s,环境配置,DevOps,Jenkins,CI&#x2F;CD">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在k8s上部署Jenkins">
-<meta property="og:url" content="https:&#x2F;&#x2F;zhang-tianxu.github.io&#x2F;chinese&#x2F;2019&#x2F;06&#x2F;26&#x2F;%E5%9C%A8k8s%E4%B8%8A%E9%83%A8%E7%BD%B2Jenkins&#x2F;index.html">
+<meta property="og:url" content="https://zhang-tianxu.github.io/chinese/2019/06/26/%E5%9C%A8k8s%E4%B8%8A%E9%83%A8%E7%BD%B2Jenkins/index.html">
 <meta property="og:site_name" content="天诩的博客">
 <meta property="og:description" content="在k8s上部署Jenkins谷歌在k8s上部署Jenkins的方法，都写的很复杂，各种配置文件一堆，还都失败了！最终部署成功后发现只需要一句命令就可以了。">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https:&#x2F;&#x2F;my-blog-1256501598.cos.ap-beijing.myqcloud.com&#x2F;github-page&#x2F;learn&#x2F;CS&#x2F;DevOps&#x2F;jenkins&#x2F;unlock_jenkins.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;my-blog-1256501598.cos.ap-beijing.myqcloud.com&#x2F;github-page&#x2F;learn&#x2F;CS&#x2F;DevOps&#x2F;jenkins&#x2F;create_admin_user.png">
-<meta property="og:updated_time" content="2019-11-18T07:41:58.970Z">
+<meta property="og:image" content="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/jenkins/unlock_jenkins.png">
+<meta property="og:image" content="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/jenkins/create_admin_user.png">
+<meta property="article:published_time" content="2019-06-26T21:04:50.000Z">
+<meta property="article:modified_time" content="2020-04-08T02:56:42.713Z">
+<meta property="article:author" content="张天诩">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="环境配置">
+<meta property="article:tag" content="DevOps">
+<meta property="article:tag" content="Jenkins">
+<meta property="article:tag" content="CI&#x2F;CD">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;my-blog-1256501598.cos.ap-beijing.myqcloud.com&#x2F;github-page&#x2F;learn&#x2F;CS&#x2F;DevOps&#x2F;jenkins&#x2F;unlock_jenkins.png">
+<meta name="twitter:image" content="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/jenkins/unlock_jenkins.png">
 
 
 
@@ -137,7 +142,7 @@
 
 
 
-</head>
+<meta name="generator" content="Hexo 4.2.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -425,7 +430,7 @@
 <a id="more"></a>
 
 <p>这个命令就是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl run jenkins --image=jenkinsci/blueocean --port 5000</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl run jenkins --image&#x3D;jenkinsci&#x2F;blueocean --port 5000</span><br></pre></td></tr></table></figure>
 
 <p>命令解释</p>
 <ol>
@@ -433,10 +438,10 @@
 <li><code>--port 端口号</code>用于指定deployment的端口号，可以随便指定.</li>
 </ol>
 <p>通过<code>kubectl get deployments</code>可以看到</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NAME       READY   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">jenkins    1/1     1            1           10s</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NAME       READY   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">jenkins    1&#x2F;1     1            1           10s</span><br></pre></td></tr></table></figure>
 
 <p>显示READY说明deployment创建成功。这是在本地集群已经可以访问，如果想要在外部访问，需要将deployment暴露未service：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl expose deployment jenkins --type=NodePort --target-port=8080</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl expose deployment jenkins --type&#x3D;NodePort --target-port&#x3D;8080</span><br></pre></td></tr></table></figure>
 
 <p>命令解释：</p>
 <ol>
@@ -444,7 +449,7 @@
 <li><code>--target-port=8080</code>是映射（例如“发布”）<code>jenkinsci/blueocean</code> 容器的端口8080到主机上的端口8080</li>
 </ol>
 <p>这一步完成后执行<code>kubectl get service</code>查看：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)           AGE</span><br><span class="line">jenkins     NodePort    10.107.210.195   &lt;none&gt;        5000:30509/TCP    6m35s</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)           AGE</span><br><span class="line">jenkins     NodePort    10.107.210.195   &lt;none&gt;        5000:30509&#x2F;TCP    6m35s</span><br></pre></td></tr></table></figure>
 
 <p>可以看出service对外暴露的端口是30509，可以通过<code>kubectl edit service jenkins</code>命令将配置中的<code>- nodePort</code>修改为你想要暴露出去的端口即可。</p>
 <p>浏览器访问得</p>
@@ -456,7 +461,7 @@
 <li><p><code>kubectl logs jenkins-747ddfbdb6-4msmw</code>查看pod的log</p>
 </li>
 <li><p>在显示的log中就有我们需要的<strong><em>Administrator password</em></strong>，格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">jenkins.install.SetupWizard init</span><br><span class="line">INFO:</span><br><span class="line"></span><br><span class="line">*************************************************************</span><br><span class="line">*************************************************************</span><br><span class="line">*************************************************************</span><br><span class="line"></span><br><span class="line">Jenkins initial setup is required. An admin user has been created and a password generated.</span><br><span class="line">Please use the following password to proceed to installation:</span><br><span class="line"></span><br><span class="line">7f54c6c500e242e9bbc804c169c52a3c</span><br><span class="line"></span><br><span class="line">This may also be found at: /var/jenkins_home/secrets/initialAdminPassword</span><br><span class="line"></span><br><span class="line">*************************************************************</span><br><span class="line">*************************************************************</span><br><span class="line">*************************************************************</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">jenkins.install.SetupWizard init</span><br><span class="line">INFO:</span><br><span class="line"></span><br><span class="line">*************************************************************</span><br><span class="line">*************************************************************</span><br><span class="line">*************************************************************</span><br><span class="line"></span><br><span class="line">Jenkins initial setup is required. An admin user has been created and a password generated.</span><br><span class="line">Please use the following password to proceed to installation:</span><br><span class="line"></span><br><span class="line">7f54c6c500e242e9bbc804c169c52a3c</span><br><span class="line"></span><br><span class="line">This may also be found at: &#x2F;var&#x2F;jenkins_home&#x2F;secrets&#x2F;initialAdminPassword</span><br><span class="line"></span><br><span class="line">*************************************************************</span><br><span class="line">*************************************************************</span><br><span class="line">*************************************************************</span><br></pre></td></tr></table></figure>
 
 <p>输入上面的password就能进入注册界面：</p>
 <p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/jenkins/create_admin_user.png" alt="image-20190626210358399"></p>
@@ -594,7 +599,7 @@
               
                 <a href="/chinese/archives/%7C%7C%20archive%20/%20%E5%BD%92%E6%A1%A3">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -605,7 +610,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/chinese/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -616,7 +621,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/chinese/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -685,7 +690,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

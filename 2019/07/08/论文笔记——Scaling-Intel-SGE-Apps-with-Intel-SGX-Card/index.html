@@ -80,29 +80,33 @@
 
 
 <meta name="description" content="Scaling Intel SGX Apps with Intel SGX Card这边笔记完全来自下面这篇论文： Chakrabarti S, Hoekstra M, Kuvaiskii D, et al. Scaling Intel® Software Guard Extensions Applications with Intel® SGX Card[C]&#x2F;&#x2F;Proceedings of t">
-<meta name="keywords" content="paper,SGX,论文,笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="论文笔记——Scaling Intel SGX Apps with Intel SGX Card">
-<meta property="og:url" content="https:&#x2F;&#x2F;zhang-tianxu.github.io&#x2F;chinese&#x2F;2019&#x2F;07&#x2F;08&#x2F;%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94Scaling-Intel-SGE-Apps-with-Intel-SGX-Card&#x2F;index.html">
+<meta property="og:url" content="https://zhang-tianxu.github.io/chinese/2019/07/08/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94Scaling-Intel-SGE-Apps-with-Intel-SGX-Card/index.html">
 <meta property="og:site_name" content="天诩的博客">
 <meta property="og:description" content="Scaling Intel SGX Apps with Intel SGX Card这边笔记完全来自下面这篇论文： Chakrabarti S, Hoekstra M, Kuvaiskii D, et al. Scaling Intel® Software Guard Extensions Applications with Intel® SGX Card[C]&#x2F;&#x2F;Proceedings of t">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http:&#x2F;&#x2F;pubn1s4ko.bkt.clouddn.com&#x2F;blog&#x2F;study&#x2F;pro&#x2F;paper&#x2F;image-20190707190211447.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;pubn1s4ko.bkt.clouddn.com&#x2F;blog&#x2F;study&#x2F;pro&#x2F;paper&#x2F;image-20190707190234316.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;pubn1s4ko.bkt.clouddn.com&#x2F;blog&#x2F;study&#x2F;pro&#x2F;paper&#x2F;image-20190707223636636.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;pubn1s4ko.bkt.clouddn.com&#x2F;blog&#x2F;study&#x2F;pro&#x2F;paper&#x2F;image-20190707230800302.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;pubn1s4ko.bkt.clouddn.com&#x2F;blog&#x2F;study&#x2F;pro&#x2F;paper&#x2F;image-20190708093633782.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;pubn1s4ko.bkt.clouddn.com&#x2F;blog&#x2F;study&#x2F;pro&#x2F;paper&#x2F;image-20190708141304500.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;pubn1s4ko.bkt.clouddn.com&#x2F;blog&#x2F;study&#x2F;pro&#x2F;paper&#x2F;image-20190708143911796.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;pubn1s4ko.bkt.clouddn.com&#x2F;blog&#x2F;study&#x2F;pro&#x2F;paper&#x2F;image-20190708144302939.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;pubn1s4ko.bkt.clouddn.com&#x2F;blog&#x2F;study&#x2F;pro&#x2F;paper&#x2F;image-20190708151514478.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;pubn1s4ko.bkt.clouddn.com&#x2F;blog&#x2F;study&#x2F;pro&#x2F;paper&#x2F;image-20190708152648689.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;pubn1s4ko.bkt.clouddn.com&#x2F;blog&#x2F;study&#x2F;pro&#x2F;paper&#x2F;image-20190708161348110.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;pubn1s4ko.bkt.clouddn.com&#x2F;blog&#x2F;study&#x2F;pro&#x2F;paper&#x2F;image-20190708190831527.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;pubn1s4ko.bkt.clouddn.com&#x2F;blog&#x2F;study&#x2F;pro&#x2F;paper&#x2F;image-20190708195153068.png">
-<meta property="og:updated_time" content="2019-11-18T07:41:58.970Z">
+<meta property="og:image" content="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190707190211447.png">
+<meta property="og:image" content="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190707190234316.png">
+<meta property="og:image" content="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190707223636636.png">
+<meta property="og:image" content="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190707230800302.png">
+<meta property="og:image" content="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708093633782.png">
+<meta property="og:image" content="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708141304500.png">
+<meta property="og:image" content="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708143911796.png">
+<meta property="og:image" content="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708144302939.png">
+<meta property="og:image" content="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708151514478.png">
+<meta property="og:image" content="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708152648689.png">
+<meta property="og:image" content="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708161348110.png">
+<meta property="og:image" content="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708190831527.png">
+<meta property="og:image" content="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708195153068.png">
+<meta property="article:published_time" content="2019-07-08T20:04:21.000Z">
+<meta property="article:modified_time" content="2020-04-08T02:56:42.713Z">
+<meta property="article:author" content="张天诩">
+<meta property="article:tag" content="paper">
+<meta property="article:tag" content="SGX">
+<meta property="article:tag" content="论文">
+<meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;pubn1s4ko.bkt.clouddn.com&#x2F;blog&#x2F;study&#x2F;pro&#x2F;paper&#x2F;image-20190707190211447.png">
+<meta name="twitter:image" content="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190707190211447.png">
 
 
 
@@ -148,7 +152,7 @@
 
 
 
-</head>
+<meta name="generator" content="Hexo 4.2.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -739,7 +743,7 @@
               
                 <a href="/chinese/archives/%7C%7C%20archive%20/%20%E5%BD%92%E6%A1%A3">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -750,7 +754,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/chinese/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -761,7 +765,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/chinese/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -830,7 +834,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
