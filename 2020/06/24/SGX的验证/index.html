@@ -85,11 +85,13 @@
 <meta property="og:url" content="https://zhang-tianxu.github.io/chinese/2020/06/24/SGX%E7%9A%84%E9%AA%8C%E8%AF%81/index.html">
 <meta property="og:site_name" content="七夕先生的无聊生活">
 <meta property="og:description" content="Intel SGX可以很好的保证enclave（安全区域）内代码和数据的隐私性和完整性。但是如果需要多个enclave合作的话，在合作之前需要确认对方时SGX enclave。这种验证机制并不简单，分为本地验证和远程验证两种，下面会分别介绍。SGX的验证机制有很多细节，这里不会涉及太多的细节，重在帮助大家理解SGX的验证机制，更好的理解SGX的安全性以及它可能存在的弱点。">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gg3hm2b6arj30ic10kgof.jpg">
 <meta property="article:published_time" content="2020-06-24T17:50:38.000Z">
-<meta property="article:modified_time" content="2020-06-24T11:20:42.892Z">
+<meta property="article:modified_time" content="2020-06-24T11:27:35.035Z">
 <meta property="article:author" content="七夕先生">
 <meta property="article:tag" content="SGX">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1gg3hm2b6arj30ic10kgof.jpg">
 
 
 
@@ -426,37 +428,35 @@
 <p>MAC加密系统：</p>
 <p>发送者利用MAC算法读取对称密钥和一个变长的消息，产生一个定长的MAC标签。接受者只要提供原始消息、对称密钥和MAC标签，就可以验证消息的真实性。</p>
 </blockquote>
-<pre><code>- enclave当前的身份信息
-
-  - enclave的measurement
-    - 基于证书的身份信息（比如软件开发商的安全版本号等）
-
-    - SGX实现的安全版本号（CPUSVN）
-
-    - enclave提供的64-byte（512-bit）的消息
-
-    - **KEYID**
-
-      enclave初始化时产生的一个随机数。
-
-      验证报告的详细内容如下图：
-
-      ![image-20200624170332771](https://tva1.sinaimg.cn/large/007S8ZIlly1gg3hm2b6arj30ic10kgof.jpg)
-
-      目标enclave想要通过MAC标签验证消息是由SGX实现发出的，那么**生成MAC标签的对称密钥只能SGX实现和目标enclave知道**。被验证enclave是不可以知道这个对称密钥的，**一旦这个对称密钥泄露，验证报告就可能被伪造**。
-
-      这个对称密钥成为*Report Key*，由**EGETKEY**指令产生。**EGETKEY**指令生成密钥的依据包括：
-
-      - 嵌入到处理器中的一个秘密
-      - 包括**目标enclave**的measurement在内的一些信息
-
-      目标enclave可以自己生成相应的对称密钥，验证报告中的信息。
-
-      目标enclave可以确定验证报告中的MAC标签是由SGX实现生成的，原因有二：
-
-      1. **EGETKEY**生成密钥的算法和MAC加密系统的MAC算法都是保密的，只有SGX实现才能产生这个MAC标签
-      2. 只有SGX实现可以读取内嵌在处理器中的秘密</code></pre></li>
+</li>
+<li><p>enclave当前的身份信息</p>
+<ul>
+<li>enclave的measurement</li>
+<li>基于证书的身份信息（比如软件开发商的安全版本号等）</li>
 </ul>
+</li>
+<li><p>SGX实现的安全版本号（CPUSVN）</p>
+</li>
+<li><p>enclave提供的64-byte（512-bit）的消息</p>
+</li>
+<li><p><strong>KEYID</strong></p>
+<p>enclave初始化时产生的一个随机数。</p>
+</li>
+</ul>
+<p>验证报告的详细内容如下图：</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gg3hm2b6arj30ic10kgof.jpg" alt="image-20200624170332771"></p>
+<p>目标enclave想要通过MAC标签验证消息是由SGX实现发出的，那么<strong>生成MAC标签的对称密钥只能SGX实现和目标enclave知道</strong>。被验证enclave是不可以知道这个对称密钥的，<strong>一旦这个对称密钥泄露，验证报告就可能被伪造</strong>。</p>
+<p>这个对称密钥成为<em>Report Key</em>，由<strong>EGETKEY</strong>指令产生。<strong>EGETKEY</strong>指令生成密钥的依据包括：</p>
+<ul>
+<li>嵌入到处理器中的一个秘密</li>
+<li>包括<strong>目标enclave</strong>的measurement在内的一些信息</li>
+</ul>
+<p>目标enclave可以自己生成相应的对称密钥，验证报告中的信息。</p>
+<p>目标enclave可以确定验证报告中的MAC标签是由SGX实现生成的，原因有二：</p>
+<ol>
+<li><strong>EGETKEY</strong>生成密钥的算法和MAC加密系统的MAC算法都是保密的，只有SGX实现才能产生这个MAC标签</li>
+<li>只有SGX实现可以读取内嵌在处理器中的秘密</li>
+</ol>
 <h2 id="远程验证-Remote-Attestation"><a href="#远程验证-Remote-Attestation" class="headerlink" title="远程验证 Remote Attestation"></a>远程验证 <em>Remote Attestation</em></h2><p>相比于本地验证，远程验证要更加复杂。在介绍远程验证前，先介绍将会涉及到的一些内容：</p>
 <p>在生产的过程中，处理器中的一个叫做e-fuse存储器中烧有两个秘密，我们称这两个秘密为<em>Provisioning Secret</em>和<em>Seal Secret</em>。</p>
 <p><em>Provisioning Secret</em>是intel的密钥生成工具产生的，处理器生产过程中与intel的密钥生成工具通信，获取<em>Provisioning Secret</em>。在烧入处理器e-fuse的同时也会被intel保存在数据库。</p>
@@ -465,16 +465,14 @@
 <ol>
 <li><p>被验证enclave利用<strong>EGETKEY</strong>指令生成<em>Provisioning Key</em>，生成<em>Provisioning Key</em>的依据包括：</p>
 <ul>
-<li><p><em>Provisioning Secret</em></p>
-<ul>
-<li><p>enclave当前以证书为基础的身份信息</p>
-<ul>
+<li><em>Provisioning Secret</em></li>
+<li>enclave当前以证书为基础的身份信息</li>
 <li>SGX实现的安全版本号</li>
 </ul>
-<ol start="2">
+</li>
 <li><p>被验证enclave利用<em>Provisioning Key</em>向intel的<em>Provisioning</em>服务证明自己是可信的。</p>
 <p>上面提过，intel记录了<em>Provisioning Secret</em>，同时拥有生成密钥的算法。</p>
-<ol start="3">
+</li>
 <li><p>通过验证后，intel的<em>Provisioning</em>服务会生成一个<em>Attestation Key</em>并返还给被验证enclave</p>
 </li>
 <li><p>被验证enclave再利用<strong>EGETKEY</strong>指令以<em>Seal Secret</em>等信息为依据生成<em>Provisioning Seal key</em>，用这个密钥加密<em>Attestation Key</em>后存入计算机内存或磁盘。</p>
@@ -486,14 +484,6 @@
 <li><p><em>Quoting Enclave</em>将收到的本地验证的验证报告中的MAC标签换成由<em>Attestation Key</em>产生的签名（一种intel的特殊签名机制）</p>
 </li>
 <li><p><em>Quoting Enclave</em>将远程验证报告发送给目标enclave</p>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
 </li>
 </ol>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
