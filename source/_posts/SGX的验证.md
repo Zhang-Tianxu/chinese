@@ -27,40 +27,40 @@ Intel SGX可以很好的保证enclave（安全区域）内代码和数据的隐�
 
   由MAC加密系统产生的标签。
 
-    > MAC加密系统：
-      >
-        > 发送者利用MAC算法读取对称密钥和一个变长的消息，产生一个定长的MAC标签。接受者只要提供原始消息、对称密钥和MAC标签，就可以验证消息的真实性。
+  > MAC加密系统：
+  >
+  > 发送者利用MAC算法读取对称密钥和一个变长的消息，产生一个定长的MAC标签。接受者只要提供原始消息、对称密钥和MAC标签，就可以验证消息的真实性。
 
-        - enclave当前的身份信息
+- enclave当前的身份信息
 
-          - enclave的measurement
-            - 基于证书的身份信息（比如软件开发商的安全版本号等）
+  - enclave的measurement
+  - 基于证书的身份信息（比如软件开发商的安全版本号等）
 
-            - SGX实现的安全版本号（CPUSVN）
+- SGX实现的安全版本号（CPUSVN）
 
-            - enclave提供的64-byte（512-bit）的消息
+- enclave提供的64-byte（512-bit）的消息
 
-            - **KEYID**
+- **KEYID**
 
-              enclave初始化时产生的一个随机数。
+  enclave初始化时产生的一个随机数。
 
-              验证报告的详细内容如下图：
+验证报告的详细内容如下图：
 
-              ![image-20200624170332771](https://tva1.sinaimg.cn/large/007S8ZIlly1gg3hm2b6arj30ic10kgof.jpg)
+![image-20200624170332771](https://tva1.sinaimg.cn/large/007S8ZIlly1gg3hm2b6arj30ic10kgof.jpg)
 
-              目标enclave想要通过MAC标签验证消息是由SGX实现发出的，那么**生成MAC标签的对称密钥只能SGX实现和目标enclave知道**。被验证enclave是不可以知道这个对称密钥的，**一旦这个对称密钥泄露，验证报告就可能被伪造**。
+目标enclave想要通过MAC标签验证消息是由SGX实现发出的，那么**生成MAC标签的对称密钥只能SGX实现和目标enclave知道**。被验证enclave是不可以知道这个对称密钥的，**一旦这个对称密钥泄露，验证报告就可能被伪造**。
 
-              这个对称密钥成为*Report Key*，由**EGETKEY**指令产生。**EGETKEY**指令生成密钥的依据包括：
+这个对称密钥成为*Report Key*，由**EGETKEY**指令产生。**EGETKEY**指令生成密钥的依据包括：
 
-              - 嵌入到处理器中的一个秘密
-              - 包括**目标enclave**的measurement在内的一些信息
+- 嵌入到处理器中的一个秘密
+- 包括**目标enclave**的measurement在内的一些信息
 
-              目标enclave可以自己生成相应的对称密钥，验证报告中的信息。
+目标enclave可以自己生成相应的对称密钥，验证报告中的信息。
 
-              目标enclave可以确定验证报告中的MAC标签是由SGX实现生成的，原因有二：
+目标enclave可以确定验证报告中的MAC标签是由SGX实现生成的，原因有二：
 
-              1. **EGETKEY**生成密钥的算法和MAC加密系统的MAC算法都是保密的，只有SGX实现才能产生这个MAC标签
-              2. 只有SGX实现可以读取内嵌在处理器中的秘密
+1. **EGETKEY**生成密钥的算法和MAC加密系统的MAC算法都是保密的，只有SGX实现才能产生这个MAC标签
+2. 只有SGX实现可以读取内嵌在处理器中的秘密
 
 ## 远程验证 *Remote Attestation*
 
@@ -77,28 +77,27 @@ Intel SGX可以很好的保证enclave（安全区域）内代码和数据的隐�
 1. 被验证enclave利用**EGETKEY**指令生成*Provisioning Key*，生成*Provisioning Key*的依据包括：
 
    * *Provisioning Secret*
-      * enclave当前以证书为基础的身份信息
-         * SGX实现的安全版本号
+   * enclave当前以证书为基础的身份信息
+   * SGX实现的安全版本号
 
-         2. 被验证enclave利用*Provisioning Key*向intel的*Provisioning*服务证明自己是可信的。
+2. 被验证enclave利用*Provisioning Key*向intel的*Provisioning*服务证明自己是可信的。
 
-            上面提过，intel记录了*Provisioning Secret*，同时拥有生成密钥的算法。
+   上面提过，intel记录了*Provisioning Secret*，同时拥有生成密钥的算法。
 
-            3. 通过验证后，intel的*Provisioning*服务会生成一个*Attestation Key*并返还给被验证enclave
+3. 通过验证后，intel的*Provisioning*服务会生成一个*Attestation Key*并返还给被验证enclave
 
-            4. 被验证enclave再利用**EGETKEY**指令以*Seal Secret*等信息为依据生成*Provisioning Seal key*，用这个密钥加密*Attestation Key*后存入计算机内存或磁盘。
+4. 被验证enclave再利用**EGETKEY**指令以*Seal Secret*等信息为依据生成*Provisioning Seal key*，用这个密钥加密*Attestation Key*后存入计算机内存或磁盘。
 
-            5. *Quoting Enclave*通过**EGETKEY**获得*Provisioning Seal key*，从内存中读取并解密*Attestation Key*
+5. *Quoting Enclave*通过**EGETKEY**获得*Provisioning Seal key*，从内存中读取并解密*Attestation Key*
 
-            6. 被验证enclave向同一机器上的一个成为*Quoting Enclave*的特殊enclave执行本地验证
+6. 被验证enclave向同一机器上的一个成为*Quoting Enclave*的特殊enclave执行本地验证
 
-            7. *Quoting Enclave*将收到的本地验证的验证报告中的MAC标签换成由*Attestation Key*产生的签名（一种intel的特殊签名机制）
+7. *Quoting Enclave*将收到的本地验证的验证报告中的MAC标签换成由*Attestation Key*产生的签名（一种intel的特殊签名机制）
 
-            8. *Quoting Enclave*将远程验证报告发送给目标enclave
+8. *Quoting Enclave*将远程验证报告发送给目标enclave
 
 
 
 ## References
 
 1. Costan, Victor, Ilia Lebedev, and Srinivas Devadas. "Secure processors part I: background, taxonomy for secure enclaves and Intel SGX architecture." *Foundations and Trends in Electronic Design Automation* 11.1-2 (2017): 1-248.
-
