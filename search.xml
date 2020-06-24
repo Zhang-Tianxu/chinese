@@ -27,6 +27,109 @@
       </tags>
   </entry>
   <entry>
+    <title>SGX的验证</title>
+    <url>/chinese/2020/06/24/SGX%E7%9A%84%E9%AA%8C%E8%AF%81/</url>
+    <content><![CDATA[<p>Intel SGX可以很好的保证enclave（安全区域）内代码和数据的隐私性和完整性。但是如果需要多个enclave合作的话，在合作之前需要确认对方时SGX enclave。这种验证机制并不简单，分为本地验证和远程验证两种，下面会分别介绍。SGX的验证机制有很多细节，这里不会涉及太多的细节，重在帮助大家理解SGX的验证机制，更好的理解SGX的安全性以及它可能存在的弱点。</p>
+<a id="more"></a>
+
+<h2 id="本地验证-Local-Attestation"><a href="#本地验证-Local-Attestation" class="headerlink" title="本地验证 Local Attestation"></a>本地验证 <em>Local Attestation</em></h2><p><strong>SGX的本地验证用于一个enclave（称之为被验证enclave）向同一机器上的另一个enclave（称之为目标enclave）证明它的身份。</strong></p>
+<p>本地验证流程：</p>
+<ol>
+<li>被验证enclave调用<strong>EREPORT</strong>指令，，生成验证报告并发送给目标enclave</li>
+<li>目标enclave收到验证报告后，判断验证报告是否可信</li>
+</ol>
+<p><strong>EREPORT</strong>产生的<strong>验证报告</strong>中包含以下信息：</p>
+<ul>
+<li><p><strong>MAC（Message Authentication Code）标签</strong></p>
+<p>由MAC加密系统产生的标签。</p>
+<blockquote>
+<p>MAC加密系统：</p>
+<p>发送者利用MAC算法读取对称密钥和一个变长的消息，产生一个定长的MAC标签。接受者只要提供原始消息、对称密钥和MAC标签，就可以验证消息的真实性。</p>
+</blockquote>
+<pre><code>- enclave当前的身份信息
+
+  - enclave的measurement
+    - 基于证书的身份信息（比如软件开发商的安全版本号等）
+
+    - SGX实现的安全版本号（CPUSVN）
+
+    - enclave提供的64-byte（512-bit）的消息
+
+    - **KEYID**
+
+      enclave初始化时产生的一个随机数。
+
+      验证报告的详细内容如下图：
+
+      ![image-20200624170332771](https://tva1.sinaimg.cn/large/007S8ZIlly1gg3hm2b6arj30ic10kgof.jpg)
+
+      目标enclave想要通过MAC标签验证消息是由SGX实现发出的，那么**生成MAC标签的对称密钥只能SGX实现和目标enclave知道**。被验证enclave是不可以知道这个对称密钥的，**一旦这个对称密钥泄露，验证报告就可能被伪造**。
+
+      这个对称密钥成为*Report Key*，由**EGETKEY**指令产生。**EGETKEY**指令生成密钥的依据包括：
+
+      - 嵌入到处理器中的一个秘密
+      - 包括**目标enclave**的measurement在内的一些信息
+
+      目标enclave可以自己生成相应的对称密钥，验证报告中的信息。
+
+      目标enclave可以确定验证报告中的MAC标签是由SGX实现生成的，原因有二：
+
+      1. **EGETKEY**生成密钥的算法和MAC加密系统的MAC算法都是保密的，只有SGX实现才能产生这个MAC标签
+      2. 只有SGX实现可以读取内嵌在处理器中的秘密</code></pre></li>
+</ul>
+<h2 id="远程验证-Remote-Attestation"><a href="#远程验证-Remote-Attestation" class="headerlink" title="远程验证 Remote Attestation"></a>远程验证 <em>Remote Attestation</em></h2><p>相比于本地验证，远程验证要更加复杂。在介绍远程验证前，先介绍将会涉及到的一些内容：</p>
+<p>在生产的过程中，处理器中的一个叫做e-fuse存储器中烧有两个秘密，我们称这两个秘密为<em>Provisioning Secret</em>和<em>Seal Secret</em>。</p>
+<p><em>Provisioning Secret</em>是intel的密钥生成工具产生的，处理器生产过程中与intel的密钥生成工具通信，获取<em>Provisioning Secret</em>。在烧入处理器e-fuse的同时也会被intel保存在数据库。</p>
+<p><em>Seal Secret</em>是在处理器芯片中生成的，所以Intel不知道这个秘密是什么。<em>Seal Secret</em>存在的好处在于，即便攻击者攻破了intel的密钥生成工具，也没办法生成<strong>EGETKEY</strong>生成的密钥。<em>Seal Secret</em>只有被<strong>EGETKEY</strong>做为密钥生成依据时才可以被访问，而不会暴露给任何软件。</p>
+<p>远程验证流程：</p>
+<ol>
+<li><p>被验证enclave利用<strong>EGETKEY</strong>指令生成<em>Provisioning Key</em>，生成<em>Provisioning Key</em>的依据包括：</p>
+<ul>
+<li><p><em>Provisioning Secret</em></p>
+<ul>
+<li><p>enclave当前以证书为基础的身份信息</p>
+<ul>
+<li>SGX实现的安全版本号</li>
+</ul>
+<ol start="2">
+<li><p>被验证enclave利用<em>Provisioning Key</em>向intel的<em>Provisioning</em>服务证明自己是可信的。</p>
+<p>上面提过，intel记录了<em>Provisioning Secret</em>，同时拥有生成密钥的算法。</p>
+<ol start="3">
+<li><p>通过验证后，intel的<em>Provisioning</em>服务会生成一个<em>Attestation Key</em>并返还给被验证enclave</p>
+</li>
+<li><p>被验证enclave再利用<strong>EGETKEY</strong>指令以<em>Seal Secret</em>等信息为依据生成<em>Provisioning Seal key</em>，用这个密钥加密<em>Attestation Key</em>后存入计算机内存或磁盘。</p>
+</li>
+<li><p><em>Quoting Enclave<em>通过*</em>EGETKEY*<em>获得</em>Provisioning Seal key<em>，从内存中读取并解密</em>Attestation Key</em></p>
+</li>
+<li><p>被验证enclave向同一机器上的一个成为<em>Quoting Enclave</em>的特殊enclave执行本地验证</p>
+</li>
+<li><p><em>Quoting Enclave</em>将收到的本地验证的验证报告中的MAC标签换成由<em>Attestation Key</em>产生的签名（一种intel的特殊签名机制）</p>
+</li>
+<li><p><em>Quoting Enclave</em>将远程验证报告发送给目标enclave</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li>Costan, Victor, Ilia Lebedev, and Srinivas Devadas. “Secure processors part I: background, taxonomy for secure enclaves and Intel SGX architecture.” <em>Foundations and Trends in Electronic Design Automation</em> 11.1-2 (2017): 1-248.</li>
+</ol>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>安全</category>
+        <category>可信执行环境</category>
+      </categories>
+      <tags>
+        <tag>SGX</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>英语口语：如何说的更快（二）</title>
     <url>/chinese/2020/04/14/%E8%8B%B1%E8%AF%AD%E5%8F%A3%E8%AF%AD%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AF%B4%E7%9A%84%E6%9B%B4%E5%BF%AB%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
     <content><![CDATA[<p>内容参考<a href="https://youtu.be/5wr44LGmIaw" target="_blank" rel="noopener">How to speak English fast and understand natives (Part II)</a> From <a href="https://www.youtube.com/channel/UCAQg09FkoobmLquNNoO4ulg" target="_blank" rel="noopener">linguamarina</a></p>
@@ -743,8 +846,8 @@
         <category>论文阅读</category>
       </categories>
       <tags>
-        <tag>paper</tag>
         <tag>SGX</tag>
+        <tag>paper</tag>
         <tag>论文</tag>
         <tag>笔记</tag>
       </tags>
