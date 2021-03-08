@@ -24,6 +24,7 @@ sidebar:
   Zhihu: 知乎
 
 post:
+  comments.valine: 评论数
   created: 创建于
   modified: 更新于
   sticky: 置顶
