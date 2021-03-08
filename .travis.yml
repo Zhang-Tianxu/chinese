@@ -7,6 +7,7 @@ before_script:
     - npm uninstall hexo-generator-index --save
     - npm install hexo-generator-index-pin-top --save
     - npm install --save hexo-filter-flowchart
+    - npm install hexo-wordcount@2 --save
 cache: npm
 branches:
   only:
