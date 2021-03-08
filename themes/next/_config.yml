@@ -813,3 +813,9 @@ images: images
 
 # Theme version
 version: 5.1.4
+
+
+# 近期文章设置
+recent_posts_title: 近期文章
+recent_posts_layout: block
+recent_posts: true
