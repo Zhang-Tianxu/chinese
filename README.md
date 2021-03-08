@@ -20,6 +20,10 @@ date: 2021-1-1 17:30:21
 <!--more-->
 需要点击`read more`查看的文章内容
 ```
+### 如何插入置顶大小的图片
+`{% img 图片类名 图片链接 图片宽 图片高 '"图片标题" "加载失败时显示的文字"' %}`
+比如
+{% img my_img https://tva1.sinaimg.cn/large/008eGmZEgy1gocm3k2n6uj30ia0lujua.jpg 200 100 '"网易云音乐" "加载失败"' %}
 ## 如何从头开始
 1. `npm install`/`cnpm install`
 2. 新建/修改文章
