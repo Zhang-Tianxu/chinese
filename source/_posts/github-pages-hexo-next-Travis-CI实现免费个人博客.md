@@ -57,6 +57,7 @@ GitHub Pages主页中有建站的简单教程，为了支持MarkDown撰写博客
                 guest_info: nick,mail,link # custom comment header
                 pageSize: 10 # pagination size
         ```
+{% img commentsImg https://tva1.sinaimg.cn/large/008eGmZEgy1gocmlo8c9sj317k0o8myh.jpg 400 600 '"评论功能" "加载失败"' %}
 4. 阅读统计
     [为NexT主题添加文章阅读量统计功能](https://notes.doublemine.me/2015-10-21-%E4%B8%BANexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD.html#%E9%85%8D%E7%BD%AELeanCloud)
 5. 字数统计
@@ -70,11 +71,64 @@ GitHub Pages主页中有建站的简单教程，为了支持MarkDown撰写博客
             separated_meta: true
         ```
     2. 执行`npm install hexo-wordcount@2 --save`，安装需要的库
+{% img wordCountImg https://tva1.sinaimg.cn/large/008eGmZEgy1gocmhvhwsnj30cw01iwei.jpg 200 30 '"字数统计" "加载失败"' %}
 6. 添加网易云播放器
     1. 去网易云音乐找一首喜欢的歌。
     2. 点击“生成外链播放器”，复制HTML代码。
     3. 将HTML代码添加到`/themes/hexo-theme-next/layout/_macro/sidebar.swig`中`<aside id="sidebar" class="sidebar”>`后面，并用`<div>`包裹。
+{% img musicImg https://tva1.sinaimg.cn/large/008eGmZEgy1gocm3k2n6uj30ia0lujua.jpg 400 200 '"网易云音乐" "加载失败"' %}
 7. 将标签云改为彩色
+    1. 在`themes/next/layout/`中新建`tag-color.swig`文件，代码为：
+        ```
+<script type="text/javascript">
+     var alltags = document.getElementsByClassName('tag-cloud-tags');
+     var tags = alltags[0].getElementsByTagName('a');
+     for (var i = tags.length - 1; i >= 0; i--) {
+       var r=Math.floor(Math.random()*75+130);
+       var g=Math.floor(Math.random()*75+100);
+       var b=Math.floor(Math.random()*75+80);
+       tags[i].style.background = "rgb("+r+","+g+","+b+")";
+     }
+</script>
+
+<style>
+  .tag-cloud-tags{
+    /*font-family: Helvetica, Tahoma, Arial;*/
+    /*font-weight: 100;*/
+    text-align: center;
+    counter-reset: tags;
+  }
+  .tag-cloud-tags a{
+    border-radius: 6px;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin: 8px 5px 0px 0px;
+  }
+  .tag-cloud-tags a:before{
+    content: "?";
+  }
+
+  .tag-cloud-tags a:hover{
+     box-shadow: 0px 5px 15px 0px rgba(0,0,0,.4);
+     transform: scale(1.1);
+     /*box-shadow: 10px 10px 15px 2px rgba(0,0,0,.12), 0 0 6px 0 rgba(104, 104, 105, 0.1);*/
+     transition-duration: 0.15s;
+  }
+</style>
+        ```
+    2. 在`/themes/next/layout/page.swig`中引入`tag-color.swig`，即在`<div class="tag-cloud">`代码段下方添加`{ % include 'tag-color.swig' % }`
+    3. 也可以将标签云直接加入主页，在`/themes/next/layout/index.swig`中的block content代码块中加入以下代码：
+```
+<div class="tag-cloud">
+	  <div class="tag-cloud-tags" id="tags">
+		{{ tagcloud({min_font: 16, max_font: 16, amount: 300, color: true, start_color: '#fff', end_color: '#fff'}) }}
+	  </div>
+	</div>
+	<br>
+	
+	{% include 'tag-color.swig' %}
+```
+
 8. 展示近期文章
     1. 修改`themes/next/layout/_macro/sidebar.swig` 。找到`theme.social`，在该板块后隔一行添加如下代码。
     ```
@@ -116,6 +170,7 @@ recent_posts_title: 近期文章
 recent_posts_layout: block
 recent_posts: true
 ```
+{% img rencentPostImg https://tva1.sinaimg.cn/large/008eGmZEgy1gocmksvxlvj30da0460su.jpg 200 100 '"近期文章" "加载失败"' %}
 
 # Travis CI自动部署GitHub Pages
 [Travis官方教程](https://docs.travis-ci.com/user/deployment/pages/)
