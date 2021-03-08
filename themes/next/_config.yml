@@ -130,6 +130,7 @@ scheme: Gemini
 social:
   #GitHub: https://github.com/yourname || github
   E-Mail: mailto:hanerzamora@gmail.com || envelope
+  知乎: https://www.zhihu.com/people/QiXiXianSheng
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
   #FB Page: https://www.facebook.com/yourname || facebook
@@ -379,12 +380,12 @@ changyan:
 # You can get your appid and appkey from https://leancloud.cn
 # more info please open https://valine.js.org
 valine:
-  enable: false
-  appid:  # your leancloud application appid
-  appkey:  # your leancloud application appkey
+  enable: true
+  appid:  J9BXJmWqzMh6EKYSfTJMILYb-gzGzoHsz
+  appkey:  Ix4QHOvXDAJMlMQQI3aovbF9
   notify: false # mail notifier , https://github.com/xCss/Valine/wiki
   verify: false # Verification code
-  placeholder: Just go go # comment box placeholder
+  placeholder: 评论 # comment box placeholder
   avatar: mm # gravatar style
   guest_info: nick,mail,link # custom comment header
   pageSize: 10 # pagination size
@@ -532,9 +533,9 @@ rating:
 # Show number of visitors to each article.
 # You can visit https://leancloud.cn get AppID and AppKey.
 leancloud_visitors:
-  enable: false
-  app_id: #<app_id>
-  app_key: #<app_key>
+  enable: true
+  app_id: J9BXJmWqzMh6EKYSfTJMILYb-gzGzoHsz
+  app_key: Ix4QHOvXDAJMlMQQI3aovbF9
 
 # Another tool to show number of visitors to each article.
 # visit https://console.firebase.google.com/u/0/ to get apiKey and projectId

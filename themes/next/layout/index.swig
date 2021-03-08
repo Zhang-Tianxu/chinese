@@ -9,6 +9,14 @@
 {% endblock %}
 
 {% block content %}
+<div class="tag-cloud">
+	  <div class="tag-cloud-tags" id="tags">
+		{{ tagcloud({min_font: 16, max_font: 16, amount: 300, color: true, start_color: '#fff', end_color: '#fff'}) }}
+	  </div>
+	</div>
+	<br>
+	
+	{% include 'tag-color.swig' %}
   <section id="posts" class="posts-expand">
     {% for post in page.posts %}
       {{ post_template.render(post, true) }}

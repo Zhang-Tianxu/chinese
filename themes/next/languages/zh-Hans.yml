@@ -21,6 +21,7 @@ menu:
 sidebar:
   overview: 站点概览
   toc: 文章目录
+  Zhihu: 知乎
 
 post:
   created: 创建于
