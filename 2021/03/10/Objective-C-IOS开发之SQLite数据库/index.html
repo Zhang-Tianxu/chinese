@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Objective-C,IOS开发入门,SQLite," />
 
 
 
@@ -79,14 +79,26 @@
 
 
 
-<meta name="description" content="我像猫，但我喜欢狗">
-<meta property="og:type" content="website">
-<meta property="og:title" content="七夕先生的无聊生活">
-<meta property="og:url" content="https://zhang-tianxu.github.io/chinese/index.html">
+<meta name="description" content="IDE: XCode Version 12.4 (12D4e) 参考IOS开发教程 操作流程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-C IOS开发之SQLite数据库">
+<meta property="og:url" content="https://zhang-tianxu.github.io/chinese/2021/03/10/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BSQLite%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
 <meta property="og:site_name" content="七夕先生的无聊生活">
-<meta property="og:description" content="我像猫，但我喜欢狗">
+<meta property="og:description" content="IDE: XCode Version 12.4 (12D4e) 参考IOS开发教程 操作流程">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gof54maa10j314p0u0af4.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gof54tkttyj30ng0qon0f.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gof56z2pxuj30u00xm4ee.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gof57eshyqj315i0te0y6.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gof57v7yg2j31600u0gpo.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gof3hvfqacj30ga0gsgma.jpg">
+<meta property="article:published_time" content="2021-03-10T21:45:33.000Z">
+<meta property="article:modified_time" content="2021-03-10T14:08:53.667Z">
 <meta property="article:author" content="七夕先生">
+<meta property="article:tag" content="Objective-C">
+<meta property="article:tag" content="IOS开发入门">
+<meta property="article:tag" content="SQLite">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gof54maa10j314p0u0af4.jpg">
 
 
 
@@ -116,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="https://zhang-tianxu.github.io/chinese/"/>
+  <link rel="canonical" href="https://zhang-tianxu.github.io/chinese/2021/03/10/Objective-C-IOS开发之SQLite数据库/"/>
 
 
 
 
 
-  <title>七夕先生的无聊生活</title>
+  <title>Objective-C IOS开发之SQLite数据库 | 七夕先生的无聊生活</title>
   
 
 
@@ -141,8 +153,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/Zhang-Tianxu" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
@@ -280,52 +291,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-<div class="tag-cloud">
-	  <div class="tag-cloud-tags" id="tags">
-		<a href="/chinese/tags/GitHub-Pages/" style="font-size: 16px; color: #fff">GitHub Pages</a> <a href="/chinese/tags/Hexo/" style="font-size: 16px; color: #fff">Hexo</a> <a href="/chinese/tags/IOS%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/" style="font-size: 16px; color: #fff">IOS开发入门</a> <a href="/chinese/tags/NexT/" style="font-size: 16px; color: #fff">NexT</a> <a href="/chinese/tags/Objective-C/" style="font-size: 16px; color: #fff">Objective-C</a> <a href="/chinese/tags/SQLite/" style="font-size: 16px; color: #fff">SQLite</a> <a href="/chinese/tags/Travis/" style="font-size: 16px; color: #fff">Travis</a>
-	  </div>
-	</div>
-	<br>
-	
-	<script type="text/javascript">
-     var alltags = document.getElementsByClassName('tag-cloud-tags');
-     var tags = alltags[0].getElementsByTagName('a');
-     for (var i = tags.length - 1; i >= 0; i--) {
-       var r=Math.floor(Math.random()*75+130);
-       var g=Math.floor(Math.random()*75+100);
-       var b=Math.floor(Math.random()*75+80);
-       tags[i].style.background = "rgb("+r+","+g+","+b+")";
-     }
-</script>
 
-<style>
-  .tag-cloud-tags{
-    /*font-family: Helvetica, Tahoma, Arial;*/
-    /*font-weight: 100;*/
-    text-align: center;
-    counter-reset: tags;
-  }
-  .tag-cloud-tags a{
-    border-radius: 6px;
-    padding-right: 5px;
-    padding-left: 5px;
-    margin: 8px 5px 0px 0px;
-  }
-  .tag-cloud-tags a:before{
-    content: "";
-  }
-
-  .tag-cloud-tags a:hover{
-     box-shadow: 0px 5px 15px 0px rgba(0,0,0,.4);
-     transform: scale(1.1);
-     /*box-shadow: 10px 10px 15px 2px rgba(0,0,0,.12), 0 0 6px 0 rgba(104, 104, 105, 0.1);*/
-     transition-duration: 0.15s;
-  }
-</style>
-
-  <section id="posts" class="posts-expand">
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -355,9 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/chinese/2021/03/10/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BSQLite%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url">Objective-C IOS开发之SQLite数据库</a></h1>
+          <h1 class="post-title" itemprop="name headline">Objective-C IOS开发之SQLite数据库</h1>
         
 
         <div class="post-meta">
@@ -504,18 +470,76 @@
       
 
       
-        
-          <p>IDE: XCode Version 12.4 (12D4e)</p>
+        <p>IDE: XCode Version 12.4 (12D4e)</p>
 <p>参考<a href="https://www.tutorialspoint.com/ios/ios_sqlite_database.htm" target="_blank" rel="noopener">IOS开发教程</a></p>
-<h2 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h2>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/chinese/2021/03/10/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BSQLite%E6%95%B0%E6%8D%AE%E5%BA%93/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<h2 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h2><a id="more"></a>
+
+<ol>
+<li><p>Xcode创建一个APP</p>
+</li>
+<li><p>选中项目文件，选中TARGETS，然后在框架（frameworks, Libraries, and Embedded Content）中添加<strong>libsqlite3.tbd</strong>（libsqlite3.0.tbd也一样）</p>
+<img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gof54maa10j314p0u0af4.jpg" class="addSQLiteLibImg" width="500" height="600" title="添加SQLite库" alt="加载失败">
+<img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gof54tkttyj30ng0qon0f.jpg" class="addSQLiteLibImg2" width="500" height="300" title="添加SQLite库2" alt="加载失败">
+</li>
+<li><p>新建Objective-C类（File-&gt;New-&gt;File）选择Cocoa Touch Class，点击Next，Subclass of选择NSObject，language选Objective-C。</p>
+<img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gof56z2pxuj30u00xm4ee.jpg" class="addObjcClassImg" width="800" height="300" title="添加Objective-C类" alt="加载失败">
+<img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gof57eshyqj315i0te0y6.jpg" class="addObjcClassImg2" width="400" height="300" title="添加Objective-C类2" alt="加载失败">
+</li>
+<li><p>将类的名字命名为DBManager，点击Next创建</p>
+<img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gof57v7yg2j31600u0gpo.jpg" class="addDBManager" width="400" height="300" title="创建DBManager" alt="加载失败">
+</li>
+<li><p>项目中会增加<code>DBManager.h</code>和<code>DBManager.m</code>两个文件，其代码是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;DBManager.h</span><br><span class="line"></span><br><span class="line">#import &lt;Foundation&#x2F;Foundation.h&gt;</span><br><span class="line">#import &lt;sqlite3.h&gt;</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_BEGIN</span><br><span class="line"></span><br><span class="line">@interface DBManager : NSObject &#123;</span><br><span class="line">    NSString *databasePath;</span><br><span class="line">&#125;</span><br><span class="line">+(DBManager*)getSharedInstance;</span><br><span class="line">-(BOOL)createDB;</span><br><span class="line">-(BOOL) saveData:(NSString*)registerNumber name:(NSString*)name department:(NSString*)department year:(NSString*)year;</span><br><span class="line">-(NSArray*) findByRegisterNumber:(NSString*)registerNumber;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_END</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;DBManager.m</span><br><span class="line"></span><br><span class="line">#import &quot;DBManager.h&quot;</span><br><span class="line"></span><br><span class="line">static DBManager *sharedInstance &#x3D; nil;</span><br><span class="line">static sqlite3 *database &#x3D; nil;</span><br><span class="line">static sqlite3_stmt *statement&#x3D; nil;</span><br><span class="line"></span><br><span class="line">@implementation DBManager</span><br><span class="line"></span><br><span class="line">+(DBManager*)getSharedInstance&#123;</span><br><span class="line">    if(!sharedInstance) &#123;</span><br><span class="line">        sharedInstance &#x3D; [[super allocWithZone:NULL]init];</span><br><span class="line">        [sharedInstance createDB];</span><br><span class="line">    &#125;</span><br><span class="line">    return sharedInstance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(BOOL)createDB &#123;</span><br><span class="line">    NSString *docsDir;</span><br><span class="line">    NSArray *dirPaths;</span><br><span class="line">    &#x2F;&#x2F; get the documents directory</span><br><span class="line">    dirPaths &#x3D; NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);</span><br><span class="line">    docsDir &#x3D; dirPaths[0];</span><br><span class="line">    &#x2F;&#x2F; build the path to the database file</span><br><span class="line">    databasePath &#x3D; [[NSString alloc] initWithString:[docsDir stringByAppendingPathComponent:@&quot;student.db&quot;]];</span><br><span class="line">    BOOL isSuccess &#x3D; YES;</span><br><span class="line">    NSFileManager* filemgr &#x3D; [NSFileManager defaultManager];</span><br><span class="line">    </span><br><span class="line">    if([filemgr fileExistsAtPath:databasePath] !&#x3D; NO) &#123;</span><br><span class="line">        const char *dbpath &#x3D; [databasePath UTF8String];</span><br><span class="line">        if(sqlite3_open(dbpath, &amp;database) &#x3D;&#x3D; SQLITE_OK) &#123;</span><br><span class="line">            char *errMsg;</span><br><span class="line">            const char *sql_stmt &#x3D;</span><br><span class="line">            &quot;create table if not exists studentsDetail (regno integer primary key, name text, department text, year text)&quot;;</span><br><span class="line">            if(sqlite3_exec(database, sql_stmt, NULL, NULL, &amp;errMsg) !&#x3D; SQLITE_OK) &#123;</span><br><span class="line">                isSuccess &#x3D; NO;</span><br><span class="line">                NSLog(@&quot;Fail to create table&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            sqlite3_close(database);</span><br><span class="line">            return isSuccess;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            isSuccess &#x3D; NO;</span><br><span class="line">            NSLog(@&quot;Fail to open&#x2F;create database&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return isSuccess;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(BOOL)saveData:(NSString *)registerNumber name:(NSString *)name department:(NSString *)department year:(NSString *)year; &#123;</span><br><span class="line">    const char *dbpath &#x3D; [databasePath UTF8String];</span><br><span class="line">    </span><br><span class="line">    if(sqlite3_open(dbpath, &amp;database) &#x3D;&#x3D; SQLITE_OK) &#123;</span><br><span class="line">        NSString *insertSQL &#x3D; [NSString stringWithFormat:@&quot;insert into studentsDetail (regno, name, department, year) values (\&quot;%ld\&quot;,\&quot;%@\&quot;,\&quot;%@\&quot;,\&quot;%@\&quot;)&quot;,(long)[registerNumber integerValue], name, department, year];</span><br><span class="line">        const char *insert_stmt &#x3D; [insertSQL UTF8String];</span><br><span class="line">        if(sqlite3_prepare_v2(database, insert_stmt, -1, &amp;statement, NULL) !&#x3D; SQLITE_OK) &#123;</span><br><span class="line">            NSLog(@&quot;Prepare failure:%s&quot;,sqlite3_errmsg(database));</span><br><span class="line">        &#125;</span><br><span class="line">        if(sqlite3_step(statement) &#x3D;&#x3D; SQLITE_DONE) &#123;</span><br><span class="line">            return YES;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return NO;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    sqlite3_reset(statement);</span><br><span class="line">    return NO;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(NSArray*)findByRegisterNumber:(NSString *)registerNumber&#123;</span><br><span class="line">    const char *dbpath &#x3D; [databasePath UTF8String];</span><br><span class="line">    if(sqlite3_open(dbpath, &amp;database) &#x3D;&#x3D; SQLITE_OK) &#123;</span><br><span class="line">        NSString *querySQL &#x3D; [NSString stringWithFormat:@&quot;select name, department, year from studentsDetail where regno &#x3D; \&quot;%@\&quot;&quot;,registerNumber];</span><br><span class="line">        const char *query_stmt &#x3D; [querySQL UTF8String];</span><br><span class="line">        NSMutableArray *resultArray &#x3D; [[NSMutableArray alloc] init];</span><br><span class="line">        if(sqlite3_prepare_v2(database, query_stmt, -1, &amp;statement, NULL) &#x3D;&#x3D; SQLITE_OK) &#123;</span><br><span class="line">            if(sqlite3_step(statement) &#x3D;&#x3D; SQLITE_ROW) &#123;</span><br><span class="line">                NSString *name &#x3D; [[NSString alloc] initWithUTF8String:(const char *)sqlite3_column_text(statement, 0)];</span><br><span class="line">                [resultArray addObject:name];</span><br><span class="line">                </span><br><span class="line">                NSString *department &#x3D; [[NSString alloc] initWithUTF8String:(const char*)sqlite3_column_text(statement, 1)];</span><br><span class="line">                [resultArray addObject:department];</span><br><span class="line">                </span><br><span class="line">                NSString *year &#x3D; [[NSString alloc] initWithUTF8String:(const char*)sqlite3_column_text(statement, 2)];</span><br><span class="line">                [resultArray addObject:year];</span><br><span class="line">                return resultArray;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                NSLog(@&quot;Not found&quot;);</span><br><span class="line">                return nil;</span><br><span class="line">            &#125;</span><br><span class="line">            sqlite3_reset(statement);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return nil;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>Main.storyboard</code>中添加如下组件：</p>
+<img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gof3hvfqacj30ga0gsgma.jpg" class="result" width="800" height="300" title="效果" alt="加载失败">
+</li>
+<li><p>为所有的输入框新建<code>Referencing Outlet</code></p>
+</li>
+<li><p>为两个button创建<code>Touch Up Inside</code>事件</p>
+</li>
+<li><p>创建完之后，<code>ViewController.h</code>自动被填写为:</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;UIKit&#x2F;UIKit.h&gt;</span><br><span class="line">#import &quot;DBManager.h&quot;&#x2F;&#x2F;这个是手动添加的</span><br><span class="line"></span><br><span class="line">@interface ViewController : UIViewController</span><br><span class="line">@property (weak, nonatomic) IBOutlet UITextField *findByRegisterNumberTextField;</span><br><span class="line">@property (weak, nonatomic) IBOutlet UITextField *regNoTextField;</span><br><span class="line">@property (weak, nonatomic) IBOutlet UITextField *nameTextField;</span><br><span class="line">@property (weak, nonatomic) IBOutlet UITextField *departmentTextField;</span><br><span class="line">@property (weak, nonatomic) IBOutlet UITextField *yearTextField;</span><br><span class="line">@property (weak, nonatomic) IBOutlet UIScrollView *myScrollView;</span><br><span class="line"></span><br><span class="line">- (IBAction)findData:(id)sender;</span><br><span class="line">@property (weak, nonatomic) IBOutlet UIButton *saveData;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>ViewController.m</code>中实现<code>findData</code>和<code>saveData</code></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;  ViewController.m</span><br><span class="line"></span><br><span class="line">#import &quot;ViewController.h&quot;</span><br><span class="line"></span><br><span class="line">@interface ViewController ()</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation ViewController</span><br><span class="line"></span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    &#x2F;&#x2F; Do any additional setup after loading the view.</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (IBAction)saveData:(id)sender &#123;</span><br><span class="line">    BOOL success &#x3D; NO;</span><br><span class="line">    NSString *alertString &#x3D; @&quot;Data Insertion failed&quot;;</span><br><span class="line">    if(_regNoTextField.text.length &gt; 0 &amp;&amp; _nameTextField.text.length &gt; 0 &amp;&amp; _departmentTextField.text.length &gt; 0 &amp;&amp; _yearTextField.text.length &gt; 0) &#123;</span><br><span class="line">        success &#x3D; [[DBManager getSharedInstance] saveData:_regNoTextField.text name:_nameTextField.text department:_departmentTextField.text year:_yearTextField.text];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        alertString &#x3D; @&quot;Enter all fields&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    if(success &#x3D;&#x3D; NO) &#123;</span><br><span class="line">        UIAlertController *alert &#x3D; [UIAlertController alertControllerWithTitle:alertString message:nil preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">        UIAlertAction *okAction &#x3D; [UIAlertAction actionWithTitle:@&quot;OK&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">            NSLog(@&quot;点击了OK&quot;);</span><br><span class="line">        &#125;];</span><br><span class="line">        [alert addAction:okAction];</span><br><span class="line">        [self presentViewController:alert animated:YES completion:nil];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (IBAction)findData:(id)sender &#123;</span><br><span class="line">    NSArray *data &#x3D; [[DBManager getSharedInstance] findByRegisterNumber:_findByRegisterNumberTextField.text];</span><br><span class="line">    if(data &#x3D;&#x3D; nil) &#123;</span><br><span class="line">        UIAlertController *alert &#x3D; [UIAlertController alertControllerWithTitle:@&quot;Data not found&quot; message:nil preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">        UIAlertAction *okAction &#x3D; [UIAlertAction actionWithTitle:@&quot;OK&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">        &#125;];</span><br><span class="line">        [alert addAction:okAction];</span><br><span class="line">        [self presentViewController:alert animated:YES completion:nil];</span><br><span class="line">        _regNoTextField.text &#x3D; @&quot;&quot;;</span><br><span class="line">        _nameTextField.text &#x3D;@&quot;&quot;;</span><br><span class="line">        _departmentTextField.text &#x3D; @&quot;&quot;;</span><br><span class="line">        _yearTextField.text &#x3D;@&quot;&quot;;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        _regNoTextField.text &#x3D; _findByRegisterNumberTextField.text;</span><br><span class="line">        _nameTextField.text &#x3D;[data objectAtIndex:0];</span><br><span class="line">        _departmentTextField.text &#x3D;[data objectAtIndex:1];;</span><br><span class="line">        _yearTextField.text &#x3D;[data objectAtIndex:2];;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#pragma mart - Text field delegate</span><br><span class="line">-(void)textFieldDidBeginEditing:(UITextField *)textField &#123;</span><br><span class="line">    [_myScrollView setFrame:CGRectMake(10,50,300,200)];</span><br><span class="line">    [_myScrollView setContentSize:CGSizeMake(300, 350)];</span><br><span class="line">&#125;</span><br><span class="line">-(void)textFieldDidEndEditing:(UITextField *)textField &#123;</span><br><span class="line">    [_myScrollView setFrame:CGRectMake(10, 50, 300, 350)];</span><br><span class="line">&#125;</span><br><span class="line">-(BOOL) textFieldShouldReturn:(UITextField *)textField &#123;</span><br><span class="line">    [textField resignFirstResponder];</span><br><span class="line">    return YES;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p>至此，可以通过save按钮保存数据，find按钮可以查找数据，并显示在各自输入框中</p>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><ol>
+<li><p><code>libsqlite3.dylib</code>vs<code>libsqlite3.tbd</code>vs<code>libsqlite3.0.tbd</code></p>
+<p><code>.tbd</code> 在Xcode7后替代了<code>.dylib</code> 。而<code>libsqlite3.tbd</code>只是<code>libsqlite3.0.tbd</code>的链接，也就是两者是一摸一样的，引入任意一个的效果都是一样的。</p>
+</li>
+<li><p>sqlite3的使用</p>
+<ol>
+<li><p>创建数据库</p>
+<p>SQLite的数据库就是一个文件，创建数据库也就是创建一个文件。</p>
+</li>
+<li><p>打开数据库</p>
+<p>打开数据库其实就是用<code>sqlite3_open</code>函数打开一个文件。</p>
+</li>
+<li><p>执行SQL命令</p>
+<p>SQLite中执行SQL命令有两种方式：</p>
+<ul>
+<li><code>sqlite3_exec()</code></li>
+<li><code>sqlite3_prepare_v2()</code>+<code>sqlite3_step()</code></li>
+</ul>
+<p>两者的区别可以看<a href="https://stackoverflow.com/questions/27383724/sqlite3-prepare-v2-sqlite3-exec" target="_blank" rel="noopener">stackoverflow</a>。</p>
+</li>
+</ol>
+</li>
+<li><p>弹出框的使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">UIAlertController *alert &#x3D; [UIAlertController alertControllerWithTitle:@&quot;警告的Title&quot; message:@&quot;警告的消息&quot;</span><br><span class="line">                           preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line"></span><br><span class="line">UIAlertAction *okAction &#x3D; [UIAlertAction actionWithTitle:@&quot;OK&quot;</span><br><span class="line">                           style:UIAlertActionStyleDefault</span><br><span class="line">                           handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">                             NSLog(@&quot;点击了OK&quot;);</span><br><span class="line">                           &#125;];</span><br><span class="line">UIAlertAction *cancelAction &#x3D; [UIAlertAction actionWithTitle:@&quot;Cancel&quot;</span><br><span class="line">                               style:UIAlertActionStyleCancel</span><br><span class="line">                               handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">                                 NSLog(@&quot;点击了Cancel&quot;);</span><br><span class="line">                               &#125;];</span><br><span class="line">[alert addAction:okAction];</span><br><span class="line">[alertController addAction:cancelAction];</span><br><span class="line"></span><br><span class="line">[self presentViewController:alert animated:YES completion:nil];</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+
       
     </div>
     
@@ -530,226 +554,40 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2021/03/08/github-pages-hexo-next-Travis-CI%E5%AE%9E%E7%8E%B0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="七夕先生">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/chinese/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="七夕先生的无聊生活">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/chinese/2021/03/08/github-pages-hexo-next-Travis-CI%E5%AE%9E%E7%8E%B0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" itemprop="url">github pages + hexo + next + Travis CI实现免费个人博客</a></h1>
-        
-
-        <div class="post-meta">
-        
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-08T14:55:09+00:00">
-                2021-03-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/chinese/categories/%E8%87%AA%E5%AA%92%E4%BD%93/" itemprop="url" rel="index">
-                    <span itemprop="name">自媒体</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/chinese/categories/%E8%87%AA%E5%AA%92%E4%BD%93/%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index">
-                    <span itemprop="name">博客</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/chinese/tags/Objective-C/" rel="tag"># Objective-C</a>
           
-
+            <a href="/chinese/tags/IOS%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/" rel="tag"># IOS开发入门</a>
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/chinese/2021/03/08/github-pages-hexo-next-Travis-CI%E5%AE%9E%E7%8E%B0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2021/03/08/github-pages-hexo-next-Travis-CI%E5%AE%9E%E7%8E%B0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
+            <a href="/chinese/tags/SQLite/" rel="tag"># SQLite</a>
           
-
-          
-          
-             <span id="/chinese/2021/03/08/github-pages-hexo-next-Travis-CI%E5%AE%9E%E7%8E%B0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="leancloud_visitors" data-flag-title="github pages + hexo + next + Travis CI实现免费个人博客">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,307
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  7
-                </span>
-              
-            </div>
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <p><a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>是GitHub提供的静态网页托管工具，可以用来建立个人网页，也可以建立网页介绍某个项目。</p>
-<p><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">Hexo</a>是一个博客框架，而<a href="https://theme-next.iissnan.com/" target="_blank" rel="noopener">NexT</a>是Hexo的一个主题。</p>
-<p>最后Travis CI是针对GitHub的一款持续集成工具，这里用来完成网站的自动化部署。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/chinese/2021/03/08/github-pages-hexo-next-Travis-CI%E5%AE%9E%E7%8E%B0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/chinese/2021/03/08/github-pages-hexo-next-Travis-CI%E5%AE%9E%E7%8E%B0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" rel="next" title="github pages + hexo + next + Travis CI实现免费个人博客">
+                <i class="fa fa-chevron-left"></i> github pages + hexo + next + Travis CI实现免费个人博客
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -759,10 +597,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -770,6 +609,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -793,8 +639,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -902,6 +757,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作流程"><span class="nav-number">1.</span> <span class="nav-text">操作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知识点"><span class="nav-number">2.</span> <span class="nav-text">知识点</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1047,6 +918,10 @@
 
 
   
+  <script type="text/javascript" src="/chinese/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/chinese/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
