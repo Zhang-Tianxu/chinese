@@ -85,6 +85,47 @@
       </tags>
   </entry>
   <entry>
+    <title>Objective-C IOS开发之HelloWorld</title>
+    <url>/chinese/2021/03/09/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BHelloWorld/</url>
+    <content><![CDATA[<p>IDE: XCode Version 12.4 (12D4e)</p>
+<a id="more"></a>
+<ol>
+<li>新建App</li>
+</ol>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gofu3u9dcoj314y0ten0w.jpg" alt="image-20210311120542111"></p>
+<ol start="2">
+<li>给项目命名为<code>HelloWorld</code>，Interface选择<code>Storyboard</code>，Language选择<code>Objective-C</code>。</li>
+</ol>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gofu4wmsj2j314u0t6424.jpg" alt="image-20210311120644241"></p>
+<ol start="3">
+<li>打开文件<code>Main.storyboard</code>，添加一个<code>Label</code>和<code>Button</code>组件。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gofubs0rgnj31iw0u0e02.jpg" alt=""></li>
+</ol>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gofudvnpftj312u0u0tcs.jpg" alt="image-20210311121521358"></p>
+<ol start="4">
+<li>打开两个面板，一个显示<code>Main.storyboard</code>，另一个显示<code>ViewController.h</code><br><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gofugj8ui9j31iq0fsdk5.jpg" alt=""></li>
+</ol>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gofuiw4hgvj31hx0u07i1.jpg" alt=""></p>
+<ol start="5">
+<li><p>为Label新建<code>New Referencing Outlet</code>（右键点击Label，点击<code>New Referencing Outlet</code>后的点不松开，拖到<code>ViewController.h</code>中。将新的<code>Referencing Outlet</code>命名为<code>helloLabel</code>。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gofukdlay3j31gt0u0h9a.jpg" alt=""></p>
+</li>
+<li><p>为Button添加<code>Touch Up Inside</code>事件，将事件命名为<code>showHelloWorld</code>。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gog2epczyxj30wg0u0h1n.jpg" alt=""><br>这时，<code>ViewController.h</code>的代码变为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;  ViewController.h</span><br><span class="line"></span><br><span class="line">#import &lt;UIKit&#x2F;UIKit.h&gt;</span><br><span class="line"></span><br><span class="line">@interface ViewController : UIViewController</span><br><span class="line"></span><br><span class="line">@property (weak, nonatomic) IBOutlet UILabel *helloLabel;</span><br><span class="line">- (IBAction)showHelloWorld:(id)sender;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>同时，<code>ViewController.m</code>中也自动添加了<code>- (IBAction)showHelloWorld(id)sender {}</code>函数，在其中添加<code>_helloLabel.text = @&quot;Hello World&quot;;</code></p>
+</li>
+</ol>
+<p>至此，最简单的IOS App开发完成。</p>
+]]></content>
+      <categories>
+        <category>客户端开发</category>
+        <category>IOS开发</category>
+        <category>Objective-C</category>
+      </categories>
+      <tags>
+        <tag>Objective-C</tag>
+        <tag>IOS开发入门</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>github pages + hexo + next + Travis CI实现免费个人博客</title>
     <url>/chinese/2021/03/08/github-pages-hexo-next-Travis-CI%E5%AE%9E%E7%8E%B0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<p><a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>是GitHub提供的静态网页托管工具，可以用来建立个人网页，也可以建立网页介绍某个项目。</p>
