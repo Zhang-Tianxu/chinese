@@ -1,6 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>斯坦福大学IOS7开发课程4</title>
+    <url>/chinese/2021/03/29/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B4/</url>
+    <content><![CDATA[<p>这节课主要讲了<strong>Objecitive-C的几个细节</strong>和<strong>Foundation</strong>库中的一些类</p>
+<p>本节课主要介绍iOS开发</p>
+<ul>
+<li>NSObject</li>
+<li>NSArray</li>
+<li>NSMutableArray</li>
+<li>NSNumber</li>
+<li>NSValue</li>
+<li>NSData</li>
+<li>NSDate</li>
+<li>NSSet</li>
+<li>NSMutableSet</li>
+<li>NSOrderedSet</li>
+<li>NSMutableOrderedSet</li>
+<li>NSDictionary</li>
+<li>NSMutableDictionary</li>
+<li>NSUserDefaults</li>
+<li>NSRange</li>
+<li>UIColor</li>
+<li>UIFont</li>
+<li>UIFontDescriptor</li>
+<li>NSAttributedString</li>
+<li>NSMutableAttributedString</li>
+</ul>
+<a id="more"></a>
+
+<h1 id="Objecitive-C的几个细节"><a href="#Objecitive-C的几个细节" class="headerlink" title="Objecitive-C的几个细节"></a>Objecitive-C的几个细节</h1><h2 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h2><ol>
+<li>利用Alloc &amp; init创建对象</li>
+<li>利用类的方法创建对象</li>
+<li>或者上述两者同时使用</li>
+<li>让其他对象帮忙创建类的对象<figure class="highlight"><table><tr><td class="code"><pre><span class="line">- NSString's -- (NSString *)stringByAppendingString:(NSString *)otherString</span><br><span class="line">- NSArray's -- (NSString *)componentsJoinedByString:(NSString *)separator;</span><br><span class="line">- NSString's &amp; NSArray's -- (id)mutableCopy</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="nil"><a href="#nil" class="headerlink" title="nil"></a>nil</h2><p>向nil发送消息是可以的，但是不会执行任何代码</p>
+<h2 id="动态绑定"><a href="#动态绑定" class="headerlink" title="动态绑定"></a>动态绑定</h2><p>Objective-C有个<strong>非常重要</strong>的类型——<strong>id</strong>，id是一种类型，意味“指向未知类型对象的<strong>指针</strong>”。</p>
+<p><strong>在运行过程中，所有对象的指针都是id类型的。</strong></p>
+<p>用id来指定变量类型，<strong>就是动态绑定</strong>。</p>
+<p>但是在编译过程中，如果你指定对象的类型，编译器可以帮助发现bug。</p>
+<p><strong>那么动态绑定安全么？</strong></p>
+<p>动态绑定导致可以向对象发送未定义的信息，比如该对象类型为定义的方法，当然这会导致程序崩溃。</p>
+<p>如果在代码中指定对象的类型，这种错误就可以在编译过程中被发现，防止程序在执行过程中崩溃，比如，<code>NSString *s  = @&#39;x&#39;</code>，这种情况下，如果给s发送非NSString的方法，编译器可以发现错误。</p>
+<p>当然也可以使用：<code>id obj = s</code>、<code>NSArray *a = obj</code>，但是这样<strong>编译器没办法帮忙检查错误</strong>，所以存在一定危险。</p>
+<p>另外，永远不要使用<code>id *</code>，因为<strong>id本身就是个指针</strong>。</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Vehicle</span></span></span><br><span class="line">- (<span class="keyword">void</span>)move;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Ship</span> : <span class="title">Vehicle</span></span></span><br><span class="line">- (<span class="keyword">void</span>)shoot;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">Ship *s = [[Ship alloc] init];</span><br><span class="line">[s shoot];</span><br><span class="line">[s move];</span><br><span class="line"></span><br><span class="line">Vehicle *v = s; <span class="comment">// 合法</span></span><br><span class="line">[v shoot]; <span class="comment">// 编译器会给出警告，因为它以为v是Vehicle</span></span><br><span class="line">          <span class="comment">//但是运行时不会崩溃，因为v实际上是一个Ship</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">id</span> obj = ...; <span class="comment">// 任意定义obj，比如NSString；</span></span><br><span class="line">[obj shoot;] <span class="comment">// 编译器不会给出警告，因为它知道shoot函数确实存在，同时它又不知道obj的类型，因此编译器无法给出警告。</span></span><br><span class="line"><span class="comment">// 但是，实际运行中，程序会崩溃。</span></span><br><span class="line">[obj someMethodNameThatNoObjectAnywhereRespondsTo];</span><br><span class="line"><span class="comment">// 这个时候编译器会给出警告，因为它知道没有任何函数叫someMethodNameThatNoObjectAnywhereRespondsTo</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *hello = <span class="string">@"hello"</span>;</span><br><span class="line">[hello shoot]; <span class="comment">// 编译器会给出警告，因为NSString没有shoot函数</span></span><br><span class="line">Ship *helloShip = (Ship *)hello; <span class="comment">// 编译器不会给出警告 </span></span><br><span class="line">[helloShip shoot];<span class="comment">// 导致运行时崩溃</span></span><br><span class="line">[(<span class="keyword">id</span>)hello shoot]; <span class="comment">//编译器不会给出警告，但是运行时会崩溃</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>什么时候会用到危险的动态绑定（id）</strong></p>
+<ol>
+<li>Objective-C允许在同一个collection（比如NSArray）中有不同类型的类，想这么做时，需要用到动态绑定。 </li>
+<li>当希望使用MVC中的blind/structured通信（比如delegation）时。</li>
+</ol>
+<p><strong>为了把动态绑定变得安全</strong>，需要使用Introspection和Protocols</p>
+<ul>
+<li><p>Introspection</p>
+<p>在运行时询问id是什么类型或询问可以向其发送的信息。</p>
+<p>继承自NSObject的所有对象都有下面三个函数：</p>
+<ol>
+<li><p><code>isKindOfClass:</code></p>
+<p>判断对象是不是某种类，包含继承的情况</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>([obj isKindOfClass:[<span class="built_in">NSString</span> <span class="keyword">class</span>]]) &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *s = [(<span class="built_in">NSString</span>*)obj stringByAppendingString:<span class="string">@"xyzzy"</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比如在纸牌匹配游戏中<code>PlayingCard.m</code>的<code>match</code>函数的源代码为：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">int</span>)match:(<span class="built_in">NSArray</span> *)otherCards</span><br><span class="line"> &#123;</span><br><span class="line">    <span class="keyword">int</span> score = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span>([otherCards count] == <span class="number">1</span>) &#123;</span><br><span class="line">        PlayingCard *otherCard = [otherCards firstObject];</span><br><span class="line">      <span class="keyword">if</span>([<span class="keyword">self</span>.suit isEqualToString:otherCard.suit]) &#123;</span><br><span class="line">            score = <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">self</span>.rank == otherCard.rank) &#123;</span><br><span class="line">            score = <span class="number">4</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以改为：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">int</span>)match:(<span class="built_in">NSArray</span> *)otherCards</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> score = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>([otherCards count] == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">id</span> card = [otherCards firstObject];</span><br><span class="line">        <span class="keyword">if</span>([card isKindOfClass:[PlayingCard <span class="keyword">class</span>]]) &#123;</span><br><span class="line">            PlayingCard *otherCard = (PlayingCard *)card;</span><br><span class="line">            <span class="keyword">if</span>([<span class="keyword">self</span>.suit isEqualToString:otherCard.suit]) &#123;</span><br><span class="line">                score = <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">self</span>.rank == otherCard.rank) &#123;</span><br><span class="line">                score = <span class="number">4</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>isMemberOfClass:</code></p>
+<p>判断对象是不是某种类，不包括继承的情况</p>
+</li>
+<li><p><code>respondsToSelector:</code></p>
+<p>判断对象能否相应某个函数</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>([obj respondsToSelector:<span class="keyword">@selector</span>(shoot)]) &#123;</span><br><span class="line">    [obj shoot];</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> ([obj respondsToSelector:<span class="keyword">@selector</span>(shootAt:)]) &#123;</span><br><span class="line">    [obj shootAt:target];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li><p>在objective-C中，SEL是selector的一种类型</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">SEL shootSelector = <span class="keyword">@selector</span>(shoot);</span><br><span class="line">SEL shootAtSelector = <span class="keyword">@selector</span>(shootAt:);</span><br><span class="line">SEL moveToSelelctor = <span class="keyword">@selector</span>(moveTo:withPenColor);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>给定SEL，可以要求对象执行selector</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">[obj performSelector:shootSelector];</span><br><span class="line">[obj performSelector:shootAtSelector withObject:coordinate];</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">[array makeObjectsPerformSelector:shootSelector];</span><br><span class="line"><span class="comment">// cool, huh?</span></span><br><span class="line">[array makeObjectsPerformSelector:shootAtSelector withObject:target];</span><br><span class="line"><span class="comment">// target is an id</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Protocols</p>
+<p>不指定指针指向的对象类型，但是指定其实现的函数。</p>
+</li>
+</ul>
+<h1 id="Foundation库"><a href="#Foundation库" class="headerlink" title="Foundation库"></a>Foundation库</h1><h2 id="NSObject"><a href="#NSObject" class="headerlink" title="NSObject"></a>NSObject</h2><p>在iOS SDK中 ，NSObject几乎是所有类的基类。</p>
+<p>NSObject包含一个非常有用的函数<code>- (NSString *)description</code>，会返回对类的描述，所以最好在自己实现的类中对其重写。该函数一般用在两个地方：</p>
+<ul>
+<li><p>用NSLog打印出来，<code>NSLog(@&quot;array contents are  %@&quot;, myArray);</code>，用于debug</p>
+</li>
+<li><p>并不是所有的对象都实现了<code>- (id)copy</code>和<code>- (id)mutableCopy</code>，在未实现它们的对象中调用，会抛出异常</p>
+</li>
+<li><p>你向可修改对象（比如MutableArray）发送copy，返回值并不是可修改对象，而是获得一个不可修改的对象。</p>
+</li>
+</ul>
+<h2 id="NSArray"><a href="#NSArray" class="headerlink" title="NSArray"></a>NSArray</h2><p>NSArray是对象的有序集合，不可修改（immutable），一旦创建，不能添加或删除对象。</p>
+<p>只要NSArray本身在内存的堆中，其中所有的对象都有strong指针指向它们。</p>
+<p>一般通过<code>@[]</code>手动创建NSArray，NSArray中包括以下一些关键函数：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="built_in">NSUInteger</span>)count;</span><br><span class="line">- (<span class="keyword">id</span>)objectAtIndex:(<span class="built_in">NSUInteger</span>)index; <span class="comment">//如果index超出边界，程序崩溃</span></span><br><span class="line">- (<span class="keyword">id</span>)lastObject; <span class="comment">//如果数组为空，返回nil，不会导致程序崩溃</span></span><br><span class="line">- (<span class="keyword">id</span>)firstObject; <span class="comment">//如果数组为空，返回nil，不会导致程序崩溃</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSArray</span> *)sortedArrayUsingSelector:(SEL)aSelector;</span><br><span class="line">- (<span class="keyword">void</span>)makeObjectsPerformsSelector:(SEL)aSelector withObject:(<span class="keyword">id</span>)selectorArgument;</span><br><span class="line">- (<span class="built_in">NSString</span> *)componentsJoinedByString:(<span class="built_in">NSString</span> *)separator;</span><br></pre></td></tr></table></figure>
+
+<h2 id="NSMutableArray"><a href="#NSMutableArray" class="headerlink" title="NSMutableArray"></a>NSMutableArray</h2><p>是NSArray的可变版本（mutable），继承了NSArray的所有函数</p>
+<p>一般通过<code>alloc/init</code>创建，或者通过以下函数创建</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">+ (<span class="keyword">id</span>)arrayWithCapacity:(<span class="built_in">NSUInteger</span>)numItems;</span><br><span class="line">+ (<span class="keyword">id</span>)array;<span class="comment">//[NSMutableArray array] 等价于 [[NSMutableArray alloc] init]</span></span><br></pre></td></tr></table></figure>
+
+<p>对于NSArray和NSMutableArray两种数组，可以用for-in的方式遍历：</p>
+<p>Objective-C支持for-in形式的数组遍历。需要注意的是，for-in形式的数组遍历默认会进行强制类型转换，比如：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *myArray = ...;<span class="comment">// 任意类型数组</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">NSString</span> *string <span class="keyword">in</span> myArray) &#123; <span class="comment">//编译器不知道数组中的数据类型</span></span><br><span class="line">  <span class="keyword">double</span> = value = [string doubleValue];<span class="comment">// 如果string的类型并不是NSString，会导致程序崩溃</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么如果数组中的数据类型不同，如何进行遍历呢？可以使用id</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *myArray = ...;<span class="comment">// 同样，任意类型的数组</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">id</span> obj <span class="keyword">in</span> myArray) &#123;</span><br><span class="line">  <span class="comment">// 通过某些方法确认obj是你想要的类型，防止程序崩溃</span></span><br><span class="line">  <span class="keyword">if</span>([obj isKindOfClass:[<span class="built_in">NSString</span> <span class="keyword">class</span>]]) &#123;</span><br><span class="line">    <span class="comment">// 这是确认了obj的类型是NSString</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="NSNumber"><a href="#NSNumber" class="headerlink" title="NSNumber"></a>NSNumber</h2><p>NSNumber是对元类型int、float、double、BOOL、enum等的封装。<strong>当你想把这些元类型的数据放入同一个数组时很有用。</strong></p>
+<h2 id="NSValue"><a href="#NSValue" class="headerlink" title="NSValue"></a>NSValue</h2><p>类似于NSNumber，但是用来封装一些非对象、非元类型的数据，例如c structs。</p>
+<h2 id="NSData"><a href="#NSData" class="headerlink" title="NSData"></a>NSData</h2><p>用于存储bits</p>
+<h2 id="NSDate"><a href="#NSDate" class="headerlink" title="NSDate"></a>NSDate</h2><p>用于存储日期，相关的类型还有NSCalendar，NSDateFormatter，NSDateComponents。</p>
+<h2 id="NSSet-NSMutableSet"><a href="#NSSet-NSMutableSet" class="headerlink" title="NSSet/NSMutableSet"></a>NSSet/NSMutableSet</h2><h2 id="NSOrderedSet-NSMutableOrderedSet"><a href="#NSOrderedSet-NSMutableOrderedSet" class="headerlink" title="NSOrderedSet/NSMutableOrderedSet"></a>NSOrderedSet/NSMutableOrderedSet</h2><h2 id="NSDictionary"><a href="#NSDictionary" class="headerlink" title="NSDictionary"></a>NSDictionary</h2><p>存储键值对，不可修改。</p>
+<p>NSDictionary可以用<code>@{key1:value1, key2:value2}</code>创建，比如：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="built_in">NSDictionary</span> *colors = @&#123; <span class="string">@"green"</span> : [<span class="built_in">UIColor</span> greenColor],</span><br><span class="line">                        <span class="string">@"blue"</span> : [<span class="built_in">UIColor</span> blueColor],</span><br><span class="line">                        <span class="string">@"red"</span> : [<span class="built_in">UIColor</span> redColor]&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *colorString = <span class="string">@"red"</span>;</span><br><span class="line"><span class="built_in">UIColor</span> *colorObject = colors[colorString];</span><br></pre></td></tr></table></figure>
+
+<h2 id="NSMutableDictionary"><a href="#NSMutableDictionary" class="headerlink" title="NSMutableDictionary"></a>NSMutableDictionary</h2><p>NSDictionary的可修改版本，出了继承了NSDictionary所有的函数，还有下面几个重要函数：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">id</span>)anObject forKey:(<span class="keyword">id</span>)key;</span><br><span class="line">- (<span class="keyword">void</span>)removeObjectForKey:(<span class="keyword">id</span>)key;</span><br><span class="line">- (<span class="keyword">void</span>)removeAllObjects;</span><br><span class="line">- (<span class="keyword">void</span>)addEntriesFromDictionary:(<span class="built_in">NSDictionary</span> *)otherDictionary;</span><br></pre></td></tr></table></figure>
+
+<p>Dictionary和NSMutableDictionary可用如下方法遍历：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="built_in">NSDictionary</span> *myDictionary = ...;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">id</span> key <span class="keyword">in</span> myDictionary) &#123;</span><br><span class="line">  <span class="comment">// do something with key here</span></span><br><span class="line">  <span class="keyword">id</span> value = [myDictionary objectForKey:key];</span><br><span class="line">  <span class="comment">// do something with value here</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="NSUserDefaults"><a href="#NSUserDefaults" class="headerlink" title="NSUserDefaults"></a>NSUserDefaults</h2><p>介绍NSUserDefaults之前，需要先介绍一个术语：<strong><em>Property List</em></strong></p>
+<p>Property List是一个iOS开发中常用术语，在一些API中会用到，比如：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)writeToFile:(<span class="built_in">NSString</span> *)path atomically:(<span class="built_in">BOOL</span>)atom;</span><br></pre></td></tr></table></figure>
+
+<p>这个函数只能发送给NSArray或NSDictionary，并且其中只能包含Property List对象。</p>
+<ul>
+<li><p><strong>概念：</strong></p>
+<p>Property List可以理解为只包含NSArray、NSDictionary、NSNumber、NSString、NSDate、NSDate的一个集合，并且Property List是一个递归的概念。</p>
+<p>比如一个由NSString组成的NSArray，就是一个Property List</p>
+<p>一个由NSArray组成的NSArray是不是一个Property List要看子NSArray是不是Property List，如果是，那组成的NSArray就是一个Property List，否则不是。</p>
+<p>对于NSDictionary，只有当其所有key和value都是Property List的时候才是Property List</p>
+<p>那么，假设有一个NSArray，其中包含了多个NSDictionary，这些NSDictionary的key都是NSString，value都是NSNumber，那么这个NSArray也是个Property List</p>
+</li>
+</ul>
+<p>NSUserDefaults就是Property List的轻量级存储，可以看成一个持久存储的NSDictionary。算不上一个数据库，通常只用来存储小数据，比如用户设置。</p>
+<p>利用standardUserDefaults读写：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">[[<span class="built_in">NSUserDefaults</span> standardUserDefaults] setArray:rvArray forKey:<span class="string">@"RecentlyViewed"</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setDouble:(<span class="keyword">double</span>)aDouble forKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line">- (<span class="built_in">NSInteger</span>)integerForKey;(<span class="built_in">NSString</span> *)key; <span class="comment">// NSInteger is a typedef to 32 or 64 bit int</span></span><br><span class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">id</span>)obj forKey:(<span class="built_in">NSString</span> *)key; <span class="comment">//obj must be a Property List</span></span><br><span class="line">-(<span class="built_in">NSArray</span> *)arrayForKey:(<span class="built_in">NSString</span> *)key; <span class="comment">// will return nil if value for key is not NSArray</span></span><br></pre></td></tr></table></figure>
+
+<p>更改后一定要使用synchronize进行同步，才能写入永久内存。</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">[[<span class="built_in">NSUser</span> Defaults standardUserDefaults] synchronize];</span><br></pre></td></tr></table></figure>
+
+<h2 id="NSRange"><a href="#NSRange" class="headerlink" title="NSRange"></a>NSRange</h2><p>是一个类似C语言中struct的结构，用于指定string和数组的界限，其结构如下：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">  <span class="built_in">NSUInteger</span> location;</span><br><span class="line">  <span class="built_in">NSUInteger</span> length;</span><br><span class="line">&#125; <span class="built_in">NSRange</span>;</span><br></pre></td></tr></table></figure>
+
+<p>使用方法如下：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *greeting = <span class="string">@"hello world"</span>;</span><br><span class="line"><span class="built_in">NSString</span> *hi = <span class="string">@"hi"</span>;</span><br><span class="line"><span class="built_in">NSRange</span> r = [greeting rangeOfString:hi];</span><br><span class="line"><span class="keyword">if</span>(r.location == <span class="built_in">NSNotFound</span>) &#123;</span><br><span class="line">  <span class="comment">//没能在greeting中找到hi</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="UIColor"><a href="#UIColor" class="headerlink" title="UIColor"></a>UIColor</h2><p>一个非常简单的类，用于表示颜色。可以用RGB或者HSB等方法初始化。</p>
+<h2 id="UIFont"><a href="#UIFont" class="headerlink" title="UIFont"></a>UIFont</h2><p>字体在UI设计中非常重要，iOS在不同截面显示的字体变化很大，所以要重视UIFont这个类。</p>
+<p>对于展示内容而言，使用Font<strong>最好的方法</strong>是调用<code>preferredFontForTextStyle</code></p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="built_in">UIFont</span> *font = [<span class="built_in">UIFont</span> preferredFontForTextStyle:<span class="built_in">UIFontTextStyleBody</span>];</span><br></pre></td></tr></table></figure>
+
+<p>除了<code>UIFontTextStyleBody</code>，还有<code>UIFontTextStyleHeadline</code>、<code>UIFontTextStyleCaption1</code>、<code>UIFontTextStyleFootnote</code>等等。</p>
+<p>对于按键内容等，可以使用系统字体：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">+ (<span class="built_in">UIFont</span> *)systemFontOfSize:(<span class="built_in">CGFloat</span>)pointSize;</span><br><span class="line">+ (<span class="built_in">UIFont</span> *)boldSystemFontOfSize:(<span class="built_in">CGFloat</span>)pointSize;</span><br></pre></td></tr></table></figure>
+
+<p><strong>不要将系统字体用于内容。</strong></p>
+<h2 id="UIFontDescriptor"><a href="#UIFontDescriptor" class="headerlink" title="UIFontDescriptor"></a>UIFontDescriptor</h2><p>字体是由艺术家设计的，并没有特定的准则，有些字体甚至没有加黑。尽管如此，UIFontDescriptor尝试对所有字体进行分类。</p>
+<h2 id="NSAttributedString"><a href="#NSAttributedString" class="headerlink" title="NSAttributedString"></a>NSAttributedString</h2><p>iOS开发中经常需要显示一些带有特殊样式的文本，比如说带有下划线、删除线、斜体、空心字体、背景色、阴影以及图文混排（一种文字中夹杂图片的显示效果）。</p>
+<p>通常想要实现这些效果要使用到iOS的Foundation框架提供的NSAttributedString类，NSAttributedString类中有许多属性，不同属性对应不同的文本样式。本文主要对这些属性做一个解释说明，并会结合实际代码来应用它们。</p>
+<p>可以将NSAttributedString想象成NSString，其每个字母有个叫做attributes的NSDictionary。 </p>
+<p>NSAttributedString<strong>不是</strong>NSString的继承，所以不能使用NSString的函数。</p>
+<h2 id="NSMutableAttributedString"><a href="#NSMutableAttributedString" class="headerlink" title="NSMutableAttributedString"></a>NSMutableAttributedString</h2><p>相对于NSAttributedString，NSMutableAttributedString更加常用。</p>
+<p>添加或者设置字母对应attributes的方法：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)addAttributes:(<span class="built_in">NSDictionary</span> *)attributes range:(<span class="built_in">NSRange</span>)range;</span><br><span class="line">- (<span class="keyword">void</span>)setAttributeds:(<span class="built_in">NSDictionary</span> *)attributes range:(<span class="built_in">NSRange</span>)range;</span><br><span class="line">-(<span class="keyword">void</span>)removeAttribute:(<span class="built_in">NSString</span> *)attributeName range:(<span class="built_in">NSRange</span>)range;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="built_in">UIColor</span> *yellow = [<span class="built_in">UIColor</span> yellowColor];</span><br><span class="line"><span class="built_in">UIColor</span> *transparentYellow = [yellow colorWithAlphaComponent:<span class="number">0.3</span>];</span><br><span class="line">@&#123; <span class="built_in">NSFontAttributeName</span>:</span><br><span class="line">     [<span class="built_in">UIFont</span> preferredFontWithTextStyle:<span class="built_in">UIFontTextStyleHeadline</span>],</span><br><span class="line">   <span class="built_in">NSForegroundColorAttributeName</span> : [<span class="built_in">UIColor</span> greenColor], <span class="comment">// 字体颜色</span></span><br><span class="line">   <span class="built_in">NSStrokeWidthAttributeName</span> : @<span class="number">-5</span>,</span><br><span class="line">   <span class="built_in">NSStrokeColorAttributeName</span> : [<span class="built_in">UIColor</span> redColor],</span><br><span class="line">   <span class="built_in">NSUnderlineStyleAttributeName</span> : @(<span class="built_in">NSUnderlineStyleNone</span>), <span class="comment">// 设置字体描边</span></span><br><span class="line">   <span class="built_in">NSBackgroundColorAttributeName</span> : transparentYellow <span class="comment">// 设置字体背景颜色</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gp14yomq5ij30ds0oggrt.jpg" alt="image-20210329221812138"></p>
+<p>attributed strings用在哪里？</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">// UIButton</span></span><br><span class="line">- (<span class="keyword">void</span>)setAttributedTitle:(<span class="built_in">NSAttributedString</span> *)title forState:...;</span><br><span class="line"></span><br><span class="line"><span class="comment">// UILable</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSAttributedString</span> *attributedText;</span><br><span class="line"></span><br><span class="line"><span class="comment">// UITextView</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSTextStorage</span> *textStorage;</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+  </entry>
+  <entry>
     <title>斯坦福大学IOS7开发课程3</title>
     <url>/chinese/2021/03/22/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B3/</url>
     <content><![CDATA[<h1 id="斯坦福大学IOS7开发课程3"><a href="#斯坦福大学IOS7开发课程3" class="headerlink" title="斯坦福大学IOS7开发课程3"></a>斯坦福大学IOS7开发课程3</h1><p>课程3主要内容是继续之前的纸牌游戏。上节课实现的纸牌游戏App只是实现了简单的纸牌翻转，这节课使其变得真正可玩。</p>
