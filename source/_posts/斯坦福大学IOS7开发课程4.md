@@ -2,6 +2,12 @@
 title: 斯坦福大学IOS7开发课程4
 date: 2021-03-29 22:27:07
 tags:
+    - IOS开发入门
+    - Objective-C
+categories:
+    - 客户端开发
+    - IOS开发
+    - Objective-C
 ---
 这节课主要讲了**Objecitive-C的几个细节**和**Foundation**库中的一些类
 
