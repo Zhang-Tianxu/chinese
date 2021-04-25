@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Objective-C,IOS开发入门,SQLite," />
+  <meta name="keywords" content="Objective-C,IOS开发入门," />
 
 
 
@@ -79,26 +79,21 @@
 
 
 
-<meta name="description" content="IDE: XCode Version 12.4 (12D4e) 参考IOS开发教程 操作流程">
+<meta name="description" content="这节课主要讲解：  View Controller的生命周期 NotificationCenter的相关知识 组件UITextView的简单使用  并通过Demo展示">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Objective-C IOS开发之SQLite数据库">
-<meta property="og:url" content="https://zhang-tianxu.github.io/chinese/2021/03/10/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BSQLite%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+<meta property="og:title" content="斯坦福大学IOS7开发课程5">
+<meta property="og:url" content="https://zhang-tianxu.github.io/chinese/2021/04/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B5/index.html">
 <meta property="og:site_name" content="七夕先生的无聊生活">
-<meta property="og:description" content="IDE: XCode Version 12.4 (12D4e) 参考IOS开发教程 操作流程">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gof54maa10j314p0u0af4.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gof54tkttyj30ng0qon0f.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gof56z2pxuj30u00xm4ee.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gof57eshyqj315i0te0y6.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gof57v7yg2j31600u0gpo.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gof3hvfqacj30ga0gsgma.jpg">
-<meta property="article:published_time" content="2021-03-10T21:45:33.000Z">
+<meta property="og:description" content="这节课主要讲解：  View Controller的生命周期 NotificationCenter的相关知识 组件UITextView的简单使用  并通过Demo展示">
+<meta property="og:image" content="https://developer.apple.com/library/archive/referencelibrary/GettingStarted/DevelopiOSAppsSwift/Art/WWVC_vclife_2x.png">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1gptqmdv9uwj30i40zs41r.jpg">
+<meta property="article:published_time" content="2021-04-25T13:37:05.000Z">
 <meta property="article:modified_time" content="2021-04-25T05:41:14.889Z">
 <meta property="article:author" content="七夕先生">
 <meta property="article:tag" content="Objective-C">
 <meta property="article:tag" content="IOS开发入门">
-<meta property="article:tag" content="SQLite">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gof54maa10j314p0u0af4.jpg">
+<meta name="twitter:image" content="https://developer.apple.com/library/archive/referencelibrary/GettingStarted/DevelopiOSAppsSwift/Art/WWVC_vclife_2x.png">
 
 
 
@@ -128,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://zhang-tianxu.github.io/chinese/2021/03/10/Objective-C-IOS开发之SQLite数据库/"/>
+  <link rel="canonical" href="https://zhang-tianxu.github.io/chinese/2021/04/25/斯坦福大学IOS7开发课程5/"/>
 
 
 
 
 
-  <title>Objective-C IOS开发之SQLite数据库 | 七夕先生的无聊生活</title>
+  <title>斯坦福大学IOS7开发课程5 | 七夕先生的无聊生活</title>
   
 
 
@@ -306,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2021/03/10/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BSQLite%E6%95%B0%E6%8D%AE%E5%BA%93/">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2021/04/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="七夕先生">
@@ -323,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Objective-C IOS开发之SQLite数据库</h1>
+          <h1 class="post-title" itemprop="name headline">斯坦福大学IOS7开发课程5</h1>
         
 
         <div class="post-meta">
@@ -336,8 +331,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-10T21:45:33+00:00">
-                2021-03-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-25T13:37:05+00:00">
+                2021-04-25
               </time>
             
 
@@ -399,8 +394,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/chinese/2021/03/10/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BSQLite%E6%95%B0%E6%8D%AE%E5%BA%93/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2021/03/10/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BSQLite%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="commentCount"></span>
+                <a href="/chinese/2021/04/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B5/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2021/04/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B5/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -408,7 +403,7 @@
 
           
           
-             <span id="/chinese/2021/03/10/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BSQLite%E6%95%B0%E6%8D%AE%E5%BA%93/" class="leancloud_visitors" data-flag-title="Objective-C IOS开发之SQLite数据库">
+             <span id="/chinese/2021/04/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B5/" class="leancloud_visitors" data-flag-title="斯坦福大学IOS7开发课程5">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -433,7 +428,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,263
+                  2,181
                 </span>
               
 
@@ -449,7 +444,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
+                  9
                 </span>
               
             </div>
@@ -470,76 +465,165 @@
       
 
       
-        <p>IDE: XCode Version 12.4 (12D4e)</p>
-<p>参考<a href="https://www.tutorialspoint.com/ios/ios_sqlite_database.htm" target="_blank" rel="noopener">IOS开发教程</a></p>
-<h2 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h2><a id="more"></a>
-
+        <p>这节课主要讲解：</p>
 <ol>
-<li><p>Xcode创建一个APP</p>
-</li>
-<li><p>选中项目文件，选中TARGETS，然后在框架（frameworks, Libraries, and Embedded Content）中添加<strong>libsqlite3.tbd</strong>（libsqlite3.0.tbd也一样）</p>
-<img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gof54maa10j314p0u0af4.jpg" class="addSQLiteLibImg" width="500" height="600" title="添加SQLite库" alt="加载失败">
-<img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gof54tkttyj30ng0qon0f.jpg" class="addSQLiteLibImg2" width="500" height="300" title="添加SQLite库2" alt="加载失败">
-</li>
-<li><p>新建Objective-C类（File-&gt;New-&gt;File）选择Cocoa Touch Class，点击Next，Subclass of选择NSObject，language选Objective-C。</p>
-<img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gof56z2pxuj30u00xm4ee.jpg" class="addObjcClassImg" width="800" height="300" title="添加Objective-C类" alt="加载失败">
-<img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gof57eshyqj315i0te0y6.jpg" class="addObjcClassImg2" width="400" height="300" title="添加Objective-C类2" alt="加载失败">
-</li>
-<li><p>将类的名字命名为DBManager，点击Next创建</p>
-<img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gof57v7yg2j31600u0gpo.jpg" class="addDBManager" width="400" height="300" title="创建DBManager" alt="加载失败">
-</li>
-<li><p>项目中会增加<code>DBManager.h</code>和<code>DBManager.m</code>两个文件，其代码是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;DBManager.h</span><br><span class="line"></span><br><span class="line">#import &lt;Foundation&#x2F;Foundation.h&gt;</span><br><span class="line">#import &lt;sqlite3.h&gt;</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_BEGIN</span><br><span class="line"></span><br><span class="line">@interface DBManager : NSObject &#123;</span><br><span class="line">    NSString *databasePath;</span><br><span class="line">&#125;</span><br><span class="line">+(DBManager*)getSharedInstance;</span><br><span class="line">-(BOOL)createDB;</span><br><span class="line">-(BOOL) saveData:(NSString*)registerNumber name:(NSString*)name department:(NSString*)department year:(NSString*)year;</span><br><span class="line">-(NSArray*) findByRegisterNumber:(NSString*)registerNumber;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_END</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;DBManager.m</span><br><span class="line"></span><br><span class="line">#import &quot;DBManager.h&quot;</span><br><span class="line"></span><br><span class="line">static DBManager *sharedInstance &#x3D; nil;</span><br><span class="line">static sqlite3 *database &#x3D; nil;</span><br><span class="line">static sqlite3_stmt *statement&#x3D; nil;</span><br><span class="line"></span><br><span class="line">@implementation DBManager</span><br><span class="line"></span><br><span class="line">+(DBManager*)getSharedInstance&#123;</span><br><span class="line">    if(!sharedInstance) &#123;</span><br><span class="line">        sharedInstance &#x3D; [[super allocWithZone:NULL]init];</span><br><span class="line">        [sharedInstance createDB];</span><br><span class="line">    &#125;</span><br><span class="line">    return sharedInstance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(BOOL)createDB &#123;</span><br><span class="line">    NSString *docsDir;</span><br><span class="line">    NSArray *dirPaths;</span><br><span class="line">    &#x2F;&#x2F; get the documents directory</span><br><span class="line">    dirPaths &#x3D; NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);</span><br><span class="line">    docsDir &#x3D; dirPaths[0];</span><br><span class="line">    &#x2F;&#x2F; build the path to the database file</span><br><span class="line">    databasePath &#x3D; [[NSString alloc] initWithString:[docsDir stringByAppendingPathComponent:@&quot;student.db&quot;]];</span><br><span class="line">    BOOL isSuccess &#x3D; YES;</span><br><span class="line">    NSFileManager* filemgr &#x3D; [NSFileManager defaultManager];</span><br><span class="line">    </span><br><span class="line">    if([filemgr fileExistsAtPath:databasePath] !&#x3D; NO) &#123;</span><br><span class="line">        const char *dbpath &#x3D; [databasePath UTF8String];</span><br><span class="line">        if(sqlite3_open(dbpath, &amp;database) &#x3D;&#x3D; SQLITE_OK) &#123;</span><br><span class="line">            char *errMsg;</span><br><span class="line">            const char *sql_stmt &#x3D;</span><br><span class="line">            &quot;create table if not exists studentsDetail (regno integer primary key, name text, department text, year text)&quot;;</span><br><span class="line">            if(sqlite3_exec(database, sql_stmt, NULL, NULL, &amp;errMsg) !&#x3D; SQLITE_OK) &#123;</span><br><span class="line">                isSuccess &#x3D; NO;</span><br><span class="line">                NSLog(@&quot;Fail to create table&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            sqlite3_close(database);</span><br><span class="line">            return isSuccess;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            isSuccess &#x3D; NO;</span><br><span class="line">            NSLog(@&quot;Fail to open&#x2F;create database&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return isSuccess;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(BOOL)saveData:(NSString *)registerNumber name:(NSString *)name department:(NSString *)department year:(NSString *)year; &#123;</span><br><span class="line">    const char *dbpath &#x3D; [databasePath UTF8String];</span><br><span class="line">    </span><br><span class="line">    if(sqlite3_open(dbpath, &amp;database) &#x3D;&#x3D; SQLITE_OK) &#123;</span><br><span class="line">        NSString *insertSQL &#x3D; [NSString stringWithFormat:@&quot;insert into studentsDetail (regno, name, department, year) values (\&quot;%ld\&quot;,\&quot;%@\&quot;,\&quot;%@\&quot;,\&quot;%@\&quot;)&quot;,(long)[registerNumber integerValue], name, department, year];</span><br><span class="line">        const char *insert_stmt &#x3D; [insertSQL UTF8String];</span><br><span class="line">        if(sqlite3_prepare_v2(database, insert_stmt, -1, &amp;statement, NULL) !&#x3D; SQLITE_OK) &#123;</span><br><span class="line">            NSLog(@&quot;Prepare failure:%s&quot;,sqlite3_errmsg(database));</span><br><span class="line">        &#125;</span><br><span class="line">        if(sqlite3_step(statement) &#x3D;&#x3D; SQLITE_DONE) &#123;</span><br><span class="line">            return YES;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return NO;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    sqlite3_reset(statement);</span><br><span class="line">    return NO;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(NSArray*)findByRegisterNumber:(NSString *)registerNumber&#123;</span><br><span class="line">    const char *dbpath &#x3D; [databasePath UTF8String];</span><br><span class="line">    if(sqlite3_open(dbpath, &amp;database) &#x3D;&#x3D; SQLITE_OK) &#123;</span><br><span class="line">        NSString *querySQL &#x3D; [NSString stringWithFormat:@&quot;select name, department, year from studentsDetail where regno &#x3D; \&quot;%@\&quot;&quot;,registerNumber];</span><br><span class="line">        const char *query_stmt &#x3D; [querySQL UTF8String];</span><br><span class="line">        NSMutableArray *resultArray &#x3D; [[NSMutableArray alloc] init];</span><br><span class="line">        if(sqlite3_prepare_v2(database, query_stmt, -1, &amp;statement, NULL) &#x3D;&#x3D; SQLITE_OK) &#123;</span><br><span class="line">            if(sqlite3_step(statement) &#x3D;&#x3D; SQLITE_ROW) &#123;</span><br><span class="line">                NSString *name &#x3D; [[NSString alloc] initWithUTF8String:(const char *)sqlite3_column_text(statement, 0)];</span><br><span class="line">                [resultArray addObject:name];</span><br><span class="line">                </span><br><span class="line">                NSString *department &#x3D; [[NSString alloc] initWithUTF8String:(const char*)sqlite3_column_text(statement, 1)];</span><br><span class="line">                [resultArray addObject:department];</span><br><span class="line">                </span><br><span class="line">                NSString *year &#x3D; [[NSString alloc] initWithUTF8String:(const char*)sqlite3_column_text(statement, 2)];</span><br><span class="line">                [resultArray addObject:year];</span><br><span class="line">                return resultArray;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                NSLog(@&quot;Not found&quot;);</span><br><span class="line">                return nil;</span><br><span class="line">            &#125;</span><br><span class="line">            sqlite3_reset(statement);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return nil;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在<code>Main.storyboard</code>中添加如下组件：</p>
-<img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gof3hvfqacj30ga0gsgma.jpg" class="result" width="800" height="300" title="效果" alt="加载失败">
-</li>
-<li><p>为所有的输入框新建<code>Referencing Outlet</code></p>
-</li>
-<li><p>为两个button创建<code>Touch Up Inside</code>事件</p>
-</li>
-<li><p>创建完之后，<code>ViewController.h</code>自动被填写为:</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;UIKit&#x2F;UIKit.h&gt;</span><br><span class="line">#import &quot;DBManager.h&quot;&#x2F;&#x2F;这个是手动添加的</span><br><span class="line"></span><br><span class="line">@interface ViewController : UIViewController</span><br><span class="line">@property (weak, nonatomic) IBOutlet UITextField *findByRegisterNumberTextField;</span><br><span class="line">@property (weak, nonatomic) IBOutlet UITextField *regNoTextField;</span><br><span class="line">@property (weak, nonatomic) IBOutlet UITextField *nameTextField;</span><br><span class="line">@property (weak, nonatomic) IBOutlet UITextField *departmentTextField;</span><br><span class="line">@property (weak, nonatomic) IBOutlet UITextField *yearTextField;</span><br><span class="line">@property (weak, nonatomic) IBOutlet UIScrollView *myScrollView;</span><br><span class="line"></span><br><span class="line">- (IBAction)findData:(id)sender;</span><br><span class="line">@property (weak, nonatomic) IBOutlet UIButton *saveData;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在<code>ViewController.m</code>中实现<code>findData</code>和<code>saveData</code></p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;  ViewController.m</span><br><span class="line"></span><br><span class="line">#import &quot;ViewController.h&quot;</span><br><span class="line"></span><br><span class="line">@interface ViewController ()</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation ViewController</span><br><span class="line"></span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    &#x2F;&#x2F; Do any additional setup after loading the view.</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (IBAction)saveData:(id)sender &#123;</span><br><span class="line">    BOOL success &#x3D; NO;</span><br><span class="line">    NSString *alertString &#x3D; @&quot;Data Insertion failed&quot;;</span><br><span class="line">    if(_regNoTextField.text.length &gt; 0 &amp;&amp; _nameTextField.text.length &gt; 0 &amp;&amp; _departmentTextField.text.length &gt; 0 &amp;&amp; _yearTextField.text.length &gt; 0) &#123;</span><br><span class="line">        success &#x3D; [[DBManager getSharedInstance] saveData:_regNoTextField.text name:_nameTextField.text department:_departmentTextField.text year:_yearTextField.text];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        alertString &#x3D; @&quot;Enter all fields&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    if(success &#x3D;&#x3D; NO) &#123;</span><br><span class="line">        UIAlertController *alert &#x3D; [UIAlertController alertControllerWithTitle:alertString message:nil preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">        UIAlertAction *okAction &#x3D; [UIAlertAction actionWithTitle:@&quot;OK&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">            NSLog(@&quot;点击了OK&quot;);</span><br><span class="line">        &#125;];</span><br><span class="line">        [alert addAction:okAction];</span><br><span class="line">        [self presentViewController:alert animated:YES completion:nil];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (IBAction)findData:(id)sender &#123;</span><br><span class="line">    NSArray *data &#x3D; [[DBManager getSharedInstance] findByRegisterNumber:_findByRegisterNumberTextField.text];</span><br><span class="line">    if(data &#x3D;&#x3D; nil) &#123;</span><br><span class="line">        UIAlertController *alert &#x3D; [UIAlertController alertControllerWithTitle:@&quot;Data not found&quot; message:nil preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">        UIAlertAction *okAction &#x3D; [UIAlertAction actionWithTitle:@&quot;OK&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">        &#125;];</span><br><span class="line">        [alert addAction:okAction];</span><br><span class="line">        [self presentViewController:alert animated:YES completion:nil];</span><br><span class="line">        _regNoTextField.text &#x3D; @&quot;&quot;;</span><br><span class="line">        _nameTextField.text &#x3D;@&quot;&quot;;</span><br><span class="line">        _departmentTextField.text &#x3D; @&quot;&quot;;</span><br><span class="line">        _yearTextField.text &#x3D;@&quot;&quot;;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        _regNoTextField.text &#x3D; _findByRegisterNumberTextField.text;</span><br><span class="line">        _nameTextField.text &#x3D;[data objectAtIndex:0];</span><br><span class="line">        _departmentTextField.text &#x3D;[data objectAtIndex:1];;</span><br><span class="line">        _yearTextField.text &#x3D;[data objectAtIndex:2];;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#pragma mart - Text field delegate</span><br><span class="line">-(void)textFieldDidBeginEditing:(UITextField *)textField &#123;</span><br><span class="line">    [_myScrollView setFrame:CGRectMake(10,50,300,200)];</span><br><span class="line">    [_myScrollView setContentSize:CGSizeMake(300, 350)];</span><br><span class="line">&#125;</span><br><span class="line">-(void)textFieldDidEndEditing:(UITextField *)textField &#123;</span><br><span class="line">    [_myScrollView setFrame:CGRectMake(10, 50, 300, 350)];</span><br><span class="line">&#125;</span><br><span class="line">-(BOOL) textFieldShouldReturn:(UITextField *)textField &#123;</span><br><span class="line">    [textField resignFirstResponder];</span><br><span class="line">    return YES;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
+<li>View Controller的<strong>生命周期</strong></li>
+<li><strong>NotificationCenter</strong>的相关知识</li>
+<li>组件UITextView的简单使用</li>
 </ol>
-<p>至此，可以通过save按钮保存数据，find按钮可以查找数据，并显示在各自输入框中</p>
-<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><ol>
-<li><p><code>libsqlite3.dylib</code>vs<code>libsqlite3.tbd</code>vs<code>libsqlite3.0.tbd</code></p>
-<p><code>.tbd</code> 在Xcode7后替代了<code>.dylib</code> 。而<code>libsqlite3.tbd</code>只是<code>libsqlite3.0.tbd</code>的链接，也就是两者是一摸一样的，引入任意一个的效果都是一样的。</p>
-</li>
-<li><p>sqlite3的使用</p>
+<p>并通过Demo展示</p>
+<a id="more"></a>
+
+<h2 id="ViewController的声明周期"><a href="#ViewController的声明周期" class="headerlink" title="ViewController的声明周期"></a>ViewController的声明周期</h2><p>ViewController 的生命周期可以看作一系列函数，ViewController是UIViewController的子类。</p>
+<p>生命周期的开始是创建，创建后会涉及到：</p>
 <ol>
-<li><p>创建数据库</p>
-<p>SQLite的数据库就是一个文件，创建数据库也就是创建一个文件。</p>
-</li>
-<li><p>打开数据库</p>
-<p>打开数据库其实就是用<code>sqlite3_open</code>函数打开一个文件。</p>
-</li>
-<li><p>执行SQL命令</p>
-<p>SQLite中执行SQL命令有两种方式：</p>
+<li>viewDidLoad()</li>
+<li>viewWillLayoutSubviews()</li>
+<li>viewDidLayoutSubviews()</li>
+<li>viewWillAppear()</li>
+<li>viewDidAppear()</li>
+<li>viewWillDisappear()</li>
+<li>viewDidDisappear()</li>
+<li>didReceiveMemoryWaring()</li>
+</ol>
+<p>接下来<strong>详细介绍</strong>这几个生命周期：</p>
+<h2 id="viewDidLoad"><a href="#viewDidLoad" class="headerlink" title="viewDidLoad()"></a>viewDidLoad()</h2><p>在viewDidLoad()之前会执行创建的动作，但是我们一般不会在创建中执行操作。</p>
+<p>创建完成之后，outlets被设置好。</p>
+<p>viewDidLoad()只会被<strong>调用一次</strong>，<strong>是用来初始化controller非常好的位置</strong>。</p>
+<p>需要注意的是此时view的几何结构（geometry）还没完成，<strong>还无法确定App是运行在6寸的iPhone上还是10寸的iPad上</strong>。所以不要在viewDidLoad()中初始化和尺寸、几何结构相关的操作。</p>
+<h2 id="viewWillLayoutSubviews"><a href="#viewWillLayoutSubviews" class="headerlink" title="viewWillLayoutSubviews()"></a>viewWillLayoutSubviews()</h2><p>当view的几何结构发生改变时（比如屏幕从竖着变成横着），（ios7及以上）在展示之前会调用viewWillLayoutSubviews()</p>
+<h2 id="viewDidLayoutSubviews"><a href="#viewDidLayoutSubviews" class="headerlink" title="viewDidLayoutSubviews()"></a>viewDidLayoutSubviews()</h2><h2 id="viewWillAppear"><a href="#viewWillAppear" class="headerlink" title="viewWillAppear()"></a>viewWillAppear()</h2><p>view展现在屏幕之前，会调用viewWillAppear()函数。</p>
+<p>当使用多MVC模型时，会有多个view，此时某个view的viewWillAppear()可能会被调用多次，所以只执行一次的初始化代码不要放在这里，而应该放在viewDidLoad()。</p>
+<p>基于这个理解，有些操作需要放入viewWillAppear()执行，比如Model中的数据在view不可见时被更改了，当view再次展现的时候，需要同步Model和UI。</p>
+<p>另外，和viewDidLoad()相对的，这里已经完成了view几何结构的初始化，因此可以执行和几何结构相关的一些操作了。</p>
+<p>在生命周期<code>viewWillAppear</code>中，必须调用<code>[super viewWillAppear:animated]</code>，调用位置无关紧要，你可以在开始调用也可以在结束时调用。</p>
+<p><code>viewWillDisappear</code>也是一样。</p>
+<h2 id="viewDidAppear"><a href="#viewDidAppear" class="headerlink" title="viewDidAppear()"></a>viewDidAppear()</h2><p>view展现在屏幕上之后，调用viewDidAppear()</p>
+<h2 id="viewWillDisappear"><a href="#viewWillDisappear" class="headerlink" title="viewWillDisappear()"></a>viewWillDisappear()</h2><p>view即将消失时调用viewWillDisappear()，此时最好停止使用非必要的资源，比如动画等等。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewWillDisappear:(<span class="built_in">BOOL</span>)animated</span><br><span class="line">&#123;</span><br><span class="line">  [<span class="keyword">super</span> viewWillDisappear:animated]; <span class="comment">// 在所有viewWill/Did中都要调用super函数</span></span><br><span class="line">  <span class="comment">// 记住滑动的位置</span></span><br><span class="line">  [<span class="keyword">self</span> rememberScrollPosition];</span><br><span class="line">  <span class="comment">// 做一些清理工作</span></span><br><span class="line">  [<span class="keyword">self</span> saveDataToPermanentStore];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="viewDidDisappear"><a href="#viewDidDisappear" class="headerlink" title="viewDidDisappear()"></a>viewDidDisappear()</h2><p>view消失以后，调用viewDidDisappear()</p>
+<h2 id="didReceiveMemoryWaring"><a href="#didReceiveMemoryWaring" class="headerlink" title="didReceiveMemoryWaring()"></a>didReceiveMemoryWaring()</h2><p>内存不够了，可能是因为你的App，<strong>也可能是手机上的其他App造成的</strong>。</p>
+<p>这是你应该试图清理内存。</p>
+<p>为什么是我要清理内存？因为操作系统有权限kill应用，如果内存不够了，而你的App又占用了很多内存，很有可能被iOS杀死。 </p>
+<h2 id="awakeFromNib"><a href="#awakeFromNib" class="headerlink" title="awakeFromNib()"></a>awakeFromNib()</h2><p>（说实话，没完全听懂，先记下来，以后用到再详细研究一下吧。）</p>
+<p>这个方法会发送给storyboard中绘制出来的所有对象，包括controller</p>
+<p>如果进入到Controller的init方法，就一定也会进入到<code>awakeFromNib</code>。</p>
+<p>尽可能不要将代码放在<code>awakeFromNib</code>中。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setup &#123;...&#125;;  <span class="comment">// do something which can't wait until viewDidLoad</span></span><br><span class="line">- (<span class="keyword">void</span>)awakeFromNib &#123; [<span class="keyword">self</span> setup]; &#125;</span><br><span class="line"><span class="comment">// uIViewController's designated initializer is initWithNibName:bundle:(ugh!)</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithNibName:(<span class="built_in">NSString</span> *)name bundle:(<span class="built_in">NSBundle</span> *)bundle</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// 如果使用awakeFromNib，为了保证正确性，也要加上这三行代码</span></span><br><span class="line">  <span class="keyword">self</span> = [<span class="keyword">super</span> initWithNibName:name bundle:bundle];</span><br><span class="line">  [<span class="keyword">self</span> setup];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<div id="flowchart-0" class="flow-chart"></div>
+
+<img src="https://developer.apple.com/library/archive/referencelibrary/GettingStarted/DevelopiOSAppsSwift/Art/WWVC_vclife_2x.png" style="zoom:30%;" />
+
+
+
+
+
+
+<h2 id="组件UITextView简介"><a href="#组件UITextView简介" class="headerlink" title="组件UITextView简介"></a>组件UITextView简介</h2><p>组件<a href="https://developer.apple.com/documentation/uikit/uitextview" target="_blank" rel="noopener">UITextView</a>类似于UILable，但是可以展示多行，具有可选可编辑可滚动等特点。</p>
+<h2 id="NotificationCenter相关知识"><a href="#NotificationCenter相关知识" class="headerlink" title="NotificationCenter相关知识"></a>NotificationCenter相关知识</h2><p>接下来讲一讲NSNotification</p>
 <ul>
-<li><code>sqlite3_exec()</code></li>
-<li><code>sqlite3_prepare_v2()</code>+<code>sqlite3_step()</code></li>
+<li><p>Notifications也就是之前在MVC中称为radio station的概念。</p>
+</li>
+<li><p>NSNotificationcenter</p>
+<p>通过<code>[NSNotificationCenter defaultCenter]</code>获取默认Notification Center。</p>
+<p>如果想监听这个radio station，那么发送如下消息：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)addObserver:(<span class="keyword">id</span>)observer  <span class="comment">// 需要接收通知的对象</span></span><br><span class="line">           selector:(SEL)methodToInvokeIfSomethingHappens</span><br><span class="line">               name:(<span class="built_in">NSString</span> *)name  <span class="comment">// station的名称</span></span><br><span class="line">             object:(<span class="keyword">id</span>)sender;  <span class="comment">// 你感兴趣的变更，如果填写nil，标识任何人发生变更，都会通知你。指定某个sender，可以只接收指定对象发来的通知。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当有广播的时候，observer会被通知：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)methodToInvokeIfSomethingHappens:(<span class="built_in">NSNotification</span> *)notification &#123;</span><br><span class="line">  notification.name;  <span class="comment">// 传递的station的名称</span></span><br><span class="line">  notification.object;  <span class="comment">// 给你发送通知的对象</span></span><br><span class="line">  notification.userInfo;  <span class="comment">// 有关发生了什么的特定信息</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>结束后记得关闭radio station</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[center removeObserver:<span class="keyword">self</span>]; <span class="comment">//关闭所有radio station</span></span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line">[center removeObserver:<span class="keyword">self</span> name:<span class="built_in">UIContentSizeCategoryDidChangeNotification</span> object:<span class="literal">nil</span>];  <span class="comment">//关闭指定radio station</span></span><br></pre></td></tr></table></figure>
+
+<p>如果离开堆栈时，没有关闭radio station，notification center可能会继续发送notification，并<strong>导致App崩溃</strong>！</p>
+<p>因为NSNotificationCenter有一个指向你的unsafe retained指针。</p>
+<p>关闭radio station最好的位置是在MVC离开屏幕的时候，实在不行，可以在dealloc中关闭，dealloc会在离开堆栈之前调用：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)dealloc &#123;</span><br><span class="line">  <span class="comment">// be careful in this method! can't access properties! you are almost gone from heap!</span></span><br><span class="line">  [[<span class="built_in">NSNotificationCenter</span> defaultcenter] removeObserver:<span class="keyword">self</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
-<p>两者的区别可以看<a href="https://stackoverflow.com/questions/27383724/sqlite3-prepare-v2-sqlite3-exec" target="_blank" rel="noopener">stackoverflow</a>。</p>
+<p>关于NotificationCenter，一个常用的例子是字体的变化。当用户在系统设置中改变字体大小时，可以利用NotificationCenter使App中的字体也跟着变化。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSNotificationCenter</span> *center = [<span class="built_in">NSNotificationCenter</span> defaultCenter];</span><br><span class="line">[center addObserver:<span class="keyword">self</span></span><br><span class="line">           selector:<span class="keyword">@selector</span>(preferredFontsSizeChanged:)</span><br><span class="line">               name:<span class="built_in">UIContentsizeCategoryDidChangeNotification</span></span><br><span class="line">             object:<span class="literal">nil</span>]; <span class="comment">// this station's broadcasts aren't object-specific</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)preferredFontsSizeChanged:(<span class="built_in">NSNotification</span> *)notification &#123;</span><br><span class="line">  <span class="comment">// reset fonts of objects using preferred fonts</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><p>目的：了解attributed text（富文本）、生命周期以及Notification。</p>
+<ol>
+<li><p>新建App，在storageBoard中加入：</p>
+<ul>
+<li>TextView</li>
+<li>label</li>
+<li>6 buttons</li>
+</ul>
+<p>如下图：</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gptqmdv9uwj30i40zs41r.jpg" alt="image-20210423160322521"></p>
+</li>
+<li><p>为TextView和Label添加property:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span>()</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UITextView</span> *body;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UILabel</span> *headline;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为buttons添加三个函数</p>
+<ul>
+<li><p>四个色块的button共用一个函数，函数的作用是：在textView中选中一些文字，点击色块button后，选中的文字变成色块对应的颜色</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)changeBodySelectionColorToMatchBackgroundOfButton:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span>.body.textStorage addAttribute:<span class="built_in">NSForegroundColorAttributeName</span> value:sender.backgroundColor range:<span class="keyword">self</span>.body.selectedRange];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>outline按钮对应的函数，作用是给选中文字添加红色描边。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)outlineBodySelection:(<span class="keyword">id</span>)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span>.body.textStorage addAttributes:@&#123; <span class="built_in">NSStrokeWidthAttributeName</span> : @<span class="number">-3</span>, <span class="built_in">NSStrokeColorAttributeName</span>: [<span class="built_in">UIColor</span> redColor] &#125; range:<span class="keyword">self</span>.body.selectedRange];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>添加描边需要添加两个属性，一个用来设置描边的宽度，一个用来设置描边的颜色。</p>
+<p><code>NSStrokeWidthAttributeName</code>用来设置描边的宽度，设置为整数会让字体变成中空，设置为负数会保持字体填充。</p>
+<p><code>NSStrokeColorAttributeName</code>用来设置描边的颜色。</p>
+</li>
+<li><p>unOutline按钮对应的按钮，作用是删除字体的描边。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)unOutlineBodySelection:(<span class="keyword">id</span>)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span>.body.textStorage removeAttribute:<span class="built_in">NSStrokeWidthAttributeName</span> range:<span class="keyword">self</span>.body.selectedRange];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接利用<code>removeAttribute</code>删除<code>NSStrokeWidthAttributeName</code>属性，颜色就不用管了，没有宽度颜色也就无法显示了。</p>
+</li>
+</ul>
+</li>
+<li><p>设置outline按钮的字体描边</p>
+<p>这样产不多就是这节课要介绍的关于富文本的知识点了。接下来加入一些生命周期的元素。</p>
+<p>现在想要让outline按钮的文字变成描边的，我们可不想在设置一个按钮来让outline按钮outline，而是想一开始它就是描边的。</p>
+<p>这个时候就用到生命周期了，可以在<code>viewDidLoad()</code>函数中实现：</p>
+<p>先为button添加outlet，<code>@property (weak, nonatomic) IBOutlet UIButton *outline;</code>，然后在<code>viewDidLoad()</code>函数中编写代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// Do any additional setup after loading the view.</span></span><br><span class="line">    <span class="built_in">NSMutableAttributedString</span> *title = [[<span class="built_in">NSMutableAttributedString</span> alloc] initWithString:<span class="keyword">self</span>.outline.currentTitle];</span><br><span class="line">    [title setAttributes:@ &#123;</span><br><span class="line">        <span class="built_in">NSStrokeWidthAttributeName</span> : @<span class="number">3</span>,</span><br><span class="line">        <span class="built_in">NSStrokeColorAttributeName</span> : <span class="keyword">self</span>.outline.tintColor&#125;</span><br><span class="line">                   range:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>, [title length])];</span><br><span class="line">    [<span class="keyword">self</span>.outline setAttributedTitle:title forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>利用NSNotificationCenter让App中字体跟随系统字体，用户改变系统字体时，App中字体也随之变动。</p>
+<ol>
+<li><p>首先实现一个将字体设置为系统对应字体的方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)usePreferredFonts &#123;</span><br><span class="line">    <span class="keyword">self</span>.body.font = [<span class="built_in">UIFont</span> preferredFontForTextStyle:<span class="built_in">UIFontTextStyleBody</span>];</span><br><span class="line">    <span class="keyword">self</span>.headline.font = [<span class="built_in">UIFont</span> preferredFontForTextStyle:<span class="built_in">UIFontTextStyleHeadline</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>并将其包装一层：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)preferredFontsChanged:(<span class="built_in">NSNotification</span> *)notification &#123;</span><br><span class="line">    [<span class="keyword">self</span> usePreferredFonts];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在生命周期<code>viewWillAppear()</code>中添加NotificationCenter</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewWillAppear:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewWillAppear:animated];</span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span></span><br><span class="line">               selector:<span class="keyword">@selector</span>(preferredFontsChanged:)</span><br><span class="line">                   name:<span class="built_in">UIContentSizeCategoryDidChangeNotification</span></span><br><span class="line">                 object:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后记得关闭radio station</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewWillDisappear:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewWillDisappear:animated];</span><br><span class="line">    <span class="comment">// [[NSNotificationCenter defaultCenter] removeObserver:self]; // 这种方法也可以，删除所有的notification，但不够优雅，尽量使用下面的方法，指定具体的notificationCenter</span></span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] removeObserver:<span class="keyword">self</span></span><br><span class="line">                                                    name:<span class="built_in">UIContentSizeCategoryDidChangeNotification</span></span><br><span class="line">                                                  object:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后要考虑一种情况，NotificationCenter在view消失时被关闭，如果在这之后用户修改了系统的字体，那么view再次appear时，App字体会和系统不一致。因此，需要在<code>viewWillAppear</code>中，调用<code>[self usePreferredFonts]</code>来同步外部世界的字体。</p>
 </li>
 </ol>
 </li>
-<li><p>弹出框的使用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">UIAlertController *alert &#x3D; [UIAlertController alertControllerWithTitle:@&quot;警告的Title&quot; message:@&quot;警告的消息&quot;</span><br><span class="line">                           preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line"></span><br><span class="line">UIAlertAction *okAction &#x3D; [UIAlertAction actionWithTitle:@&quot;OK&quot;</span><br><span class="line">                           style:UIAlertActionStyleDefault</span><br><span class="line">                           handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">                             NSLog(@&quot;点击了OK&quot;);</span><br><span class="line">                           &#125;];</span><br><span class="line">UIAlertAction *cancelAction &#x3D; [UIAlertAction actionWithTitle:@&quot;Cancel&quot;</span><br><span class="line">                               style:UIAlertActionStyleCancel</span><br><span class="line">                               handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">                                 NSLog(@&quot;点击了Cancel&quot;);</span><br><span class="line">                               &#125;];</span><br><span class="line">[alert addAction:okAction];</span><br><span class="line">[alertController addAction:cancelAction];</span><br><span class="line"></span><br><span class="line">[self presentViewController:alert animated:YES completion:nil];</span><br></pre></td></tr></table></figure>
-
-
-</li>
 </ol>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: instantiated(实例化)
+op=>operation: 调用awakeFromNib()
+op2=>operation: outlets设置完成
+op3=>operation: 调用viewDidLoad()
+op4=>operation: 几何结构确定下来以后,\
+调用viewWillLayoutSubviews()和viewDidLayoutSubviews()
+op5=>operation: (对着MVC再屏幕中出现和消失，下面几个生命周期可能会被多次调用)
+op6=>operation: 调用viewWillAppear()和viewDidAppear()
+op7=>operation: 每当几何结构改变（比如屏幕旋转）都会调用\
+viewWillLayoutSubviews()和viewDidLayoutSubviews()
+op8=>operation: 如果设置了屏幕自动旋转，还会调用will/didRotatedTo/From
+op9=>operation: 调用viewWillDisappear()和viewDidDisappear()
+op10=>operation: 如果手机内存吃紧，调用didReceiveMemoryWarning()
+e=>end
+st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script>
       
     </div>
     
@@ -560,8 +644,6 @@
           
             <a href="/chinese/tags/IOS%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/" rel="tag"># IOS开发入门</a>
           
-            <a href="/chinese/tags/SQLite/" rel="tag"># SQLite</a>
-          
         </div>
       
 
@@ -573,8 +655,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/chinese/2021/03/09/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BHelloWorld/" rel="next" title="Objective-C IOS开发之HelloWorld">
-                <i class="fa fa-chevron-left"></i> Objective-C IOS开发之HelloWorld
+              <a href="/chinese/2021/03/29/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B4/" rel="next" title="斯坦福大学IOS7开发课程4">
+                <i class="fa fa-chevron-left"></i> 斯坦福大学IOS7开发课程4
               </a>
             
           </div>
@@ -582,10 +664,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B1/" rel="prev" title="斯坦福大学IOS7开发课程1">
-                斯坦福大学IOS7开发课程1 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -783,7 +861,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作流程"><span class="nav-number">1.</span> <span class="nav-text">操作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知识点"><span class="nav-number">2.</span> <span class="nav-text">知识点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ViewController的声明周期"><span class="nav-number">1.</span> <span class="nav-text">ViewController的声明周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#viewDidLoad"><span class="nav-number">2.</span> <span class="nav-text">viewDidLoad()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#viewWillLayoutSubviews"><span class="nav-number">3.</span> <span class="nav-text">viewWillLayoutSubviews()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#viewDidLayoutSubviews"><span class="nav-number">4.</span> <span class="nav-text">viewDidLayoutSubviews()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#viewWillAppear"><span class="nav-number">5.</span> <span class="nav-text">viewWillAppear()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#viewDidAppear"><span class="nav-number">6.</span> <span class="nav-text">viewDidAppear()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#viewWillDisappear"><span class="nav-number">7.</span> <span class="nav-text">viewWillDisappear()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#viewDidDisappear"><span class="nav-number">8.</span> <span class="nav-text">viewDidDisappear()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#didReceiveMemoryWaring"><span class="nav-number">9.</span> <span class="nav-text">didReceiveMemoryWaring()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#awakeFromNib"><span class="nav-number">10.</span> <span class="nav-text">awakeFromNib()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件UITextView简介"><span class="nav-number">11.</span> <span class="nav-text">组件UITextView简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NotificationCenter相关知识"><span class="nav-number">12.</span> <span class="nav-text">NotificationCenter相关知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo"><span class="nav-number">13.</span> <span class="nav-text">Demo</span></a></li></ol></div>
             
 
           </div>

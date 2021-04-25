@@ -1,6 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>斯坦福大学IOS7开发课程5</title>
+    <url>/chinese/2021/04/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B5/</url>
+    <content><![CDATA[<p>这节课主要讲解：</p>
+<ol>
+<li>View Controller的<strong>生命周期</strong></li>
+<li><strong>NotificationCenter</strong>的相关知识</li>
+<li>组件UITextView的简单使用</li>
+</ol>
+<p>并通过Demo展示</p>
+<a id="more"></a>
+
+<h2 id="ViewController的声明周期"><a href="#ViewController的声明周期" class="headerlink" title="ViewController的声明周期"></a>ViewController的声明周期</h2><p>ViewController 的生命周期可以看作一系列函数，ViewController是UIViewController的子类。</p>
+<p>生命周期的开始是创建，创建后会涉及到：</p>
+<ol>
+<li>viewDidLoad()</li>
+<li>viewWillLayoutSubviews()</li>
+<li>viewDidLayoutSubviews()</li>
+<li>viewWillAppear()</li>
+<li>viewDidAppear()</li>
+<li>viewWillDisappear()</li>
+<li>viewDidDisappear()</li>
+<li>didReceiveMemoryWaring()</li>
+</ol>
+<p>接下来<strong>详细介绍</strong>这几个生命周期：</p>
+<h2 id="viewDidLoad"><a href="#viewDidLoad" class="headerlink" title="viewDidLoad()"></a>viewDidLoad()</h2><p>在viewDidLoad()之前会执行创建的动作，但是我们一般不会在创建中执行操作。</p>
+<p>创建完成之后，outlets被设置好。</p>
+<p>viewDidLoad()只会被<strong>调用一次</strong>，<strong>是用来初始化controller非常好的位置</strong>。</p>
+<p>需要注意的是此时view的几何结构（geometry）还没完成，<strong>还无法确定App是运行在6寸的iPhone上还是10寸的iPad上</strong>。所以不要在viewDidLoad()中初始化和尺寸、几何结构相关的操作。</p>
+<h2 id="viewWillLayoutSubviews"><a href="#viewWillLayoutSubviews" class="headerlink" title="viewWillLayoutSubviews()"></a>viewWillLayoutSubviews()</h2><p>当view的几何结构发生改变时（比如屏幕从竖着变成横着），（ios7及以上）在展示之前会调用viewWillLayoutSubviews()</p>
+<h2 id="viewDidLayoutSubviews"><a href="#viewDidLayoutSubviews" class="headerlink" title="viewDidLayoutSubviews()"></a>viewDidLayoutSubviews()</h2><h2 id="viewWillAppear"><a href="#viewWillAppear" class="headerlink" title="viewWillAppear()"></a>viewWillAppear()</h2><p>view展现在屏幕之前，会调用viewWillAppear()函数。</p>
+<p>当使用多MVC模型时，会有多个view，此时某个view的viewWillAppear()可能会被调用多次，所以只执行一次的初始化代码不要放在这里，而应该放在viewDidLoad()。</p>
+<p>基于这个理解，有些操作需要放入viewWillAppear()执行，比如Model中的数据在view不可见时被更改了，当view再次展现的时候，需要同步Model和UI。</p>
+<p>另外，和viewDidLoad()相对的，这里已经完成了view几何结构的初始化，因此可以执行和几何结构相关的一些操作了。</p>
+<p>在生命周期<code>viewWillAppear</code>中，必须调用<code>[super viewWillAppear:animated]</code>，调用位置无关紧要，你可以在开始调用也可以在结束时调用。</p>
+<p><code>viewWillDisappear</code>也是一样。</p>
+<h2 id="viewDidAppear"><a href="#viewDidAppear" class="headerlink" title="viewDidAppear()"></a>viewDidAppear()</h2><p>view展现在屏幕上之后，调用viewDidAppear()</p>
+<h2 id="viewWillDisappear"><a href="#viewWillDisappear" class="headerlink" title="viewWillDisappear()"></a>viewWillDisappear()</h2><p>view即将消失时调用viewWillDisappear()，此时最好停止使用非必要的资源，比如动画等等。</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewWillDisappear:(<span class="built_in">BOOL</span>)animated</span><br><span class="line">&#123;</span><br><span class="line">  [<span class="keyword">super</span> viewWillDisappear:animated]; <span class="comment">// 在所有viewWill/Did中都要调用super函数</span></span><br><span class="line">  <span class="comment">// 记住滑动的位置</span></span><br><span class="line">  [<span class="keyword">self</span> rememberScrollPosition];</span><br><span class="line">  <span class="comment">// 做一些清理工作</span></span><br><span class="line">  [<span class="keyword">self</span> saveDataToPermanentStore];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="viewDidDisappear"><a href="#viewDidDisappear" class="headerlink" title="viewDidDisappear()"></a>viewDidDisappear()</h2><p>view消失以后，调用viewDidDisappear()</p>
+<h2 id="didReceiveMemoryWaring"><a href="#didReceiveMemoryWaring" class="headerlink" title="didReceiveMemoryWaring()"></a>didReceiveMemoryWaring()</h2><p>内存不够了，可能是因为你的App，<strong>也可能是手机上的其他App造成的</strong>。</p>
+<p>这是你应该试图清理内存。</p>
+<p>为什么是我要清理内存？因为操作系统有权限kill应用，如果内存不够了，而你的App又占用了很多内存，很有可能被iOS杀死。 </p>
+<h2 id="awakeFromNib"><a href="#awakeFromNib" class="headerlink" title="awakeFromNib()"></a>awakeFromNib()</h2><p>（说实话，没完全听懂，先记下来，以后用到再详细研究一下吧。）</p>
+<p>这个方法会发送给storyboard中绘制出来的所有对象，包括controller</p>
+<p>如果进入到Controller的init方法，就一定也会进入到<code>awakeFromNib</code>。</p>
+<p>尽可能不要将代码放在<code>awakeFromNib</code>中。</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setup &#123;...&#125;;  <span class="comment">// do something which can't wait until viewDidLoad</span></span><br><span class="line">- (<span class="keyword">void</span>)awakeFromNib &#123; [<span class="keyword">self</span> setup]; &#125;</span><br><span class="line"><span class="comment">// uIViewController's designated initializer is initWithNibName:bundle:(ugh!)</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithNibName:(<span class="built_in">NSString</span> *)name bundle:(<span class="built_in">NSBundle</span> *)bundle</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// 如果使用awakeFromNib，为了保证正确性，也要加上这三行代码</span></span><br><span class="line">  <span class="keyword">self</span> = [<span class="keyword">super</span> initWithNibName:name bundle:bundle];</span><br><span class="line">  [<span class="keyword">self</span> setup];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<div id="flowchart-0" class="flow-chart"></div>
+
+<img src="https://developer.apple.com/library/archive/referencelibrary/GettingStarted/DevelopiOSAppsSwift/Art/WWVC_vclife_2x.png" style="zoom:30%;" />
+
+
+
+
+
+
+<h2 id="组件UITextView简介"><a href="#组件UITextView简介" class="headerlink" title="组件UITextView简介"></a>组件UITextView简介</h2><p>组件<a href="https://developer.apple.com/documentation/uikit/uitextview" target="_blank" rel="noopener">UITextView</a>类似于UILable，但是可以展示多行，具有可选可编辑可滚动等特点。</p>
+<h2 id="NotificationCenter相关知识"><a href="#NotificationCenter相关知识" class="headerlink" title="NotificationCenter相关知识"></a>NotificationCenter相关知识</h2><p>接下来讲一讲NSNotification</p>
+<ul>
+<li><p>Notifications也就是之前在MVC中称为radio station的概念。</p>
+</li>
+<li><p>NSNotificationcenter</p>
+<p>通过<code>[NSNotificationCenter defaultCenter]</code>获取默认Notification Center。</p>
+<p>如果想监听这个radio station，那么发送如下消息：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)addObserver:(<span class="keyword">id</span>)observer  <span class="comment">// 需要接收通知的对象</span></span><br><span class="line">           selector:(SEL)methodToInvokeIfSomethingHappens</span><br><span class="line">               name:(<span class="built_in">NSString</span> *)name  <span class="comment">// station的名称</span></span><br><span class="line">             object:(<span class="keyword">id</span>)sender;  <span class="comment">// 你感兴趣的变更，如果填写nil，标识任何人发生变更，都会通知你。指定某个sender，可以只接收指定对象发来的通知。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当有广播的时候，observer会被通知：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)methodToInvokeIfSomethingHappens:(<span class="built_in">NSNotification</span> *)notification &#123;</span><br><span class="line">  notification.name;  <span class="comment">// 传递的station的名称</span></span><br><span class="line">  notification.object;  <span class="comment">// 给你发送通知的对象</span></span><br><span class="line">  notification.userInfo;  <span class="comment">// 有关发生了什么的特定信息</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>结束后记得关闭radio station</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">[center removeObserver:<span class="keyword">self</span>]; <span class="comment">//关闭所有radio station</span></span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line">[center removeObserver:<span class="keyword">self</span> name:<span class="built_in">UIContentSizeCategoryDidChangeNotification</span> object:<span class="literal">nil</span>];  <span class="comment">//关闭指定radio station</span></span><br></pre></td></tr></table></figure>
+
+<p>如果离开堆栈时，没有关闭radio station，notification center可能会继续发送notification，并<strong>导致App崩溃</strong>！</p>
+<p>因为NSNotificationCenter有一个指向你的unsafe retained指针。</p>
+<p>关闭radio station最好的位置是在MVC离开屏幕的时候，实在不行，可以在dealloc中关闭，dealloc会在离开堆栈之前调用：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)dealloc &#123;</span><br><span class="line">  <span class="comment">// be careful in this method! can't access properties! you are almost gone from heap!</span></span><br><span class="line">  [[<span class="built_in">NSNotificationCenter</span> defaultcenter] removeObserver:<span class="keyword">self</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>关于NotificationCenter，一个常用的例子是字体的变化。当用户在系统设置中改变字体大小时，可以利用NotificationCenter使App中的字体也跟着变化。</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="built_in">NSNotificationCenter</span> *center = [<span class="built_in">NSNotificationCenter</span> defaultCenter];</span><br><span class="line">[center addObserver:<span class="keyword">self</span></span><br><span class="line">           selector:<span class="keyword">@selector</span>(preferredFontsSizeChanged:)</span><br><span class="line">               name:<span class="built_in">UIContentsizeCategoryDidChangeNotification</span></span><br><span class="line">             object:<span class="literal">nil</span>]; <span class="comment">// this station's broadcasts aren't object-specific</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)preferredFontsSizeChanged:(<span class="built_in">NSNotification</span> *)notification &#123;</span><br><span class="line">  <span class="comment">// reset fonts of objects using preferred fonts</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><p>目的：了解attributed text（富文本）、生命周期以及Notification。</p>
+<ol>
+<li><p>新建App，在storageBoard中加入：</p>
+<ul>
+<li>TextView</li>
+<li>label</li>
+<li>6 buttons</li>
+</ul>
+<p>如下图：</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gptqmdv9uwj30i40zs41r.jpg" alt="image-20210423160322521"></p>
+</li>
+<li><p>为TextView和Label添加property:</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span>()</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UITextView</span> *body;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UILabel</span> *headline;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为buttons添加三个函数</p>
+<ul>
+<li><p>四个色块的button共用一个函数，函数的作用是：在textView中选中一些文字，点击色块button后，选中的文字变成色块对应的颜色</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)changeBodySelectionColorToMatchBackgroundOfButton:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span>.body.textStorage addAttribute:<span class="built_in">NSForegroundColorAttributeName</span> value:sender.backgroundColor range:<span class="keyword">self</span>.body.selectedRange];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>outline按钮对应的函数，作用是给选中文字添加红色描边。</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)outlineBodySelection:(<span class="keyword">id</span>)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span>.body.textStorage addAttributes:@&#123; <span class="built_in">NSStrokeWidthAttributeName</span> : @<span class="number">-3</span>, <span class="built_in">NSStrokeColorAttributeName</span>: [<span class="built_in">UIColor</span> redColor] &#125; range:<span class="keyword">self</span>.body.selectedRange];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>添加描边需要添加两个属性，一个用来设置描边的宽度，一个用来设置描边的颜色。</p>
+<p><code>NSStrokeWidthAttributeName</code>用来设置描边的宽度，设置为整数会让字体变成中空，设置为负数会保持字体填充。</p>
+<p><code>NSStrokeColorAttributeName</code>用来设置描边的颜色。</p>
+</li>
+<li><p>unOutline按钮对应的按钮，作用是删除字体的描边。</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)unOutlineBodySelection:(<span class="keyword">id</span>)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span>.body.textStorage removeAttribute:<span class="built_in">NSStrokeWidthAttributeName</span> range:<span class="keyword">self</span>.body.selectedRange];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接利用<code>removeAttribute</code>删除<code>NSStrokeWidthAttributeName</code>属性，颜色就不用管了，没有宽度颜色也就无法显示了。</p>
+</li>
+</ul>
+</li>
+<li><p>设置outline按钮的字体描边</p>
+<p>这样产不多就是这节课要介绍的关于富文本的知识点了。接下来加入一些生命周期的元素。</p>
+<p>现在想要让outline按钮的文字变成描边的，我们可不想在设置一个按钮来让outline按钮outline，而是想一开始它就是描边的。</p>
+<p>这个时候就用到生命周期了，可以在<code>viewDidLoad()</code>函数中实现：</p>
+<p>先为button添加outlet，<code>@property (weak, nonatomic) IBOutlet UIButton *outline;</code>，然后在<code>viewDidLoad()</code>函数中编写代码：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// Do any additional setup after loading the view.</span></span><br><span class="line">    <span class="built_in">NSMutableAttributedString</span> *title = [[<span class="built_in">NSMutableAttributedString</span> alloc] initWithString:<span class="keyword">self</span>.outline.currentTitle];</span><br><span class="line">    [title setAttributes:@ &#123;</span><br><span class="line">        <span class="built_in">NSStrokeWidthAttributeName</span> : @<span class="number">3</span>,</span><br><span class="line">        <span class="built_in">NSStrokeColorAttributeName</span> : <span class="keyword">self</span>.outline.tintColor&#125;</span><br><span class="line">                   range:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>, [title length])];</span><br><span class="line">    [<span class="keyword">self</span>.outline setAttributedTitle:title forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>利用NSNotificationCenter让App中字体跟随系统字体，用户改变系统字体时，App中字体也随之变动。</p>
+<ol>
+<li><p>首先实现一个将字体设置为系统对应字体的方法：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)usePreferredFonts &#123;</span><br><span class="line">    <span class="keyword">self</span>.body.font = [<span class="built_in">UIFont</span> preferredFontForTextStyle:<span class="built_in">UIFontTextStyleBody</span>];</span><br><span class="line">    <span class="keyword">self</span>.headline.font = [<span class="built_in">UIFont</span> preferredFontForTextStyle:<span class="built_in">UIFontTextStyleHeadline</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>并将其包装一层：</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)preferredFontsChanged:(<span class="built_in">NSNotification</span> *)notification &#123;</span><br><span class="line">    [<span class="keyword">self</span> usePreferredFonts];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在生命周期<code>viewWillAppear()</code>中添加NotificationCenter</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewWillAppear:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewWillAppear:animated];</span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span></span><br><span class="line">               selector:<span class="keyword">@selector</span>(preferredFontsChanged:)</span><br><span class="line">                   name:<span class="built_in">UIContentSizeCategoryDidChangeNotification</span></span><br><span class="line">                 object:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后记得关闭radio station</p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewWillDisappear:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewWillDisappear:animated];</span><br><span class="line">    <span class="comment">// [[NSNotificationCenter defaultCenter] removeObserver:self]; // 这种方法也可以，删除所有的notification，但不够优雅，尽量使用下面的方法，指定具体的notificationCenter</span></span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] removeObserver:<span class="keyword">self</span></span><br><span class="line">                                                    name:<span class="built_in">UIContentSizeCategoryDidChangeNotification</span></span><br><span class="line">                                                  object:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后要考虑一种情况，NotificationCenter在view消失时被关闭，如果在这之后用户修改了系统的字体，那么view再次appear时，App字体会和系统不一致。因此，需要在<code>viewWillAppear</code>中，调用<code>[self usePreferredFonts]</code>来同步外部世界的字体。</p>
+</li>
+</ol>
+</li>
+</ol>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: instantiated(实例化)
+op=>operation: 调用awakeFromNib()
+op2=>operation: outlets设置完成
+op3=>operation: 调用viewDidLoad()
+op4=>operation: 几何结构确定下来以后,\
+调用viewWillLayoutSubviews()和viewDidLayoutSubviews()
+op5=>operation: (对着MVC再屏幕中出现和消失，下面几个生命周期可能会被多次调用)
+op6=>operation: 调用viewWillAppear()和viewDidAppear()
+op7=>operation: 每当几何结构改变（比如屏幕旋转）都会调用\
+viewWillLayoutSubviews()和viewDidLayoutSubviews()
+op8=>operation: 如果设置了屏幕自动旋转，还会调用will/didRotatedTo/From
+op9=>operation: 调用viewWillDisappear()和viewDidDisappear()
+op10=>operation: 如果手机内存吃紧，调用didReceiveMemoryWarning()
+e=>end
+st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script>]]></content>
+      <categories>
+        <category>客户端开发</category>
+        <category>IOS开发</category>
+        <category>Objective-C</category>
+      </categories>
+      <tags>
+        <tag>Objective-C</tag>
+        <tag>IOS开发入门</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>斯坦福大学IOS7开发课程4</title>
     <url>/chinese/2021/03/29/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B4/</url>
     <content><![CDATA[<p>这节课主要讲了<strong>Objecitive-C的几个细节</strong>和<strong>Foundation</strong>库中的一些类</p>
@@ -189,6 +361,15 @@
 
 
 ]]></content>
+      <categories>
+        <category>客户端开发</category>
+        <category>IOS开发</category>
+        <category>Objective-C</category>
+      </categories>
+      <tags>
+        <tag>Objective-C</tag>
+        <tag>IOS开发入门</tag>
+      </tags>
   </entry>
   <entry>
     <title>斯坦福大学IOS7开发课程3</title>
