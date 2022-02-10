@@ -1,6 +1,5 @@
 ---
 title: leetcode 162 Find Peak Element
-date: 2019-01-23 11:04:59
 tags:
   - leetcode
   - 领扣
@@ -13,7 +12,9 @@ categories:
   - 数据结构与算法
   - leetcode
 mathjax: true
+date: 2019-01-23 11:04:59
 ---
+
 
 # leetcode 162 Find Peak Element
 

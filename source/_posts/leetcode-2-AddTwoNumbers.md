@@ -1,6 +1,5 @@
 ---
 title: leetcode 2 AddTwoNumbers
-date: 2019-02-10 22:11:01
 tags:
   - leetcode
   - 力扣
@@ -13,7 +12,9 @@ categories:
   - 数据结构与算法
   - leetcode
 mathjax: true
+date: 2019-02-10 22:11:01
 ---
+
 
 # 2. Add Two Numbers
 

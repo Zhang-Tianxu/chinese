@@ -1,6 +1,5 @@
 ---
 title: leetcode 53 Maximum SubArray
-date: 2019-02-26 18:38:34
 tags:
   - leetcode
   - 领扣
@@ -13,7 +12,9 @@ categories:
   - 数据结构与算法
   - leetcode
 mathjax: true
+date: 2019-02-26 18:38:34
 ---
+
 
 # leetcode 53 Maximum Subarray
 

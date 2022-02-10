@@ -1,16 +1,17 @@
 ---
 title: C与Python中的socket
-date: 2019-11-15 10:53:07
 tags:
-    - C
-    - Python
-    - socket
-    - 网络编程
+  - C
+  - Python
+  - socket
+  - 网络编程
 categories:
-    - 专业学习
-    - 后端
-    - 网络编程
+  - 专业学习
+  - 后端
+  - 网络编程
+date: 2019-11-15 10:53:07
 ---
+
 
 # C与Python中的socket
 

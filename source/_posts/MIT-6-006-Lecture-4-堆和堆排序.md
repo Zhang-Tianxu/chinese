@@ -1,6 +1,5 @@
 ---
 title: MIT 6.006 Lecture 4 堆和堆排序
-date: 2019-02-27 20:55:30
 tags:
   - algorithm
   - 算法
@@ -13,7 +12,9 @@ categories:
   - MIT 6.006
 mathjax: true
 top: -3
+date: 2019-02-27 20:55:30
 ---
+
 
 # MIT 6.006 Lecture4 堆和堆排序
 

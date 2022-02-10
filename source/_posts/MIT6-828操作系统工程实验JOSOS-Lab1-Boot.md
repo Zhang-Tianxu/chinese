@@ -1,18 +1,19 @@
 ---
 title: MIT6.828操作系统工程实验JOSOS Lab1 Booting a PC
-date: 2018-11-29 10:33:36
 tags:
-	- OS
-	- 操作系统
-	- Lab
-	- 实验
-	- MIT
+  - OS
+  - 操作系统
+  - Lab
+  - 实验
+  - MIT
 categories:
-	- 学习
-	- 计算机及软件
-	- 计算机系统
-	- OS
+  - 学习
+  - 计算机及软件
+  - 计算机系统
+  - OS
+date: 2018-11-29 10:33:36
 ---
+
 先给出MIT的OS Lab1的网址，详细介绍和相关资源在里面都能找到，开始的配置可能要费些力气。[MIT 6.828 Lab1（没被墙）](https://pdos.csail.mit.edu/6.828/2018/labs/lab1/)  
 这个实验要求你有比较多的预备知识，包括
 1. 汇编语言——[汇编参考资料（注意intel和AT&T语法的不同）](https://pdos.csail.mit.edu/6.828/2018/readings/pcasm-book.pdf)/[这是AT&T的](http://www.delorie.com/djgpp/doc/brennan/brennan_att_inline_djgpp.html)

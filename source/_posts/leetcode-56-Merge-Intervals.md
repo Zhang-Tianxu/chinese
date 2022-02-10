@@ -1,6 +1,5 @@
 ---
 title: leetcode 56 Merge Intervals
-date: 2019-02-13 17:41:27
 tags:
   - leetcode
   - 领扣
@@ -13,7 +12,9 @@ categories:
   - 数据结构与算法
   - leetcode
 mathjax: true
+date: 2019-02-13 17:41:27
 ---
+
 
 # leetcode 56 区间合并——Merge Intervals
 

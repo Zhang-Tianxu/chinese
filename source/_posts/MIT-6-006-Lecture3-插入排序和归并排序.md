@@ -1,6 +1,5 @@
 ---
 title: MIT 6.006 Lecture3 插入排序和归并排序
-date: 2019-02-22 11:33:58
 tags:
   - algorithm
   - 算法
@@ -13,7 +12,9 @@ categories:
   - MIT 6.006
 mathjax: true
 top: -2
+date: 2019-02-22 11:33:58
 ---
+
 
 # MIT 6.006 Lecture3 插入排序和归并排序
 
