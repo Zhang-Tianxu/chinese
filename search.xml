@@ -279,6 +279,20 @@
       </tags>
   </entry>
   <entry>
+    <title>ssh免密登录</title>
+    <url>/chinese/2022/02/10/ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/</url>
+    <content><![CDATA[<h1 id="ssh-免密码登陆"><a href="#ssh-免密码登陆" class="headerlink" title="ssh 免密码登陆"></a>ssh 免密码登陆</h1><p>在配置分布式系统时经常要实现系统内机器之间的ssh免密登陆，在按照网上某些教程实现时发现并非完全正确（尤其是你不是管理员时），现在把我能成功实现的方法列出：</p>
+<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><ol>
+<li><p>在用户机上生成密钥</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将生成的密钥的公钥复制到目标机的<code>.ssh/authorized_keys</code>内</p>
+<pre><code class="shell">cat .ssh</code></pre>
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
     <title>斯坦福大学IOS7开发课程5</title>
     <url>/chinese/2021/04/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B5/</url>
     <content><![CDATA[<p>这节课主要讲解：</p>
@@ -1296,6 +1310,389 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
       </tags>
   </entry>
   <entry>
+    <title>SGX的验证</title>
+    <url>/chinese/2020/06/24/SGX%E7%9A%84%E9%AA%8C%E8%AF%81/</url>
+    <content><![CDATA[<p>Intel SGX可以很好的保证enclave（安全区域）内代码和数据的隐私性和完整性。但是如果需要多个enclave合作的话，在合作之前需要确认对方时SGX enclave。这种验证机制并不简单，分为本地验证和远程验证两种，下面会分别介绍。SGX的验证机制有很多细节，这里不会涉及太多的细节，重在帮助大家理解SGX的验证机制，更好的理解SGX的安全性以及它可能存在的弱点。</p>
+<a id="more"></a>
+
+<h2 id="本地验证-Local-Attestation"><a href="#本地验证-Local-Attestation" class="headerlink" title="本地验证 Local Attestation"></a>本地验证 <em>Local Attestation</em></h2><p><strong>SGX的本地验证用于一个enclave（称之为被验证enclave）向同一机器上的另一个enclave（称之为目标enclave）证明它的身份。</strong></p>
+<p>本地验证流程：</p>
+<ol>
+<li>被验证enclave调用<strong>EREPORT</strong>指令，，生成验证报告并发送给目标enclave</li>
+<li>目标enclave收到验证报告后，判断验证报告是否可信</li>
+</ol>
+<p><strong>EREPORT</strong>产生的<strong>验证报告</strong>中包含以下信息：</p>
+<ul>
+<li><p><strong>MAC（Message Authentication Code）标签</strong></p>
+<p>由MAC加密系统产生的标签。</p>
+<blockquote>
+<p>MAC加密系统：</p>
+<p>发送者利用MAC算法读取对称密钥和一个变长的消息，产生一个定长的MAC标签。接受者只要提供原始消息、对称密钥和MAC标签，就可以验证消息的真实性。</p>
+</blockquote>
+</li>
+<li><p>enclave当前的身份信息</p>
+<ul>
+<li>enclave的measurement</li>
+<li>基于证书的身份信息（比如软件开发商的安全版本号等）</li>
+</ul>
+</li>
+<li><p>SGX实现的安全版本号（CPUSVN）</p>
+</li>
+<li><p>enclave提供的64-byte（512-bit）的消息</p>
+</li>
+<li><p><strong>KEYID</strong></p>
+<p>enclave初始化时产生的一个随机数。</p>
+</li>
+</ul>
+<p>验证报告的详细内容如下图：</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gg3hm2b6arj30ic10kgof.jpg" alt="image-20200624170332771"></p>
+<p>目标enclave想要通过MAC标签验证消息是由SGX实现发出的，那么<strong>生成MAC标签的对称密钥只能SGX实现和目标enclave知道</strong>。被验证enclave是不可以知道这个对称密钥的，<strong>一旦这个对称密钥泄露，验证报告就可能被伪造</strong>。</p>
+<p>这个对称密钥成为<em>Report Key</em>，由<strong>EGETKEY</strong>指令产生。<strong>EGETKEY</strong>指令生成密钥的依据包括：</p>
+<ul>
+<li>嵌入到处理器中的一个秘密</li>
+<li>包括<strong>目标enclave</strong>的measurement在内的一些信息</li>
+</ul>
+<p>目标enclave可以自己生成相应的对称密钥，验证报告中的信息。</p>
+<p>目标enclave可以确定验证报告中的MAC标签是由SGX实现生成的，原因有二：</p>
+<ol>
+<li><strong>EGETKEY</strong>生成密钥的算法和MAC加密系统的MAC算法都是保密的，只有SGX实现才能产生这个MAC标签</li>
+<li>只有SGX实现可以读取内嵌在处理器中的秘密</li>
+</ol>
+<h2 id="远程验证-Remote-Attestation"><a href="#远程验证-Remote-Attestation" class="headerlink" title="远程验证 Remote Attestation"></a>远程验证 <em>Remote Attestation</em></h2><p>相比于本地验证，远程验证要更加复杂。在介绍远程验证前，先介绍将会涉及到的一些内容：</p>
+<p>在生产的过程中，处理器中的一个叫做e-fuse存储器中烧有两个秘密，我们称这两个秘密为<em>Provisioning Secret</em>和<em>Seal Secret</em>。</p>
+<p><em>Provisioning Secret</em>是intel的密钥生成工具产生的，处理器生产过程中与intel的密钥生成工具通信，获取<em>Provisioning Secret</em>。在烧入处理器e-fuse的同时也会被intel保存在数据库。</p>
+<p><em>Seal Secret</em>是在处理器芯片中生成的，所以Intel不知道这个秘密是什么。<em>Seal Secret</em>存在的好处在于，即便攻击者攻破了intel的密钥生成工具，也没办法生成<strong>EGETKEY</strong>生成的密钥。<em>Seal Secret</em>只有被<strong>EGETKEY</strong>做为密钥生成依据时才可以被访问，而不会暴露给任何软件。</p>
+<p>远程验证流程：</p>
+<ol>
+<li><p>被验证enclave利用<strong>EGETKEY</strong>指令生成<em>Provisioning Key</em>，生成<em>Provisioning Key</em>的依据包括：</p>
+<ul>
+<li><em>Provisioning Secret</em></li>
+<li>enclave当前以证书为基础的身份信息</li>
+<li>SGX实现的安全版本号</li>
+</ul>
+</li>
+<li><p>被验证enclave利用<em>Provisioning Key</em>向intel的<em>Provisioning</em>服务证明自己是可信的。</p>
+<p>上面提过，intel记录了<em>Provisioning Secret</em>，同时拥有生成密钥的算法。</p>
+</li>
+<li><p>通过验证后，intel的<em>Provisioning</em>服务会生成一个<em>Attestation Key</em>并返还给被验证enclave</p>
+</li>
+<li><p>被验证enclave再利用<strong>EGETKEY</strong>指令以<em>Seal Secret</em>等信息为依据生成<em>Provisioning Seal key</em>，用这个密钥加密<em>Attestation Key</em>后存入计算机内存或磁盘。</p>
+</li>
+<li><p><em>Quoting Enclave<em>通过*</em>EGETKEY*<em>获得</em>Provisioning Seal key<em>，从内存中读取并解密</em>Attestation Key</em></p>
+</li>
+<li><p>被验证enclave向同一机器上的一个成为<em>Quoting Enclave</em>的特殊enclave执行本地验证</p>
+</li>
+<li><p><em>Quoting Enclave</em>将收到的本地验证的验证报告中的MAC标签换成由<em>Attestation Key</em>产生的签名（一种intel的特殊签名机制）</p>
+</li>
+<li><p><em>Quoting Enclave</em>将远程验证报告发送给目标enclave</p>
+</li>
+</ol>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li>Costan, Victor, Ilia Lebedev, and Srinivas Devadas. “Secure processors part I: background, taxonomy for secure enclaves and Intel SGX architecture.” <em>Foundations and Trends in Electronic Design Automation</em> 11.1-2 (2017): 1-248.</li>
+</ol>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>安全</category>
+        <category>可信执行环境</category>
+      </categories>
+      <tags>
+        <tag>SGX</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>英语口语：如何说的更快（二）</title>
+    <url>/chinese/2020/04/14/%E8%8B%B1%E8%AF%AD%E5%8F%A3%E8%AF%AD%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AF%B4%E7%9A%84%E6%9B%B4%E5%BF%AB%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<p>内容参考<a href="https://youtu.be/5wr44LGmIaw" target="_blank" rel="noopener">How to speak English fast and understand natives (Part II)</a> From <a href="https://www.youtube.com/channel/UCAQg09FkoobmLquNNoO4ulg" target="_blank" rel="noopener">linguamarina</a></p>
+<p>要点：</p>
+<ul>
+<li>口语中的简化：<ul>
+<li>Want to -&gt; wanna</li>
+<li>Going to -&gt; gonna</li>
+<li>Don’t know -&gt; dunno know</li>
+<li>got to -&gt; gotta</li>
+</ul>
+</li>
+<li>忽略无意义词句</li>
+<li>使用缩写</li>
+<li>重音、俚语和习语<a id="more"></a>
+
+</li>
+</ul>
+<h2 id="口语中的简化："><a href="#口语中的简化：" class="headerlink" title="口语中的简化："></a>口语中的简化：</h2><ol>
+<li>Want to会连读称wanna，比如<br>I want to go to london -&gt;I wanna go to london<br>I want to study in the US -&gt; I wanna study in the US</li>
+<li>going to读成 gonna<br>I’m going to wash the car -&gt;I’m gonna wash the car</li>
+<li>don’t know读成dunno know<br>I don’t know -&gt; I dunno know</li>
+<li>got to 读成 gotta<br>I got to do my homework -&gt; I gotta do my homework</li>
+</ol>
+<h2 id="忽略口语中的一些无意义词句（fillers），比如："><a href="#忽略口语中的一些无意义词句（fillers），比如：" class="headerlink" title="忽略口语中的一些无意义词句（fillers），比如："></a>忽略口语中的一些无意义词句（fillers），比如：</h2><ol>
+<li>actually</li>
+<li>anyway</li>
+<li>basically</li>
+<li>By the way</li>
+<li>Erm（象声词）</li>
+</ol>
+<p>当然反过来我们说的时候也可以插入一些这些句子，给自己多些时间思考</p>
+<ol>
+<li>I mean</li>
+<li>incidentally</li>
+<li>in fact</li>
+<li>obviously</li>
+<li>well</li>
+<li>you know</li>
+</ol>
+<p>比如下面这个句子，去掉斜体字对意思是没有影响的：</p>
+<p><em>By the way</em>, I saw Mark yesterday. <em>Erm, so obviously</em> I said ‘hello’ to him but he <em>basically</em> ignored me!</p>
+<h2 id="使用缩写"><a href="#使用缩写" class="headerlink" title="使用缩写"></a>使用缩写</h2><table>
+<thead>
+<tr>
+<th align="center">缩写规则</th>
+<th>例句</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">I am -&gt; I’m</td>
+<td>I am hungry -&gt; I’m hungry</td>
+<td>无</td>
+</tr>
+<tr>
+<td align="center">I will -&gt; I’ll</td>
+<td>I will do that -&gt; I’ll do that<br />I will pick it up -&gt; I’ll pick it up</td>
+<td>缩写不能用在人名后面<br />Kate will do that $\ne $  Kate’ll do that</td>
+</tr>
+<tr>
+<td align="center">do not = don’t</td>
+<td>I do not like it =&gt; I don’t like it</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">I have =&gt; I’ve</td>
+<td>I have got your back -&gt; I’ve got your back<br />I have done this befor -&gt; I’ve done this before</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">I would =&gt; I’d</td>
+<td>I would like to join you =&gt; I’d like to join you<br />I would like to stay home -&gt; I’d like to stay home</td>
+<td></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>另外在口语中注意一些几点可以提升听力：</p>
+<ul>
+<li>在注意口语中的重音能帮助理解口语</li>
+<li>学习俚语</li>
+<li>学习英语习语</li>
+</ul>
+]]></content>
+      <categories>
+        <category>语言</category>
+        <category>英语</category>
+        <category>英语口语</category>
+      </categories>
+      <tags>
+        <tag>English</tag>
+        <tag>英语</tag>
+        <tag>Spoken English</tag>
+        <tag>英语口语</tag>
+        <tag>English Native Speaker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>英语口语：如何说的更快</title>
+    <url>/chinese/2020/04/13/%E8%8B%B1%E8%AF%AD%E5%8F%A3%E8%AF%AD%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AF%B4%E7%9A%84%E6%9B%B4%E5%BF%AB/</url>
+    <content><![CDATA[<p><img src="https://i.ytimg.com/vi/MiebCHmiszs/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLAqpOOb7VavDJ4Reu3nzoseweLxcw" alt="封面"></p>
+<p>内容参考<a href="https://youtu.be/MiebCHmiszs" target="_blank" rel="noopener">How to speak English fast and understand natives (Part I)</a> From <a href="https://www.youtube.com/channel/UCAQg09FkoobmLquNNoO4ulg" target="_blank" rel="noopener">linguamarina</a></p>
+<p>要点：</p>
+<ul>
+<li>我们感觉English Native Speaker说得快，所以听上去很地道。但实际上他们不是说得快，而是把单词连起来了。</li>
+<li>the 读成 duh</li>
+<li>you 读成 yuh</li>
+<li>以t结尾的单词后接以d开头的单词时，两者字母连读为chu。</li>
+<li>Something读成Sumpthin</li>
+<li>字母t出现在单词中间时，有时需要读成d</li>
+</ul>
+<a id="more"></a>
+<p>对于句式What do you …，比如What do you do?美国人不会一个单词一个单词的读，而是读成Whudduhyuh do?句式I’m going to …，比如I’m going to do some shopping，美国人会读成I’m gonna do some shopping。甚至有人进一步简化为Ahmma do shopping。这样是为了让平时说话时更容易，更流畅。</p>
+<p><strong>the 读成 duh</strong><br>比如句子：<br>What’s the weather today?<br>美国人会读成：<br>What’s duh weather today?<br><strong>you 读成 yuh</strong><br>比如句子：<br>Do you want to go?<br>会被读成：<br>Do yuh wanna go?<br><strong>t结尾的单词后接d开头的单词</strong><br>比如<br>What do you do?<br>会被读成<br>Whutchuhyuh do?<br>这也是为了让口语更顺畅<br>另外几个例子:<br>what you do for a living?<br>读成<br>Whutchuhyuh do for a living?<br>I’m goint to go out to WalMar<strong>t. D</strong>o you need anything?<br>会读成<br>Ahmma go ou’tuh Walmartchuh nee danything?<br><strong>something 读成 sumpthin</strong><br>Can you give me something?<br>读成<br>Can you give me sumpthin?<br>Let me give you something<br>读成<br>Lemmee givyuh sumpthin<br><strong>单词中的t有时会读成d</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">单词</th>
+<th align="center">口语发音</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">letter</td>
+<td align="center">ledder</td>
+</tr>
+<tr>
+<td align="center">city</td>
+<td align="center">siddy</td>
+</tr>
+<tr>
+<td align="center">bitter</td>
+<td align="center">bidder</td>
+</tr>
+<tr>
+<td align="center">bottle</td>
+<td align="center">bodduhl</td>
+</tr>
+<tr>
+<td align="center">butter</td>
+<td align="center">budder</td>
+</tr>
+<tr>
+<td align="center">computer</td>
+<td align="center">compyooder</td>
+</tr>
+<tr>
+<td align="center">daughter</td>
+<td align="center">dawdder</td>
+</tr>
+<tr>
+<td align="center">eighty</td>
+<td align="center">ayddy</td>
+</tr>
+<tr>
+<td align="center">forty</td>
+<td align="center">fordy</td>
+</tr>
+<tr>
+<td align="center">little</td>
+<td align="center">lidduhl</td>
+</tr>
+<tr>
+<td align="center">settle</td>
+<td align="center">sedduhl</td>
+</tr>
+<tr>
+<td align="center">thirty</td>
+<td align="center">thurdy</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>语言</category>
+        <category>英语</category>
+        <category>英语口语</category>
+      </categories>
+      <tags>
+        <tag>English</tag>
+        <tag>英语</tag>
+        <tag>Spoken English</tag>
+        <tag>英语口语</tag>
+        <tag>English Native Speaker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微信小程序：如何把公众号后台上传的视频链接插入到小程序</title>
+    <url>/chinese/2020/04/08/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%EF%BC%9A%E5%A6%82%E4%BD%95%E6%8A%8A%E5%85%AC%E4%BC%97%E5%8F%B7%E5%90%8E%E5%8F%B0%E4%B8%8A%E4%BC%A0%E7%9A%84%E8%A7%86%E9%A2%91%E9%93%BE%E6%8E%A5%E6%8F%92%E5%85%A5%E5%88%B0%E5%B0%8F%E7%A8%8B%E5%BA%8F/</url>
+    <content><![CDATA[<h1 id="微信小程序视频链接"><a href="#微信小程序视频链接" class="headerlink" title="微信小程序视频链接"></a>微信小程序视频链接</h1><p>微信小程序对链接的过滤很严格，很多视频链接都没办法直接插入到小程序的video组件。但是腾讯自己的视频还是没问题的。我是现有的微信公众号，再为其开发小程序。所以希望将之前上传到微信公众号的视频在小程序中直接复用而不占用小程序云开发的存储空间。</p>
+<a id="more"></a>
+
+<p>获取微信公众号文章中视频链接的方法：</p>
+<ol>
+<li>用浏览器打开公众号文章，在浏览器（以chrome为例）中打开开发者工具<sup><a href="#foot_note_1">[1]</a></sup></li>
+<li>选择network并选择Media过滤其<br><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdm9yjomrhj30u00vn0vv.jpg" alt=""></li>
+<li>点击播放视频，这时会出现一个包，包头部中红框部分就是我们想要的链接了。<br><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdm9z0moluj31ln0u0aii.jpg" alt=""></li>
+</ol>
+<p><span id="foot_note_1"><sub>[1]:在chrome浏览器页面部分单击右键，选择“检查”</sub></span></p>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>前端</category>
+        <category>小程序</category>
+        <category>微信小程序</category>
+      </categories>
+      <tags>
+        <tag>微信</tag>
+        <tag>微信小程序</tag>
+        <tag>小程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微信小程序：scroll-view与swiper</title>
+    <url>/chinese/2020/04/08/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%EF%BC%9Ascroll-view%E4%B8%8Eswiper/</url>
+    <content><![CDATA[<h1 id="scroll-view与swiper的区别"><a href="#scroll-view与swiper的区别" class="headerlink" title="scroll-view与swiper的区别"></a>scroll-view与swiper的区别</h1><p>在做小程序的时候有一个需求:主要内容做成卡片，然后通过划动在卡片之间切换。划动的内容，第一反应就想到scroll-view组件，没细想就开始做了，但是做的差不多了总出现一些小毛病：</p>
+<ol>
+<li>划动时会停在两个卡片中间，而不是想要的一个卡片一个卡片的划动。</li>
+<li>scroll-view带惯性感性，大力划动会连续跳过好几个卡片。还是没达到一个卡片一个卡片的划动。</li>
+</ol>
+<p>为了解决这个问题，我尝试了很多方法。第1个问题，我通过用js设置scroll-view的划动距离，强行让划到中间的卡片复位。废了九牛二虎之力才解决了，第2个问题怎么也解决不了。最后才发现<strong>更符合我需求的组件是swiper！</strong></p>
+<a id="more"></a>
+
+<p>参考：</p>
+<ul>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/component/scroll-view.html" target="_blank" rel="noopener">scroll-view</a><ul>
+<li>滚动视图容器</li>
+</ul>
+</li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/component/swiper.html" target="_blank" rel="noopener">swiper</a><ul>
+<li>滑块视图容器</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>前端</category>
+        <category>小程序</category>
+        <category>微信小程序</category>
+      </categories>
+      <tags>
+        <tag>微信</tag>
+        <tag>微信小程序</tag>
+        <tag>小程序</tag>
+        <tag>组件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>强大的反爬虫机制</title>
+    <url>/chinese/2020/04/08/%E5%BC%BA%E5%A4%A7%E7%9A%84%E5%8F%8D%E7%88%AC%E8%99%AB%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<p>需求：拥有招聘网站的招聘者账户，爬取求职者们的简历信息。（不过这个好像是违法的，还好我失败了，不建议尝试)</p>
+<p>尝试过的工具：</p>
+<ul>
+<li><a href="https://docs.scrapy.org/en/latest/" target="_blank" rel="noopener">Scrapy</a></li>
+<li><a href="https://splash.readthedocs.io/en/3.4.1/" target="_blank" rel="noopener">Splash</a></li>
+<li><a href="https://www.selenium.dev/documentation/en/" target="_blank" rel="noopener">selenium</a></li>
+</ul>
+<a id="more"></a>
+<p>在尝试的过程中遇到了如下几个问题：</p>
+<ol>
+<li>动态网站，直接使用Scrapy爬的话，只能爬静态网页。需要用到splash渲染</li>
+<li>splash渲染过的网页(和浏览器看源码得到的内容一样)和实际网页内容不符，前者body中是一些js脚本。</li>
+<li>使用selenium自动化控制得到正常网页，但是会被反爬虫机制发现，提示账户存在风险。</li>
+</ol>
+<p>爬虫经常遇到的问题，我基本都遇到了……</p>
+<p><strong>解决方案</strong></p>
+<ol>
+<li>现在的动态网页越来越多，可以借助splash完成渲染，这个问题不大。</li>
+<li>确实会有遇到某些url是经过js处理然后再生成的情况（比如某些url的加密解密，id的运算等），这样的情况下你直接看网页源代码是找不到直接的url的，而通过检查是可以看到经过处理的url的。一般遇到这个情况，除非你了解这些url的生成方式，自行设计算法来破解，不然直接用requests库就显得力不从心了。当然，遇到这种情况也有一个“曲线救国”的办法，就是借助selenium或者splinter来模拟浏览器访问，既然是模拟浏览器，当然它们都是可以处理js程序的，所以你看到的也是直接可以访问的url。(<a href="https://fishc.com.cn/thread-82644-1-1.html" target="_blank" rel="noopener">参考</a></li>
+<li>按照2中的解决方案，改用selenium。通过添加cookies可以正常登录，但是尝试通过定位网页元素点击时，就出出现下图中的提示，我猜是因为定位不小心，定位到了隐藏元素，被判定为爬虫。<br><img src="https://tva1.sinaimg.cn/large/00831rSTly1gdm65nf0zbj31hb0o1dj2.jpg" alt="警告"></li>
+</ol>
+<p>到这之后就放弃了，毕竟只是好奇，想试一下。</p>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>编程语言</category>
+        <category>Python</category>
+        <category>爬虫</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Scrapy</tag>
+        <tag>Splash</tag>
+        <tag>scrapy_splash</tag>
+        <tag>爬虫</tag>
+        <tag>反爬虫</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>比特币和区块链的运行原理</title>
     <url>/chinese/2019/11/17/%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<p>比特币和区块链技术出现很久了，大家或多或少都有耳闻。不管是对比特币暴涨的羡慕，还是对背后技术的科普。笔者也是一样多少看过一些相关资料，但最近读区块链支付领域的顶会<sup><a href="#foot_note_1">[1]</a></sup>论文<sup><a href="#foot_note_2">[2]</a></sup>时还是发现自己对技术细节了解太少，甚至存在一些误解。</p>
@@ -1372,6 +1769,74 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
       </tags>
   </entry>
   <entry>
+    <title>用一个例子解释RSA原理</title>
+    <url>/chinese/2019/11/15/%E7%94%A8%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90%E8%A7%A3%E9%87%8ARSA%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<p>RSA是一种非对称加密算法，是以三位发明者（Ron <strong>R</strong>ivest、Adi <strong>S</strong>hamir、Leonard <strong>A</strong>dleman）的last name的首字母组成的。（来自：<a href="[https://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95](https://zh.wikipedia.org/wiki/RSA加密演算法)">维基百科，RSA加密算法</a>）</p>
+<p>目前RSA被广泛使用，尤其在web server的密钥、SSH等领域。因其应用广泛，所以值得学习一下。我主要用一个简单的例子来解释RSA的运行原理，以及怎么（理论上）破解它。</p>
+<p>但是讲解之前还是要强调，大家都在用并不代表就是安全的。抛去各种因素不考虑，单是计算机计算能力的快速提升就让RSA加密算法越来越不安全了。看完大家就有大概的了解了。</p>
+<a id="more"></a>
+
+<h2 id="概念解释（来自：维基百科，RSA加密算法）"><a href="#概念解释（来自：维基百科，RSA加密算法）" class="headerlink" title="概念解释（来自：维基百科，RSA加密算法）"></a>概念解释（来自：<a href="[https://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95](https://zh.wikipedia.org/wiki/RSA加密演算法)">维基百科，RSA加密算法</a>）</h2><blockquote>
+<p><strong>公钥与私钥的产生</strong></p>
+<ol>
+<li>随意选择两个大的素数$p$和$q$，$p$不等于$q$，计算$N=pq$。</li>
+<li>$r =(p-1)(q-1)$</li>
+<li>选择一个小于$r$的整数$e$，使$e$与$r$互质。</li>
+<li>求得$e$关于$r$的模逆元，命名为$d$（既$(e \times d)\ \ mod\ \ 1 = r$）</li>
+<li>将$p$和$q$的记录销毁。</li>
+<li>$(N,e)$是公钥，$(N,d)$是私钥。Alice将她的公钥$(N,e)$传给Bob，而将她的私钥$(N,d)$藏起来。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p><strong>加密消息</strong><br>$密文 = 明文^e\ mod\ \ N\ $</p>
+</blockquote>
+<blockquote>
+<p><strong>解密消息</strong></p>
+<p>$明文 = 密文^d\ mod\ \ N$</p>
+</blockquote>
+<blockquote>
+<p><strong>签名</strong></p>
+<p>签名过程其实就是用私钥加密，公钥解密的过程，因为公钥智能解密对应私钥加密的消息，而私钥（理论上）不会被泄露，所以能够确定就是拥有私钥的人签的名。</p>
+</blockquote>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>假设Alice想要通过一个不可靠的媒体接收Bob的一条私密消息，假设这个私密消息是99（如果像发送其他格式的消息，也需要转化为整数才行，这是不难的），那么详细过程如下：</p>
+<ol>
+<li>生成共私钥：<ol>
+<li>选择两个素数11和17，那么$N = 11 \times 17 = 187$</li>
+<li>$r = (11 -1) \times (17 -1) = 160$</li>
+<li>找到一个与$r$互质的整数$e = 3$</li>
+<li>由$( 3 \times d)\  mod\ \ 1 = 160$的$d$可为107。</li>
+<li>将$N = 187$和$e = 3$作为公钥发给Bob，自己保留$N=187$和$d = 107$</li>
+</ol>
+</li>
+<li>加密消息<ol>
+<li>Bob想要发送私密消息99</li>
+<li>$密文 = 99^e\  mod\ \ N = 99^3\ mod\ \ 187 = 143$</li>
+<li>将密文143发送给Alice</li>
+</ol>
+</li>
+<li>解密消息<ol>
+<li>Alice拿到密文143</li>
+<li>$明文 = 143^d\ mod\ \ N = 143^{107}\ mod\ \ 187 = 99$</li>
+<li>这样Alice拿到了私密消息99</li>
+</ol>
+</li>
+</ol>
+<h2 id="破解RSA"><a href="#破解RSA" class="headerlink" title="破解RSA"></a>破解RSA</h2><p>从上面加解密的过程可以意识到开始时选择的两个素数的重要性。</p>
+<p>拥有公钥（$N$和$e$）再算出开始时使用的两个素数，很容易就可以算出私钥：<br>$$<br>私钥d = ((11 - 1) \times (17 - 1) \times n + 1) \div e\<br> = (160 \times n + 1) \div 3\<br> = (160 \times 2 + 1) \div 3\<br> = 107<br>$$<br>其中$n$为正整数。</p>
+<p><strong>所以将N分解为两个素数就等同于破解了密码</strong>，好在大素数分解目前还没有多项式时间算法，只能用暴力法试。但是只要算力和时间足够，这并没有想象中的困难，而且密钥生成的过程中有很多因素会削弱密钥的安全性。想具体了解，大家可以看 <strong><em>trailofbits</em></strong> 的博客 <em><a href="https://blog.trailofbits.com/2019/07/08/fuck-rsa/" target="_blank" rel="noopener">Seriously, stop using RSA</a></em></p>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>安全</category>
+      </categories>
+      <tags>
+        <tag>encryption</tag>
+        <tag>加密</tag>
+        <tag>secure</tag>
+        <tag>RSA</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C与Python中的socket</title>
     <url>/chinese/2019/11/15/C%E4%B8%8EPython%E4%B8%AD%E7%9A%84socket/</url>
     <content><![CDATA[<h1 id="C与Python中的socket"><a href="#C与Python中的socket" class="headerlink" title="C与Python中的socket"></a>C与Python中的socket</h1><p>本文主要是想实现一下C与Python的socket通信，顺便说一下两者各自的socket编程。所以全篇结构如下：</p>
@@ -1420,10 +1885,612 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
         <category>网络编程</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>C</tag>
+        <tag>Python</tag>
         <tag>socket</tag>
         <tag>网络编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论文笔记——Scaling Intel SGX Apps with Intel SGX Card</title>
+    <url>/chinese/2019/07/08/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94Scaling-Intel-SGE-Apps-with-Intel-SGX-Card/</url>
+    <content><![CDATA[<h1 id="Scaling-Intel-SGX-Apps-with-Intel-SGX-Card"><a href="#Scaling-Intel-SGX-Apps-with-Intel-SGX-Card" class="headerlink" title="Scaling Intel SGX Apps with Intel SGX Card"></a>Scaling Intel SGX Apps with Intel SGX Card</h1><p>这边笔记完全来自下面这篇论文：</p>
+<p>Chakrabarti S, Hoekstra M, Kuvaiskii D, et al. Scaling Intel® Software Guard Extensions Applications with Intel® SGX Card[C]//Proceedings of the 8th International Workshop on Hardware and Architectural Support for Security and Privacy. ACM, 2019: 6.</p>
+<h2 id="太长不看版"><a href="#太长不看版" class="headerlink" title="太长不看版"></a>太长不看版</h2><p>本文介绍了一个Intel 提出的一个新硬件——Intel SGX Card，这个SGX Card可以直接插在普通服务器的PCIe插槽上，有了这个新硬件带来一下好处：</p>
+<ol>
+<li>使得普通服务器据有SGX特性</li>
+<li>突破SGX的128MB的内存限制，使SGX应用程序得到扩展。但是在维持SGX特性的同时实现这种扩展是要在一定程度上牺牲性能的。</li>
+</ol>
+<p>本文演示了在不可信数据中心中利用Intel SGX Card部署Intel SGX应用程序的四种方法。 为了加速Intel SGX应用程序的内存扩展部署，论文作者们开发了一个内存共享库，用于主机和SGX Card之间的快速异步通信，并通过VNF用例突出显示SGX Card的能力。</p>
+<a id="more"></a>
+
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>云计算的出现彻底改变了大型互联网应用部署和扩展的方式。但是很多公司还是不想将IT基础设施迁移到云上，原因有二：</p>
+<ol>
+<li>通常意义上的安全考量</li>
+<li>对于商业机密数据的保护</li>
+</ol>
+<p>Intel SGX技术针对在不可信公共云上计算隐私数据这种情况，提供了一种硬件强制实现的可信执行环境。但是到目前为止Intel SGX还是有两个限制：</p>
+<ol>
+<li>只支持<strong>单插槽平台</strong>（<em>single-socket platforms</em>）</li>
+<li>安全内存被限制在128MB以内</li>
+</ol>
+<p>本文介绍了一个硬件——SGX Card，SGX Card的特性如下：</p>
+<ul>
+<li>有三个独立的CPU，用于处理需要安全保证的任务。</li>
+<li>多个SGX Card可以通过PCI Express总线连接到服务器主机上，提升服务器的额外CPU数量。</li>
+</ul>
+<p>有了额外的SGX Card，云服务提供商（CSP）可以使他们现有的服务平台具有Intel SGX的防护能力。随着隐私数据计算需求的增加，CSP们可以逐步为他们的数据中心增加SGX Card。</p>
+<p>本文主要描述了在云环境下如何通过SGX Card在保持既定服务器形式的情况下扩展资源密集型SGX应用。我们将展示如何跨SGX Card节点横向扩展SGX应用程序，同时将对性能的影响降至最低。</p>
+<p>SGX Card使得Intel SGX</p>
+<ul>
+<li>支持双插槽服务器平台（<em>dual-socket server platforms</em>），并且可以很容易地和现有数据中心基础架构整合。</li>
+<li>通过软件支持，使得应用程序可以在SGX Card上的三个$Intel^® Xeon^® E3$处理器横向扩展，以获得更多的安全内存。</li>
+</ul>
+<p>本文还有如下贡献：</p>
+<ul>
+<li>对SGX Card的分析</li>
+<li>SGX Card的内存共享库</li>
+<li>提出了四种能够高效利用SGX Card的软件架构</li>
+<li>展示了一个SGX Card的应用案例</li>
+</ul>
+<h2 id="Intel-SGX"><a href="#Intel-SGX" class="headerlink" title="Intel SGX"></a>Intel SGX</h2><p>本问讨论如何提升应用程序的<strong>安全性</strong>和<strong>可扩展性</strong>，前者由Intel SGX保证，后者由SGX Card保证。</p>
+<h3 id="Intel-SGX架构"><a href="#Intel-SGX架构" class="headerlink" title="Intel SGX架构"></a>Intel SGX架构</h3><p>Intel SGX是对Intel CPU的一个ISA（指令集架构）扩展，它提供了提升应用程序机密部分机密性和完整性的能力。尽管应用程序的非机密部分处在不可信内存，但是机密部分被放在SGX的enclave中，enclave是一段对包括操作系统和hypervisor在内的其他任意软件都是不透明的内存空间。出于enclave中的代码可以执行几乎所有的CPU指令，并且可以读取enclave内外的数据。然而enclave外的特权/非特权软件对enclave数据的直接读取都会失败。enclave数据离开CPU芯片时，Intel SGX都会对数据作额外的加密。所以尝试直接读取RAM数据的硬件攻击也是无法成功的。</p>
+<p>在硬件层面上引入了一些新的x86指令，用于对enclave做initialize、enter、resume和exit操作。当处于enclave模式时，CPU禁止对kernel的上下文切换。所以想要执行系统调用就必须先离开enclave，执行完系统调用后再重新进入SGX。离开enclave时会刷新TLB（Translation Lookaside Buffer），但是TLB对性能来说是很重要的，所以对于I/O密集型应用（需要经常离开enclave）来说，Intel SGX会有比较高的性能开销。</p>
+<p>为了实现enclave数据的私密性和完整性，增加了一个硬件——EPC（Enclave Page Cache）。EPC是物理内存中的一个区域，这块区域不能被对应enclave以外的任何软件存取。所有从CPU发送到EPC的数据都会被CPU-secific的临时密钥加密。将数据从EPC移动到CPU会对数据进行解密并确保其完整性。目前，EPC大小为128M，其中只有大约96MB可以被用户数据使用。这么大的内存对某些应用（比如KMS）是足够的，但是如果enclave的工作量超出EPC的大小，就必须执行代价高昂的分页。在现有版本的Intel SGX上想要达到好的性能，就必须通过限制代码和数据大小来避免分页。</p>
+<h3 id="建立Intel-SGX架构"><a href="#建立Intel-SGX架构" class="headerlink" title="建立Intel SGX架构"></a>建立Intel SGX架构</h3><p>Intel SGX为应用程序提供了熟悉的构建环境。开发过程中的一个根本不同在于要把程序分为可信与不可信两部分，前者放在enclave中。一些类似于Intel SGX SDK的工具需要手动分割代码，但是可以自动生成一些用于两部分代码通信的粘合代码（glue code）。已经有人提出根据开发者提供的代码注释来分割现有应用的自动分割工具。另外还有一些工具允许直接重用现有程序，只需很少甚至不需要任何修改。所有用户代码都在enclave中执行，只有不受信任的I/O系统调用执行在外面。</p>
+<p>应用程序不受信的任部分必须将数据传输到安全区，以便enclave对这些数据执行私密计算。 类似地，在安全区完成计算之后，它必须将结果传递回不受信任的应用程序（然后通过不受信任的I/O将这些结果转发给最终用户）。Intel SGX中enclave和不受信任部分代码之间唯一的通信方式是共享不受信任的应用程序内存（enclave可以不受信任内存中的数据）。将通过不受信任内存进行通信分为<strong>同步通信</strong>和<strong>异步通信</strong>两种。</p>
+<p><strong>同步通信：</strong></p>
+<p><img src="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190707190211447.png" alt="image-20190707190211447"></p>
+<p>在同步模式中（如上图），不被信任的部分想要对私密数据执行私密操作时步骤如下：</p>
+<ol>
+<li>它必须把数据放在与enclave共享的内存中</li>
+<li>然后进入enclave（也就是所谓的ECALL）</li>
+<li>然后读取共享内存中的数据进行相应操作。</li>
+</ol>
+<p>同样的，enclave想要执行不可信操作时的过程也是：</p>
+<ol>
+<li>必须将该操作所需要的数据放入共享内存</li>
+<li>然后离开（exits）enclave</li>
+<li>然后该操作被不被信任的部分执行（这就是所谓的OCALL）</li>
+</ol>
+<p><strong>异步通信：</strong></p>
+<p><img src="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190707190234316.png" alt="image-20190707190234316"></p>
+<p>在异步模式下，不被信任的部分和enclave利用共享内存以生产者-消费者的模式独立执行。比如，不被信任的部分可能执行I/O操作并且在共享队列中存储网络包，同时enclave按照自己的节奏接受这些包。</p>
+<p>不管是异步模式还是同步模式，不被信任的部分和enclave都可以运行在独立的地址空间。通过RPC和共享内存实现ECALLs和OCALLs</p>
+<h2 id="Intel-SGX-Card"><a href="#Intel-SGX-Card" class="headerlink" title="Intel SGX Card"></a>Intel SGX Card</h2><p><img src="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190707223636636.png" alt="image-20190707223636636"></p>
+<p>上图是SGX Card的硬件架构，其中PCH指平台路径控制器<em>Platform Controller Hub</em>，DIMM指双线存储器模块<em>Dual In-line Memory ModuleSP</em>指<em>Scable Processor</em>。从图中我们可以看出每个SGX Card有三个Intel Xeon E3 CPU，每个CPU有其自己的本地RAM和完整的软件堆栈，所以每个Card节点运行其自己的操作系统并且通过自己的网络与外界通信。这在单个机架中提供了更多的计算能力，从而增加了云密度。</p>
+<p>SGX Card通过非透明的PCIe Bridge与主机（通常是Intel Xeon Scable Processor）。SGX Card中的每个处理器都连接着自己的PCH、Flash、DIMM，单个处理器独立工作并且可以被用作三个独立服务器。在本文中SGX Card每个Card节点（card node）。也就是说每个SGX Card包含三个Card节点，每个Card节点像独立计算机一样处理数据，被自己的操作系统管理。</p>
+<p>将三个Card节点放在一个PCIe Card上的优点是在Card和主机之间移动数据时能够提供高吞吐量和低延迟，这是Intel SGX Card的显着特征，我们用这种特征来构建内存共享库并高效地扩展Intel SGX应用程序。</p>
+<h3 id="从软件视角看SGX-Card"><a href="#从软件视角看SGX-Card" class="headerlink" title="从软件视角看SGX Card"></a>从软件视角看SGX Card</h3><p><img src="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190707230800302.png" alt="image-20190707230800302"></p>
+<p>上图是Intel SGX Card的软件架构，可以看出，SGX Card通过建立在PCIe上的虚拟网络和块I/O与主机进行通信。所以每个Card节点有其独立的网络和文件系统。</p>
+<p>主机通过专用的带外接口启动并管理每个Card节点，主机也会配置Card节点的网络。Card节点通过专用虚拟以太网链路与主机连接。Card节点的IP地址由主机或者外部DHCP服务器分配。Card节点的虚拟以太网接口和主机网络之间的虚拟桥接器使得Card节点能够与外部网络进行通信。</p>
+<h3 id="Memory-access-model"><a href="#Memory-access-model" class="headerlink" title="Memory access model"></a>Memory access model</h3><p><img src="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708093633782.png" alt="image-20190708093633782"></p>
+<p>从途中可以看出SGX Card的每个CPU都运行在自己的内存空间中。这就意味之每个Card节点都有完全独立于主机和其他Card节点的DRMA内存。</p>
+<p>如同之前的图2所示，Card上的CPU和主机上的CPU都连接到同一个PCI主线上。这种拓扑逻辑下CPU可以做到通过DMA对其他CPU物理地址的读写，PCI bridges在两边都会暴露一个DMA窗口，通过这个DMA窗口就能调用远程数据。在软件层面，通过正确的内存映射，运行在其中一个CPU上的应用程序可以存取运行在其他CPU上的应用程序的内存。要注意共享内存区域必须是固定的，以防止其他CPU通过DMA读取内存页时，该内存页的拥有者CPU上的操作系统将该页调出内存。</p>
+<p>SGX Card在主机侧和Card侧都会暴露DMA engine，DMA engine在两侧可以存取的内存数量是由PCI配置空间寄存器来配置的。远程内存范围可以映射到相应CPU访问范围的MMIO（Memory-Mapped I/O）地址空间。由于主机和Card节点可以具有不同的存储量，因此主机和Card上的DMA窗口大小可以不同。 将DMA窗口映射到MMIO空间后，该范围将显示为系统物理地址空间的一部分，并且可以映射给任何打算访问远程内存的应用程序。</p>
+<p>在Card上，只需要将MMIO内存空间映射给应用程序就足够了。此外，DMA还必须被编程为能够成为两侧物理地址空间的桥梁。需要注意的是，利用DMA窗口从主机到Card的通信和从Card到主机的通信是不同的。</p>
+<p>Card上的PCI bridges仅桥接Card节点和主机之间的PCI通信，但不桥接多个Card节点之间的PCI通信。 这样做在保证安全的同时也是的Card节点不能通过共享存储器直接相互通信。 如果需要在Card节点之间共享存储器，则可以以两个或更多个Card节点共享主机上的一系列物理存储器，当然这样做会增加内存访问延迟。</p>
+<h3 id="Cache-Coherency"><a href="#Cache-Coherency" class="headerlink" title="Cache Coherency"></a>Cache Coherency</h3><p>尽管主机和Card节点可以共享内存，但是它们的内存空间还是存在Cache Coherency的问题。因为PCI总线不是Cache Coherent的，所以在其中一个内存空间更改内存，并不会自动在另一个内存空间反映为dirty cache line。而且，因为缺少snooping机制，cache line的更新也不会反映在其他内存空间中。造成这些的主要原因是没有能够用来运行cache coherency协议的额外连接。另外对于相同物理地址的地址映射在不同的地址空间可能不同。</p>
+<p>所以，运行在主机上的应用程序和运行在Card节点的应用程序的进程间通信会有额外的性能开销。在需要Coherency时为了保证正确性，CPU每次都必须直接（ 绕过Cache）读写远程内存。</p>
+<p>为了减轻这个问题，为远程内存映射选取合适的缓存技术变得非常重要。一个明显但是错误的选择是使用默认的写回策略，因为写回策略不会吧Cache line刷到远端（只能由应用程序明确的指定刷新），这回引发应用程序的一些错误行为。另一种常见选择就是写穿策略。</p>
+<p>不幸的是，写穿策略不能提供高效的写性能，因为每次写都将分别在PCI总线上发送。所以，为了正确且高效，如果应用想要写到远程内存，这是必须使用<em>write-combine</em>缓存：</p>
+<p><img src="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708141304500.png" alt="image-20190708141304500"></p>
+<p><em>write-combine</em>缓存是Intel架构为了高效PCI总线传输而支持的一类内存缓存，它允许数据暂时存放在被称为WCB（<em>Write-Combine Buffer</em>）的缓存区，以burst的模式一起释放，而不是将数据作为单个bits/bytes传输。一旦WCB满了，或者明确的刷新时间发生，就会对远程内存执行一次<em>combine</em>写。<em>Write-Combine</em>提高了PCI总线的利用率，进而提升了性能。</p>
+<h2 id="Intel-SGX应用运行在SGX-Card上"><a href="#Intel-SGX应用运行在SGX-Card上" class="headerlink" title="Intel SGX应用运行在SGX Card上"></a>Intel SGX应用运行在SGX Card上</h2><p>本文提出四种在SGX Card上设计安全SGX应用的方法：</p>
+<ol>
+<li>对于非资源密集型的单enclave SGX应用程序，可以将整个应用程序放入SGX Card节点。</li>
+<li>只将应用程序的可信任部分加载到Card节点，其他部分运行在主机上。</li>
+<li>如果是资源密集型应用程序、多enclave SGX应用程序，可以<em>network scale-out</em>的方法将应用程序部署在Card节点上，然后通过它们之间的虚拟网络实现通信。</li>
+<li>最后主机和Card可以使用共享内存而不是网络I/O来实现通信。</li>
+</ol>
+<p>一般来说，现代数据中心的服务器都有一些（超过10个）PCIe插口，所以可以容纳多个SGX Card。不过下面的介绍中我们假设只有一个SGX Card。</p>
+<p>下面对上面说的4种方法逐个介绍</p>
+<h3 id="整个应用程序加载到SGX-Card节点"><a href="#整个应用程序加载到SGX-Card节点" class="headerlink" title="整个应用程序加载到SGX Card节点"></a>整个应用程序加载到SGX Card节点</h3><p>对SGX Card的最简单的使用就是将整个应用程序都运行在Card节点上。因为每个Card节点有它自己的操作系统、文件系统以及网络。这种部署不需要对SGX应用进行修改。</p>
+<p><img src="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708143911796.png" alt="image-20190708143911796"></p>
+<p>此类部署通过与已部署的主机服务器共享空间和电源，解决了云密度问题并很好地适应现有数据中心。 每个主机可以继续执行自己的资源密集型计算，并且Card上的Card节点可以托管多个独立的SGX应用程序。</p>
+<h3 id="只加载可信任部分"><a href="#只加载可信任部分" class="headerlink" title="只加载可信任部分"></a>只加载可信任部分</h3><p>前面提到过SGX应用程序的可信部分和不可信部分不能在同一地址空间执行。这使得应用程序的不可信部分运行在主机CPU，可信部分运行在Card节点这种部署方式成为可能。</p>
+<p><img src="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708144302939.png" alt="image-20190708144302939"></p>
+<p>在这种部署方式下，应用程序的不可信部分运行在高性能的服务器上，另一方面，可信部分可以使用Card处理器的所有内核执行enclave中的计算，也可以向外扩展到同一主机上的其他Card节点。</p>
+<p>这种部署方式所需要的人工划分的工作应该是最少的。如果原SGX应用程序的可信部分和非可信部分的通信是同步的，那么只有OCALL/ECALL层必须修改，用RPC替换原来的函数调用。如果通信是异步的，那么在应用程序启动期间，必须实例化主机和Card节点之间的共享内存区域。</p>
+<h3 id="利用Network-Scale-Out"><a href="#利用Network-Scale-Out" class="headerlink" title="利用Network Scale-Out"></a>利用Network Scale-Out</h3><p>上面两种部署方式的一个主要缺陷就是单enclave SGX应用程序会被Card节点的EPC大小所限制。目前Intel SGX服务器的EPC内存是有限的，超过这个内存限制就会出现代价高昂的换页。</p>
+<p>有了SGX Card，应用程序可以扩展到多个enclave上执行，比如计算和数据被分开不晒在Card节点上运行的几个enclave上。因此，一个SGX Card就可以将EPC内存扩大原来的3倍，如果有个更多SGX Card则可以将EPC内存扩展到更大。这种部署方式的另外一个好处就是所有enclave共享主机上的不可信RAM。</p>
+<p>然而想要采用这种部署方式，原来的SGX应用程序必须经过修改以支持执行在独立EPC内存区域上的多个enclave。特别的，应用程序需要可信部分与不可信部分之间的高效通信方式：要么通过TCP/IP网络消息实现同步通信，要么通过共享内存实现异步通信。</p>
+<p>前者比较简单，每个Card节点运行自己的TCP/IP网络栈，并且有自己独立的IP地址，对应用程序的修改和<em>只加载可信任部分</em>部署方式类似，用RPC替代直接的OCALL/ECALL。</p>
+<p><img src="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708151514478.png" alt="image-20190708151514478"></p>
+<h3 id="利用内存扩展"><a href="#利用内存扩展" class="headerlink" title="利用内存扩展"></a>利用内存扩展</h3><p>应用程序的可信部分和非可信部分也可以通过共享内存通信。在启动时，不可信部分会在不可信RAM中实例化一个共享内存区域，然后告诉所有的enclave。在运行时，应用程序的不可信部分和可信部分都遵从一个应用程序指定协议，安全一致地存储/加载数据</p>
+<p><img src="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708152648689.png" alt="image-20190708152648689"></p>
+<p>虽然我们主要使用内存扩展设计来实现主机和Card之间的共享内存通信，但我们也可以使用主机的共享内存作为每个Card节点几乎无限的不可信存储。 但是，Card节点上的enclave必须小心将其私有数据存储在不受信任的主机RAM中，并对其进行适当加密和完整性保护。<br>可以在PCIe总线上模拟主机和卡之间的共享内存。 由于Intel SGX Card节点与主机之间的共享内存不具有Cache Coherency，因此我们开发了一个库，可缓解Cache Coherency问题，并为不受信任的部分和enclave之间的通信提供高级别API。</p>
+<h2 id="其他贡献"><a href="#其他贡献" class="headerlink" title="其他贡献"></a>其他贡献</h2><h3 id="威胁模型"><a href="#威胁模型" class="headerlink" title="威胁模型"></a>威胁模型</h3><p>在本文中我们使用和普通Intel SGX相同的威胁模型，可信基只有enclave以及主机和Card上的CPU。不被信任的包括SGX 应用的不可信部分、其他应用、所有的特权软件、主机和不可信SGX Card上的所有的硬件，主机和Card节点的通信也是不被信任的。</p>
+<p>理论上，使用Intel SGX Card的部署具有与普通Intel SGX环境相同的威胁模型。用作通信的PCIe总线必须被看作不可信硬件组件，所以enclave必须保护所有的出入数据，用HMAC（<em>Hash-based Message Authentication Code</em>）保证完整性，用加密保证私密性，用版本号防止回滚。在两个Card节点的enclave与enclave通信时也需要同样的保护，因为它们的通信需要通过主机内存。如果通过PCIe发送的数据的pattern必须隐藏，那么就必须采用某种混淆计算来消除pattern。</p>
+<h3 id="enclave的远程验证"><a href="#enclave的远程验证" class="headerlink" title="enclave的远程验证"></a>enclave的远程验证</h3><p>SGX应用程序的客户端在向enclave传输私密数据之前必须执行远程证明，以获得对enclave内和Intel SGX平台本身执行的代码的信任。对于SGX Card上的部署，远程验证有一下几个选择：</p>
+<ol>
+<li>一种简单的方法就是将Card节点暴露在外部网络中，进而暴露给最终用户。然后，客户端对在三个Card节点上运行的三个enclave进行远程证明。 这种方法的缺点是客户必须知道SGX Card上的所有enclave并执行多轮网络通信。</li>
+<li>用户将整个服务器看作一个黑盒。每个用户只需要验证作为信任根的那个enclave。这个enclave在去验证其他enclave。如果有多个SGX Card，可以利用信任链验证所有的enclave。</li>
+<li>数据中心可能有一个类似OpenStack Barbican的运行在enclave内的密钥管理器，可以证明数据中心所有SGX Card上的所有enclave。因此，该密钥管理器成为信任和供应的单一根。</li>
+</ol>
+<h2 id="内存共享库"><a href="#内存共享库" class="headerlink" title="内存共享库"></a>内存共享库</h2><p>如同上面提到的，SGX Card允许应用程序通过共享内存实现扩展。大量数据可以在运行在主机上的不可信部分和运行在SGX Card上的可信部分间快速传输。</p>
+<p>对于Intel SGX应用程序，尽管不可信部分和可信部分运行在不同的计算平台上，但在Card节点上运行的enclave可以直接与主机上的不可信应用程序通信，而不会离开enclave这种模式能够提供性能上的提升。 应用程序的不受信任部分可以在主机平台上进行扩展，而可信部分可以在多个Card节点上进行扩展以满足性能要求。</p>
+<h3 id="库的设计"><a href="#库的设计" class="headerlink" title="库的设计"></a>库的设计</h3><p>我们设计并且建立了一个内存共享库，它为应用程序提供用来利用PCIe主线远程共享内存的高级别API。</p>
+<p><img src="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708161348110.png" alt="image-20190708161348110"></p>
+<p>这个库有三个级别的API：</p>
+<ol>
+<li>使用<em>Write-Combine</em>的低级别的共享内存访问原语API</li>
+<li>为主机和Card节点通信提供的异步队列API</li>
+<li>为主机和Card节点之间任务分配提供的任务队列API</li>
+</ol>
+<p>低级别API提供了初始化主机和Card节点上的共享内存区域的功能。 初始化内存区域后，开发人员可以调用低级别API函数来读取和写入远程内存（使用写入组合缓存策略）。</p>
+<p>异步队列API提供函数在主机和Card节点之间建立一个SPSC（<em>Single Producer Single Consumer</em>）共享队列，并且提供两个函数来实现出列和入列。通常，应用程序开发人员将创建与Card节点一样多的队列，以便主机将对特定Card节点的请求放入相应队列进行排队。</p>
+<p>任务队列API提供函数建立SPMC（<em>Single Producer Multiple Consumer</em>）队列，其他和异步队列API类似。这当主机将可由任何可用Card节点执行的请求排入队列时，这个API对于任务分发非常有用。</p>
+<h3 id="库的实现"><a href="#库的实现" class="headerlink" title="库的实现"></a>库的实现</h3><p>内存共享库的基础是使用SGX Card PCIe驱动提供的API任意编程DMA引擎的能力，该库利用Sysfs等抽象用户空间接口进行DMA引擎编程。</p>
+<p>要调度应用程序请求，库必须与远程端的对应方通信。 该通信发生在现有的虚拟网络接口或基于PCI的通信协议上。</p>
+<p>在我们的实现远行中在主机上的不可信应用程序存储一块内存然后告诉SGX Card驱动它打算和指定Card节点共享这块内存。同时Card节点上的enclave也会请求驱动将远程内存映射到它的地址空间。结果，主机上的驱动向Card节点上的驱动提供物理地址（或物理地址范围）。 然后，SGX Card上的驱动通过这些远程物理地址之间的映射对DMA引擎进行编程，并将MMIO范围映射到SGX Card上应用程序的地址空间中。</p>
+<p>这个基础通信渠道一旦建立，异步通信原语和任务队列就可用于主机上的不可信应用程序和Card节点上的enclave之间的高级别数据交换。</p>
+<p>注意到如果应用程序为内存共享保留4KB的页，那内存共享库可能需要在DAM引擎中创建多个映射，因为物理地址可能是不连续的。在理想状态下，应用程序应该使用2MB到1GB的巨页来保留共享内存。使用巨页可确保连续的物理地址范围。 由于操作系统永远都不会讲巨页换出，所以巨页还具有确保内存永久固定的好处。</p>
+<h3 id="总体性能"><a href="#总体性能" class="headerlink" title="总体性能"></a>总体性能</h3><p>通常情况下CPU和DRAM之间的存取时间大约是100ns，而CPU和PCI寄存器之间的存取时间大约在400ns-500ns之间。远程内存读取因为增加了PCI和DRAM之间的存取，所以会额外增加大约100ns的开销。通常，与本地内存相比访问远程内存时开销可能达到约5倍，因此应用程序的吞吐量会下降。然而，吞吐量的这种下降可以通过并行计算来补偿。 通过在Intel SGX Card上的多个Card节点上使用多个Intel SGX enclave，并将请求分配给这些enclave（使用内存共享），我们可以提高应用程序的整体吞吐量。</p>
+<h2 id="用例——VNF（Virtual-Network-Function）"><a href="#用例——VNF（Virtual-Network-Function）" class="headerlink" title="用例——VNF（Virtual Network Function）"></a>用例——VNF（Virtual Network Function）</h2><p>为了展示Intel SGX Card的能力，我们从零开发了可扩展的支持Intel SGX的安全监控VNF。我们的安全监视器检查网络上的所有数据包，并根据远程管理员提供的预定义规则进行转发。</p>
+<h3 id="VNF的架构"><a href="#VNF的架构" class="headerlink" title="VNF的架构"></a>VNF的架构</h3><p>我们的VNF运行在enclave中，包含L2/L3网络功能，支持Cuckoo哈希查找表和IPSec，关闭TLS/SSL以实现和远程管理员控制台的安全通信。远程管理员与enclave建立安全的SSL通道，执行远程证明，然后将协议规则和哈希表条目发送到enclave。 初始化后，enclave会连续运行安全监视器VNF，并将统计信息发送回远程管理员。</p>
+<p>在将VNF一直到enclave的过程中遇到了一些挑战：</p>
+<ol>
+<li>在Intel SGX中ECALL/OCALL的代价高昂，所以我们希望尽量减少进出enclave的次数。</li>
+<li>EPC换页在当前的Intel SGX实现下代价高昂，所以我们力争尽量减小VNF占用的内存大小。</li>
+</ol>
+<p>基于上面的设计要求，我们把VNF切分，运行在两个核上：</p>
+<p><img src="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708190831527.png" alt="image-20190708190831527"></p>
+<p>数据包I/O发生在第一个核生的不可信内存中，而安全监控则在第二个内核的enclave内运行。在第一个核上的不可信部分接受来自NIC的数据包，将指向数据的指针通过RX ring转发给第二个核，然后第二个核上的enclave执行真正的VNF处理所有数据包。第一个核从第二个核接受信息并且将被准许的修改过的数据包通过TX ring发回给NIC。安全监视器VNF永远不会离开enclave，其内存占用空间仅包含带有规则的哈希表，而不包括网络数据包。</p>
+<p>这个设计在保证监视器规则隐私性和完整性的同时，性能下降少于10%。（注意我们是要保护远程配置的规则/策略，而不是网络数据包内容。）在我们的实验中，我们不会被SGX限制，而是被NIC 40Gbps的容量限制。为了扩展到40Gbps以上，我们将安全监视器VNF移植到Intel SGX Card上。</p>
+<h3 id="在Intel-SGX上扩展VNF"><a href="#在Intel-SGX上扩展VNF" class="headerlink" title="在Intel SGX上扩展VNF"></a>在Intel SGX上扩展VNF</h3><p>我们在安全监视器用例中使用了内存扩展。为此，我们修改了VNF的receive/transmit rings以在内存共享库上运行。这使我们能够利用主机CPU上的四个核协助NIC将数据包转发到一个Card节点上的四个核。一旦使用内存共享库提供的API初始化底层生产者/消费者异步队列，我们的安全监视器就可以无缝地工作了。在内存扩展的过程中我们没有遇到具体问题。<br>我们用五个NIC和五个Card节点评估了我们的原型。为了维持吞吐量，我们在主机CPU上使用了20个内核来处理数据包I/O.在实验中，我们使用Cuckoo哈希表执行5元组查找，在384B大小的TCP/IP数据包上有100K条目;每个enclave使用8个超线程。我们的实验表明完美的可扩展性：我们的基于SGX Card的安全监控器在零数据包丢失的情况下实现了200Gbps的吞吐量，是单个Intel SGX enclave的整整五倍。</p>
+<p><img src="http://pubn1s4ko.bkt.clouddn.com/blog/study/pro/paper/image-20190708195153068.png" alt="image-20190708195153068"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在本文中，我们演示了在不受信任的数据中心中使用Intel SGX Card部署Intel SGX应用程序的四种方法。 为了促进Intel SGX应用程序的内存扩展部署，我们开发了一个内存共享库，用于主机和SGX Card之间的快速异步通信，并通过VNF用例突出显示SGX Card的能力。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li>Chakrabarti S, Hoekstra M, Kuvaiskii D, et al. Scaling Intel® Software Guard Extensions Applications with Intel® SGX Card[C]//Proceedings of the 8th International Workshop on Hardware and Architectural Support for Security and Privacy. ACM, 2019: 6.</li>
+<li>Ittai Anati, Shay Gueron, Simon Johnson, Vincent Scarlata. Innovative technology for CPU based attestation and sealing. HASP’2013 </li>
+<li>Victor Costan, Srinivas Devadas. Intel® SGX Explained.IACR Cryptology ePrint Archive, 2016 </li>
+<li>Meni Orenbach, Pavel Lifshits, Marina Minkin, Mark Silberstein. Eleos: ExitLess OS Services for SGX Enclaves. EuroSys’2017 </li>
+<li>Sergei Arnautov, Bohdan Trach, Franz Gregor, Thomas Knauth, Andre Martin, Christian Priebe, Joshua Lind, Divya Muthukumaran, Dan O’Keeffe, Mark L. Stillwell, David Goltzsche, David Eyers, Rüdiger Kapitza, Peter Pietzuch, Christof Fetzer. SCONE: secure Linux containers with Intel® SGX. OSDI’2016 </li>
+<li><a href="https://github.com/intel/linux-sgx" target="_blank" rel="noopener">https://github.com/intel/linux-sgx</a>. Intel SGX for Linux. Accessed: 2019 </li>
+<li>Andrew Baumann, Marcus Peinado, Galen Hunt. Shielding applications from an untrusted cloud with Haven. OSDI’2014 </li>
+<li>Chia-Che Tsai, Mona Vij, Donald Porter. Graphene-SGX: A Practical Library OS for Unmodified Applications on SGX. USENIX ATC’2017 </li>
+<li>Joshua Lind, Christian Priebe, Divya Muthukumaran, Dan O’Keeffe, Pierre-Louis Aublin, Florian Kelbert, Tobias Reiher, David Goltzsche, David Eyers, Rudiger Kapitza, Christof Fetzer, Peter Pietzuch. Glamdring: Automatic Application Partitioning for Intel SGX. ATC’2017 </li>
+<li>Ofir Weisse, Valeria Bertacco, Todd Austin. Regaining Lost Cycles with HotCalls: A Fast Interface for SGX Secure Enclaves. ISCA’2017 </li>
+<li>Dmitrii Kuvaiskii, Somnath Chakrabarti, Mona Vij. Snort Intrusion Detection System with Intel Software Guard Extension (Intel SGX). arXiv:1802.00508, 2018 </li>
+<li>Bohdan Trach, Alfred Krohmer, Sergei Arnautov, Franz Gregor, Pramod Bhatotia, Christof Fetzer. Slick: Secure Middleboxes using Shielded Execution. arXiv:1709.04226, 2017 </li>
+<li>Hagit Attiya, Amotz Bar-Noy, Danny Dolev. 1995. Sharing memory robustly in message-passing systems. J. ACM 42, 1 1995 </li>
+<li><a href="https://asylo.dev" target="_blank" rel="noopener">https://asylo.dev</a>. Google Asylo. Accessed: 2019 </li>
+<li>Wenting Zheng, Ankur Dave, Jethro G. Beekman, Raluca Ada Popa, Joseph E. Gonzalez, Ion Stoica. Opaque: an oblivious and encrypted distributed analytics platform. NSDI’2017 </li>
+<li>sajin Sasy, Sergey Gorbunov, Christopher Fletcher. ZeroTrace:  Oblivious Memory Primitives from Intel SGX. Cryptology ePrint Archive, 2017 </li>
+<li><a href="https://redis.io" target="_blank" rel="noopener">https://redis.io</a>. Redis. Accessed: 2019</li>
+<li>Felix Schuster, Manuel Costa, Cédric Fournet, Christos Gkantsidis, Marcus Peinado, Gloria Mainar-Ruiz, Mark Russinovich. VC3: Trustworthy Data Analytics in the Cloud Using SGX. SP’2015 </li>
+<li>Olga Ohrimenko, Felix Schuster, Cédric Fournet, Aastha Mehta, Sebastian Nowozin, Kapil Vaswani, Manuel Costa. Oblivious Multi-Party Machine Learning on Trusted Processors. USENIX Security’2016 </li>
+<li>Tyler Hunt, Zhiting Zhu, Yuanzhong Xu, Simon Peter, Emmett Witchel. Ryoan: a distributed sandbox for untrusted computation on secret data. OSDI’2016 </li>
+<li>Seongmin Kim, Juhyeng Han, Jaehyeong Ha, Taesoo Kim, Dongsu Han. Enhancing security and privacy of tor’s ecosystem by using trusted execution environments. NSDI’2017 </li>
+<li>Shweta Shinde, Dat Le Tien, Shruti Tople, Prateek Saxena. Panoply: Low-TCB Linux Applications with SGX Enclaves. NDSS’2017 </li>
+<li>Ming-Wei Shih, Mohan Kumar, Taesoo Kim, and Ada Gavrilovska. S-NFV: Securing NFV states by using SGX. SDN-NFV Security’2016 </li>
+<li>David Goltzsche, Signe Rüsch, Manuel Nieke, Sébastien Vaucher, Nico Weichbrodt, Valerio Schiavoni, Pierre-Louis Aublin, Paolo Costa, Christof Fetzer, Pascal Felber, Peter Pietzuch, Rüdiger Kapitza. EndBox: Scalable Middlebox Functions Using Client-Side Trusted Execution. DSN’2018 </li>
+<li>Michael Coughlin, Eric Keller, Eric Wustrow. Trusted Click: Overcoming Security issues of NFV in the Cloud. SDN- NFVSec’2017 </li>
+<li>Huayi Duan, Xingliang Yuan, Cong Wang. LightBox: SGX-assisted Secure Network Functions at Near-native Speed. arXiv:1706.06261, 2017 </li>
+<li>Alexey Gribov, Dhinakaran Vinayagamurthy, Sergey Gorbunov. StealthDB: a Scalable Encrypted Database with Full SQL Query Support. arXiv:1711.02279, 2017 </li>
+<li>Saba Eskandarian, Matei Zaharia. ObliDB: Oblivious Query Processing using Hardware Enclaves. arXiv:1710.00458, 2018 </li>
+<li>Christian Priebe, Kapil Vaswani, Manuel Costa. EnclaveDB: A Secure Database using SGX. SP’2018 </li>
+<li>Rohit Sinha, Mihai Christodorescu. VeritasDB: High Throughput Key-Value Store with Integrity. Cryptology ePrint Archive 2018/251, 2018 </li>
+<li><a href="https://www.intel.com/content/www/us/en/products/servers/accelerat" target="_blank" rel="noopener">https://www.intel.com/content/www/us/en/products/servers/accelerat</a> ors/visual-compute-accelerator-SGX accelerator1585lmv.html. Intel Visual Compute accelerator (Intel SGX Card). Accessed: 2018 </li>
+<li><a href="https://redis.io/topics/cluster-spec" target="_blank" rel="noopener">https://redis.io/topics/cluster-spec</a>. Redis Cluster Specification. Accessed: 2019 </li>
+<li><a href="https://github.com/twitter/twemproxy" target="_blank" rel="noopener">https://github.com/twitter/twemproxy</a>. twitter/twemproxy. Accessed: 2019 </li>
+<li>Yelick, Bonachea, Chen, Colella, Datta, Duell, Graham, Hargrove, Hilfinger, Husbands, and Iancu. Productivity and performance using partitioned global address space languages. PASCO’2007 </li>
+<li>Aaftab Munshi, Benedict Gaster, Timothy G. Mattson, and Dan Ginsburg. OpenCL programming guide. Pearson Education, 2011 </li>
+<li>Marcus Brandenburger, Christian Cachin, Rüdiger Kapitza, Alessandro Sorniotti. Blockchain and Trusted Computing: Problems, Pitfalls, and Solution for Hyperledger Fabric. arXiv:1805.08541, 2018</li>
+<li>Rolf Neugebauer, Gianni Antichi, José Fernando Zazo, Yury Audzevich, Sergio López-Buedo, Andrew W. Moore. Understanding  PCIe performance for end host networking. SIGCOMM ‘2018 </li>
+<li>Somnath Chakrabarti, Brandon Baker, Mona Vij. Intel SGX Enabled Key Manager Service with OpenStack Barbican. ArXiv:1712.07694, 2017</li>
+<li>Jack Regula. Using non-transparent bridging in PCI Express systems. PLX Technology white paper, 2004 </li>
+<li><a href="http://www.cpushack.com/tag/knights-corner" target="_blank" rel="noopener">http://www.cpushack.com/tag/knights-corner</a>. CPU of the Day: The 61 Knights of the Intel Xeon Phi. Accessed: 2019 </li>
+</ol>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>学术</category>
+        <category>论文阅读</category>
+      </categories>
+      <tags>
+        <tag>SGX</tag>
+        <tag>paper</tag>
+        <tag>论文</tag>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在k8s上部署Jenkins</title>
+    <url>/chinese/2019/06/26/%E5%9C%A8k8s%E4%B8%8A%E9%83%A8%E7%BD%B2Jenkins/</url>
+    <content><![CDATA[<h1 id="在k8s上部署Jenkins"><a href="#在k8s上部署Jenkins" class="headerlink" title="在k8s上部署Jenkins"></a>在k8s上部署Jenkins</h1><p>谷歌在k8s上部署Jenkins的方法，都写的很复杂，各种配置文件一堆，还都失败了！<strong>最终部署成功后发现只需要一句命令就可以了。</strong></p>
+<a id="more"></a>
+
+<p>这个命令就是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kubectl run jenkins --image&#x3D;jenkinsci&#x2F;blueocean --port 5000</span><br></pre></td></tr></table></figure>
+
+<p>命令解释</p>
+<ol>
+<li><code>--image=jenkinsci/blueocean</code>用来指定镜像，<a href="https://hub.docker.com/r/jenkinsci/blueocean/" target="_blank" rel="noopener"><code>jenkinsci/blueocean</code> image</a>(来自 the <a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub repository</a>)。 该镜像包含当前的<a href="https://jenkins.io/download" target="_blank" rel="noopener">长期支持 (LTS) 的Jenkins版本</a> （可以投入使用） ，捆绑了所有Blue Ocean插件和功能。这意味着你不需要单独安装Blue Ocean插件。</li>
+<li><code>--port 端口号</code>用于指定deployment的端口号，可以随便指定.</li>
+</ol>
+<p>通过<code>kubectl get deployments</code>可以看到</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NAME       READY   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">jenkins    1&#x2F;1     1            1           10s</span><br></pre></td></tr></table></figure>
+
+<p>显示READY说明deployment创建成功。这是在本地集群已经可以访问，如果想要在外部访问，需要将deployment暴露未service：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kubectl expose deployment jenkins --type&#x3D;NodePort --target-port&#x3D;8080</span><br></pre></td></tr></table></figure>
+
+<p>命令解释：</p>
+<ol>
+<li><code>--type=NodePort</code>是将service的类型设置为NodePort，这样才能被外部看到</li>
+<li><code>--target-port=8080</code>是映射（例如“发布”）<code>jenkinsci/blueocean</code> 容器的端口8080到主机上的端口8080</li>
+</ol>
+<p>这一步完成后执行<code>kubectl get service</code>查看：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)           AGE</span><br><span class="line">jenkins     NodePort    10.107.210.195   &lt;none&gt;        5000:30509&#x2F;TCP    6m35s</span><br></pre></td></tr></table></figure>
+
+<p>可以看出service对外暴露的端口是30509，可以通过<code>kubectl edit service jenkins</code>命令将配置中的<code>- nodePort</code>修改为你想要暴露出去的端口即可。</p>
+<p>浏览器访问得</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/jenkins/unlock_jenkins.png" alt="image-20190626205811349"></p>
+<p>这里要求<strong><em>Administrator password</em></strong>，正常来说是通过<code>/var/jenkins_home/secrets/initialAdminPassword</code>来查看，但是因为运行在docker中，所以需要查看docker的log。我们这里更进一步又把docker放到了k8s中，所以要查看jenkins的docker对应的pod的log，方法如下：</p>
+<ol>
+<li><p><code>kubectl get pods</code>，找到jenkins对应的pod的NAME，我的对应的名称为jenkins-747ddfbdb6-4msmw</p>
+</li>
+<li><p><code>kubectl logs jenkins-747ddfbdb6-4msmw</code>查看pod的log</p>
+</li>
+<li><p>在显示的log中就有我们需要的<strong><em>Administrator password</em></strong>，格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">jenkins.install.SetupWizard init</span><br><span class="line">INFO:</span><br><span class="line"></span><br><span class="line">*************************************************************</span><br><span class="line">*************************************************************</span><br><span class="line">*************************************************************</span><br><span class="line"></span><br><span class="line">Jenkins initial setup is required. An admin user has been created and a password generated.</span><br><span class="line">Please use the following password to proceed to installation:</span><br><span class="line"></span><br><span class="line">7f54c6c500e242e9bbc804c169c52a3c</span><br><span class="line"></span><br><span class="line">This may also be found at: &#x2F;var&#x2F;jenkins_home&#x2F;secrets&#x2F;initialAdminPassword</span><br><span class="line"></span><br><span class="line">*************************************************************</span><br><span class="line">*************************************************************</span><br><span class="line">*************************************************************</span><br></pre></td></tr></table></figure>
+
+<p>输入上面的password就能进入注册界面：</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/jenkins/create_admin_user.png" alt="image-20190626210358399"></p>
+</li>
+</ol>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><p>Jenkins官方文档：<a href="https://jenkins.io/zh/doc/book/installing/#setup-wizard" target="_blank" rel="noopener">https://jenkins.io/zh/doc/book/installing/#setup-wizard</a></p>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>DevOps</category>
+        <category>CI&amp;CD</category>
+        <category>Jenkins</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+        <tag>环境配置</tag>
+        <tag>DevOps</tag>
+        <tag>Jenkins</tag>
+        <tag>CI/CD</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>为k8s配置可视化</title>
+    <url>/chinese/2019/06/24/%E4%B8%BAk8s%E9%85%8D%E7%BD%AE%E5%8F%AF%E8%A7%86%E5%8C%96/</url>
+    <content><![CDATA[<h1 id="为k8s配置可视化"><a href="#为k8s配置可视化" class="headerlink" title="为k8s配置可视化"></a>为k8s配置可视化</h1><p>K8s dashboard是k8s集群的web-based UI工具，用户可以通过dashboard管理运行在集群上的应用以及集群自身。</p>
+<p>安装本身非常容易，只需要下面一条语句就可以</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kubectl apply -f https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;kubernetes&#x2F;dashboard&#x2F;v1.10.1&#x2F;src&#x2F;deploy&#x2F;recommended&#x2F;kubernetes-dashboard.yaml</span><br></pre></td></tr></table></figure>
+
+<p>但是再次由于墙的原因，国内执行这条语句会出现<code>ErrImagePull</code>的错误。如果你已经执行了，就需要删除这个pod。但是如果直接用<code>kubectl delete pods &lt;pod name&gt; --namespace=&lt;namespace&gt;</code>的话，通过<code>kubectl get pods --all-namespaces</code>查看会发现它马上就会重新建立。这是因为要直接删除<code>kubectl delete deployment &lt;deployment name&gt;</code>。</p>
+<a id="more"></a>
+
+<p>所以在国内还得需要镜像</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker pull registry.cn-qingdao.aliyuncs.com&#x2F;wangxiaoke&#x2F;kubernetes-dashboard-amd64:v1.10.0</span><br><span class="line">docker tag registry.cn-qingdao.aliyuncs.com&#x2F;wangxiaoke&#x2F;kubernetes-dashboard-amd64:v1.10.0 k8s.gcr.io&#x2F;kubernetes-dashboard-amd64:v1.10.0</span><br><span class="line">docker image rm registry.cn-qingdao.aliyuncs.com&#x2F;wangxiaoke&#x2F;kubernetes-dashboard-amd64:v1.10.0</span><br></pre></td></tr></table></figure>
+
+<p>下载完镜像后执行<code>kubectl apply -f http://mirror.faasx.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml</code>就部署完成了，可以通过命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;kubectl get pods --namespace&#x3D;kube-system&#96;</span><br></pre></td></tr></table></figure>
+
+<p>查看，然后可以通过<code>kubectl get service --namespace=kube-system</code>查看dashboard的外网暴露端口。如果发现暴露的端口类型是<code>ClusterIP</code>，可以运行<code>kubectl edit service  kubernetes-dashboard --namespace=kube-system</code>大概配置文件，找到type，将ClusterIP改成NodePort。同时也可以通过这个命令修改<code>NodePort</code>以达到修改暴露端口的目的。</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/k8s/kubectl_edit_service.png" alt="image-20190624073355080"></p>
+<p>现在在本级上通过访问<code>localhost:端口</code>就能访问图形界面了。但是想要在其他机器访问，需要SSL证书，通过https来访问。</p>
+<ol>
+<li><p>生成私钥和证书签名：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">openssl genrsa -des3 -passout pass:x -out dashboard.pass.key 2048</span><br><span class="line">openssl rsa -passin pass:x -in dashboard.pass.key -out dashboard.key</span><br><span class="line">rm dashboard.pass.key</span><br><span class="line">openssl req -new -key dashboard.key -out dashboard.csr</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成SSL证书</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">openssl x509 -req -sha256 -days 365 -in dashboard.csr -signkey dashboard.key -out dashboard.crt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建dashboard用户</p>
+<p>执行<code>kubectl create -f dashboard-user-role.yaml</code>命令，其中<code>dashboard-user-role.yaml</code>内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kind: ClusterRoleBinding</span><br><span class="line">apiVersion: rbac.authorization.k8s.io&#x2F;v1beta1</span><br><span class="line">metadata:</span><br><span class="line">  name: admin</span><br><span class="line">  annotations:</span><br><span class="line">    rbac.authorization.kubernetes.io&#x2F;autoupdate: &quot;true&quot;</span><br><span class="line">roleRef:</span><br><span class="line">  kind: ClusterRole</span><br><span class="line">  name: cluster-admin</span><br><span class="line">  apiGroup: rbac.authorization.k8s.io</span><br><span class="line">subjects:</span><br><span class="line">- kind: ServiceAccount</span><br><span class="line">  name: admin</span><br><span class="line">  namespace: kube-system</span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ServiceAccount</span><br><span class="line">metadata:</span><br><span class="line">  name: admin</span><br><span class="line">  namespace: kube-system</span><br><span class="line">  labels:</span><br><span class="line">    kubernetes.io&#x2F;cluster-service: &quot;true&quot;</span><br><span class="line">    addonmanager.kubernetes.io&#x2F;mode: Reconcile</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取登陆dashboard的token</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kubectl describe secret&#x2F;$(kubectl get secret -nkube-system |grep admin|awk &#39;&#123;print $1&#125;&#39;) -nkube-system</span><br></pre></td></tr></table></figure>
+
+<p>该语句返回的结果中会包含token</p>
+</li>
+<li><p>登陆</p>
+<p>在其他机器浏览器访问<code>https://master的ip:暴露端口</code>，比如我的例子中就是<code>https://10.0.0.23:30502</code>。登陆时选择token登陆，粘贴上面命令返回的token就可以成功登陆。</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/k8s/k8s_dashboard.png" alt="image-20190623211428221"></p>
+</li>
+</ol>
+<h2 id="部署官方用例"><a href="#部署官方用例" class="headerlink" title="部署官方用例"></a>部署官方用例</h2><p>官方给出了用于测试的用例，如果k8s部署正确的话，可以直接通过下面的两条命令部署：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kubectl create namespace sock-shop</span><br><span class="line"></span><br><span class="line">kubectl apply -n sock-shop -f &quot;https:&#x2F;&#x2F;github.com&#x2F;microservices-demo&#x2F;microservices-demo&#x2F;blob&#x2F;master&#x2F;deploy&#x2F;kubernetes&#x2F;complete-demo.yaml?raw&#x3D;true&quot;</span><br></pre></td></tr></table></figure>
+
+<p><code>kubectl edit service  front-end --namespace=sock-shop</code>来编辑服务的配置，主要是端口。</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/k8s/kubectl_edit_service_2.png" alt="image-20190624073309186"></p>
+<p>部署完成后通过<code>NodePort:端口</code>可以直接访问，是一个袜子购物网站，支持购物车等功能：</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/DevOps/k8s/sock_shop.png" alt="image-20190624073545125"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li>k8s dashboard官方：<a href="https://github.com/kubernetes/dashboard#kubernetes-dashboard" target="_blank" rel="noopener">https://github.com/kubernetes/dashboard#kubernetes-dashboard</a></li>
+<li>K8s heapster官方：<a href="https://github.com/kubernetes-retired/heapster" target="_blank" rel="noopener">https://github.com/kubernetes-retired/heapster</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>DevOps</category>
+        <category>容器</category>
+        <category>k8s</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+        <tag>kubernetes</tag>
+        <tag>环境配置</tag>
+        <tag>DevOps</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安装kubelet、kubeadm和kubectl</title>
+    <url>/chinese/2019/06/24/%E5%AE%89%E8%A3%85kubelet%E3%80%81kubeadm%E5%92%8Ckubectl/</url>
+    <content><![CDATA[<h1 id="通过kubeadm部署k8s-cluster"><a href="#通过kubeadm部署k8s-cluster" class="headerlink" title="通过kubeadm部署k8s cluster"></a>通过kubeadm部署k8s cluster</h1><p>Kubeadm 是一个工具，通过提供 <code>kubeadm init</code> 和 <code>kubeadm join</code> 来作为创建 Kubernetes 集群的最佳实践“快速路径”。</p>
+<h2 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h2><p>我在配置时一共使用了4台内存为16G，有4个CPU的服务器，它们的配置相同，具体如下：</p>
+<p>操作系统：Ubuntu 16.04.6 LTS</p>
+<p>内核版本：4.4.0-146-generic</p>
+<p>架构：amd64</p>
+<p>docker版本：18.9.5/18.9.6</p>
+<p>Kubelet版本：v1.15.0</p>
+<table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">内部ip</th>
+<th align="center">角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">master</td>
+<td align="center">10.0.0.23</td>
+<td align="center">kubernetes主节点</td>
+</tr>
+<tr>
+<td align="center">node1</td>
+<td align="center">10.0.0.66</td>
+<td align="center">kubernetes从节点</td>
+</tr>
+<tr>
+<td align="center">node2</td>
+<td align="center">10.0.0.53</td>
+<td align="center">kubernetes从节点</td>
+</tr>
+<tr>
+<td align="center">Slaver03</td>
+<td align="center">10.0.0.69</td>
+<td align="center">kubernetes从节点</td>
+</tr>
+</tbody></table>
+<a id="more"></a>
+
+<h2 id="硬件要求"><a href="#硬件要求" class="headerlink" title="硬件要求"></a>硬件要求</h2><ol>
+<li>一台或多台运行Ubuntu 16.04+, CentOS 7 或 HypriotOS v1.0.1+</li>
+<li>每台机器1GB 或者更多内存，太少可能无法运行你的应用。</li>
+<li>集群中完整的网络连接，公网或者私网都可以。</li>
+</ol>
+<h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><p>官方提供了安装脚本，在root模式下一条命令即可完成安装：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -s https:&#x2F;&#x2F;get.docker.com&#x2F; | sudo sh</span><br></pre></td></tr></table></figure>
+
+<p>在我安装时<code>https://get.docker.com/</code>没有被墙，如果被墙，也可以替换为国内镜像。我知道的国内镜像有：</p>
+<ul>
+<li>阿里云的镜像：<a href="http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/intranet" target="_blank" rel="noopener">http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/intranet</a></li>
+<li>Daocloud的镜像： <a href="https://get.daocloud.io/docker" target="_blank" rel="noopener">https://get.daocloud.io/docker</a></li>
+</ul>
+<h2 id="防火墙SELINUX及swap"><a href="#防火墙SELINUX及swap" class="headerlink" title="防火墙SELINUX及swap"></a>防火墙SELINUX及swap</h2><p>我查到的教程里都要求关闭防火墙、禁用SELINUX和swap。但是因为我在配置过程中调过很多参数，很多命令都是了一下，所以也不清楚是不是真的必要，现在都写下来，如果没做出了问题，可以参考：</p>
+<ol>
+<li><p>关闭防火墙</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl disable firewalld.service </span><br><span class="line">systemctl stop firewalld.service</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>禁用SELINUX</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">setenforce 0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>禁用swap</p>
+<p>这歌是要在所有节点做</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">swapoff -a</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="安装kubelet、kubeadm-和-kubectl"><a href="#安装kubelet、kubeadm-和-kubectl" class="headerlink" title="安装kubelet、kubeadm 和 kubectl"></a>安装kubelet、kubeadm 和 kubectl</h2><p>kubernetes的国外安装其实非常简单，国内安装的主要问题在于kubernetes部件所需的官方镜像在 <a href="https://link.zhihu.com/?target=http%3A//gcr.io">http://gcr.io</a>(Google Cloud Container Registry)上，很不幸，这个网站被墙了。所以解决了这个问题，国内环境的安装也就简单了。</p>
+<p>解决方法也很简单，用国内的一个景象来替换掉官方景象就可以了。以Ubuntu为例，替换方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;&#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;kubernetes.list</span><br><span class="line">deb 国内镜像链接 kubernetes-xenial main</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p>目前我知道的国内还能用的景象是阿里的：<a href="https://mirrors.aliyun.com/kubernetes/apt/" target="_blank" rel="noopener">https://mirrors.aliyun.com/kubernetes/apt/</a></p>
+<p>所以将官方镜像替换为阿里镜像的方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;&#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;kubernetes.list</span><br><span class="line">deb https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;apt&#x2F; kubernetes-xenial main</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p>替换完整后执行下面两条命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install -y kubelet kubeadm kubectl</span><br></pre></td></tr></table></figure>
+
+<p>执行第2条命令的时候可能会出现警告：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">WARNING: The following packages cannot be authenticated!</span><br><span class="line">  cri-tools kubernetes-cni kubelet kubectl kubeadm</span><br><span class="line">E: There were unauthenticated packages and -y was used without --allow-unauthenticated</span><br></pre></td></tr></table></figure>
+
+<p>只需要将第二条命令改为<code>apt-get install -y kubelet kubeadm kubectl --allow-unauthenticated</code>就可以了。</p>
+<h2 id="初始化master"><a href="#初始化master" class="headerlink" title="初始化master"></a>初始化master</h2><p>初始化master本身也很简单，只需要一条语句<code>kubeadm init</code>，但是因为墙的原因，又一次变得复杂。由于官方镜像地址被墙，所以我们需要首先获取所需镜像以及它们的版本。然后从国内镜像站获取。</p>
+<p>首先通过<code>kubeadm config images list</code>获取完成<code>kubeadm init</code>需要的一些镜像，这些镜像本来需要从google的服务器pull，现在我们从国内镜像中下载下来然后更改它们的tag，使得<code>kubeadm init</code>知道需要的镜像已经下载完成，然后在执行<code>kubeadm init</code>就可以不用pull，直接顺利完成。</p>
+<p>下面是我使用<code>kubeadm config images list</code>获取的需要的镜像</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">k8s.gcr.io&#x2F;kube-apiserver:v1.15.0</span><br><span class="line">k8s.gcr.io&#x2F;kube-controller-manager:v1.15.0</span><br><span class="line">k8s.gcr.io&#x2F;kube-scheduler:v1.15.0</span><br><span class="line">k8s.gcr.io&#x2F;kube-proxy:v1.15.0</span><br><span class="line">k8s.gcr.io&#x2F;pause:3.1</span><br><span class="line">k8s.gcr.io&#x2F;etcd:3.3.10</span><br><span class="line">k8s.gcr.io&#x2F;coredns:1.3.1</span><br></pre></td></tr></table></figure>
+
+<p>国内镜像仓库我知道的有两个，dockerhub的：<code>mirrorgooglecontainers/</code> 和阿里的：<code>registry.cn-hangzhou.aliyuncs.com</code></p>
+<p>可以直接通过<code>docker pull 镜像仓库地址/需要的镜像</code>下载，然后通过<code>docker tag 原标签 需要的标签</code>将镜像的标签改为<code>kubeadm init</code>需要的标签就可以了，针对上面列出的我需要的镜像，下面这些命令完成了镜像的下载和标签更改：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker pull mirrorgooglecontainers&#x2F;kube-apiserver:v1.15.0</span><br><span class="line">docker tag mirrorgooglecontainers&#x2F;kube-apiserver:v1.15.0 k8s.gcr.io&#x2F;kube-apiserver:v1.15.0</span><br><span class="line">docker pull mirrorgooglecontainers&#x2F;kube-controller-manager:v1.15.0</span><br><span class="line">docker tag mirrorgooglecontainers&#x2F;kube-controller-manager:v1.15.0 k8s.gcr.io&#x2F;kube-controller-manager:v1.15.0</span><br><span class="line">docker pull mirrorgooglecontainers&#x2F;kube-scheduler:v1.15.0</span><br><span class="line">docker tag mirrorgooglecontainers&#x2F;kube-scheduler:v1.15.0 k8s.gcr.io&#x2F;kube-scheduler:v1.15.0</span><br><span class="line">docker pull mirrorgooglecontainers&#x2F;kube-proxy:v1.15.0</span><br><span class="line">docker tag mirrorgooglecontainers&#x2F;kube-proxy:v1.15.0 k8s.gcr.io&#x2F;kube-proxy:v1.15.0</span><br><span class="line">docker pull mirrorgooglecontainers&#x2F;pause:3.1</span><br><span class="line">docker tag mirrorgooglecontainers&#x2F;pause:3.1 k8s.gcr.io&#x2F;pause:3.1</span><br><span class="line">docker pull mirrorgooglecontainers&#x2F;etcd:3.3.10</span><br><span class="line">docker tag mirrorgooglecontainers&#x2F;etcd:3.3.10 k8s.gcr.io&#x2F;etcd:3.3.10</span><br><span class="line">docker pull registry.cn-hangzhou.aliyuncs.com&#x2F;coredns:1.3.1</span><br><span class="line">docker tag registry.cn-hangzhou.aliyuncs.com&#x2F;coredns:1.3.1 k8s.gcr.io&#x2F;coredns:1.3.1</span><br></pre></td></tr></table></figure>
+
+<p>上面的命令完成后，<code>kubeadm init</code>命令就可以顺利完成了。</p>
+<p>接下来的安装变得简单起来，可以参考官网文档中<a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/" target="_blank" rel="noopener">利用kubeadm 建立一个集群</a>。</p>
+<p>步骤就是</p>
+<ol>
+<li><p>初始化master</p>
+<p>就是刚刚说的<code>kubeadm init</code>这条语句，不过受下面一步的影响，需要不同参数，所以先不要急着执行，先看完。</p>
+</li>
+<li><p>安装网络插件</p>
+<p>使得各个pod之间可以通信，有多种选择，每中网络插件支持的架构有所不同，我选了<em>Weave Net<em>，</em>Weave Net</em> 只能在<code>amd64</code>, <code>arm</code> 和 <code>arm64</code> 上运行。可以通过下面两条命令完成安装：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export kubever&#x3D;$(kubectl version | base64 | tr -d &#39;\n&#39;)</span><br><span class="line">kubectl apply -f &quot;https:&#x2F;&#x2F;cloud.weave.works&#x2F;k8s&#x2F;net?k8s-version&#x3D;$kubever&quot;</span><br></pre></td></tr></table></figure>
+
+<p>安装后通过<code>kubectl get pods --all-namespaces</code>命令查看各个pod的状态，如果都是Runing，就可以开始添加从节点了。</p>
+<p>注：如果选择<em>Calico</em>、<em>flannel</em>，为了可以让网络协议正确运行，必须在执行<code>kubeadm init</code>时添加参数<code>--pod-network-cidr=192.168.0.0/16</code></p>
+</li>
+<li><p>添加从节点</p>
+<p>在执行<code>kubeadm init</code>的返回结果末尾会给出<code>kubeadm join --token &lt;token&gt; &lt;master-ip&gt;:&lt;master-port&gt; --discovery-token-ca-cert-hash sha256:&lt;hash&gt;</code>格式的命令，直接复制在自节点root模式下执行就可以完成加入。都加入完成过一分钟返回master通过<code>kubectl get nodes</code>查看所有节点的状态。显示应该如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NAME       STATUS   ROLES    AGE   VERSION</span><br><span class="line">master     Ready    master   49m   v1.15.0</span><br><span class="line">node1      Ready    &lt;none&gt;   32m   v1.15.0</span><br><span class="line">node2      Ready    &lt;none&gt;   47m   v1.15.0</span><br><span class="line">slaver03   Ready    &lt;none&gt;   17m   v1.15.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果需要的话，删除节点</p>
+<p>删除节点之前一定要“排干”节点，也就是将该节点中的pod转移到其他node。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kubectl drain &lt;node name&gt; --delete-local-data --force --ignore-daemonsets</span><br></pre></td></tr></table></figure>
+
+<p>排干后就可以删除了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kubectl delete node &lt;node name&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h2 id="其他一些不重要的点"><a href="#其他一些不重要的点" class="headerlink" title="其他一些不重要的点"></a>其他一些不重要的点</h2><h3 id="初始化root密码"><a href="#初始化root密码" class="headerlink" title="初始化root密码"></a>初始化root密码</h3><p><code>sudo passwd root</code></p>
+<h3 id="各节点间免密钥登陆"><a href="#各节点间免密钥登陆" class="headerlink" title="各节点间免密钥登陆"></a>各节点间免密钥登陆</h3><ol>
+<li><p>生成密钥对（如果没有的话）</p>
+<p>执行命令（需要确认的地方全部会车）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+
+<p>这样就在<code>.ssh/</code>文件夹中生成了<code>id_rsa</code>和<code>id_rsa_pub</code>密钥对</p>
+</li>
+<li><p>将公钥加入到要登陆主机的<code>.ssh/authorized_keys</code></p>
+<p>有两种方法</p>
+<ol>
+<li><p>通过<code>ssh-copy-id</code>命令</p>
+<p>ssh-copy-id命令可以把本地的ssh公钥文件安装到远程主机对应的账户下</p>
+<p>达到的功能：</p>
+<p>ssh-copy-id - 将你的公共密钥填充到一个远程机器上的authorized_keys文件中。</p>
+<p>使用方法：</p>
+<p> <code>ssh-copy-id [-i [identity_file]] [user@]machine</code></p>
+<p>比如<code>ssh-copy-id ubuntu@10.0.0.23</code></p>
+</li>
+<li><p>远程操作</p>
+<p>可以通过<code>cat .ssh/id_rsa.pub | ssh ubuntu@10.0.0.23 &#39;cat &gt;&gt; .ssh/authorized_keys&#39;</code>达到和上述一样的目的。</p>
+</li>
+</ol>
+</li>
+<li><p>尝试登陆</p>
+<p>ssh <a href="mailto:ubuntu@10.0.0.23">ubuntu@10.0.0.23</a></p>
+</li>
+</ol>
+<h3 id="更改主机名称"><a href="#更改主机名称" class="headerlink" title="更改主机名称"></a>更改主机名称</h3><p>可以通过下面这个命令把主机名称修改为<code>new_host_name</code></p>
+<p><code>hostnamectl --static set-hostname new_host_name</code></p>
+<h2 id="踩过的坑"><a href="#踩过的坑" class="headerlink" title="踩过的坑"></a>踩过的坑</h2><ol>
+<li><p>从节点加入成功，但是通过<code>kubectl get nodes</code>查看，master的STATUS处于Ready，但是从节点全部是NotReady。</p>
+<p>这个坑我踩了很久才踩平，尝试过很多方法后发现，不光是kubelet、kubeadm 和 kubectl，连<code>kubeadm init</code>需要的那些镜像也需要在所有节点上安装。这样节点在介入后才能正常运行。</p>
+</li>
+<li><p>执行<code>kubeadm reset</code>重置后重新初始化时出错</p>
+<p>重置后会有一些配置残留，主要是etcd集群留下的，删除<code>/var/lib/etcd</code>文件夹就可以重新初始化了。</p>
+</li>
+<li><p>coreDNS pod一直处于pending状态</p>
+<p>可能是由于安装<strong>网络插件</strong>之前，<code>kubeadm init</code>需要的参数没有添加。</p>
+</li>
+<li><p>使用kubectl delete pods xxx删除对应的pod,提示删除成功，但是立马又回生成一个</p>
+<p>要先删除对应deployment</p>
+</li>
+</ol>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li>k8s官方文档：<a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/" target="_blank" rel="noopener">https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/</a></li>
+<li>参考安装教程1:<a href="https://www.codesheep.cn/2018/12/27/kubeadm-k8s1-13-1/" target="_blank" rel="noopener">程序羊</a> :sheep::sheep::sheep::sheep::sheep::sheep:</li>
+<li>参考安装教程2:<a href="https://juejin.im/post/5b8a4536e51d4538c545645c#heading-14" target="_blank" rel="noopener">掘金作者Ethan_cn</a>:</li>
+</ol>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>DevOps</category>
+        <category>容器</category>
+        <category>k8s</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+        <tag>kubernetes</tag>
+        <tag>环境配置</tag>
+        <tag>DevOps</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos安装和配置Jenkins</title>
+    <url>/chinese/2019/03/21/centos%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEJenkins/</url>
+    <content><![CDATA[<h1 id="centOS-安装配置Jenkins"><a href="#centOS-安装配置Jenkins" class="headerlink" title="centOS 安装配置Jenkins"></a>centOS 安装配置Jenkins</h1><p><img src="data:image/png;base64,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" alt="jenkins"></p>
+<p>我是在阿里云的ECS上部署Jenkins的，ECS无法提供图形界面的显示，这带来了几个问题：</p>
+<ol>
+<li><p>文件下载和传输不方便<br>采用Xftp等ftp工具。</p>
+</li>
+<li><p>配置Jenkins要访问localhost，ECS上没办法使用浏览器</p>
+<p>利用公网IP，在其他机器上访问和控制。</p>
+</li>
+</ol>
+<a id="more"></a>
+
+<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><p><a href="https://jenkins.io/zh/doc/pipeline/tour/getting-started/" target="_blank" rel="noopener">官网</a>给出的依赖要求：</p>
+<blockquote>
+<p>第一次使用 Jenkins，您需要：</p>
+<ul>
+<li>机器要求：<ul>
+<li>256 MB 内存，建议大于 512 MB</li>
+<li>10 GB 的硬盘空间（用于 Jenkins 和 Docker 镜像）</li>
+</ul>
+</li>
+<li>需要安装以下软件：<ul>
+<li>Java 8 ( JRE 或者 JDK 都可以)</li>
+<li><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a> （导航到网站顶部的Get Docker链接以访问适合您平台的Docker下载）</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="安装java"><a href="#安装java" class="headerlink" title="安装java"></a>安装java</h3><ol>
+<li><p>去<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">官网</a>下载相应版本，对于centos是 Linux x64的<code>.tar.gz</code>版本。（因为官方需要点击<em>Accept License Agreement</em>才能下载，利用<code>wget</code>是默认不同意，虽然可以下载，但是不能实现解压。）</p>
+</li>
+<li><p>利用xftp将下载的<code>.tar.gz</code>发送到CSE中，然后解压。</p>
+</li>
+<li><p>修改环境变量。<br><code>vim /etc/profile</code><br>在该文件末尾添加配置内容</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">JAVA_HOME&#x3D;&#x2F;解压目录&#x2F;jdk1.8.0_161 </span><br><span class="line">export CLASSPATH&#x3D;$:CLASSPATH:$JAVA_HOME&#x2F;lib&#x2F; </span><br><span class="line">export PATH&#x3D;$PATH:$JAVA_HOME&#x2F;bin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>利用<code>source /etc/profile</code>重新加载配置文件</p>
+</li>
+<li><p>已经完成，可以利用<code>java -version</code>查看是否成功。</p>
+</li>
+</ol>
+<h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><p>安装docker的教程很多，大家可以自行参考。这个给出<a href="http://www.runoob.com/docker/centos-docker-install.html" target="_blank" rel="noopener">菜鸟教程</a>的安装教程。</p>
+<h2 id="安装Jenkins"><a href="#安装Jenkins" class="headerlink" title="安装Jenkins"></a>安装Jenkins</h2><h3 id="jenkins-war方法"><a href="#jenkins-war方法" class="headerlink" title="jenkins.war方法"></a>jenkins.war方法</h3><p><a href="http://mirrors.jenkins.io/war-stable/latest/jenkins.war" target="_blank" rel="noopener">直接下载jenkins.war</a>，然后传入ECS，利用命令<code>java -jar jenkins.war --httpPort=8080</code>启动命令。然后就可以通过ECS公网ip加8080端口访问并配置了。</p>
+<p>不过这样存在的问题是，当你断开与ECS的连接时，服务就中断了。这是无法接受的。所以我们希望jenkins能够以服务的形式长久存在。</p>
+<h3 id="服务方法"><a href="#服务方法" class="headerlink" title="服务方法"></a>服务方法</h3><p>利用yum安装jenkins，只需三行命令</p>
+<ol>
+<li><code>sudo wget -O /etc/yum.repos.d/jenkins.repo &lt;http://jenkins-ci.org/redhat/jenkins.repo&gt;</code></li>
+<li><code>sudo rpm --import &lt;http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key&gt;</code></li>
+<li><code>yum install jenkins</code></li>
+</ol>
+<p>安装完成后直接<code>sudo service jenkins start</code>是有问题的，需要配置一些东西。</p>
+<h2 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h2><h3 id="启动服务失败"><a href="#启动服务失败" class="headerlink" title="启动服务失败"></a>启动服务失败</h3><p>我直接启动后显示失败报错如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Starting jenkins (via systemctl):  Job for jenkins.service failed because the control process exited with error code. See &quot;systemctl status jenkins.service&quot; and &quot;journalctl -xe&quot; for details.</span><br><span class="line">                                                           [FAILED]</span><br></pre></td></tr></table></figure>
+
+<p>出错是因为你的java地址和jenkins给出的默认路径不符，需要手动配置。</p>
+<p>配置过程：</p>
+<ol>
+<li>编辑<code>/etc/init.d/jenkins</code></li>
+<li>将你的java安装地址加入<code>candidates</code>中。如<code>/opt/oracle/product/java/jdk1.8.0_45/bin/java</code></li>
+<li>重新启动服务<br><code>sudo service jenkins restart</code></li>
+</ol>
+<h3 id="启动服务成功但不能访问"><a href="#启动服务成功但不能访问" class="headerlink" title="启动服务成功但不能访问"></a>启动服务成功但不能访问</h3><p>完成这几步骤后服务成功启动，但是又出现了新的问题，就是利用ip和端口访问时出现</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Jenkins Can&#39;t finish HTTP request</span><br></pre></td></tr></table></figure>
+
+<p>利用<code>systemctl status jenkins</code>查看服务状态发现jenkins的状态出入<code>exited</code>，而不是<code>running</code>。</p>
+<p>google了之后发现是jenkins的配置文件中关于用户的默认配置是’jenkins’，将用户改为’root’访问成功。</p>
+<h2 id="配置Jenkins"><a href="#配置Jenkins" class="headerlink" title="配置Jenkins"></a>配置Jenkins</h2><p>至于Jenkins的入门配置，官方给出了教程，放出<a href="https://jenkins.io/zh/doc/pipeline/tour/hello-world/" target="_blank" rel="noopener">传送门</a>供大家参考。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li>Jenkins官方文档：<a href="https://www.runoob.com/docker/centos-docker-install.html" target="_blank" rel="noopener">https://www.runoob.com/docker/centos-docker-install.html</a></li>
+<li>菜鸟教程：<a href="https://www.runoob.com/docker/centos-docker-install.html" target="_blank" rel="noopener">https://www.runoob.com/docker/centos-docker-install.html</a></li>
+<li>java官网：<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></li>
+<li>可能漏掉某些参考文档，请作者联系添加引用或删除相关内容。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>DevOps</category>
+        <category>CI&amp;CD</category>
+        <category>Jenkins</category>
+      </categories>
+      <tags>
+        <tag>DevOps</tag>
+        <tag>Jenkins</tag>
+        <tag>CI/CD</tag>
       </tags>
   </entry>
   <entry>
@@ -1606,6 +2673,394 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
       </tags>
   </entry>
   <entry>
+    <title>常见的系统指令</title>
+    <url>/chinese/2019/01/25/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%8C%87%E4%BB%A4/</url>
+    <content><![CDATA[<h1 id="常见的系统指令"><a href="#常见的系统指令" class="headerlink" title="常见的系统指令"></a>常见的系统指令</h1><p>系统指令大概可以用于实现下来功能：</p>
+<ol>
+<li>指针参数验证 <em>Verification of pointer parameters</em></li>
+<li><strong>描述符表寻址</strong> <em>Addressing descriptor tables</em></li>
+<li><strong>多任务处理</strong> <em>Multitasking</em></li>
+<li><strong>协同处理和多任务处理</strong> <em>Coprocessing &amp; Multiprocessing</em></li>
+<li><strong>输入输出</strong> <em>Input&amp;Output</em></li>
+<li><strong>中断控制</strong> <em>Interrupt control</em></li>
+<li>调试 <em>Debugging</em></li>
+<li>TLB检查 <em>TLB testing</em></li>
+<li><strong>系统控制</strong> <em>System control</em></li>
+</ol>
+<p>接下来我们详细介绍：</p>
+<a id="more"></a>
+
+<h2 id="指针参数验证"><a href="#指针参数验证" class="headerlink" title="指针参数验证"></a>指针参数验证</h2><ol>
+<li><p>ARPL</p>
+<p>该指令一般用于保证子程序的选择器参数不会要求比调用者允许的更高的特权。用法是<code>ARPL r/m16, r16</code>，r/m16表示第一个操作数是16位内存变量或者16位寄存器，这个操作数用于存放选择器的值。r16表示16位寄存器。如果第一个操作数的RPL（<em>Requested privilege level</em>）$\le$第二个操作数的RPL，EFLAGS中的ZF位置1，并且提升第一个操作数的RPL使之不小于第二个操作数的RPL。否则的话不改变RPL，将ZF位置0。</p>
+</li>
+<li><p>LAR<br>装载读写权限位。</p>
+</li>
+<li><p>LSL<br>装载段界。</p>
+</li>
+<li><p>VERR<br>确定当前特权级能否读段。</p>
+</li>
+<li><p>VERW<br>确定当前特权级能够写段。</p>
+</li>
+</ol>
+<h2 id="描述符表寻址"><a href="#描述符表寻址" class="headerlink" title="描述符表寻址"></a>描述符表寻址</h2><ol>
+<li>LLDT<br>LLDT的作用是装载局部描述符表寄存器LDTR。</li>
+<li>SLDT<br>SLDT的作用是读取局部描述符表寄存器LDTR中的内容读取出来并存储。</li>
+<li>LGDT<br>LGDT的作用是装载全局描述符表寄存器GDTR。</li>
+<li>SGDT<br>SGDT的作用是读取全局描述符表寄存器GDTR中的内容读取出来并存储。</li>
+</ol>
+<p>关于LDTR和GDTR请见<a href="https://freshmanhaner.github.io/2019/01/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84%E5%9B%9B%E7%B1%BB%E5%AF%84%E5%AD%98%E5%99%A8/#more" target="_blank" rel="noopener">操作系统程序员必须了解的四类寄存器</a></p>
+<h2 id="多任务处理"><a href="#多任务处理" class="headerlink" title="多任务处理"></a>多任务处理</h2><ol>
+<li>LTR<br>LTR的作用是装载任务寄存器TR。</li>
+<li>STR<br>SLDT的作用是读取任务寄存器TR中的内容读取出来并存储。</li>
+</ol>
+<p>关于TR请见<a href="https://freshmanhaner.github.io/2019/01/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84%E5%9B%9B%E7%B1%BB%E5%AF%84%E5%AD%98%E5%99%A8/#more" target="_blank" rel="noopener">操作系统程序员必须了解的四类寄存器</a></p>
+<h2 id="协同处理和多任务处理"><a href="#协同处理和多任务处理" class="headerlink" title="协同处理和多任务处理"></a>协同处理和多任务处理</h2><ol>
+<li>CLTS<br>清除CR0寄存器中的TS标志（任务转换标志）。我们在<a href="https://freshmanhaner.github.io/2019/01/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84%E5%9B%9B%E7%B1%BB%E5%AF%84%E5%AD%98%E5%99%A8/#more" target="_blank" rel="noopener">操作系统程序员必须了解到四类寄存器</a>中介绍过，TS标志在每次发生任务切换后由处理器置1.</li>
+<li>ESC<br>逃脱指令。</li>
+<li>WAIT<br>挂起指令的执行，等待协处理器不忙。</li>
+<li>LOCK<br>用于声明下一条指令的总线锁信号。在多处理器环境下这条指令可以用来确保对共享内存的独占。</li>
+</ol>
+<h2 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h2><ol>
+<li><p>IN<br>IN指令将一个字节（byte）或者一个字（word）的数据从指定端口传送到指定寄存器。<br>其中端口号存储在DX寄存器中，寄存器由指令指定。</p>
+</li>
+<li><p>OUT<br>OUT指令将一个字节（byte）或者一个字（word）的数据从指定寄存器传送到指定端口。<br>其中端口号存储在DX寄存器中，寄存器由指令指定。</p>
+</li>
+<li><p>INS<br>一般用于从指定端口读入字符串。</p>
+</li>
+<li><p>OUTS</p>
+<p>一般用于将字符串输入指定端口。</p>
+</li>
+</ol>
+<h2 id="中断控制"><a href="#中断控制" class="headerlink" title="中断控制"></a>中断控制</h2><ol>
+<li>CLI<br>关中断。既清除中断使能标记。</li>
+<li>STI<br>开终端。既将中断使能标记置1.</li>
+<li>LIDT<br>装载IDT（异常描述符表）寄存器。</li>
+<li>SIDT<br>将IDT中的内容读出来，并存储。</li>
+</ol>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>用<code>MOV</code>指令改变调试寄存器，至于什么是调试寄存器以及有什么作用，请见<a href="https://freshmanhaner.github.io/2019/01/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84%E5%9B%9B%E7%B1%BB%E5%AF%84%E5%AD%98%E5%99%A8/#more" target="_blank" rel="noopener">操作系统程序员必须了解的四类寄存器</a></p>
+<h2 id="TLB检查"><a href="#TLB检查" class="headerlink" title="TLB检查"></a>TLB检查</h2><p>用<code>MOV</code>指令改变检查寄存器，至于什么是检查寄存器以及有什么作用，请见<a href="https://freshmanhaner.github.io/2019/01/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84%E5%9B%9B%E7%B1%BB%E5%AF%84%E5%AD%98%E5%99%A8/#more" target="_blank" rel="noopener">操作系统程序员必须了解的四类寄存器</a></p>
+<h2 id="系统控制"><a href="#系统控制" class="headerlink" title="系统控制"></a>系统控制</h2><ol>
+<li><p>SMSW<br>设置CR0中的MSW位，既机器状态字（machine status word）。</p>
+</li>
+<li><p>LMSW<br>设置CR0中的MSW位。</p>
+</li>
+<li><p>HLT</p>
+<p>停止指令执行并将处理器置为HALT状态。</p>
+</li>
+<li><p>MOV<br>用<code>MOV</code>指令改变控制寄存器，至于什么是控制寄存器以及有什么作用，请见<a href="https://freshmanhaner.github.io/2019/01/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84%E5%9B%9B%E7%B1%BB%E5%AF%84%E5%AD%98%E5%99%A8/#more" target="_blank" rel="noopener">操作系统程序员必须了解的四类寄存器</a></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>操作系统</category>
+        <category>硬件知识</category>
+      </categories>
+      <tags>
+        <tag>操作系统</tag>
+        <tag>系统指令</tag>
+        <tag>OS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统程序员必须了解的五类寄存器</title>
+    <url>/chinese/2019/01/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84%E5%9B%9B%E7%B1%BB%E5%AF%84%E5%AD%98%E5%99%A8/</url>
+    <content><![CDATA[<h1 id="操作系统程序员必须了解的四类寄存器"><a href="#操作系统程序员必须了解的四类寄存器" class="headerlink" title="操作系统程序员必须了解的四类寄存器"></a>操作系统程序员必须了解的四类寄存器</h1><p>供操作系统程序员使用的寄存器可以分为下面这么几类：</p>
+<ul>
+<li><strong>EFLAGS</strong></li>
+<li><strong>Memory-Management Registers</strong></li>
+<li><strong>Control Registers</strong></li>
+<li><strong>Debug Registers</strong></li>
+</ul>
+<p>接下来我们分别介绍一下这几类寄存器。</p>
+<a id="more"></a>
+
+<h2 id="EFLAGS"><a href="#EFLAGS" class="headerlink" title="EFLAGS"></a>EFLAGS</h2><p>操作系统在很多地方都要<strong>关闭中断、打开中断</strong>，实现这一点就要用到EFLAGS寄存器，当然EFLAGS寄存器的作用不只是这一点。</p>
+<p>下图是EFLAGS寄存器的所有位，其中灰色代表保留为，不可使用。图下方的表格会详细介绍每一位的作用，比较重要的位被标为<strong>黑体</strong>。</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/OS/EFLAGS_register.png" alt="EFLAGS"></p>
+<table>
+<thead>
+<tr>
+<th align="center">简称</th>
+<th align="center">中文名称</th>
+<th align="center">标志类型</th>
+<th align="center">具体作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ID</td>
+<td align="center">识别标志</td>
+<td align="center">系统标志</td>
+<td align="center">如果ID为能够被设置，表示处理器支持CPUID命令。</td>
+</tr>
+<tr>
+<td align="center">VIP</td>
+<td align="center">虚拟未决中断标志</td>
+<td align="center">系统标志</td>
+<td align="center">如果有中断挂起，VIP设为1。</td>
+</tr>
+<tr>
+<td align="center">VIF</td>
+<td align="center">虚拟中断标志</td>
+<td align="center">系统标志</td>
+<td align="center">IF位的虚拟镜像。</td>
+</tr>
+<tr>
+<td align="center">AC</td>
+<td align="center">对齐检查标志</td>
+<td align="center">系统标志</td>
+<td align="center">如果对内存引用的对齐检查完成，AC设为1。</td>
+</tr>
+<tr>
+<td align="center"><strong>VM</strong></td>
+<td align="center">虚拟8086模式</td>
+<td align="center">系统标志</td>
+<td align="center">VM为1是表示允许虚拟8086模式（既<strong>实模式</strong>）。</td>
+</tr>
+<tr>
+<td align="center"><strong>RF</strong></td>
+<td align="center">恢复标志</td>
+<td align="center">系统标志</td>
+<td align="center">对调试异常做出反应。具体说就是暂时关闭调试异常（_debug exception_），这样指令可以在出现调试异常后重新执行而不会马上引起另一个调试异常。</td>
+</tr>
+<tr>
+<td align="center"><strong>NT</strong></td>
+<td align="center">任务嵌套标志</td>
+<td align="center">系统标志</td>
+<td align="center">用于控制中断链，如果当前程序或者任务与下一个程序或任务相关联，NT设为1。NT位的设置会影响到<code>IRET</code>指令。</td>
+</tr>
+<tr>
+<td align="center">IOPL</td>
+<td align="center">I/O特权级标志</td>
+<td align="center">系统标志</td>
+<td align="center">表示当前程序或者任务的I/O特权级。只有当前特权级（<em>Current Privilege Level</em>）$\leq$I/O特权级的时候才能够访问该I/O地址空间。</td>
+</tr>
+<tr>
+<td align="center">OF</td>
+<td align="center">溢出标记</td>
+<td align="center">状态标志</td>
+<td align="center">如果运算结果溢出，OF设为1，否则设为0。</td>
+</tr>
+<tr>
+<td align="center">DF</td>
+<td align="center">方向标志</td>
+<td align="center">控制标志</td>
+<td align="center">DF为1时<strong>字符串操作</strong>会从高地址向低地址处理，否则相反。汇编中的<code>STD</code>命令用来讲DF设为1，<code>CLD</code>命令将DF设为0。</td>
+</tr>
+<tr>
+<td align="center"><strong>IF</strong></td>
+<td align="center">中断标志</td>
+<td align="center">系统标志</td>
+<td align="center">IF为1时表示<strong>允许中断</strong>。</td>
+</tr>
+<tr>
+<td align="center"><strong>TF</strong></td>
+<td align="center">陷阱标志</td>
+<td align="center">系统标志</td>
+<td align="center">TF为1时表示<strong>允许单步调试</strong>。单步调试模式下CPU会在执行每个指令后自动产生抛出一个异常，这样就能在执行每条指令后观察程序状态。</td>
+</tr>
+<tr>
+<td align="center">SF</td>
+<td align="center">符号位</td>
+<td align="center">状态标志</td>
+<td align="center">如果计算结果是<strong>负数</strong>，SF设为1，否则设为0。</td>
+</tr>
+<tr>
+<td align="center">ZF</td>
+<td align="center">零标记</td>
+<td align="center">状态标志</td>
+<td align="center">如果计算结果是0，ZF设为1，否则设为0。</td>
+</tr>
+<tr>
+<td align="center">AF</td>
+<td align="center">辅助进位标记</td>
+<td align="center">状态标志</td>
+<td align="center">如果计算时低效半字节（<em>low nibble</em>），也就是最低4位发生了进位或者借位，AF设为1，否则设为0。主要用来辅助BCD码（二进制编码的十进制）的算术计算。</td>
+</tr>
+<tr>
+<td align="center">PF</td>
+<td align="center">奇偶位</td>
+<td align="center">状态标志</td>
+<td align="center">计算结果转化为二进制数，如果最低8位（<em>least significant byte</em>）中1的个数是偶数，PF设为1，否则设为0。</td>
+</tr>
+<tr>
+<td align="center">CF</td>
+<td align="center">进位标记</td>
+<td align="center">状态标志</td>
+<td align="center">如果上次算术运算有<strong>进位</strong>或者<strong>借位</strong>，CF设为1，否者设为0。</td>
+</tr>
+</tbody></table>
+<h2 id="内存管理寄存器——Memory-Management-Registers"><a href="#内存管理寄存器——Memory-Management-Registers" class="headerlink" title="内存管理寄存器——Memory-Management Registers"></a>内存管理寄存器——<em>Memory-Management Registers</em></h2><p>80386处理器中四个寄存器用于<strong>定位</strong>控制段内存管理的数据结构，它们是：</p>
+<ol>
+<li><p><strong>全局描述符表寄存器</strong> <em>Global Descriptor Table Register</em><br>指向全局描述符表（GDT），GDT中没8bytes代表一个描述符，描述符可以是段描述符、TSS（任务状态段）描述符、门描述符（局部描述符表描述符）。<br>段描述符如下图：</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/OS/SegmentDescriptor.png" alt="SegmentDescriptor"></p>
+<p>TSS描述符指向TSS，门描述符指向LDT。</p>
+</li>
+<li><p><strong>局部描述符表寄存器</strong> <em>Local Descriptor Table Register</em><br>指向局部描述符表（LDT），和GDT不同，LDT只能存放段描述符。</p>
+</li>
+<li><p><strong>中断描述符表寄存器</strong> <em>Interrupt Descriptor Table Register</em><br>指向中断描述符表（IDT），中断描述符表中记录着中断处理程序的入口。</p>
+</li>
+<li><p><strong>任务寄存器</strong> <em>Task Register</em><br>指向处理器定义当前任务所需信息。</p>
+</li>
+</ol>
+<h2 id="控制寄存器——Control-Registers"><a href="#控制寄存器——Control-Registers" class="headerlink" title="控制寄存器——Control Registers"></a>控制寄存器——<em>Control Registers</em></h2><p>80386处理器中的控制寄存器有_CR0_、_CR2_、<em>CR3</em>（更新的处理器中有更多的控制寄存器） 。这些寄存器只能通过汇编指令<code>MOV</code>来读写，具体点就是将通用寄存器中的值存储到控制寄存器，或者从控制寄存器中读取值放在通用寄存器。下面我们详细介绍一下这三个寄存器的作用。</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/OS/control_register.gif" alt="80386 CR0-3寄存器"></p>
+<ul>
+<li><p>CR0控制寄存器：<br>CR0控制寄存器包含系统控制标志，这些标志可以用来控制<strong>整个系统</strong>的状态。我们分别说一下这些控制标志</p>
+<table>
+<thead>
+<tr>
+<th align="center">简称</th>
+<th align="center">全称</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">PG</td>
+<td align="center">Paging</td>
+<td align="center">指明处理器是否使用<strong>页表</strong>将<strong>线性地址</strong>翻译为<strong>物理地址</strong>。PG为1是处理器使用分页。</td>
+</tr>
+<tr>
+<td align="center">ET</td>
+<td align="center">Extension Type</td>
+<td align="center">ET指明系统中存在的协处理器的类型。</td>
+</tr>
+<tr>
+<td align="center">TS</td>
+<td align="center">Task Switched</td>
+<td align="center">每次任务切换处理器都会把TS置1，并且在执行协处理器指令时检查TS位。</td>
+</tr>
+<tr>
+<td align="center">EM</td>
+<td align="center">Emulation</td>
+<td align="center">EM位指明是否模拟<strong>协处理器</strong>功能。如果EM为1，执行<code>ESC</code>指令时会产生7号异常，让异常处理程序有机会模拟<code>ESC</code>指令。</td>
+</tr>
+<tr>
+<td align="center">MP</td>
+<td align="center">Monitor Coprocessor</td>
+<td align="center">控制<code>WAIT</code>指令，如果MP为1，当执行<code>WAIT</code>指令时CPU会检查TS位，如果发现TS位是1，则抛出7号异常。</td>
+</tr>
+<tr>
+<td align="center">PE</td>
+<td align="center">Protection Enable</td>
+<td align="center">PE位置1，处理器会开始执行保护模式。置0会返回实模式。</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>CR1控制寄存器（保留，不可用）</p>
+</li>
+<li><p>CR2控制寄存器：<br>当CR0中的PG位置1时，CR2用于处理<strong>页错误</strong>，处理器将触发页错误的线性地址存入CR2寄存器。</p>
+</li>
+<li><p>CR3控制寄存器：<br>当CR0中的PG位置1时，CR3寄存器用于存放当前任务<strong>页表目录</strong>（<em>Page Table Directory</em>）的入口。CR3对于环境切换非常重要。</p>
+</li>
+</ul>
+<h2 id="调试寄存器——Debug-Register"><a href="#调试寄存器——Debug-Register" class="headerlink" title="调试寄存器——Debug Register"></a>调试寄存器——<em>Debug Register</em></h2><p>调试寄存器让80386处理器能够在不改变程序代码的情况下实现指令断点等高级调试功能。80386处理器一共有8个调试处理器，如图：</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/OS/debug_register.jpg" alt="debug registers"></p>
+<p>和控制寄存器类似，用<code>MOV</code>指令操作这些寄存器，另外只有特权级为0是才能操作，其他特权级试图操作为引起异常。</p>
+<ol>
+<li><p>DR0~3——调试地址寄存器：<br>用于存放与断点条件相应的线性地址。<br>这些调试地址寄存器不管是否使用分页都有效，如果使用分页，寄存器中的线性地址会被转化为物理地址，否者这些线性地址会直接被当作物理地址。<br>需要注意的是，如果使用分页，不同的任务可能有不同的地址映射。如果任务之间的地址映射不同，那么调试寄存器中的地址可能和具体任务有关。</p>
+</li>
+<li><p>DR4~5——保留不用的寄存器</p>
+</li>
+<li><p>DR6——调试状态寄存器<br>调试状态寄存器帮助调试人员判断发生了哪些调试条件。<br>如果<em>DR0-3</em>指明的调试条件发生，在进入调试异常处理程序前DR6中相应的的<strong><em>B0-3</em></strong>被置1。<br>DR6中的<strong><em>BT位</em></strong>和TSS（任务状态段）中的<em>T-bit</em>配合，当发生任务切换并且新的TSS中的<em>T-bit</em>为1，那么在进入调试异常处理程序前BT会被置1。<br>DR6中的<strong><em>BS位</em></strong>和EFLAGS寄存器中的TF位配合，如果由于单步执行异常进入异常处理程序，BS会被置1。单步执行陷阱是最高优先级的调试异常，所以当BS为1时，所有的其他调试状态位可能也会被置1。<br>如果下一条指令会读写八个调试寄存器中的任意一个，<strong><em>BD位</em></strong>会被置1。<br>对于DR6有一点需要注意，处理器不会清零DR6，所以<strong>调试异常处理程序在返回前应该将DR6清零</strong>，以避免混乱。</p>
+</li>
+<li><p>DR7——调试控制寄存器<br>调试控制寄存器用于帮助定义调试条件，选择性的开关这些条件。<br>DR7中的<strong><em>R/W0</em></strong>，<strong><em>R/W1</em></strong>，<strong><em>R/W2</em></strong>，<strong><em>R/W3</em></strong>分别用于指明<em>DR0</em>，<em>DR1</em>，<em>DR2</em>，<em>DR3</em>在什么情况下触发断点。<em>R/W0-3</em>都包含2bit，可能的情况有：</p>
+<ul>
+<li>00——在指令执行时中断</li>
+<li>01——在写数据时中断</li>
+<li>10——未定义</li>
+<li>11——在数据读写（不包括取指令）时中断</li>
+</ul>
+<p>当<em>RW0-3</em>为01或者11，DR7中对应的<strong><em>LEN</em></strong>用于指明数据的大小。<em>RW</em>为00时对应的<em>LEN</em>也必须为00。下面是<em>LEN</em>可能的值及对应含义：</p>
+<ul>
+<li><p>00——1byte</p>
+</li>
+<li><p>01——2byte</p>
+</li>
+<li><p>10——未定义</p>
+</li>
+<li><p>11——4byte</p>
+</li>
+</ul>
+<p>DR7的低8位（<strong><em>L0-3</em></strong>，<strong><em>G0-3</em></strong>）用于是否开启断电条件，是全局（G）还是本地（L）。<em>L0-3</em>位任务切换时会被处理器自动重置，<em>G0-3</em>在任务切换时则不会被重置。</p>
+<p>DR7中还有<strong><em>LE</em></strong>和<strong><em>GE</em></strong>两位，用于控制处理器降低执行速度，使得有时间将断点报给触发断点的指令。同样的<em>LE</em>在任务切换时会被重置，<em>GE</em>不会。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>操作系统</category>
+        <category>硬件知识</category>
+      </categories>
+      <tags>
+        <tag>操作系统</tag>
+        <tag>寄存器</tag>
+        <tag>EFLAGS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于gcc编译器的一些内置宏定义</title>
+    <url>/chinese/2019/01/23/%E5%85%B3%E4%BA%8Egcc%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E5%86%85%E7%BD%AE%E5%AE%8F%E5%AE%9A%E4%B9%89/</url>
+    <content><![CDATA[<h1 id="gcc内置宏"><a href="#gcc内置宏" class="headerlink" title="gcc内置宏"></a>gcc内置宏</h1><p>在看一些c语言代码时经常突然冒出一些宏，比如<code>__FILE__</code>、<code>__TIME__</code>等。前面也没有出现相关的定义，一直都没想着弄清楚是什么。这次又看到了这些宏，花了一点时间看了下是什么。</p>
+<p>发现这些其实都是编译器内置的宏定义，所以代码中没有给出定义就能直接使用。这样的宏还不少，列出几个常见的，例如：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"__FILE__ is %s \n"</span>,__FILE__);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"__LINE__ is %d \n"</span>,__LINE__);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"__FUNCTION__ is %s \n"</span>,__FUNCTION__);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"__DATE__ is %s \n"</span>,__DATE__);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"__TIME__ is %s \n"</span>,__TIME__);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"__TIMESTAMP__ is %s \n"</span>,__TIMESTAMP__);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果是：</p>
+<a id="more"></a>
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">__FILE__ is D:\桌面\常用文件\学习文档\专业学习\C++项目\未命名<span class="number">1.</span>cpp</span><br><span class="line">__LINE__ is <span class="number">6</span></span><br><span class="line">__FUNCTION__ is main</span><br><span class="line">__DATE__ is Jan <span class="number">23</span> <span class="number">2019</span></span><br><span class="line">__TIME__ is <span class="number">20</span>:<span class="number">07</span>:<span class="number">46</span></span><br><span class="line">__TIMESTAMP__ is Wed Jan <span class="number">23</span> <span class="number">19</span>:<span class="number">56</span>:<span class="number">53</span> <span class="number">2019</span></span><br><span class="line"></span><br><span class="line">--------------------------------</span><br><span class="line">Process exited after <span class="number">0.09669</span> seconds with <span class="keyword">return</span> value <span class="number">0</span></span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
+
+<p>从上面的代码和输出结果可以看出</p>
+<ul>
+<li>__FILE__<br>指本语句所在源文件的名称（绝对路径）。</li>
+<li>__LINE__<br>指本语句所在的行号。</li>
+<li>__FUNCTION__<br>指本语句所在函数的函数名。</li>
+<li>__DATE__<br>指本语句所在源文件<strong>编译时</strong>的日期。</li>
+<li>__TIME__<br>指本语句所在源文件<strong>编译时</strong>的时间。</li>
+<li>__TIMESTAMP__<br>指本语句所在源文件<strong>创建时</strong>的日期和时间。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>编程语言</category>
+        <category>c/c++</category>
+      </categories>
+      <tags>
+        <tag>gcc 编译器 宏定义 __FILE__ __LINE__ __TIMESTAMP__</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GNU利用关键字__attribute__设置变量属性</title>
+    <url>/chinese/2019/01/23/GNU%E5%88%A9%E7%94%A8%E5%85%B3%E9%94%AE%E5%AD%97-attribute-%E8%AE%BE%E7%BD%AE%E5%8F%98%E9%87%8F%E5%B1%9E%E6%80%A7/</url>
+    <content><![CDATA[<h1 id="GNU利用关键字attribute设置变量的属性"><a href="#GNU利用关键字attribute设置变量的属性" class="headerlink" title="GNU利用关键字attribute设置变量的属性"></a>GNU利用关键字<strong>attribute</strong>设置变量的属性</h1><p>关键字<code>__attribute__</code>可以用来声明变量、函数参数、结构体、共用体或者C++中类成员的特殊属性。使用方法是在关键字<code>__attribute__</code>后跟着用两个小括号包起来的属性声明。例如：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">a</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> a1;</span><br><span class="line">	<span class="keyword">int</span> a2;</span><br><span class="line">&#125; __attribute__((packed));</span><br></pre></td></tr></table></figure>
+
+<p>这个例子中声明结构体<code>a</code>的特殊属性——字节对齐，<code>((packed))</code>这个属性声明是指最小的对齐方式，即1Byte对齐。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PGSIZE 1024</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">a</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> a1;</span><br><span class="line">	<span class="keyword">int</span> a2;</span><br><span class="line">&#125; __attribute__((__aligned__(PGSIZE)));</span><br></pre></td></tr></table></figure>
+
+<p>这个例子也是字节对齐，但是这次是我们自定义的对其方式：按照1024Byte进行字节对齐。</p>
+<a id="more"></a>
+
+<p>关于属性的详细介绍请参考：<a href="https://gcc.gnu.org/onlinedocs/gcc/Attribute-Syntax.html" target="_blank" rel="noopener">参考资料——GNU官方文档</a></p>
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>编程语言</category>
+        <category>c/c++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>c语言</tag>
+        <tag>字节对齐</tag>
+        <tag>__attribute__</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>leetcode 162 Find Peak Element</title>
     <url>/chinese/2019/01/23/leetcode-162-Find-Peak-Element/</url>
     <content><![CDATA[<h1 id="leetcode-162-Find-Peak-Element"><a href="#leetcode-162-Find-Peak-Element" class="headerlink" title="leetcode 162 Find Peak Element"></a>leetcode 162 Find Peak Element</h1><p>这个题目是MIT 6.006算法课中提到的第一个问题，也就是一维数组的Peak Finder问题。如果感兴趣看一看一下我的<a href="https://freshmanhaner.github.io/2019/01/20/MIT-6-006-Lecture-1-b-%E7%AC%94%E8%AE%B0/" target="_blank" rel="noopener">MIT 6.006 Lecture 1-b 笔记</a>。</p>
@@ -1785,11 +3240,103 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
         <category>OS</category>
       </categories>
       <tags>
-        <tag>操作系统</tag>
-        <tag>OS</tag>
         <tag>实验</tag>
         <tag>MIT</tag>
+        <tag>操作系统</tag>
+        <tag>OS</tag>
         <tag>Lab</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jQuery的若干CDN引用</title>
+    <url>/chinese/2018/11/22/jQuery%E7%9A%84%E8%8B%A5%E5%B9%B2CDN%E5%BC%95%E7%94%A8/</url>
+    <content><![CDATA[<p><img src="https://codecondo.com/wp-content/uploads/2016/12/jQuery.png" alt="jQuery"><br>&emsp;许多人依据直觉认为把<em>jQuery</em>库放在服务器本地会更快，实际上从<em>CDN（Content Distribution Network）</em>引用<em>jQuery</em>往往会有更快的响应。原因有二：</p>
+<ol>
+<li>同样是要将<em>jQuery</em>发送到用户的浏览器，我们的服务器未必有大公司<em>CDN</em>服务器快。</li>
+<li>由于许多网站都引用了大公司<em>CDN</em>提供的<em>jQuery</em>，用户的浏览器中很可能已经缓存了<em>jQuery</em>，当再访问我们的网站中，浏览器从缓存中加载<em>jQuery</em>当然要更快。</li>
+</ol>
+<p>&emsp;所以<em>CDN</em>引用<em>jQuery</em>不失为一种好的选择，而且各大网络公司都有提供该服务，稳定性也比较高。以下是知名公司的<em>jQuery</em>引用地址，可以根据需求选择适合我们网站的。</p>
+<a id="more"></a>
+
+<ul>
+<li>首先是官方<em>jQuery CDN</em>，可以通过下面网址查询最新版本:<a href="https://code.jquery.com" target="_blank" rel="noopener">官方jQuery CDN</a></li>
+<li>然后是微软的<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script src=<span class="string">"https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></li>
+<li>接着是度娘的<em>jQuery CDN</em>。<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script src=<span class="string">"https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"</span>&gt;</span><br></pre></td></tr></table></figure></li>
+<li>再来是Google的，这个在国内不太好用，除非你的用户里国外居多，否则慎选：<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script src=<span class="string">"https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"</span>&gt;</span><br></pre></td></tr></table></figure></li>
+<li>当然还有几个不错的版本，一起写出来了：<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">#又拍云的</span><br><span class="line">&lt;script src=<span class="string">"https://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"</span>&gt;</span><br><span class="line">#新浪的</span><br><span class="line">&lt;script src=<span class="string">"https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"</span>&gt;</span><br><span class="line">#Staticfile CDN</span><br><span class="line">&lt;script src=<span class="string">"https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"</span>&gt;</span><br></pre></td></tr></table></figure>
+&emsp;当然如果基于某种考虑要把<em>jQuery<em>库放在服务器本地的话，我也准备了</em>jQuery</em><a href="http://jquery.com/download/" target="_blank" rel="noopener">官方下载地址</a>。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>Web开发</category>
+        <category>JavaScript&amp;HTML&amp;CSS</category>
+        <category>jQuery</category>
+      </categories>
+      <tags>
+        <tag>jQuery</tag>
+        <tag>Web</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django的基本用法及数据库连接</title>
+    <url>/chinese/2018/11/21/Django%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95%E5%8F%8A%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5/</url>
+    <content><![CDATA[<h1 id="创建Django项目"><a href="#创建Django项目" class="headerlink" title="创建Django项目"></a>创建Django项目</h1><p>&emsp;安装 Django 之后，我们就有了管理工具 django-admin.py。我们可以使用 django-admin.py 来创建一个项目：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">django-admin startproject HelloWorld</span><br></pre></td></tr></table></figure>
+<p>&emsp;对于旧版本的Django要使用：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">django-admin.py startproject HelloWorld</span><br></pre></td></tr></table></figure>
+<p>&emsp;进入项目目录，执行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python manage.py runserver 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
+<p>来启动项目，然后在浏览器中访问<em>127.0.0.1:8000</em>可知项目是否创建成功。</p>
+<a id="more"></a>
+<h1 id="URL配置"><a href="#URL配置" class="headerlink" title="URL配置"></a>URL配置</h1><p>&emsp;创建项目后我们必然要添加自己的页面，同时我们也需要配置该页面的URL。在讲Django模板之前我们没办法直接返回<em>html</em>文件，只能直接返回内容，当然你也可以把这些内容组织为<em>html</em>格式。</p>
+<ol>
+<li><strong>添加页面处理</strong>。在<em>…/HelloWorld/HelloWorld/</em>目录下新建<em>newpage.py</em>文件，文件代码如下：<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="comment">#这是视图函数，配置url时要用到</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">HelloWorld</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"&lt;h1&gt;Hello World&lt;/h1&gt;"</span>)</span><br></pre></td></tr></table></figure></li>
+<li><strong>配置URL</strong>。编辑<em>…/HelloWorld/HelloWorld/</em>目录下的<em>urls.py</em>，添加两行代码<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#******原有import********</span></span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> newpage</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment">#*****原有url****</span></span><br><span class="line">    url(<span class="string">r'^HelloWorld$'</span>,newpage.HelloWorld),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+访问<em>127.0.0.1:8000/HelloWorld</em>即可得到新建的页面。<blockquote>
+<p>url() 函数:<br>Django url() 可以接收四个参数，分别是两个必选参数：regex、view 和两个可选参数：kwargs、name，接下来详细介绍这四个参数。</p>
+</blockquote>
+</li>
+</ol>
+<p><em>regex: 正则表达式，与之匹配的 URL 会执行对应的第二个参数 view。<br>view: 用于执行与正则表达式匹配的 URL 请求。<br>kwargs: 视图使用的字典类型的参数。<br>name: 用来反向获取 URL。</em></p>
+<h1 id="Django模板"><a href="#Django模板" class="headerlink" title="Django模板"></a>Django模板</h1><p>&emsp;若想返回<em>html</em>文件，需要先指定<em>…/HelloWorld/HelloWorld/setting.py</em>中的<em>TEMPLATES</em>，将其<em>DIRS</em>指定为某个文件夹（一般为templates），然后讲html文件放入该文件夹调用。<br>&emsp;我们可以在讲<em>TEMPLATES</em>的<em>DIRS</em>指定为<code>&#39;DIRS&#39;: [BASE_DIR+&quot;/templates&quot;,],</code>，然后在<em>…/HelloWorld/templates/</em>目录下新建<em>HelloWorld.html</em>：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>HelloWorld<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello World From html<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&emsp;最后将<em>newpage.py</em>的内容改为：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># from django.http import render</span></span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render_to_response</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">HelloWorld</span><span class="params">(request)</span>:</span></span><br><span class="line">	<span class="keyword">return</span> render_to_response(<span class="string">'HelloWorld.html'</span>)</span><br></pre></td></tr></table></figure>
+<p>&emsp;因为url已经配置过了，所以直接访问<em>127.0.0.1:8000/HelloWorld</em>即可得到新的页面内容。  </p>
+<hr>
+<p>&emsp;如果只是这样使用Django模板的话，就真的是浪费了。<strong>Django模板的方便之处在于可以将文档的表现形式和内容分开</strong>。我们在<em>…/HelloWorld/templates/</em>目录下建立<em>pattern.html</em>用于存储文档的表现形式：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>pattern name<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123; title &#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Django 模板<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    &#123;% block mainbody %&#125;</span><br><span class="line">       <span class="tag">&lt;<span class="name">p</span>&gt;</span>default contents<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    &#123;% endblock %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&emsp;然后在用以目录下建立<em>content.html</em>用于存储要展示的内容：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;%extends "pattern.html" %&#125;</span><br><span class="line"> </span><br><span class="line">&#123;% block mainbody %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>继承了pattern.html的排版，展示我自己的内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;接下来配置URL，在<em>…/HelloWorld/HelloWorld/</em>目录下新建<em>template.py</em>文件，文件代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># from django.http import render</span></span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">template</span><span class="params">(request)</span>:</span></span><br><span class="line">    title = &#123;&#125;</span><br><span class="line">    title[<span class="string">'title'</span>] = <span class="string">'I am title'</span></span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">'content.html'</span>, title)</span><br></pre></td></tr></table></figure>
+<p>在<em>urls.py</em>中添加<code>url(r&#39;^template$&#39;,template.template),</code>就能访问<em>127.0.0.1:8000/template</em>看到效果了。</p>
+<h1 id="Django之App"><a href="#Django之App" class="headerlink" title="Django之App"></a>Django之App</h1><p>&emsp;Django是一个比较重型的Web框架，一个比较大型的网站下可能有许多个分支，为了实现隔离可以创建多个用<code>django-admin startapp appName</code>命令来创建多个APP。有了APP我们就可以使用<strong>Django模型</strong>_（注意不是模板）_，进而使用数据库。</p>
+<h1 id="Django的数据库连接"><a href="#Django的数据库连接" class="headerlink" title="Django的数据库连接"></a>Django的数据库连接</h1><p>&emsp;Django 对各种数据库提供了很好的支持，包括：PostgreSQL、MySQL、SQLite、Oracle。Django 为这些数据库提供了统一的调用API。 我们可以根据自己业务需求选择不同的数据库。<br>&emsp;Django的默认数据库是<em>SQLite3</em>，想要转换为其他数据库需要调整一些参数。我们以Mysql为例做讲解数据库的连接。<br>&emsp;Django规定，如果要使用<em>模型</em>进而对数据库进行操作，就必须创建一个app。连接并操作Mysql数据库的步骤如下：</p>
+<ol>
+<li>在Mysql中建立一个database</li>
+<li>创建一个新APP</li>
+<li>在<em>setting.py</em>的<em>INSTALLED_APPS</em>中加入新的APP</li>
+<li>填写<em>setting.py</em>的<em>DATABASES</em>：<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.mysql'</span>,  <span class="comment"># 或者使用 mysql.connector.django</span></span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'test'</span>,<span class="comment">#数据库名</span></span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'test'</span>,<span class="comment">#用户名</span></span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">'test123'</span>,<span class="comment">#用户密码</span></span><br><span class="line">        <span class="string">'HOST'</span>:<span class="string">'localhost'</span>,<span class="comment">#数据库所在主机地址</span></span><br><span class="line">        <span class="string">'PORT'</span>:<span class="string">'3306'</span>,<span class="comment">#mysql服务端口</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>填写APP目录下<em>__int__.py</em>文件<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line">pymysql.install_as_MySQLdb()</span><br></pre></td></tr></table></figure>
+&emsp;这一步非常重要，我因为不知道要修改<em>__int__.py</em>文件，导致Django不能运行，最后才知道是数据库连接失败的原因。<br>具体的连接细节和操作方法网上有很多教程，可以参见<a href="http://www.runoob.com/django/django-model.html" target="_blank" rel="noopener">菜鸟教程</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>Web开发</category>
+        <category>Django</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>python框架</tag>
+        <tag>Django</tag>
+        <tag>web</tag>
+        <tag>数据库</tag>
       </tags>
   </entry>
   <entry>
@@ -1967,6 +3514,85 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
         <tag>Lock</tag>
         <tag>并发</tag>
         <tag>分布式计算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Two-Dimensional Array &amp; Pointer to Pointer</title>
+    <url>/chinese/2018/10/29/Two-Dimensional-Array-Pointer-to-Pointer/</url>
+    <content><![CDATA[<p>&emsp;First of all, let’s consider the difference of three functions as follow:    </p>
+<ol>
+<li><p>void write(char a)</p>
+</li>
+<li><p>void write(char *a)</p>
+</li>
+<li><p>void write(char **a)    </p>
+<a id="more"></a>
+<p>&emsp;I am sure you have seen 1 and 2 functions, they respectively are <strong>passing-by-value</strong> and <strong>passing-by-address</strong>. The input of 1 can only be a <strong>char</strong>, the input of 2 can be a <strong>pointer to char</strong> or a <strong>char array</strong>. Both of them are easy to understand. But have you seen function 3? It’s confusing some times, because the input of 3 can be a <strong>pointer to pointer that point to char</strong> or a <strong>pointer to char array</strong> or a <strong>two dimensional char array</strong>. It is different when you code a function like 3, the difference as follows:</p>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//bm-&gt;read_block(unint32_t block_num,char *buf)</span></span><br><span class="line"><span class="comment">//copy memory from char blocks[block_num][] by memcpy()</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//case 1</span></span><br><span class="line"><span class="keyword">void</span> inode_manager::read_file(<span class="keyword">uint32_t</span> inum, <span class="keyword">char</span> **buf_out, <span class="keyword">int</span> *size)</span><br><span class="line">&#123;<span class="comment">//when input of char **buf_out is two-dimensional char array which is declaration as char buf_out[BLOCK_NUM][BLOCK_SIZE]</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">inode</span> *<span class="title">file_inode</span> = <span class="title">get_inode</span>(<span class="title">inum</span>);</span></span><br><span class="line">        *size =file_inode-&gt;size;</span><br><span class="line">        <span class="keyword">int</span> len;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        len = getFileBlockNum(*size);</span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; len;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            bm-&gt;read_block(file_inode-&gt;blocks[i],buf_out[i]);<span class="comment">//or</span></span><br><span class="line">            <span class="comment">//bm-&gt;read_block(file_inode-&gt;blocks[i],(char *)buf_out + (i * BLOCK_SIZE));</span></span><br><span class="line">        &#125;</span><br><span class="line">    	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//case 2</span></span><br><span class="line"><span class="keyword">void</span> inode_manager::read_file(<span class="keyword">uint32_t</span> inum, <span class="keyword">char</span> **buf_out, <span class="keyword">int</span> *size)</span><br><span class="line">&#123;<span class="comment">//when input of char **buf_out is pointer to char array which is declaration as char *buf_out; and call this function like read_file(id,&amp;buf_out,size)</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">inode</span> *<span class="title">file_inode</span> = <span class="title">get_inode</span>(<span class="title">inum</span>);</span></span><br><span class="line">    *size =file_inode-&gt;size;</span><br><span class="line">    <span class="keyword">int</span> len;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    len = getFileBlockNum(*size);</span><br><span class="line">    *buf_out = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(MAXFILE * BLOCK_SIZE);</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; len;i++)</span><br><span class="line">    &#123;</span><br><span class="line">      bm-&gt;read_block(file_i-&gt;blocks[i],((*buf_out) + i*BLOCK_SIZE));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//case 3</span></span><br><span class="line"><span class="comment">//when the input of char **buf_out is pointer to pointer that pointe to char,which is declaration as char **buf_out. What you can do to the input is rare.</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;As to case 2,do you think the following code is correct?</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> inode_manager::read_file(<span class="keyword">uint32_t</span> inum, <span class="keyword">char</span> **buf_out, <span class="keyword">int</span> *size)</span><br><span class="line">&#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">inode</span> *<span class="title">file_inode</span> = <span class="title">get_inode</span>(<span class="title">inum</span>);</span></span><br><span class="line">        *size =file_inode-&gt;size;</span><br><span class="line">        <span class="keyword">int</span> len;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        len = getFileBlockNum(*size);</span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; len;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            buf_out[i] = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * BLOCK_SIZE);</span><br><span class="line">            bm-&gt;read_block(file_inode-&gt;blocks[i],buf_out[i]);<span class="comment">//the following line is alse wrong</span></span><br><span class="line">            <span class="comment">//bm-&gt;read_block(file_inode-&gt;blocks[i],(char *)buf_out + (i * BLOCK_SIZE));</span></span><br><span class="line">        &#125;</span><br><span class="line">    	</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//bm-&gt;read_block(unint32_t block_num,char *buf)//copy memory from char blocks[block_num][] by memcpy()</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;The answer is incorrect. Do you know the reason?</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>编程语言</category>
+        <category>C/C++</category>
+      </categories>
+      <tags>
+        <tag>C/C++</tag>
+        <tag>指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何优化程序性能</title>
+    <url>/chinese/2018/10/05/%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD/</url>
+    <content><![CDATA[<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong><em>代码的简单改变，可能带来程序性能上的飞跃</em></strong><br>&emsp;我们用高级语言编出的代码都要经过编译器的编译才能形成可以执行的程序，如今的编译器已经比较成熟，但由于编译问题的复杂性而<strong>难以做到完美</strong>。编译器会对程序自动做出优化，但要在保证正确性的前提下。如果我们<strong>在编程中给与编译器更多提示</strong>，那编译器就能更好的优化程序。那我们如何跟编译器一起编写出更加高效的程序呢？</p>
+<a id="more"></a>
+<h3 id="消除循环代码中的低效率"><a href="#消除循环代码中的低效率" class="headerlink" title="消除循环代码中的低效率"></a>消除循环代码中的低效率</h3><hr>
+<p>通过<strong><em>代码移动</em></strong>优化来消除循环代码中的低效率。</p>
+<blockquote>
+<p><strong><em>代码移动</em></strong>优化包括识别要执行多次但是计算结果不会改变的计算，因而可以将计算移动到不会被多次求值的部分。    </p>
+</blockquote>
+<p>优化编译器会试着进行代码移动，但是会非常小心，当它不能发现这种优化是否会有副作用时，它会假设是有副作用的，因而放弃优化。而编译器又不可能可靠地发现一个函数是否有副作用。所以我们必须帮助编译器显示地完成<strong><em>代码移动</em></strong>优化。下面是一个比较极端的例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;* Convert string to lowercase: slow *&#x2F;</span><br><span class="line">void lower1(char *s)</span><br><span class="line">&#123;</span><br><span class="line">    long i;</span><br><span class="line">    </span><br><span class="line">    for(i &#x3D; 0;i &lt; strlen(s); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(s[i] &gt;&#x3D; &#39;A&#39; &amp;&amp; s[i] &lt;&#x3D; &#39;Z&#39;)</span><br><span class="line">            s[i] -&#x3D; (&#39;A&#39; - &#39;a&#39;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;* Convert string to lowercase: faster *&#x2F;</span><br><span class="line">void lower2(char *s)</span><br><span class="line">&#123;</span><br><span class="line">    long i;</span><br><span class="line">    long len &#x3D; strlen(s);</span><br><span class="line">    </span><br><span class="line">    for(i &#x3D; 0;i &lt; len; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(s[i] &gt;&#x3D; &#39;A&#39; &amp;&amp; s[i] &lt;&#x3D; &#39;Z&#39;)</span><br><span class="line">            s[i] -&#x3D; (&#39;A&#39; - &#39;a&#39;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;*Sample implementation of library function strlen*&#x2F;</span><br><span class="line">&#x2F;*Compute length of string*&#x2F;</span><br><span class="line">size_t strlen(const char *s)</span><br><span class="line">&#123;</span><br><span class="line">    long length &#x3D; 0;</span><br><span class="line">    while(*s !&#x3D; &#39;\0&#39;)</span><br><span class="line">    &#123;</span><br><span class="line">        s++;</span><br><span class="line">        length++;</span><br><span class="line">    &#125;</span><br><span class="line">    return length;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个例子中当字符床s长度超过十万时，lower2()比lower1()快500000多倍。这是因为后者代码中隐藏着<strong><em>渐近低效率(asymptotic inefficiency)</em></strong>，一个有经验的程序猿会在编程中会尽力避免引入这样的渐近低效率。</p>
+<h3 id="减少过程（函数）调用"><a href="#减少过程（函数）调用" class="headerlink" title="减少过程（函数）调用"></a>减少过程（函数）调用</h3><hr>
+<p>过程（函数）调用是会带来开销的，而且会阻碍编译器进行程序优化，对于一些简单操作，直接操作比写成函数更高效。当然这样就一定程度上破坏了程序的<em>模块性</em>，需要我们根据实际情况进行权衡。当然<strong><em>内联函数</em></strong>是个不错的折中。</p>
+<h3 id="消除不必要的内存访问"><a href="#消除不必要的内存访问" class="headerlink" title="消除不必要的内存访问"></a>消除不必要的内存访问</h3><hr>
+<p>我们先来看一段c代码和它对应的汇编代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">*result &#x3D; 1;</span><br><span class="line">for(i &#x3D; 0;i &lt; length; i++)</span><br><span class="line">&#123;</span><br><span class="line">    *result &#x3D; *result * data[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">result in %rbx,data + i in %rdx,data + length in %rax</span><br><span class="line">1 .L17:</span><br><span class="line">2   vmovsd (%rbx), %xmm0</span><br><span class="line">3   vmulsd (%rbx), %xmm0, %xmm0</span><br><span class="line">4   vmovsd %xmm0, (%rbx)</span><br><span class="line">5   addq   $8, %rdx</span><br><span class="line">6   cmpq   %rax, %rdx</span><br><span class="line">7   jne    .L17</span><br></pre></td></tr></table></figure>
+<p>&emsp;从汇编代码中我们可以看到每次迭代时，累积变量的数值都要从<strong><em>内存读出再写入内存</em></strong>，这样的读写是很浪费的，因为每次迭代开始时从result 读出的值和上次循环最后写入的值是一样的。<br>&emsp;我们可以通过引入一个临时变量（局部变量）来累计计算出的值，只有在计算完成后才存入result。这样就能消除这种不必要的内存读写了。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int acc &#x3D; 1;</span><br><span class="line">for(i &#x3D; 0;i &lt; length; i++)</span><br><span class="line">&#123;</span><br><span class="line">    acc &#x3D; acc * data[i];</span><br><span class="line">&#125;</span><br><span class="line">*result &#x3D; acc;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">acc in %xmm0 ,data + i in %rdx,data + length in %rax</span><br><span class="line">1 .L25:</span><br><span class="line">2   vmulsd (%rdx), %xmm0, %xmm0</span><br><span class="line">3   addq   $8, %rdx</span><br><span class="line">6   cmpq   %rax, %rdx</span><br><span class="line">7   jne    .L25</span><br></pre></td></tr></table></figure>
+<p>由于<strong><em>内存别名</em></strong>的使用，这种优化编译器很难自动完成。而一旦我们主动实现这种优化，程序性能可以得到不小的优化。</p>
+<h3 id="循环展开"><a href="#循环展开" class="headerlink" title="循环展开"></a>循环展开</h3><hr>
+<blockquote>
+<p><strong><em>循环展开</em></strong>是一种程序变换，通过增加每次迭代计算的元素的数量，减少循环的迭代次数。    </p>
+</blockquote>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int sum(int a[],int n)</span><br><span class="line">&#123;</span><br><span class="line">    int i;</span><br><span class="line">    int sum &#x3D; 0;</span><br><span class="line">    for(i &#x3D; 0;i&lt; n;i++)</span><br><span class="line">        sum +&#x3D; a[i];</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;2×1循环展开</span><br><span class="line">int sum(int a[],int n)</span><br><span class="line">&#123;</span><br><span class="line">    int i;</span><br><span class="line">    int sum &#x3D; 0;</span><br><span class="line">    for(i &#x3D; 0;i &lt; n - 1;i+&#x3D;2)</span><br><span class="line">        sum +&#x3D; a[i] + a[i+1];</span><br><span class="line">        </span><br><span class="line">    for(;i&lt;n;i++)&#x2F;&#x2F;处理最后一（几）个元素</span><br><span class="line">        sum +&#x3D; a[i];</span><br><span class="line">        </span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong><em>循环展开</em></strong>能够在两个方面改进程序的性能。首先它减少了不直接有助于程序结果的操作的数量。第二，它提供了一些方法进一步改变代码从而减少整个计算中<strong><em>关键路径</em></strong>上的操作数量。</p>
+</blockquote>
+<h3 id="提高并行性"><a href="#提高并行性" class="headerlink" title="提高并行性"></a>提高并行性</h3><hr>
+<p>流水线中的<strong><em>数据相关</em></strong>在一定程度上限值了程序的性能，但是我们在编程中又貌似对此无能为力。实际上我们确实可以采用一些方法来提高并行性来缓解数据相关。<br>比如我们可以将一组合并运算分割为两部分或者更多，并在最后讲结果合并来提高性能。比如对于上一部分的sum()例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;2×2循环展开</span><br><span class="line">int sum(int a[],int n)</span><br><span class="line">&#123;</span><br><span class="line">    int i;</span><br><span class="line">    int sum1 &#x3D; 0;</span><br><span class="line">    int sum2 &#x3D; 0</span><br><span class="line">    for(i &#x3D; 0;i &lt; n - 1;i+&#x3D;2)</span><br><span class="line">    &#123;</span><br><span class="line">        sum1 +&#x3D; a[i];</span><br><span class="line">        sum2 +&#x3D; a[i+1];</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    for(;i&lt;n;i++)&#x2F;&#x2F;处理最后一（几）个元素</span><br><span class="line">        sum1 +&#x3D; a[i];</span><br><span class="line">        </span><br><span class="line">    return sum1 + sum2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法既使用了两次循环展开，以使每次迭代完成更多的计算，也使用两路并行，提高了并行性。我们称这种方法为<strong><em>2×2循环展开</em></strong>。</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>技巧&amp;工具</category>
+      </categories>
+      <tags>
+        <tag>程序优化</tag>
       </tags>
   </entry>
 </search>
