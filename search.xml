@@ -1,6 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>MIT 6.006 Lecture 1-a 笔记</title>
+    <url>/chinese/2019/01/19/MIT-6-006-Lecture-1-a-%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="MIT-6-006-Lecture-1-a-笔记"><a href="#MIT-6-006-Lecture-1-a-笔记" class="headerlink" title="MIT 6.006 Lecture 1-a 笔记"></a>MIT 6.006 Lecture 1-a 笔记</h1><p>这是6.006课程的概述部分，主要是对课程的介绍。第一模块的问题讲解从Lecture 1-b开始。</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT6_006_1_a.png" alt="MIT 6.006 Lecture 1-a"></p>
+<a id="more"></a>
+
+<h2 id="课程概述"><a href="#课程概述" class="headerlink" title="课程概述"></a>课程概述</h2><p>一句话概括这门课程：</p>
+<ul>
+<li><strong>Efficient procedures for solving problems on large inputs.</strong></li>
+</ul>
+<blockquote>
+<p><em>The world is moving faster, things get bigger, where have the capability of computing on large inputs. But that doesn’t mean that efficiency isn’t of primary concern.</em></p>
+<p>(<em>世界迅速发展，计算机处理大型输入的能力也在变强，但是这不意味着“高效”就变得不重要了。</em>)</p>
+</blockquote>
+<ul>
+<li><strong>Scalability</strong></li>
+</ul>
+<p>世界会继续发展，输入会继续变大，“large”的意义会继续变迁。所以扩展能力很重要，当输入变大，依然可以“高效”的解决。</p>
+<blockquote>
+<p><em>We want be able to track how our procedure will gonna to do as input get larger and larger.</em><br><em>(当问题输入变得越来越大时，我们希望依然知道程序会如何执行。</em>)</p>
+</blockquote>
+<ul>
+<li><strong>Classic data structure and elementary algorithms</strong></li>
+</ul>
+<blockquote>
+<p><em>Classic data structures were invented many decades ago, but they stood the test of time, and they continue to be useful</em></p>
+<p>经典数据结构是那些被发明了许多年，经受住了时间的考验依旧有用的数据结构。</p>
+</blockquote>
+<ul>
+<li><strong>Real implementaions in Python</strong></li>
+</ul>
+<p>课程中会要求用Python来实现这些经典数据结构。所以需要有一定的Python基础。</p>
+<ul>
+<li><strong>Fun problem set</strong></li>
+</ul>
+<p>有趣不是指简单，而是有挑战性而且有价值的问题。这样你解决这些问题后会觉得学到了一些东西，并且会有成就感。</p>
+<h2 id="课程内容"><a href="#课程内容" class="headerlink" title="课程内容"></a>课程内容</h2><p>课程分为8个模块，每个模块都跟随一些问题：</p>
+<ol>
+<li><strong><em>Algorithmic thinking:</em></strong> <em>Peak finding</em></li>
+<li><strong><em>Sorting&amp;Trees:</em></strong> <em>Event simulation</em></li>
+<li><strong><em>Hashing:</em></strong> <em>Genome comparison</em></li>
+<li><strong><em>Numerics:</em></strong> <em>RSA encrythion</em></li>
+<li><strong><em>Graphs:</em></strong> <em>Rubik’s cube</em></li>
+<li><strong><em>Shortest paths</em></strong> </li>
+<li><strong><em>Dynamic programming:</em></strong>  <em>Image compression</em></li>
+<li><strong><em>Advanced topics</em></strong></li>
+</ol>
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>算法</category>
+        <category>MIT 6.006</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+        <tag>算法</tag>
+        <tag>MIT</tag>
+        <tag>名校课程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MIT 6.006 Lecture 1-b 笔记</title>
+    <url>/chinese/2019/01/20/MIT-6-006-Lecture-1-b-%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="Lecture-1-b-笔记——Peak-finder"><a href="#Lecture-1-b-笔记——Peak-finder" class="headerlink" title="Lecture 1-b 笔记——Peak finder"></a>Lecture 1-b 笔记——Peak finder</h1><p>这节主要讲解”<strong>极值点问题</strong>“（Peak finder），通过不同解决思路之间的对比来理解如何设计高效算法。</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT6_006_1_b.png" alt="MIT 6.006 Lecture 1-b"></p>
+<a id="more"></a>
+
+<blockquote>
+<p><em>We pick this problem, peak finder, because it’s so easy to understand, and there are fairly straightforward algorithms that are not particularly efficient to solve this problem. And so this is kind of toy problem but like a lot of toy problems, it’s very evocative, and that it points out the issue that involve in designing efficient algorithm.</em></p>
+<p>(<em>选择“极值点问题”，是因为它很容易理解，而且有很多虽不高效但简单的方法解决它。它就像一个练习问题，像其他练习问题一样具有启发性，会指出设计高效算法需要注意的点。</em>)</p>
+</blockquote>
+<h2 id="One-dimensional-version"><a href="#One-dimensional-version" class="headerlink" title="One-dimensional version"></a>One-dimensional version</h2><p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_1_b_2.png" alt="MIT 6.006 Lecture 1-b-2"></p>
+<blockquote>
+<p>Position 2 is a peak if and only if b $\geq$ a and b $\geq$ c</p>
+<p>Position 11 is a peak if k $\geq​$ j</p>
+<p>(<em>位置2是极值点当且仅当</em> b $\geq$ a $\bigwedge$ b $\geq​$ c</p>
+<p>位置11是极值点，只需k $\geq​$ j)</p>
+</blockquote>
+<p><strong>Problem:</strong> Find <strong>a</strong> peak if it exists.（极值点是否存在（值得思考的问题）？如果存在，找到其中一个。）</p>
+<h3 id="Straightforward-Algorithm"><a href="#Straightforward-Algorithm" class="headerlink" title="Straightforward Algorithm:"></a>Straightforward Algorithm:</h3><p>从左向右遍历</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_1_b_3.png" alt="MIT 6.006 Lecture 1-b-3"></p>
+<ol>
+<li>如果位置$\frac{n}{2}​$左边的数从左向右增大，而右边从左向右减小，那位置$\frac{n}{2}​$就是一个极值点。</li>
+<li>如果整个数组从左向右一直增大，那位置$n$就是极值点。</li>
+</ol>
+<p>&emsp;上述第1中情况，我们遍历$\frac{n}{2}$个元素找到极值点。而第2中情况我们要遍历全部$n​$个元素才能找到极值点。</p>
+<p>所以<strong>最坏情况</strong>下的时间复杂度是$\Theta(n)​$。</p>
+<p><font color=red>注意符号$O(n)$、符号$\Theta(n)$和$\Omega(n)$在算法时间复杂度上的意义。</font></p>
+<h3 id="Divide-amp-Conquer-algorithm"><a href="#Divide-amp-Conquer-algorithm" class="headerlink" title="Divide&amp;Conquer algorithm:"></a>Divide&amp;Conquer algorithm:</h3><p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_1_b_4.png" alt=""></p>
+<p>这次我们从$\frac{n}{2}$位置开始分别和左右两个位置比较。</p>
+<blockquote>
+<p>If $a[\frac{n}{2}] &lt; a[\frac{n}{2}-1]​$ then only look at left half 1 … $\frac{n}{2}-1​$ to look for <strong>a</strong> peak.</p>
+<p>Else if $a[\frac{n}{2}] &lt; a[\frac{n}{2}+1]$ then only look at right half $\frac{n}{2}+1$ … $n$ to look for <strong>a</strong> peak.</p>
+<p>Otherwise $\frac{n}{2}$ position is a peak.</p>
+<p>(<em>如果</em>$a[\frac{n}{2}] &lt; a[\frac{n}{2}-1]$，左半边数组中一定存在极值点。</p>
+<p><em>如果</em>$a[\frac{n}{2}] &lt; a[\frac{n}{2}+1]$，右半边数组中一定存在极值点。</p>
+<p>如果上述两种情况都不成立，$\frac{n}{2}$就是极值点。)</p>
+</blockquote>
+<p>下面分析这个算法的时间复杂度：</p>
+<p>$T(n) = T(\frac{n}{2}) + \Theta(1)$</p>
+<p>从上面的时间复杂度分析可以得到</p>
+<p>$T(n) = T(\frac{n}{2}) + \Theta(1) $</p>
+<p>&emsp;&emsp;$= T(\frac{n}{4}) + \Theta(1) + \Theta(1)$</p>
+<p>&emsp;&emsp;$ = \log_{2}n\times \Theta(1)$</p>
+<p>&emsp;&emsp;$=\Theta(\log_{2}n)$</p>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><p>在Python环境下分别编写上面两个算法解决极值点问题，当$n = 10,000,000$时，线性时间复杂度算法用时约13秒，而对数时间复杂度算法用时仅0.001秒。当输入足够大时，两种时间复杂度的差别还是很大的。</p>
+<p>对于一维Peak Finder问题的具体解决，将看<a href="https://freshmanhaner.github.io/2019/01/23/leetcode-162-Find-Peak-Element/#more" target="_blank" rel="noopener">传送门</a>。</p>
+<p>这种差别在二维的情况下更为明显：</p>
+<h2 id="Two-dimensional-version"><a href="#Two-dimensional-version" class="headerlink" title="Two-dimensional version"></a>Two-dimensional version</h2><p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_1_b_5.png" alt="MIT 6.006 Lecture 1-b-5"></p>
+<blockquote>
+<p>a is a 2-dimensional peak if and only if $a \geq b,a \geq c,a \geq d,a \geq e​$.</p>
+<p><em>二维极值点的定义：当且仅当$a \geq b,a \geq c,a \geq d,a \geq e$时 $a$是一个二维极值点。</em></p>
+</blockquote>
+<p><strong>Problem:</strong> Find <strong>a</strong> peak if it exists.（极值点是否存在（值得思考的问题）？如果存在，找到其中一个。）</p>
+<h3 id="Greedy-Ascent-alorithm"><a href="#Greedy-Ascent-alorithm" class="headerlink" title="Greedy Ascent alorithm:"></a>Greedy Ascent alorithm:</h3><p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_1_b_6.png" alt="MIT 6.006 Lecture 1-b-6"></p>
+<p>需要选择一个开始点，我们假设从二维数组的中间开始向右，当然你也可以选择其他的出发点。</p>
+<p>我们从12开始向右，发现右边比12大，所以移动到13，然后是14，到边界转而向下……</p>
+<p>（其间如果遇到比当前位置小的，就转向其他方向）</p>
+<p>如图，我们一直到20的位置，发现20是一个极值点。不难发现<strong>最坏情况</strong>下的时间复杂度是$\Theta(m\times{n})$。</p>
+<h3 id="Extent-1-D-devide-amp-conquer-to-2-D-Attempt-No-1"><a href="#Extent-1-D-devide-amp-conquer-to-2-D-Attempt-No-1" class="headerlink" title="Extent 1-D devide&amp;conquer to 2-D(Attempt No.1)"></a>Extent 1-D devide&amp;conquer to 2-D(Attempt No.1)</h3><blockquote>
+<p>Pick middle column $j = \frac{m}{2}$</p>
+<p>Find a 1-D peak at $(i,j)$</p>
+<p>Use $(i,j)$ as a start point on row $i$ to find 1-D peak on row $i$</p>
+<p>（挑选中间列$j$</p>
+<p>从$j$列中找出一维极值点$(i,j)$</p>
+<p>再在$(i,j)$所在的$i$行找出一维极值，这个就是我们要找的二维极值。）</p>
+</blockquote>
+<p>如果这个算法是正确的，那么它的时间复杂度是$\Theta(\log_{2}n + \log_{2}m)$。这个算法是高效的，可惜并不正确，因为在第$i$行可能并不存在一个二维极值点。</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_1_b_7.PNG" alt="MIT 6.006 Lecture 1-b-7"></p>
+<p>如上图，假设从第3列开始，算法会结束在14这个位置，因为12是第3列的一维极值点，但是第2行中却不存在一个二维极值点。</p>
+<center><font color=red>Attempt Failed</font></center>
+
+<h3 id="Extent-1-D-devide-amp-conquer-to-2-D-Attempt-No-2"><a href="#Extent-1-D-devide-amp-conquer-to-2-D-Attempt-No-2" class="headerlink" title="Extent 1-D devide&amp;conquer to 2-D(Attempt No.2)"></a>Extent 1-D devide&amp;conquer to 2-D(Attempt No.2)</h3><blockquote>
+<p>Pick middle column $j = \frac{m}{2}$</p>
+<p>Find global maximum on column $j$ at $(i,j)$</p>
+<p>Compare $(i,j-1),(i,j),(i,j+1)​$</p>
+<p>Pick left columns if $(i,j-1) &gt; (i,j)​$</p>
+<p>Else if$(i,j+1) &gt; (i,j)​$  pick right columns</p>
+<p>Otherwise $(i,j)$ is a 2-D peak</p>
+<p>If you pick left/right columns, you will solve the new problem with half the number of columns</p>
+<p>（挑选中间列$j$，找到$j$列中的全局最大值$(i,j)$。</p>
+<p>比较$(i,j-1),(i,j),(i,j+1)$，如果$(i,j-1) &gt; (i,j)$则去左边列中找二维极值点，</p>
+<p>如果$(i,j+1) &gt; (i,j)$则去右边列中找二维极值点，如果上述两种情况都不成立，$(i,j)$就是一个二维极值点。</p>
+<p>如果是去左（或者右）列中找二维极值点，其实就是把问题的列数缩小到了一般。）</p>
+</blockquote>
+<p>&emsp;在上述的算法中，如果只有1列，我们只需找到这一列中的最大值，这就是二维极值了。</p>
+<p>&emsp;下面我们来分析这个算法的时间复杂度：</p>
+<p>$T(n,m) = T(n,\frac{m}{2}) + \Theta(n)​$</p>
+<p>&emsp;&emsp;$ = \Theta(n) \times \log_{2}m​$</p>
+<p>&emsp;&emsp;$ = \Theta(n\log_{2}m)$</p>
+<center><font color=red>Attempt Succeed</font></center>
+
+<p><strong>作业：</strong></p>
+<p>&emsp;分析上述算法，至少证明其中一个算法的正确性，或者找出例子证明不正确性。</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>算法</category>
+        <category>MIT 6.006</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+        <tag>算法</tag>
+        <tag>MIT</tag>
+        <tag>名校课程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MIT 6.006 Lecture3 插入排序和归并排序</title>
+    <url>/chinese/2019/02/22/MIT-6-006-Lecture3-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<h1 id="MIT-6-006-Lecture3-插入排序和归并排序"><a href="#MIT-6-006-Lecture3-插入排序和归并排序" class="headerlink" title="MIT 6.006 Lecture3 插入排序和归并排序"></a>MIT 6.006 Lecture3 插入排序和归并排序</h1><p>这是排序部分的第一讲，我们会<strong>先</strong>介绍一下排序问题及其应用，<strong>然后</strong>介绍<strong>插入排序</strong>和<strong>归并排序</strong>两种算法，并对比。<strong>最后</strong>用Python实现这两种算法。</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_lecture3_1.png" alt="MIT 6.006 Lecture3"></p>
+<a id="more"></a>
+
+<h2 id="排序问题及其应用"><a href="#排序问题及其应用" class="headerlink" title="排序问题及其应用"></a>排序问题及其应用</h2><h3 id="什么是排序问题"><a href="#什么是排序问题" class="headerlink" title="什么是排序问题"></a>什么是排序问题</h3><blockquote>
+<p><strong>Input:</strong><br>   array A[1…n] of numbers.<br><strong>Output:</strong><br>   permutation B[1…n] of A such that B[1] ≤ B[2] ≤ … ≤ B[n] .<br><strong>e.g.</strong><br>   A = [7, 2, 5, 5, 9.6] → B = [2, 5, 5, 7, 9.6] </p>
+</blockquote>
+<p>排序问题给定一个输入数组A，算法处理后输入一个有序数组B。</p>
+<h3 id="排序算法的应用"><a href="#排序算法的应用" class="headerlink" title="排序算法的应用"></a>排序算法的应用</h3><p>排序算法在很多方面都有应用，比如：</p>
+<ul>
+<li>组织一些数据库，比如歌曲库、书单库、电话簿</li>
+<li>让某些问题变得简单<br>比如找数组中值、二叉查找、找统计离群点等</li>
+<li>一些不太明显的应用，比如数据压缩、电脑绘图等。</li>
+</ul>
+<p>可以说排序算法是计算机科学一个很重要的基础，所以掌握好排序算法是很重要也很必要的。</p>
+<h2 id="两种排序算法"><a href="#两种排序算法" class="headerlink" title="两种排序算法"></a>两种排序算法</h2><h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>插入排序可以说是最简单的一种排序算法，只需要四五行的Python代码就能实现。当然简单在很多时候意味着低效。</p>
+<p>伪代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. Insertion-Sort(A[],n)</span><br><span class="line">2. 	for j &lt;-- 2 to n</span><br><span class="line">3. 		将A[j]插入到已经排好序的子数组A[1..j-1]中</span><br><span class="line">4. 		通过调换位置讲A[j]放在正确的位置</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/insertion_sort.PNG" alt="插入排序图解"></p>
+<p>上述伪代码中第3行，将A[j]插入到已经排好序的子数组，这个过程中<strong>有一定的优化空间</strong>。因为子数组已经是排好序的，所以我们可以选择二分法插入。这样时间复杂度就变成了$\Theta(n)$变为$\Theta(log_2n)$。</p>
+<p>即便是用二分查找法找到合适的位置，但是第4行伪代码中将A[j]插入到合适的位置依然要花费$\Theta(n)$。因为插入的过程是通过交换位置实现的。</p>
+<p>所以不难看出插入排序要遍历2..n-1元素，将每个元素插入到合适位置的时间复杂度是$\Theta(n)$。所以插入排序的<strong>整体时间复杂度是$\Theta(n^2)​$。</strong></p>
+<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>归并排序算法是<strong>分治策略</strong>一种典型的应用。《算法导论》中给出了分治策略的三个步骤：</p>
+<ol>
+<li>分解（Divide）：<br>将原问题划分为一些子问题，这些子问题和原问题一样，只不过规模更下。</li>
+<li>解决（Conquer）：<br>递归地解决这些子问题，如果子问题的规模足够小，就停止递归，直接求解。</li>
+<li>合并（Combine）：<br>将子问题的解合并为原问题的解。</li>
+</ol>
+<p>对应到归并排序算法</p>
+<ol>
+<li>分解：<br>将针对整个数组的排序分为对左右两个子数组的排序。</li>
+<li>解决<br>递归地解决这些子问题，当子问题的规模只剩一个元素是，不用排序就是有序的了。</li>
+<li>合并：<br>归并排序算法的关键和难点也是在合并这一过程。合并做到将两个有序的数组原地合并为一个有序的数组。</li>
+</ol>
+<p>归并排序算法伪代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Merge-Sort A[1..n]</span><br><span class="line">	if n &#x3D; 1</span><br><span class="line">		done</span><br><span class="line">	else</span><br><span class="line">		Merge-Sort A[1..n&#x2F;2]</span><br><span class="line">		Merge-Sort A[n&#x2F;2 + 1 .. n]</span><br><span class="line">		Merge the two sorted sub-arrays</span><br></pre></td></tr></table></figure>
+
+<p><strong>分析：</strong></p>
+<p>可以列出归并排序的递归式：<br>$$<br>T(n) =<br>\begin{cases}<br>\Theta(1)\ \ 若\ n \le c\<br>2T(\frac{n}{2}) + \Theta(n)<br>\end{cases}<br>$$<br>利用<strong>master theory</strong>容易得出归并排序算法的时间复杂度是$\Theta(nlog_2n)​$</p>
+<h2 id="Python实现"><a href="#Python实现" class="headerlink" title="Python实现"></a>Python实现</h2><p>python本身已经内置了排序算法，而且时间复杂度不错。我们自己实现一遍主要是为了理解算法。</p>
+<h3 id="插入排序-1"><a href="#插入排序-1" class="headerlink" title="插入排序"></a>插入排序</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">InsertionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(nums)):</span><br><span class="line">		j = i - <span class="number">1</span></span><br><span class="line">		tmp = nums[i]</span><br><span class="line">		<span class="keyword">while</span> j &gt;= <span class="number">0</span>:</span><br><span class="line">			<span class="keyword">if</span> nums[j] &gt; tmp:</span><br><span class="line">				nums[j+<span class="number">1</span>] = nums[j]</span><br><span class="line">				j -= <span class="number">1</span></span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">				<span class="keyword">break</span></span><br><span class="line">		nums[j + <span class="number">1</span>] = tmp</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="归并排序-1"><a href="#归并排序-1" class="headerlink" title="归并排序"></a>归并排序</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Merge</span><span class="params">(nums,s,m,e)</span>:</span></span><br><span class="line">	left = nums[s:m+<span class="number">1</span>]</span><br><span class="line">	right = nums[m+<span class="number">1</span>:e+<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">	i = j = <span class="number">0</span></span><br><span class="line">	k = s</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span> i &lt; len(left) <span class="keyword">and</span> j &lt; len(right):</span><br><span class="line">		<span class="keyword">if</span> left[i] &lt; right[j]:</span><br><span class="line">			nums[k] = left [i]</span><br><span class="line">			i += <span class="number">1</span></span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			nums[k] = right[j]</span><br><span class="line">			j += <span class="number">1</span></span><br><span class="line">		k += <span class="number">1</span></span><br><span class="line">		</span><br><span class="line">	<span class="keyword">while</span> i &lt; len(left):</span><br><span class="line">		nums[k] = left[i]</span><br><span class="line">		k += <span class="number">1</span></span><br><span class="line">		i += <span class="number">1</span></span><br><span class="line">		</span><br><span class="line">	<span class="keyword">while</span> j &lt; len(right):</span><br><span class="line">		nums[k] = right[j]</span><br><span class="line">		k += <span class="number">1</span></span><br><span class="line">		j += <span class="number">1</span>	</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">MergeSort2</span><span class="params">(nums,s,e)</span>:</span></span><br><span class="line">	<span class="keyword">if</span> s != e:</span><br><span class="line">		m = (s + e) // <span class="number">2</span></span><br><span class="line">		MergeSort2(nums,s,m)</span><br><span class="line">		MergeSort2(nums,m+<span class="number">1</span>,e)</span><br><span class="line">		Merge(nums,s,m,e)</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">MergeSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">	MergeSort2(nums,<span class="number">0</span>,len(nums)<span class="number">-1</span>)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>算法</category>
+        <category>MIT 6.006</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+        <tag>算法</tag>
+        <tag>MIT</tag>
+        <tag>名校课程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MIT 6.006 Lecture 4 堆和堆排序</title>
+    <url>/chinese/2019/02/27/MIT-6-006-Lecture-4-%E5%A0%86%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<h1 id="MIT-6-006-Lecture4-堆和堆排序"><a href="#MIT-6-006-Lecture4-堆和堆排序" class="headerlink" title="MIT 6.006 Lecture4 堆和堆排序"></a>MIT 6.006 Lecture4 堆和堆排序</h1><p>由优先级队列来引出堆，然后用堆来实现堆排序。</p>
+<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_lecture_4_a.png" alt="MIT 6.006 Lecture4"></p>
+<a id="more"></a>
+
+<h2 id="优先级队列-Priority-Queue"><a href="#优先级队列-Priority-Queue" class="headerlink" title="优先级队列 Priority Queue"></a>优先级队列 Priority Queue</h2><p>优先级队列的维基定义：</p>
+<blockquote>
+<p>In computer science, a priority queue is an abstract data type which is like a regular queue or stack data structure, but where additionally each element has a “priority” associated with it. In a priority queue, an element with high priority is served before an element with low priority. </p>
+<p>在计算机科学中，优先级队列是一种类似于普通队列或普通栈的抽象数据结构，但是每个元素都会有一个对应的“优先级”。在优先级队列中，优先级高的元素会被优先服务。</p>
+</blockquote>
+<p>MIT 6.006课程给出的定义：</p>
+<blockquote>
+<p>A data structure implementing a set S of elements, each associated with a key, supporting the following operations:</p>
+<ul>
+<li>insert(S,x): insert element x into set S</li>
+<li>max(S): return element of S with largest key</li>
+<li>extract_max(S): return element of S with largest key and remove it from S</li>
+<li>increase_key(S,x,k): increase the value of element x’s key to new value k.(assumed to be as large as current value)</li>
+</ul>
+<p>优先级队列是一个数据结构，这个数据结构实现一个集合S，集合中的每个元素都对应一个关键词，而且这个数据结构支持下列操作：</p>
+<ul>
+<li>insert(S,x): 把元素x插入到集合S中</li>
+<li>max(S): 返回集合S中有最大关键字的元素</li>
+<li>extract_max(S): 返回集合S中有最大关键字的元素，并将其从集合中删除。</li>
+<li>increase_key(S,x,k): 将x元素的关键词的值提升到k。</li>
+</ul>
+</blockquote>
+<p><strong>优先级队列经常用堆来实现</strong>。</p>
+<h2 id="堆-Heaps"><a href="#堆-Heaps" class="headerlink" title="堆 Heaps"></a>堆 Heaps</h2><h2 id="堆排序-Heapsort"><a href="#堆排序-Heapsort" class="headerlink" title="堆排序 Heapsort"></a>堆排序 Heapsort</h2>]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>算法</category>
+        <category>MIT 6.006</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+        <tag>算法</tag>
+        <tag>MIT</tag>
+        <tag>名校课程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>斯坦福大学IOS7开发课程5</title>
     <url>/chinese/2021/04/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B5/</url>
     <content><![CDATA[<p>这节课主要讲解：</p>
@@ -1015,6 +1293,680 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
         <tag>NexT</tag>
         <tag>GitHub Pages</tag>
         <tag>Travis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>比特币和区块链的运行原理</title>
+    <url>/chinese/2019/11/17/%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<p>比特币和区块链技术出现很久了，大家或多或少都有耳闻。不管是对比特币暴涨的羡慕，还是对背后技术的科普。笔者也是一样多少看过一些相关资料，但最近读区块链支付领域的顶会<sup><a href="#foot_note_1">[1]</a></sup>论文<sup><a href="#foot_note_2">[2]</a></sup>时还是发现自己对技术细节了解太少，甚至存在一些误解。</p>
+<p>本文会介绍一些比特区块链的技术细节，同时尽力使其容易理解。</p>
+<a id="more"></a>
+
+<h2 id="比特币-bitcoin"><a href="#比特币-bitcoin" class="headerlink" title="比特币 bitcoin"></a>比特币 bitcoin</h2><p>所谓的比特币其实是<strong>交易</strong>组成的链。每个<strong>交易</strong>中包含大概信息就是<strong><em>谁把这个比特币转账给了谁，并且由转出比特币的人签字画押（数字签名<sup><a href="#foot_note_3">[3]</a></sup>）</em></strong>，具体来说如<a href="#pic_1">图1</a>，每个交易中包含</p>
+<ul>
+<li>收到比特币的人的公钥</li>
+<li>由<strong>上一个交易</strong>和<strong>收到比特币的人的公钥</strong>组成的数据的哈希</li>
+<li><strong>转出比特币的人的数字签名</strong>。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g91yo948kjj30lw0crab5.jpg" alt=""></p>
+<center><span id="pic_1"><sub>图1： 交易链</sub></span></center>
+
+<p>这样做的话，应该收到比特币的人就可以验证转出比特币的人是不是真的拥有这个比特币。方法就是用<strong>上一个</strong>交易中所有者的公钥去验证<strong>这次</strong>交易中的数字签名，这样就能知道这个比特币上一次被转账给了这次的转出者。</p>
+<p>这里有个问题是转出比特币的人可能将同一个比特币转账给多个人，这样上面的交易链就会分叉。然而其实只有最早的那次转账是有效的，后面的转账都是非法的。为了验证交易是不是最早的一次转账，就需要一个<strong>公认的顺序</strong>。传统的方法是由中心节点指定一个顺序，大家被动接受。而比特币是通过多数人同意来认定一个顺序是不是<strong>公认</strong>的，这似乎也更符合<strong>公认</strong>这个词的含义。想要让（比特币系统所有参与者中的）多数人<strong>公认</strong>一个顺序，需要：</p>
+<ul>
+<li>向所有参与者广播所有的交易</li>
+<li>多数参与者同意一个顺序</li>
+</ul>
+<p>在每次交易时，交易的接收者需要证明多数节点同意这次交易是最先收到的交易，这样接收者就能安心的完成交易了。</p>
+<p><strong><em>区块链的主要任务就是达成这样的一个公认的顺序</em></strong>。</p>
+<h2 id="区块链-blockchain"><a href="#区块链-blockchain" class="headerlink" title="区块链 blockchain"></a>区块链 blockchain</h2><p>区块链的基础是<strong>时间戳服务器</strong>，如<a href="#pic_2">图2</a>。</p>
+<h3 id="时间戳服务器"><a href="#时间戳服务器" class="headerlink" title="时间戳服务器"></a>时间戳服务器</h3><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g926rnfzp5j30om07gq38.jpg" alt=""></p>
+<center><span id="pic_2"><sub>图2： 时间戳服务器</sub></span></center>
+
+<blockquote>
+<p>时间戳服务器计算包含多个需要被打时间戳的数据项的区块的哈希值并广泛地发布这个哈希值。时间戳能证明要得到这个哈希值，显然这些数据当时一定是存在的。每个时间戳的哈希值都纳入了上一个时间戳，形成一条链，后面的时间戳进一步增强前一个时间戳。</p>
+<p><em>Bitcoin: A Peer-to-Peer Electronic Cash System<sup><a href="#foot_note_4">[4]</a></sup></em></p>
+</blockquote>
+<p>系统参与者通过在某个时间戳之后计算哈希来表示对某个顺序的认同，这样最长的链就是最多人认同的链，也就是我们想要的公认的顺序。</p>
+<p>如果某个恶意参与者想要修改链中某个区块的内容，那必须把这个区块之后的哈希全部重算一遍，并且快速计算使自己这条链成为最长的，在所有人之前将最新哈希广播出去。这看上去是个比较难的任务，但并非不可完成，只要有足够快的计算机就可能做到。<strong>解决方法就是为计算哈希增加难度</strong>。</p>
+<h3 id="工作量证明-Proof-of-Work"><a href="#工作量证明-Proof-of-Work" class="headerlink" title="工作量证明 Proof-of-Work"></a>工作量证明 Proof-of-Work</h3><p><a href="#pic_3">图3</a>是区块链中区块的内容：</p>
+<ul>
+<li>上一个区块的哈希</li>
+<li>上面提到的比特币交易</li>
+<li>一个随机数（这个随机数是用来调整计算哈希的难度的，也是工作量证明的关键）</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9281qoyhej30ow06smxl.jpg" alt=""></p>
+<center><span id="pic_3"><sub>图3： 区块链</sub></span></center>
+
+<blockquote>
+<p>工作量证明采取搜索一个随机数，使得被哈希时，如使用 SHA-256，得到的哈希值以数个 0 比特开始。平均所需工作 量将随所需 0 比特呈指数级增长而验证却只需执行一次哈希。</p>
+<p><em>Bitcoin: A Peer-to-Peer Electronic Cash System<sup><a href="#foot_note_4">[4]</a></sup></em></p>
+</blockquote>
+<p>比特币运行的步骤：</p>
+<blockquote>
+<ol>
+<li>向所有节点广播<strong>新交易</strong></li>
+<li>区块链节点将收集的新交易组成一个区块（如<a href="#pic_3">图3</a>）</li>
+<li>计算满足要求（<em>工作量证明</em>）的哈希，既得到某个随机数</li>
+<li>将这个区块（包含了满足要求的随机数）广播</li>
+<li>其他节点确认区块中所有交易都没有被支付过，而且区块确实能够计算出满足要求的哈希</li>
+<li>节点通过在这个区块之上继续计算表示对这个区块的接受</li>
+</ol>
+</blockquote>
+<p>这样计算哈希的难度大大增加，恶意节点想要赶上并超过其他所有节点计算哈希的速度，就必须拥有巨量的计算力，而如果拥有这样的计算力，用作正常贡献获得的激励会超过作恶，这样就从动机上消除了作恶。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><span id="foot_note_1"><sub>[1]: SOSP</sub></span><br><span id="foot_note_2"><sub>[2]: Lind, J., Naor, O., Eyal, I., Kelbert, F., Sirer, E. G., &amp; Pietzuch, P. (2019, October). Teechain: a secure payment network with asynchronous blockchain access. In <em>Proceedings of the 27th ACM Symposium on Operating Systems Principles</em> (pp. 63-79). ACM.</sub></span></p>
+<p><span id="foot_note_3"><sub>[3]: 可以通过我另一片博客了解：<a href="[https://zhang-tianxu.github.io/chinese/2019/11/15/%E7%94%A8%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90%E8%A7%A3%E9%87%8ARSA%E5%8E%9F%E7%90%86/](https://zhang-tianxu.github.io/chinese/2019/11/15/用一个例子解释RSA原理/)">《用一个例子解释RSA原理》</a></sub></span></p>
+<p><span id="foot_note_4"><sub>[4]: Bitcoin: A Peer-to-Peer Electronic Cash System. Satoshi Nakamoto.<a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener">https://bitcoin.org/bitcoin.pdf</a></sub></span></p>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>安全</category>
+        <category>区块链</category>
+      </categories>
+      <tags>
+        <tag>bitcoin</tag>
+        <tag>blockchain</tag>
+        <tag>比特币</tag>
+        <tag>区块链</tag>
+        <tag>科普</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C与Python中的socket</title>
+    <url>/chinese/2019/11/15/C%E4%B8%8EPython%E4%B8%AD%E7%9A%84socket/</url>
+    <content><![CDATA[<h1 id="C与Python中的socket"><a href="#C与Python中的socket" class="headerlink" title="C与Python中的socket"></a>C与Python中的socket</h1><p>本文主要是想实现一下C与Python的socket通信，顺便说一下两者各自的socket编程。所以全篇结构如下：</p>
+<ul>
+<li>C中的socket</li>
+<li>Python中的socket</li>
+<li>C与Python的socket通信</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="C-中的socket"><a href="#C-中的socket" class="headerlink" title="C 中的socket"></a>C 中的socket</h2><p>这部分主要参考《UNIX环境高级编程（第3版）》</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//server.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BUFF_SIZE 100</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HOST <span class="meta-string">"127.0.0.1"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PORT 65432</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MSG <span class="meta-string">"Hello FROM C Server"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> server_fd;</span><br><span class="line">    <span class="keyword">int</span> client_fd;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> buf[BUFF_SIZE];</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">local_addr</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">remote_addr</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">memset</span>(&amp;local_addr, <span class="number">0</span>, <span class="keyword">sizeof</span>(local_addr)); <span class="comment">//清零local_addr</span></span><br><span class="line">    local_addr.sin_family = AF_INET;</span><br><span class="line">    local_addr.sin_addr.s_addr = inet_addr(HOST);</span><br><span class="line">    local_addr.sin_port = htons(PORT);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>((server_fd = socket(PF_INET, SOCK_STREAM, <span class="number">0</span>)) &lt; <span class="number">0</span> ) <span class="comment">// 新建socket</span></span><br><span class="line">    &#123;</span><br><span class="line">        perror(<span class="string">"socket:"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>((bind(server_fd, (struct sockaddr *)&amp;local_addr, <span class="keyword">sizeof</span>(struct sockaddr))) &lt; <span class="number">0</span>) <span class="comment">// 绑定socket</span></span><br><span class="line">    &#123;</span><br><span class="line">        perror(<span class="string">"bind:"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    listen(server_fd, <span class="number">10</span>); <span class="comment">// 监听socket</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> sin_size = <span class="keyword">sizeof</span>(struct sockaddr_in);</span><br><span class="line">        <span class="keyword">if</span>( (client_fd = accept(server_fd, (struct sockaddr *)&amp;remote_addr, &amp;sin_size )) &lt;<span class="number">0</span> ) <span class="comment">// 接受client的链接请求</span></span><br><span class="line">        &#123;</span><br><span class="line">            perror(<span class="string">"accept:"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">pid_t</span> handle_pid;</span><br><span class="line">        handle_pid = fork();</span><br><span class="line">        <span class="keyword">if</span>(handle_pid == <span class="number">0</span>) <span class="comment">// 子进程处理请求</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(close(server_fd) &lt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                perror(<span class="string">"close:"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> len = send(client_fd, MSG, <span class="keyword">sizeof</span>(MSG),<span class="number">0</span>);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"len = %d\n"</span>,len);</span><br><span class="line">            <span class="keyword">if</span>(len != <span class="keyword">sizeof</span>(MSG))</span><br><span class="line">            &#123;</span><br><span class="line">                perror(<span class="string">"send:"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(close(client_fd) &lt; <span class="number">0</span>) <span class="comment">// 父进程关闭client的socket，继续监听。</span></span><br><span class="line">        &#123;</span><br><span class="line">            perror(<span class="string">"close:"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(close(client_fd) &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        perror(<span class="string">"close:"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//client.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BUFF_SIZE 100</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HOST <span class="meta-string">"127.0.0.1"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PORT 65432</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> server_fd;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">server_addr</span>;</span></span><br><span class="line">    <span class="keyword">char</span> buf[BUFF_SIZE];</span><br><span class="line">    <span class="built_in">memset</span>(&amp;server_addr, <span class="number">0</span>, <span class="keyword">sizeof</span>(server_addr));</span><br><span class="line">    server_addr.sin_family = AF_INET;</span><br><span class="line">    server_addr.sin_addr.s_addr = inet_addr(HOST);</span><br><span class="line">    server_addr.sin_port = htons(PORT);</span><br><span class="line">    <span class="keyword">if</span>((server_fd = socket(PF_INET, SOCK_STREAM, <span class="number">0</span>)) &lt; <span class="number">0</span> ) <span class="comment">// 新建socket</span></span><br><span class="line">    &#123;</span><br><span class="line">        perror(<span class="string">"socket:"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>((connect(server_fd, (struct sockaddr*)&amp;server_addr, <span class="keyword">sizeof</span>(struct sockaddr)) &lt; <span class="number">0</span>) ) <span class="comment">// 连接server</span></span><br><span class="line">    &#123;</span><br><span class="line">        perror(<span class="string">"connect:"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> len = recv(server_fd, buf, BUFF_SIZE, <span class="number">0</span>); <span class="comment">//连接成功后接收信息</span></span><br><span class="line">    <span class="keyword">while</span>(len &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">putchar</span>(buf[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">putchar</span>(<span class="string">'\n'</span>);</span><br><span class="line">        len = recv(server_fd, buf, BUFF_SIZE, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    close(server_fd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Python-中的socket"><a href="#Python-中的socket" class="headerlink" title="Python 中的socket"></a>Python 中的socket</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#server.py</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">HOST = <span class="string">'127.0.0.1'</span></span><br><span class="line">PORT = <span class="number">65432</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> socket.socket(socket.AF_INET, socket.SOCK_STREAM) <span class="keyword">as</span> s:</span><br><span class="line">  s.bind((HOST, PORT))</span><br><span class="line">  s.listen(<span class="number">5</span>)</span><br><span class="line">  <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    conn, addr = s.accept()</span><br><span class="line">    <span class="keyword">with</span> conn:</span><br><span class="line">      conn.send(<span class="string">b"Hello From Python Server!"</span>)</span><br><span class="line">      conn.close()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#client.py</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">HOST = <span class="string">'127.0.0.1'</span></span><br><span class="line">PORT = <span class="number">65432</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> socket.socket(socket.AF_INET, socket.SOCK_STREAM) <span class="keyword">as</span> s:</span><br><span class="line">  s.connect((HOST, PORT))</span><br><span class="line">  msg_part = s.recv(<span class="number">10</span>)</span><br><span class="line">  msg = msg_part</span><br><span class="line">  <span class="keyword">while</span> len(msg_parg) == <span class="number">10</span>:</span><br><span class="line">    msg += msg_parg</span><br><span class="line">    msg_parg = s.recv(<span class="number">10</span>)</span><br><span class="line">  msg += msg_part</span><br><span class="line">  print(msg)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="C与Python的socket通信"><a href="#C与Python的socket通信" class="headerlink" title="C与Python的socket通信"></a>C与Python的socket通信</h2><p>C和Python通过套接字是可以直接通信的。需要注意的是消息的格式。socket传输的内容是byte流，C中可以使用强制类型转换，Python中则需要<code>pack()</code>与<code>unpack()</code>。</p>
+<p>比如：</p>
+<p>在C写的server端发送：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> msg = htonl(<span class="number">999</span>);</span><br><span class="line">send(client_fd, (<span class="keyword">const</span> <span class="keyword">void</span> *)&amp;msg, <span class="keyword">sizeof</span>(msg),<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>Python端接收：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> struct <span class="keyword">import</span> *</span><br><span class="line">(msg,) = unpack(<span class="string">'&gt;1I'</span>,socket.socket.recv(<span class="number">4</span>))</span><br><span class="line">print(msg)</span><br></pre></td></tr></table></figure>
+
+<p><code>unpack()</code>的第一个参数表示格式，<code>&gt;1I</code>中的<code>&gt;</code>表示大端（相应的<code>&lt;</code>就表示小端），<code>1I</code>表示一个整数。</p>
+<p><code>pack()</code>与<code>unpack()</code>的详细操作见<em>博主 *</em>三月沙** 的《<a href="https://sanyuesha.com/2018/03/10/why-pack-unpack/" target="_blank" rel="noopener">Python 中的 pack 和 unpack</a>》*。</p>
+<hr>
+<p>反过来也是一样：</p>
+<p>在Python写的server中发送</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">conn.send(pack(<span class="string">'&gt;I'</span>,<span class="number">999</span>))</span><br></pre></td></tr></table></figure>
+
+<p>C写的client中接收：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> msg;</span><br><span class="line"><span class="keyword">int</span> len = recv(server_fd, (<span class="keyword">int</span> *)&amp;msg, <span class="keyword">sizeof</span>(<span class="keyword">int</span>),<span class="number">0</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ntohl(*msg));</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>后端</category>
+        <category>网络编程</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>C</tag>
+        <tag>socket</tag>
+        <tag>网络编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode 53 Maximum SubArray</title>
+    <url>/chinese/2019/02/26/leetcode-53-Maximum-SubArray/</url>
+    <content><![CDATA[<h1 id="leetcode-53-Maximum-Subarray"><a href="#leetcode-53-Maximum-Subarray" class="headerlink" title="leetcode 53 Maximum Subarray"></a>leetcode 53 Maximum Subarray</h1><p><strong>最大子序列和</strong>问题是用于讲解<strong>分治策略</strong>的一个经典例题，这个例题可以帮助我们很好的理解分治策略。但对于这个问题，分治策略并不是最高效的算法。</p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>给定一个整数数组 <code>nums</code> ，找到<strong>其中一个</strong>具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+<p><strong>示例:</strong></p>
+<blockquote>
+<p>输入: [-2,1,-3,4,-1,2,1,-5,4],</p>
+<p>输出: 6</p>
+<p>解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="解体思路"><a href="#解体思路" class="headerlink" title="解体思路"></a>解体思路</h2><h3 id="暴力法"><a href="#暴力法" class="headerlink" title="暴力法"></a>暴力法</h3><p>暴力法的思路很简单，就是尝试所有可能的子序列起始点，根据排列组合知识很容易知道一共有$A^2_n = n \times (n - 1)$种可能。遍历所有可能并找出最大和，时间复杂度为$\Theta(n^2)$。</p>
+<h3 id="分治法"><a href="#分治法" class="headerlink" title="分治法"></a>分治法</h3><p>分治策略的思想就是递归的解决一个问题，《算法导论》中给出了分治策略的三个步骤：</p>
+<ol>
+<li>分解（Divide）：<br>将原问题划分为一些子问题，这些子问题和原问题一样，只不过规模更下。</li>
+<li>解决（Conquer）：<br>递归地解决这些子问题，如果子问题的规模足够小，就停止递归，直接求解。</li>
+<li>合并（Combine）：<br>将子问题的解合并为原问题的解。</li>
+</ol>
+<p><strong>最大子序列和</strong>问题的分治策略也可以对应上面三步：</p>
+<ol>
+<li><p>分解：<br>将整个数组划分为左右两个子数组，分别求两个子数组的最大子序列和。这样两个子问题和原问题一样，规模变为原来一半。</p>
+</li>
+<li><p>解决：<br>递归地分解数组，知道数组中只有一个元素时，可以直接把这个元素作为最大子序列和，返回给上一层。</p>
+</li>
+<li><p>合并：<br>合并过程是这个问题的<strong>关键</strong>。在分解步骤中你可能已经发现，两个子数组的最大子序列和中较大的那个并不一定就是原问题的最大子序列和。这是因为在划分数组的时候将两个子数组完全隔开了，而最大子序列可能会跨越两个子数组，所以要考虑这种情况。<br>所以原问题的最大子序列和一共有<strong>三种</strong>可能的情况：</p>
+<ol>
+<li>完全在左边子数组中</li>
+<li>完全在右边子数组中</li>
+<li>跨越左右两个子数组</li>
+</ol>
+<p>上面两种情况只需要递归的解决就可以，而第3种情况需要仔细考虑，想要找出跨越两个数组的最大子序列和需要遍历整个数组，所以这一过程的时间复杂度是$\Theta(n)$。那么可以得出分治策略解决该问题的运行时间：</p>
+</li>
+</ol>
+<p>$$<br>T(n) =<br>\begin{cases}<br>\Theta(1)&amp;if\ \ n\ =\ 1 \<br>2T(\frac{n}{2}) + \Theta(n)&amp;if\ \ n\  &gt; \ 1<br>\end{cases}<br>$$</p>
+<p>用<strong>主方法</strong>解此递归式得时间复杂度为$\Theta(nlog_2n)$。</p>
+<h3 id="一次遍历"><a href="#一次遍历" class="headerlink" title="一次遍历"></a>一次遍历</h3><p>这个问题最重要的是理解分治策略，理解了分治策略后我们可以进一步优化时间复杂度。实际上我们可以在一次遍历内找出最大子序列和。</p>
+<p>从头开始遍历时，每加入一个元素我们都可以比较加入和不加入两种情况下哪一个和更大，这样就会得到这一步的最大子序列和。然后用一个变量保存全局最大子序列和，就能得到我们想要的值。这其实有点类似动态规划。</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><h3 id="暴力法-1"><a href="#暴力法-1" class="headerlink" title="暴力法"></a>暴力法</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum_p</span><span class="params">(nums: List[int], s: int, e: int)</span> -&gt; int:</span></span><br><span class="line">    sum = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(s,e+<span class="number">1</span>):</span><br><span class="line">       sum += nums[i]</span><br><span class="line">    <span class="keyword">return</span> sum</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxSubArray</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        max_subarray_sum = float(<span class="string">'-inf'</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i,len(nums)):</span><br><span class="line">                <span class="keyword">if</span> sum_p(nums,i,j) &gt; max_subarray_sum:</span><br><span class="line">                    max_subarray_sum = sum_p(nums,i,j)</span><br><span class="line">        <span class="keyword">return</span> max_subarray_sum</span><br></pre></td></tr></table></figure>
+
+<p>leetcode美国版超时。国内版96ms，击败9.45%。</p>
+<h3 id="分治法-1"><a href="#分治法-1" class="headerlink" title="分治法"></a>分治法</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">max_cross_subarray</span><span class="params">(nums: List[int],s: int, m: int, e: int)</span> -&gt; int:</span></span><br><span class="line">    <span class="comment"># 求解跨越子数组的情况</span></span><br><span class="line">    left_sum = <span class="number">0</span></span><br><span class="line">    left_max_sum = float(<span class="string">'-inf'</span>)</span><br><span class="line">    print(left_max_sum)</span><br><span class="line">    left_i = left_max_i = m</span><br><span class="line">    <span class="keyword">while</span> left_i &gt;= s:</span><br><span class="line">        left_sum += nums[left_i]</span><br><span class="line">        <span class="keyword">if</span> left_sum &gt; left_max_sum:</span><br><span class="line">            left_max_sum = left_sum</span><br><span class="line">            left_max_i = left_i</span><br><span class="line">        left_i -= <span class="number">1</span></span><br><span class="line">    right_sum = <span class="number">0</span></span><br><span class="line">    right_max_sum = float(<span class="string">'-inf'</span>)</span><br><span class="line">    right_i = right_max_i = m + <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> right_i &lt;= e:</span><br><span class="line">        right_sum += nums[right_i]</span><br><span class="line">        <span class="keyword">if</span> right_sum &gt; right_max_sum:</span><br><span class="line">            right_max_sum = right_sum</span><br><span class="line">            right_max_i = right_i</span><br><span class="line">        right_i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> left_max_sum + right_max_sum</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxSubArray2</span><span class="params">(nums: List[int],s: int, e:int)</span> -&gt; int:</span></span><br><span class="line">    <span class="keyword">if</span> s == e:</span><br><span class="line">        <span class="keyword">return</span> nums[s]</span><br><span class="line">    m = (s + e) // <span class="number">2</span></span><br><span class="line">    maxnum1 = maxSubArray2(nums,s,m)</span><br><span class="line">    maxnum2 = maxSubArray2(nums,m+<span class="number">1</span>,e)</span><br><span class="line">    maxnum3 = max_cross_subarray(nums,s,m,e)</span><br><span class="line">    <span class="keyword">return</span> max(maxnum1,maxnum2,maxnum3)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxSubArray</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">return</span> maxSubArray2(nums, <span class="number">0</span>, len(nums) - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>leetcode用时：124ms，击败5.41%。</p>
+<h3 id="一次遍历-1"><a href="#一次遍历-1" class="headerlink" title="一次遍历"></a>一次遍历</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxSubArray</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        local_max = nums[<span class="number">0</span>]</span><br><span class="line">        global_max = nums[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(nums)):</span><br><span class="line">            local_max = max(local_max + nums[i],nums[i])</span><br><span class="line">            <span class="keyword">if</span> local_max &gt; global_max:</span><br><span class="line">                global_max = local_max</span><br><span class="line">        <span class="keyword">return</span> global_max</span><br></pre></td></tr></table></figure>
+
+<p>leetcode用时：48ms，击败66.85%。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li>Leetcode国际版：<a href="https://leetcode.com/" target="_blank" rel="noopener">https://leetcode.com/</a></li>
+<li>可能漏掉某些参考文档，请作者联系添加引用或删除相关内容。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>数据结构与算法</category>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+        <tag>算法</tag>
+        <tag>leetcode</tag>
+        <tag>领扣</tag>
+        <tag>easy</tag>
+        <tag>简单</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode 56 Merge Intervals</title>
+    <url>/chinese/2019/02/13/leetcode-56-Merge-Intervals/</url>
+    <content><![CDATA[<h1 id="leetcode-56-区间合并——Merge-Intervals"><a href="#leetcode-56-区间合并——Merge-Intervals" class="headerlink" title="leetcode 56 区间合并——Merge Intervals"></a>leetcode 56 区间合并——Merge Intervals</h1><p>排序算法有很多应用，区间排序就是一种典型的应用。</p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>给定一组区间，合并所有重叠的区间。</p>
+<p>例子1：</p>
+<blockquote>
+<p>输入：[[1,3],[2,6],[8,10],[15,18]]</p>
+<p>输出：[[1,6],[8,10],[15,18]]</p>
+</blockquote>
+<p>例子2：</p>
+<blockquote>
+<p>输入：[[1,4],[4,5]]</p>
+<p>输出：[[1,5]]</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="解体思路"><a href="#解体思路" class="headerlink" title="解体思路"></a>解体思路</h2><p>按照区间的起始点对区间进行排序，那么可以合并的区间一定是相邻的。</p>
+<p>算法步骤如下：</p>
+<ol>
+<li>将给定的一组区间<strong>按照起始点进行排序</strong>。</li>
+<li>设置<em>new_start</em>和<em>new_end</em>两个变量来存储即将插入结果队列的区间起始点和终点，从左往右开始遍历排好序的区间。</li>
+<li>如果当前区间和下一个区间有重叠，更新<em>new_end</em>，<strong>注意新的值一定要大于当前<em>new_end</em></strong>。</li>
+<li>如果当前区间和下一个区间没有重叠，将<em>new_start</em>和<em>new_end</em>作为起始点和终点的区间插入结果。</li>
+</ol>
+<ul>
+<li>时间复杂度<br>对序列排序的时间复杂度是$\Theta(n \times log_2{n})$，而对序列遍历的时间复杂度是$\Theta(n)$。所以整个算法的时间复杂度是$\Theta(n \times log_2{n})$。</li>
+<li>空间复杂度<br>空间复杂度和排序算法有关。比如<strong>空间复杂度</strong>是$\Theta(1)$，而合并排序的时间复杂度是$\Theta(n)$。</li>
+</ul>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>我一开始的实现不够简洁，逻辑虽然简单，但是代码看上去很臃肿。具体代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for an interval.</span></span><br><span class="line"><span class="comment"># class Interval:</span></span><br><span class="line"><span class="comment">#     def __init__(self, s=0, e=0):</span></span><br><span class="line"><span class="comment">#         self.start = s</span></span><br><span class="line"><span class="comment">#         self.end = e</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(self, intervals: <span class="string">'List[Interval]'</span>)</span> -&gt; 'List[Interval]':</span></span><br><span class="line">        sorted_int = sorted(intervals,key=<span class="keyword">lambda</span> x:x.start) <span class="comment">#sort intervals by start</span></span><br><span class="line">        </span><br><span class="line">        result = []</span><br><span class="line">        </span><br><span class="line">        length = len(sorted_int)</span><br><span class="line">        <span class="keyword">if</span> length &lt;= <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        new_start = sorted_int[<span class="number">0</span>].start</span><br><span class="line">        new_end = sorted_int[<span class="number">0</span>].end</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span>(i &lt; length):</span><br><span class="line">            <span class="keyword">if</span> new_end &gt;= sorted_int[i].start:</span><br><span class="line">                new_end = max(sorted_int[i].end,new_end)</span><br><span class="line">                i = i+<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                tmp = Interval(new_start,new_end)</span><br><span class="line">                result.append(tmp)</span><br><span class="line">                new_start = sorted_int[i].start</span><br><span class="line">                new_end = sorted_int[i].end</span><br><span class="line">                </span><br><span class="line">        tmp = Interval(new_start,new_end)//处理最后一个区间</span><br><span class="line">        result.append(tmp)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+
+<p><strong>leetcode用时：60ms，排名85.63%。</strong></p>
+<p>在看过大神的代码后学到了一个<strong>技巧</strong>，就是对<strong>访问列表是对负数的应用</strong>。例如<code>list[-1]</code>表示访问列表的最后一个元素，这个技巧在这个题目中可以使得代码变得简洁。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for an interval.</span></span><br><span class="line"><span class="comment"># class Interval:</span></span><br><span class="line"><span class="comment">#     def __init__(self, s=0, e=0):</span></span><br><span class="line"><span class="comment">#         self.start = s</span></span><br><span class="line"><span class="comment">#         self.end = e</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(self, intervals: <span class="string">'List[Interval]'</span>)</span> -&gt; 'List[Interval]':</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> intervals:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        sorted_int = sorted(intervals,key=<span class="keyword">lambda</span> x:x.start) <span class="comment">#sort intervals by start</span></span><br><span class="line">        </span><br><span class="line">        result = [sorted_int[<span class="number">0</span>]]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(sorted_int)):</span><br><span class="line">            <span class="keyword">if</span> result[<span class="number">-1</span>].end &gt;= sorted_int[i].start:</span><br><span class="line">                <span class="keyword">if</span>(result[<span class="number">-1</span>].end &lt; sorted_int[i].end):</span><br><span class="line">                    result[<span class="number">-1</span>].end = sorted_int[i].end</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                result.append(sorted_int[i])</span><br><span class="line">                </span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+
+<p><strong>leetcode用时：56ms，排名99.24%。</strong></p>
+<p>这个实现相比于第一个实现不仅变得简洁，而且<strong>省去了新建区间的过程</strong>，直接利用已有区间，这样省下了一定的时间，时间性能排名上升。</p>
+<h2 id="超慢实现"><a href="#超慢实现" class="headerlink" title="超慢实现"></a>超慢实现</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for an interval.</span></span><br><span class="line"><span class="comment"># class Interval:</span></span><br><span class="line"><span class="comment">#     def __init__(self, s=0, e=0):</span></span><br><span class="line"><span class="comment">#         self.start = s</span></span><br><span class="line"><span class="comment">#         self.end = e</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(self, intervals)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type intervals: List[Interval]</span></span><br><span class="line"><span class="string">        :rtype: List[Interval]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> intervals:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line"></span><br><span class="line">        intervals.sort(key=<span class="keyword">lambda</span> i: i.start)</span><br><span class="line">        temp = intervals[<span class="number">0</span>]</span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; len(intervals[:]):<span class="comment">#在循环中使用len()函数，非常影响性能</span></span><br><span class="line">            next = intervals[i]</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> temp.end &lt; next.start:</span><br><span class="line">                res.append(temp)</span><br><span class="line">                temp = next</span><br><span class="line">            <span class="keyword">elif</span> temp.end &gt;= next.start:</span><br><span class="line">                temp = Interval(temp.start, max(temp.end, next.end))</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        res.append(temp)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<p><strong>leetcode用时：748ms</strong></p>
+<p>这个超慢实现还是常见的<strong>低效循环</strong>错误，课件只要避免在<a href="https://freshmanhaner.github.io/2018/10/05/%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD/#more" target="_blank" rel="noopener">如何优化程序性能</a>提到过的常见错误，可以很大程度上提升程序的时间性能。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li>Leetcode国际版：<a href="https://leetcode.com/" target="_blank" rel="noopener">https://leetcode.com/</a></li>
+<li>可能漏掉某些参考文档，请作者联系添加引用或删除相关内容。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>数据结构与算法</category>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+        <tag>算法</tag>
+        <tag>leetcode</tag>
+        <tag>领扣</tag>
+        <tag>中等</tag>
+        <tag>medium</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode 2 AddTwoNumbers</title>
+    <url>/chinese/2019/02/10/leetcode-2-AddTwoNumbers/</url>
+    <content><![CDATA[<h1 id="2-Add-Two-Numbers"><a href="#2-Add-Two-Numbers" class="headerlink" title="2. Add Two Numbers"></a>2. Add Two Numbers</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>给定两个<strong>非空</strong>链表来表示两个非负整数。整数的数位反向存储，每个链表节点存储一个数字。将两个整数相加并以相同的格式返回结果。</p>
+<p>例如：</p>
+<blockquote>
+<p>输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)</p>
+<p>输出：7 -&gt; 0 -&gt; 8</p>
+<p>其实就是 342 + 465 = 807</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>这个题目本身难度不大，不知道难度为什么是<em>中等</em>。我解题过程中主要的纠结点是对结果链表头部的处理，因为链表头部相对于其他节点比较特殊，需要单独考虑。其他没有发现什么难点，无非是对链表和指针的操作。</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>对于链表头节点的问题，我选择创建一个空的头节点，这样可以统一处理头节点和其他节点，在最后返回时跳过空的头节点。</p>
+<p>我的第一次实现：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1: <span class="string">'ListNode'</span>, l2: <span class="string">'ListNode'</span>)</span> -&gt; 'ListNode':</span></span><br><span class="line">        carry = <span class="number">0</span> <span class="comment">#进位</span></span><br><span class="line">        </span><br><span class="line">        lp1 = l1</span><br><span class="line">        lp2 = l2</span><br><span class="line">        </span><br><span class="line">        lsum = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        res = ListNode(<span class="number">0</span>)</span><br><span class="line">        lpr = res</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> lp1:</span><br><span class="line">            <span class="keyword">return</span> l2</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> lp2:</span><br><span class="line">            <span class="keyword">return</span> l1</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(lp1 <span class="keyword">and</span> lp2):</span><br><span class="line">            lsum = lp1.val + lp2.val + carry</span><br><span class="line">            <span class="keyword">if</span>(lsum &gt;= <span class="number">10</span>):</span><br><span class="line">                lsum -= <span class="number">10</span></span><br><span class="line">                carry = <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                carry = <span class="number">0</span></span><br><span class="line">            new_digit = ListNode(lsum)</span><br><span class="line">            lpr.next = new_digit</span><br><span class="line">            lpr = lpr.next</span><br><span class="line">            lp1 = lp1.next</span><br><span class="line">            lp2 = lp2.next</span><br><span class="line">        <span class="keyword">while</span>(lp1):</span><br><span class="line">            lsum = lp1.val + carry</span><br><span class="line">            <span class="keyword">if</span> lsum &gt;= <span class="number">10</span>:</span><br><span class="line">                lsum -= <span class="number">10</span></span><br><span class="line">                carry = <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                carry = <span class="number">0</span></span><br><span class="line">            new_digit = ListNode(lsum)</span><br><span class="line">            lpr.next = new_digit</span><br><span class="line">            lpr = lpr.next</span><br><span class="line">            lp1 = lp1.next</span><br><span class="line">        <span class="keyword">while</span>(lp2):</span><br><span class="line">            lsum = lp2.val + carry</span><br><span class="line">            <span class="keyword">if</span> lsum &gt;= <span class="number">10</span>:</span><br><span class="line">                lsum -= <span class="number">10</span></span><br><span class="line">                carry = <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                carry = <span class="number">0</span></span><br><span class="line">            new_digit = ListNode(lsum)</span><br><span class="line">            lpr.next = new_digit</span><br><span class="line">            lpr = lpr.next</span><br><span class="line">            lp2 = lp2.next</span><br><span class="line">        <span class="keyword">if</span> carry != <span class="number">0</span>:</span><br><span class="line">            new_digit = ListNode(carry)</span><br><span class="line">            lpr.next = new_digit</span><br><span class="line">        res = res.next</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<p>leetcode运行时间128ms。</p>
+<p>第一次的实现表现不佳，用时排名接近50%。主要问题在于每次循环都用if/else判断lsum是否大于等于10，这样其实浪费了不少时间。那么我们能不能无论lsum是否小于10，都统一处理呢？可以！</p>
+<p>优化后代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1: <span class="string">'ListNode'</span>, l2: <span class="string">'ListNode'</span>)</span> -&gt; 'ListNode':</span></span><br><span class="line">        carry = <span class="number">0</span> <span class="comment">#进位</span></span><br><span class="line">        </span><br><span class="line">        lp1 = l1</span><br><span class="line">        lp2 = l2</span><br><span class="line">        </span><br><span class="line">        lsum = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        res = ListNode(<span class="number">0</span>)</span><br><span class="line">        lpr = res</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(lp1 <span class="keyword">and</span> lp2):</span><br><span class="line">            lsum = lp1.val + lp2.val + carry</span><br><span class="line">            carry = lsum // <span class="number">10</span></span><br><span class="line">            lsum = lsum % <span class="number">10</span></span><br><span class="line">            new_digit = ListNode(lsum)</span><br><span class="line">            lpr.next = new_digit</span><br><span class="line">            lpr = lpr.next</span><br><span class="line">            lp1 = lp1.next</span><br><span class="line">            lp2 = lp2.next</span><br><span class="line">        <span class="keyword">while</span>(lp1):</span><br><span class="line">            lsum = lp1.val + carry</span><br><span class="line">            carry = lsum // <span class="number">10</span></span><br><span class="line">            lsum = lsum % <span class="number">10</span></span><br><span class="line">            new_digit = ListNode(lsum)</span><br><span class="line">            lpr.next = new_digit</span><br><span class="line">            lpr = lpr.next</span><br><span class="line">            lp1 = lp1.next</span><br><span class="line">        <span class="keyword">while</span>(lp2):</span><br><span class="line">            lsum = lp2.val + carry</span><br><span class="line">            carry = lsum // <span class="number">10</span></span><br><span class="line">            lsum = lsum % <span class="number">10</span></span><br><span class="line">            new_digit = ListNode(lsum)</span><br><span class="line">            lpr.next = new_digit</span><br><span class="line">            lpr = lpr.next</span><br><span class="line">            lp2 = lp2.next</span><br><span class="line">        <span class="keyword">if</span> carry != <span class="number">0</span>:</span><br><span class="line">            new_digit = ListNode(carry)</span><br><span class="line">            lpr.next = new_digit</span><br><span class="line">        <span class="keyword">return</span> res.next</span><br></pre></td></tr></table></figure>
+
+<p>leetcode运行时间96ms。</p>
+<p>96ms的表现已经超越99.26%的实现。</p>
+<h2 id="超慢实现"><a href="#超慢实现" class="headerlink" title="超慢实现"></a>超慢实现</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1, l2)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type l1: ListNode</span></span><br><span class="line"><span class="string">        :type l2: ListNode</span></span><br><span class="line"><span class="string">        :rtype: ListNode</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> l1 <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> l2</span><br><span class="line">        <span class="keyword">if</span> l2 <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> l1</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            l3val = <span class="number">0</span></span><br><span class="line">            add1 =<span class="number">0</span> </span><br><span class="line">            l3 = ListNode(<span class="number">0</span>)</span><br><span class="line">            l3last = l3</span><br><span class="line">            <span class="keyword">while</span> l1 <span class="keyword">or</span> l2 :</span><br><span class="line">                l3val=<span class="number">0</span></span><br><span class="line">                <span class="keyword">if</span> l1 :</span><br><span class="line">                    l3val = l1.val</span><br><span class="line">                    <span class="comment">#print(l1.val)</span></span><br><span class="line">                    l1 = l1.next</span><br><span class="line">                    </span><br><span class="line">                <span class="keyword">if</span> l2 :</span><br><span class="line">                    l3val += l2.val</span><br><span class="line">                    <span class="comment">#print(l2.val)</span></span><br><span class="line">                    l2 = l2.next</span><br><span class="line">                l3val += add1</span><br><span class="line">                add1 = l3val//<span class="number">10</span></span><br><span class="line">                l3last.next = ListNode(l3val%<span class="number">10</span>)</span><br><span class="line">                l3last = l3last.next</span><br><span class="line">                print(add1)</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> add1==<span class="number">1</span>:</span><br><span class="line">                l3last.next = ListNode(<span class="number">1</span>)</span><br><span class="line">                </span><br><span class="line">            </span><br><span class="line">            <span class="keyword">return</span> l3.next</span><br></pre></td></tr></table></figure>
+
+<p>leetcode用时312ms。</p>
+<p>这个超慢实现，我不太确定慢的原因。我觉得可能的原因有：</p>
+<ol>
+<li>循环中的两个分支多数情况下都要经过，这限制了处理器的预执行优化，影响性能。</li>
+<li>实现中有<code>print()</code></li>
+</ol>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li>Leetcode国际版：<a href="https://leetcode.com/" target="_blank" rel="noopener">https://leetcode.com/</a></li>
+<li>可能漏掉某些参考文档，请作者联系添加引用或删除相关内容。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>数据结构与算法</category>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+        <tag>算法</tag>
+        <tag>leetcode</tag>
+        <tag>中等</tag>
+        <tag>力扣</tag>
+        <tag>medium</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode 162 Find Peak Element</title>
+    <url>/chinese/2019/01/23/leetcode-162-Find-Peak-Element/</url>
+    <content><![CDATA[<h1 id="leetcode-162-Find-Peak-Element"><a href="#leetcode-162-Find-Peak-Element" class="headerlink" title="leetcode 162 Find Peak Element"></a>leetcode 162 Find Peak Element</h1><p>这个题目是MIT 6.006算法课中提到的第一个问题，也就是一维数组的Peak Finder问题。如果感兴趣看一看一下我的<a href="https://freshmanhaner.github.io/2019/01/20/MIT-6-006-Lecture-1-b-%E7%AC%94%E8%AE%B0/" target="_blank" rel="noopener">MIT 6.006 Lecture 1-b 笔记</a>。</p>
+<p>在对比不同解题思路的同时，我还对比了不同语言（c、C++、Python）。能够非常明显的看出在<strong>效率方面</strong>：c &gt; C++ &gt; Python；时间复杂度最高的<strong>简单算法用c语言写</strong>的效率也要大于C++写的低时间复杂度的算法，更不用说Python。当然如果看简洁程度，Python还是更优。详细情况请看具体实现。</p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><blockquote>
+<p>A peak element is an element that is greater than its neighbors.</p>
+<p>峰值元素是指比相邻元素大的元素</p>
+<p>Given an input array <code>nums</code>, where nums[i] $\neq$ nums[i+1], find a peak element and return its index.</p>
+<p>给定输入数组<code>nums</code>，规定nums[i]$\neq$nums[i+1]。从该数组中找到一个峰值元素并返回它的索引值。</p>
+<p>The array may contain multiple peaks, in that case return the index to any one of the peaks is fine.</p>
+<p>给定的数组中可能含有多个峰值，只需找到其中任意一个即可。</p>
+<p>You may imagine that nums[-1] = nums[n] = $-\infty$.</p>
+<p>你可以假设nums[-1] = nums[n] = $-\infty$。</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="解体思路"><a href="#解体思路" class="headerlink" title="解体思路"></a>解体思路</h2><p>题目中很多的假设可以用来提升我们算法的效率，比如nums[i]$\neq$nums[i+1]、nums[-1] = nums[n] = $-\infty$。</p>
+<h3 id="线性扫描"><a href="#线性扫描" class="headerlink" title="线性扫描"></a>线性扫描</h3><p>从左往右扫描整个数组，找出第一个出现的峰值元素。第一反应是看每个元素的左右两边来判断是否为峰值，其实只需要可能右边邻居，因为左边已经比较过了，一定是小于该元素的。</p>
+<ul>
+<li><p>时间复杂度<br>最坏情况下（元素自左向右递增）我们要扫描整个数组。所以时间复杂度为$O(n)$。</p>
+</li>
+<li><p>空间复杂度</p>
+<p>只用到了常数额外空间，所以空间复杂度是$O(1)$。</p>
+</li>
+</ul>
+<h3 id="递归二分搜索"><a href="#递归二分搜索" class="headerlink" title="递归二分搜索"></a>递归二分搜索</h3><p>递归二分搜索算法和下面的迭代二分搜索都属于<strong>分治策略</strong>_devide&amp;conquer_的一种。根据题目我们可以看出，考虑中间元素<code>mid</code>，如果<code>nums[mid] &lt; nums[mid+1]</code>，那么<code>mid</code>元素的右边一定存在峰值元素。因为我们只需找出峰值元素中的任意一个，我们就不再需要考虑<code>mid</code>元素的左边一半了，这样问题的规模也就缩小了一半。</p>
+<ul>
+<li>时间复杂度<br>$T(n) = T(\frac{n}{2}) + \Theta(1) = T(\frac{n}{4}) + 2\Theta(1) = … = log_2(n) \times \Theta(1)=O(log_2(n))$</li>
+<li>空间复杂度<br>递归二分搜索中，每次递归表用都会占用上次一半的额外空间，所以总的额外空间是$log_2(n)$。也就是说空间复杂度也是$O(log_2(n))$。</li>
+</ul>
+<h3 id="迭代二分搜索"><a href="#迭代二分搜索" class="headerlink" title="迭代二分搜索"></a>迭代二分搜索</h3><p>迭代二分搜索和递归二分搜索整体思路一样，<strong>时间复杂度也是相同的</strong>（迭代在常数项上一般优于递归）。差别在于迭代二分搜索不会占用太多的额外空间，所以空间复杂度是$O(1)$。</p>
+<p>所以能用迭代的地方尽量不用递归。</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><h3 id="线性扫描算法——c语言实现"><a href="#线性扫描算法——c语言实现" class="headerlink" title="线性扫描算法——c语言实现"></a>线性扫描算法——c语言实现</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findPeakElement</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(;i &lt; numsSize; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i] &gt; nums[i + <span class="number">1</span>])</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>虽然是$\Theta(n)$的时间复杂度，但是用c语言编写的话用时为<strong>0ms</strong>。</p>
+<h3 id="递归二分搜索——C-实现"><a href="#递归二分搜索——C-实现" class="headerlink" title="递归二分搜索——C++实现"></a>递归二分搜索——C++实现</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> s, <span class="keyword">int</span> e)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s == e)</span><br><span class="line">            <span class="keyword">return</span> s;</span><br><span class="line">        <span class="keyword">int</span> mid = (s + e) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(nums[mid] &lt; nums[mid + <span class="number">1</span>])</span><br><span class="line">            <span class="keyword">return</span> search(nums,mid+<span class="number">1</span>,e);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> search(nums,s,mid);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findPeakElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.size();</span><br><span class="line">        <span class="keyword">return</span> search(nums,<span class="number">0</span>,len<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>用时<strong>4ms</strong></p>
+<h3 id="迭代二分搜索——Python3实现"><a href="#迭代二分搜索——Python3实现" class="headerlink" title="迭代二分搜索——Python3实现"></a>迭代二分搜索——Python3实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findPeakElement</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        start = <span class="number">0</span> </span><br><span class="line">        end = len(nums) - <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> start &lt;= end:</span><br><span class="line">            <span class="keyword">if</span> start == end:</span><br><span class="line">                <span class="keyword">return</span> start</span><br><span class="line">            mid = (start + end)//<span class="number">2</span></span><br><span class="line">            <span class="keyword">if</span>(nums[mid] &lt; nums[mid+ <span class="number">1</span>]):</span><br><span class="line">                start = mid + <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                end = mid</span><br></pre></td></tr></table></figure>
+
+<p>单纯按照时间复杂度来比较，迭代二分搜索应该是最快的，但是用Python实现用时却是同样时间复杂度C++实现的8倍，用时<strong>32ms</strong>。</p>
+<h2 id="超慢实现"><a href="#超慢实现" class="headerlink" title="超慢实现"></a>超慢实现</h2><p>通过分析超慢实现，我们可以避免影响算法效率的低级错误。</p>
+<h3 id="c语言超慢实现"><a href="#c语言超慢实现" class="headerlink" title="c语言超慢实现"></a>c语言超慢实现</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findPeakElement</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> r = numsSize  <span class="number">-1</span> ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">        <span class="keyword">int</span> m = l + (r - l)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums[m] &lt;  nums[m+<span class="number">1</span>]) &#123;</span><br><span class="line">            l = m + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            r = m;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>仔细看这段代码，其实并没有什么低价错误，只不过是在计算中间值m的时候算式稍微复杂些。和最优实现0ms差别也不大，用时4ms。</p>
+<h3 id="C-超慢实现"><a href="#C-超慢实现" class="headerlink" title="C++超慢实现"></a>C++超慢实现</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findPeakElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.size() == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums.size() == <span class="number">2</span>)            </span><br><span class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>] &gt; nums[<span class="number">1</span>] ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//----------------------------------------------</span></span><br><span class="line">        <span class="keyword">int</span> peak = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; nums.size(); i++)</span><br><span class="line">        &#123;            </span><br><span class="line">            <span class="keyword">if</span> (i<span class="number">-1</span> &gt;= <span class="number">0</span> &amp;&amp; i+<span class="number">1</span> &lt; nums.size() )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i] &gt; nums[i<span class="number">-1</span>] &amp;&amp; nums[i] &gt; nums[i+<span class="number">1</span>])</span><br><span class="line">                    <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (i+<span class="number">1</span> == nums.size() &amp;&amp; nums[i] &gt; nums[i<span class="number">-1</span>])                </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">                </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> peak;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>和上段代码不同，这段代码就明显犯了<strong>低级错误：在循环代码中加入了低效率因素。</strong>在<code>for</code>循环语句中使用<code>nums.size()</code>，使得每次循环都会调用<code>size()</code>函数，严重影响算法性能，用时8ms。</p>
+<p>至于如何优化算法性能，请见<a href="https://freshmanhaner.github.io/2018/10/05/%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD/#more" target="_blank" rel="noopener">如何优化程序性能</a></p>
+<h3 id="Python3超慢实现"><a href="#Python3超慢实现" class="headerlink" title="Python3超慢实现"></a>Python3超慢实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findPeakElement</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> len(nums) == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> len(nums) == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> nums[<span class="number">0</span>] &gt;= nums[<span class="number">1</span>] <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        low = <span class="number">0</span></span><br><span class="line">        high = len(nums) - <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> low &lt; high:</span><br><span class="line">            </span><br><span class="line">            mid = low + (high - low) // <span class="number">2</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> mid == <span class="number">0</span> <span class="keyword">and</span> nums[<span class="number">0</span>] &gt;= nums[<span class="number">1</span>]:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> mid == len(nums)<span class="number">-1</span> <span class="keyword">and</span> nums[<span class="number">-1</span>] &gt;= nums[<span class="number">-2</span>]:</span><br><span class="line">                <span class="keyword">return</span> len(nums)<span class="number">-1</span></span><br><span class="line">            <span class="keyword">if</span> nums[mid<span class="number">-1</span>] &lt;= nums[mid] <span class="keyword">and</span> nums[mid] &gt;= nums[mid+<span class="number">1</span>]:</span><br><span class="line">                <span class="keyword">return</span> mid</span><br><span class="line">            <span class="keyword">if</span> nums[mid+<span class="number">1</span>] &gt; nums[mid]:</span><br><span class="line">                low = mid + <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                high = mid</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> low</span><br></pre></td></tr></table></figure>
+
+<p>循环中加入了太多的分支，一定程度上拖慢了程序的性能，用时76ms。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li>Leetcode国际版：<a href="https://leetcode.com/" target="_blank" rel="noopener">https://leetcode.com/</a></li>
+<li>可能漏掉某些参考文档，请作者联系添加引用或删除相关内容。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>数据结构与算法</category>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+        <tag>算法</tag>
+        <tag>leetcode</tag>
+        <tag>领扣</tag>
+        <tag>easy</tag>
+        <tag>中等</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用virtualenv和virtualenvwrapper建立多个独立python环境</title>
+    <url>/chinese/2019/01/22/%E4%BD%BF%E7%94%A8virtualenv%E5%92%8Cvirtualenvwrapper%E5%BB%BA%E7%AB%8B%E5%A4%9A/</url>
+    <content><![CDATA[<p>Python丰富的库是它的优势之一，但是对于我这样的强迫症来说却多少有些不太友好。安装的库越来越多，加上各种库之间的依赖关系。即使能够方便地查看，也会觉得混乱。更不要说还有安装失败的时候，强迫症心里表示很不舒服。<br>如果你在使用Python，也像我一样是个强迫症，那么救星来了。</p>
+<p><img src="https://www.python.org/static/img/python-logo.png" alt="Python"></p>
+<a id="more"></a>  
+
+<h1 id="virtualenv"><a href="#virtualenv" class="headerlink" title="virtualenv"></a>virtualenv</h1><p><a href="https://pypi.org/project/virtualenv/" target="_blank" rel="noopener">virtualenv</a>是建立独立Python环境的工具，独立的Python环境在实际中是非常必要的。比如你的某个软件依赖某个库的版本1，另一个软件依赖这个库的版本2，如果你把这个库装在同一个python环境中，你很可能把某些你不想升级的库升级了，从而导致一些软件的失效。<br>搞清楚了有什么用，下面我们来安装吧，这里以Windows环境为例。有了神器pip的帮助，virtualenv的安装很简单，进入cmd，然后只需<code>pip install virtualenv</code>这条命令就能安装成功。如果遇到问题，详细解决请参见<a href="https://virtualenv.pypa.io/en/latest/" target="_blank" rel="noopener">官方文件</a>。<br>安装简单，使用起来还很简答。进入你需要防止独立Python环境的目录下，执行<code>virtualenv your_env_name</code>Python虚拟环境就能创建成功。如果现在就想使用这个环境，只需要<code>cd your_env_name/Scripts</code>，找到<em>Scripts</em>目录下的<em>avtivate.bat</em>这个脚本文件，执行就能进入虚拟环境。你可以像在真实环境下一样通过<code>pip list</code>查看已经看装的库，或者安装/卸载你需要的库，我就不再多说了。当你想要退出的时候，也只需要运行<em>deactivate.bat</em>文件就可以了。<br>这些虚拟环境可以任意放置，而每次使用都要进入虚拟环境目录下来运行脚本文件。管理起来，使用起来未免还是有些麻烦，对晚期强迫症来说还是不够，如果有工具能够帮助我们管理虚拟环境，在任意位置都能使用就好了。  </p>
+<h1 id="virtualenvwrapper"><a href="#virtualenvwrapper" class="headerlink" title="virtualenvwrapper"></a>virtualenvwrapper</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a href="https://pypi.org/project/virtualenvwrapper/" target="_blank" rel="noopener">virtualenvwrapper</a>就是你需要的管理软件，看名字就可以看出，它主要是对virtualenv的一些功能做了封装，方便我们使用。官方列出的功能如下：</p>
+<blockquote>
+<ol>
+<li>Organizes all of your virtual environments in one place.</li>
+<li>Wrappers for creating, copying and deleting environments, including user-configurable hooks.</li>
+<li>Use a single command to switch between environments.</li>
+<li>Tab completion for commands that take a virtual environment as argument.</li>
+<li>User-configurable hooks for all operations.</li>
+<li>Plugin system for more creating sharable extensions.</li>
+</ol>
+</blockquote>
+<p>我就不翻译了，反正你知道它很有用就是了。下面介绍安装和简单的使用，还是以Windows环境为例。安装还是依靠咱们的<em>pip</em>神器，<code>pip install virtualenvwrapper-win</code>（linux下是<code>pip install virtualenvwrapper</code>就可以了）。安装成功后的简单使用如下：</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="新建virtualenv"><a href="#新建virtualenv" class="headerlink" title="新建virtualenv"></a>新建virtualenv</h3><p><code>mkvirtualenv your_env_name</code>，所有的Python环境会被集中放置在同一目录下，命令返回的内容会告诉你在哪里。</p>
+<h3 id="删除虚拟环境"><a href="#删除虚拟环境" class="headerlink" title="删除虚拟环境"></a>删除虚拟环境</h3><p><code>rmvirtualenv your_env_name</code>，用于删除某个指定的虚拟环境。</p>
+<h3 id="查看所有Python环境"><a href="#查看所有Python环境" class="headerlink" title="查看所有Python环境"></a>查看所有Python环境</h3><p><code>workon</code></p>
+<h3 id="进入某个Python环境"><a href="#进入某个Python环境" class="headerlink" title="进入某个Python环境"></a>进入某个Python环境</h3><p><code>workon the_env_you_want_enter</code></p>
+<h3 id="退出当前Python环境"><a href="#退出当前Python环境" class="headerlink" title="退出当前Python环境"></a>退出当前Python环境</h3><p><code>deactivate</code><br>virtualenvwrapper的功能当然不知于此，更多功能等你探索。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a href="https://virtualenv.pypa.io/en/latest/" target="_blank" rel="noopener">https://virtualenv.pypa.io/en/latest/</a></li>
+<li><a href="https://virtualenvwrapper.readthedocs.io/en/latest/" target="_blank" rel="noopener">https://virtualenvwrapper.readthedocs.io/en/latest/</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>编程语言</category>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>virtualenv</tag>
+        <tag>virtualenvwrapper</tag>
+        <tag>虚拟python环境</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MIT6.828操作系统工程实验JOSOS Lab1 Booting a PC</title>
+    <url>/chinese/2018/11/29/MIT6-828%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B%E5%AE%9E%E9%AA%8CJOSOS-Lab1-Boot/</url>
+    <content><![CDATA[<p>先给出MIT的OS Lab1的网址，详细介绍和相关资源在里面都能找到，开始的配置可能要费些力气。<a href="https://pdos.csail.mit.edu/6.828/2018/labs/lab1/" target="_blank" rel="noopener">MIT 6.828 Lab1（没被墙）</a><br>这个实验要求你有比较多的预备知识，包括</p>
+<ol>
+<li>汇编语言——<a href="https://pdos.csail.mit.edu/6.828/2018/readings/pcasm-book.pdf" target="_blank" rel="noopener">汇编参考资料（注意intel和AT&amp;T语法的不同）</a>/<a href="http://www.delorie.com/djgpp/doc/brennan/brennan_att_inline_djgpp.html" target="_blank" rel="noopener">这是AT&amp;T的</a></li>
+<li>GDB——<a href="https://www.gnu.org/software/gdb/" target="_blank" rel="noopener">官网</a></li>
+</ol>
+<p>整个实验1要实现的代码不难，但是要理解的细节非常多。编程难度不大，理解起来颇为费力，所以要有耐心，多花些时间来理解，如果遇到实在不能理解的东西，可以参考一些别人的理解。还是不行的话，我知道一个做的很好的<a href="https://github.com/Clann24/jos" target="_blank" rel="noopener">答案</a>，写的很详细，编码也很好，但是不到万不得已还是不要点的好。废话不多说，开始吧！</p>
+<p>要了解操作系统，首先要了解操作系统是怎么被载入的，因为操作系统归根到底也是一个软件。从计算机启动到载入操作系统的大致过程如下：  </p>
+<ol>
+<li>处理器启动时默认访问特定内存地址，这段地址非易失地储存一些命令，完成一些设备的初始化，然后找到引导设备。</li>
+<li>从引导设备中读入第一个block，了解loader的信息。</li>
+<li>连续读入block来载入操作系统内核。</li>
+</ol>
+<p>接下来是关于实验一我的一些理解：</p>
+<a id="more"></a>
+
+<p>先给出地址空间的结构，后面是详细介绍：  </p>
+<p><img src="https://web-source-1256501598.cos.ap-shanghai.myqcloud.com/image/%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.PNG" alt="内存结构示意图"></p>
+<p>基于intel 8088处理器的早期个人电脑只能够访问1MB的物理地址，所以地址只能是从0x00000000到0x000FFFFF。但是最多只有640KB可用，从0x000A0000到0x000FFFFF这384KB被硬件保留为特殊用途，<strong>最重要的用途是Basic Input/Output System也就是我们常说的BIOS（基本输入输出系统）</strong>，它占用了从0x000F0000到0x000FFFFF的64KB空间。BIOS的主要作用是基础系统的初始化（包括激活显卡，检查内存条数量等等）和操作系统的载入，后面我们再介绍具体怎么载入操作系统。   </p>
+<p>intel 80286处理器的出现打破了1MB的限制，可访问的物理内存增加到了16MB，随后的intel 80386更是直接提升到了4GB。intel为了向下兼容，既让基于早期处理器设计的软件依然可以运行，保留了这1MB的结构。所以我们现在使用的电脑内存中会<strong>有一个“洞”</strong>，就是从0x000F0000到0x000FFFFF这64KB。这个“洞”把内存空间分为“传统内存”和“扩展内存”。   </p>
+<p>现在的个人电脑处理器多数已经是64位了，64位处理器理论上支持的物理内存已经达到2^64字节也就是18EB（约180亿GB），当然只是理论上……如果你的电脑是64位处理器，并且内存超过4G的话，那你的内存中就会存在<strong>第二个“洞”</strong>。这是因为在32位的物理空间的最上方的一部分内存被保留，用来映射32位设备。（再次）为了兼容，这部分的地址空间也不能被使用。<br>介绍完了内存空间的结构，我们正式通过MIT的实验操作系统<em>JOS</em>来看操作系统是如何被载入的。</p>
+<hr>
+<p>讲解细节之前，先来说明一下我们初步目的。MIT给出的JOS操作系统中，kernal的装载主要是由<em>boot.S</em>和<em>main.c</em>这两个文件完成的。其中<em>boot.S</em>由汇编写成，用来初始化设备，将处理器切换为保护模式，最后跳转到<em>main.c</em>。<em>main.c</em>主要是用来装载kernal，在装载完成后跳转到kernal，并且把控制权交给kernal。接下来我们开始讲解这个目的在细节上是如何实现的。<br>按照<strong>实验文档</strong>里的方法顺利用GDB打开了<strong><em>qemu 模拟器</em></strong>上<em>JOS</em>的启动程序。然后我来逐条分析每条汇编语言的目的。<br>起始第一条命令是<code>ljmp</code>跳转指令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[f000:fff0]    0xffff0:	ljmp   $0xf000,$0xe05b</span><br></pre></td></tr></table></figure>
+<p>更详细地分析我们知道</p>
+<ol>
+<li>开始时CS(Code Segment)寄存器 = 0xf000，IP(Instruction Pointer)指令指针寄存器=0xfff0</li>
+<li>第一条命令位于地址<em>0x000ffff0</em>处，这是由段地址（CS:IP）转换得到的。而这正是BIOS ROM最高的16bytes。</li>
+<li>它要跳转到地址<em>0x000fe05b</em>处。</li>
+</ol>
+<p>从上面给出的内存地址空间图，我们可以看出0x000ffff0是BIOS的最后16byte，所以他要跳转到0x000fe05b。然后就能够执行BIOS了，BIOS的工作主要是设置中断表，初始化PCI总线和一些设备，最后寻找寻找引导设备（bootable device）。  </p>
+<p>如果一个磁盘是bootable的，那它的第一个扇区称为引导扇区（boot sector），里面放置的就是引导装载程序（boot loader）。</p>
+<p>BIOS找到引导设备后，会把引导扇区读入内存0x7c00到0x7dff这部分内存中，然后跳转到0x7c00开始执行引导装载程序。</p>
+<p>下面是完成这些操作的汇编分析（注意我贴出的都是运行地址，不是链接地址）。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[f000:e05b]    0xfe05b:	cmpl   $0x0,%cs:0x6ac8 #(gdb) print&#x2F;x *(0xf6ac8) 结果$1 &#x3D; 0x0</span><br><span class="line">[f000:e062]    0xfe062:	jne    0xfd2e1</span><br><span class="line">[f000:e066]    0xfe066:	xor    %dx,%dx #寄存器dx置零</span><br><span class="line">[f000:e068]    0xfe068:	mov    %dx,%ss #寄存器SS置零</span><br><span class="line">[f000:e06a]    0xfe06a:	mov    $0x7000,%esp #extended stack pointer（扩展栈指针）设置为0x7000</span><br><span class="line">[f000:e070]    0xfe070:	mov    $0xf34c2,%edx</span><br><span class="line">[f000:e076]    0xfe076:	jmp    0xfd15c</span><br><span class="line">[f000:d15c]    0xfd15c:	mov    %eax,%ecx</span><br></pre></td></tr></table></figure>
+<p>这一段对然可以理解每句汇编的意思，但是看不出它的目的。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[f000:d15f]    0xfd15f:	cli  #关中断</span><br><span class="line">[f000:d160]    0xfd160:	cld  #状态标志寄存器（flag）的第10位（方向标志位）置零，设置地址的变化方向</span><br></pre></td></tr></table></figure>
+<p>如果你看反汇编生成的的<em>obj/boot/boot.asm</em>，你会发现这两句的链接地址在0x7c00，正是booter里boot.S开始的地方。这两句的意义也不难理解，整个装载过程肯定不能被中断。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[f000:d161]    0xfd161:	mov    $0x8f,%eax #将al寄存器置为0x8f(10001111)</span><br><span class="line">[f000:d167]    0xfd167:	out    %al,$0x70  #讲0x8f写入0x70端口，0x70是变址寄存器端口</span><br><span class="line">[f000:d169]    0xfd169:	in     $0x71,%al  #将端口0x71的内容读入al寄存器，0x71是数据端口</span><br><span class="line">[f000:d16b]    0xfd16b:	in     $0x92,%al  #将端口0x92的内容读入al寄存器，0x92是系统控制端口A</span><br><span class="line">[f000:d16d]    0xfd16d:	or     $0x2,%al   #将al寄存器的第2位（位1）置1</span><br><span class="line">[f000:d16f]    0xfd16f:	out    %al,$0x92  #写回端口0x92</span><br></pre></td></tr></table></figure>
+
+<p>这段命令目的在于初始化设备。</p>
+<p>端口0x92各个位的意义：</p>
+<ul>
+<li>Bit 0 - Setting to 1 causes a fast reset </li>
+<li>Bit 1 - 0: disable A20, 1: enable A20</li>
+<li>Bit 2 - Manufacturer defined</li>
+<li>Bit 3 - power on password bytes. 0: accessible, 1: inaccessible</li>
+<li>Bits 4-5 - Manufacturer defined</li>
+<li>Bits 6-7 - 00: HDD activity LED off, 01 or any value is “on”</li>
+</ul>
+<p>我们看到0x92端口的第2位（位1）置1表示激活A20，即第21个地址线被使能，A20地址线被激活，会使系统工作进入保护模式。  我打印出al寄存器，发现值就是2，也就是说除了位1，其他未全部为零。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[f000:d171]    0xfd171:	lidtw  %cs:0x6ab8 </span><br><span class="line">[f000:d177]    0xfd177:	lgdtw  %cs:0x6a74</span><br></pre></td></tr></table></figure>
+<p>lidt指令：加载中断向量表寄存器(IDTR)。这个指令会把从地址0xf6ab8起始的后面6个字节的数据读入到中断向量表寄存器(IDTR)中。中断向量表中存放着中断处理程序的首地址，用来处理不同的中断。<br>lgdt指令：加载全局描述符表寄存器 GDT（Global Descriptor Table），在GDT中主要存放段描述符，还有其它描述符，它们都是64-bit长。把从0xf6a74为起始地址处的6个字节的值加载到全局描述符表格寄存器中GDTR中。<br>全局描述符表实现保护模式非常重要的一部分，因为在实模式下的段号（段描述符）只有16位，这对于32位以上的处理器来说就不够用了，为了向下兼容段号长度又不能更改，只能用一个表来存储段号，原先16位的段号来查找这些表。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[f000:d17d]    0xfd17d:	mov    %cr0,%eax</span><br><span class="line">[f000:d180]    0xfd180:	or     $0x1,%eax</span><br><span class="line">[f000:d184]    0xfd184:	mov    %eax,%cr0</span><br></pre></td></tr></table></figure>
+<p>这三条命令的目的很明显是将控制寄存器CR0的第1位（位0）置1，CR0的位0是启用保护（Protection Enable）标志。当设置该位时即开启了保护模式；当复位时即进入实地址模式。这个标志仅开启段级保护，而并没有启用分页机制。若要启用分页机制，那么PE和PG标志都要置位。</p>
+<p>第一次打开A20地址线是为了检查可用资源，这次是正式进入保护模式了，然后我们需要装载内核了。<br>接下来boot.S会保存寄存器，并调用main.c的函数来实现引导扇区以及后续扇区的装载，等装载完成，操作权就交到操作系统手里了。<em>boot/main.c</em>最后执行的一条语句是</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#((void (*)(void)) (ELFHDR-&gt;e_entry))();这次是链接地址</span><br><span class="line">   7d6b:       ff 15 18 00 01 00       call   *0x10018</span><br></pre></td></tr></table></figure>
+<p>然后我们就进入了操作系统的entrypoint。<br>关于实验的各个练习及问题，<a href="https://github.com/Clann24/jos/" target="_blank" rel="noopener">这个连接</a>都给出了详细的答案。</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>计算机系统</category>
+        <category>OS</category>
+      </categories>
+      <tags>
+        <tag>操作系统</tag>
+        <tag>OS</tag>
+        <tag>实验</tag>
+        <tag>MIT</tag>
+        <tag>Lab</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode 7 ReverseInteger</title>
+    <url>/chinese/2018/11/19/leetcode-7-ReverseInteger/</url>
+    <content><![CDATA[<h1 id="Reverse-Integer"><a href="#Reverse-Integer" class="headerlink" title="Reverse Integer"></a>Reverse Integer</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>Given a 32-bit signed integer, reverse digits of an integer.</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Example 1:</span><br><span class="line">Input: 123</span><br><span class="line">Output: 321  </span><br><span class="line"></span><br><span class="line">Example 2:</span><br><span class="line">Input: -123</span><br><span class="line">Output: -321  </span><br><span class="line"></span><br><span class="line">Example 3:</span><br><span class="line">Input: 120</span><br><span class="line">Output: 21</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong><br>Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range:$[-2^{31},2^{31}-1]$ . For the purpose of this problem, assume that your function <em>returns 0 when the reversed integer overflows</em>.</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>这个题目比较简单，也没有太多发挥的空间，主要的性能差异产生于实现的细节上。<br>大部分人的思路思路都是利用求余的方法从右往左取出x中的数字，然后在将他们组成结果。当然要记得处理超出范围的情况。<br>那么同样的思路在实现时可以产生许多的差异。比如：</p>
+<ul>
+<li>如何处理x的正负情况<ul>
+<li><code>if/else</code>分别处理两种情况</li>
+<li>利用编程语言的特性同时处理两种情况</li>
+</ul>
+</li>
+<li>如何存储提取出的数字<ul>
+<li>存储在<strong>队列</strong>中</li>
+<li>边提取边处理，不做存储</li>
+</ul>
+</li>
+<li>如何判断超出范围的情况<ul>
+<li>在溢出前做处理</li>
+<li>用范围更大的数据类型存储结果，最后再判断是否超出范围</li>
+</ul>
+</li>
+</ul>
+<p>这些细节对结果不会产生太大的影响，但是当大家的性能非常接近时，每1ms的提升都可以超越许多人。  </p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>我选择了大多数人能实现的，较快的实现。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//leetcode表现：用时12ms</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">reverse</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(x != <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(INT_MAX / <span class="number">10</span> &lt; result || INT_MIN/<span class="number">10</span> &gt; result)</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            result = result*<span class="number">10</span> + x%<span class="number">10</span>;</span><br><span class="line">            x /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="超慢实现"><a href="#超慢实现" class="headerlink" title="超慢实现"></a>超慢实现</h2><p>虽然这一题大家的实现在效率差不许多，我们还是来试着分析一下最慢的实现是怎么造成的。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//leetcode表现：用时32ms</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">reverse</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(x != <span class="number">0</span>)&#123;</span><br><span class="line">            res = res*<span class="number">10</span> + x%<span class="number">10</span>;</span><br><span class="line">            x /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( (res&gt;=INT_MIN) &amp;&amp; (res&lt;=INT_MAX)) <span class="keyword">return</span> res;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这个较慢实现看上去和较好的实现差别不大，唯二的差别是：</p>
+<ul>
+<li>较慢实现采用计算完成后再判断是否溢出</li>
+<li>结果的数据类型一个是int一个是long long</li>
+</ul>
+<p>上述两点差别在这个题目中并不会造成多大影响。如果非要区别的话，第一个区别在溢出的情况下会多花时间；第二个区别则会造成一点空间上的浪费。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li>Leetcode国际版：<a href="https://leetcode.com/" target="_blank" rel="noopener">https://leetcode.com/</a></li>
+<li>可能漏掉某些参考文档，请作者联系添加引用或删除相关内容。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>数据结构与算法</category>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+        <tag>算法</tag>
+        <tag>leetcode</tag>
+        <tag>领扣</tag>
+        <tag>easy</tag>
+        <tag>简单</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ STL之map与unordered_map对比</title>
+    <url>/chinese/2018/11/15/C-STL%E4%B9%8Bmap%E4%B8%8Eunordered-map%E5%AF%B9%E6%AF%94/</url>
+    <content><![CDATA[<p>map和unordered_map都是STL中的容器，它们虽然用法相似，但是背后的原理值得了解，进而在不同场景中有针对性的应用它们。</p>
+<a id="more"></a>
+<h1 id="STL之map"><a href="#STL之map" class="headerlink" title="STL之map"></a>STL之map</h1><p>&emsp;<a href="http://www.cplusplus.com/reference/map/map/" target="_blank" rel="noopener">map</a>是C++标准模板库（<em>Standard Template Library</em>）中常用的关联容器（<em>associative container</em>），元素由键值（<em>key value</em>）和映射值（<em>mapped value</em>）组成，通过<strong>唯一键值</strong>来查找映射值。map中可以通过键值直接得到映射值，例如：  </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>,<span class="built_in">std</span>::<span class="built_in">string</span>&gt; name2description;</span><br><span class="line">    name2description[<span class="string">"Tom"</span>]=<span class="string">"A dumb cat"</span>;</span><br><span class="line">    name2description[<span class="string">"Jerry"</span>]=<span class="string">"A cunning mouse"</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Tom is "</span> &lt;&lt; name2description[<span class="string">"Tom"</span>] &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="STL之unordered-map"><a href="#STL之unordered-map" class="headerlink" title="STL之unordered_map"></a>STL之unordered_map</h1><p>&emsp;<a href="http://www.cplusplus.com/reference/unordered_map/unordered_map/" target="_blank" rel="noopener">unordered_map</a>也是C++标准模板库中的容器，但是不像map那样常用。unordered_map的基本用法和map几乎完全一样，只是不存在反向迭代器（<em>iterator</em>）。  </p>
+<h1 id="map与unordered-map的区别"><a href="#map与unordered-map的区别" class="headerlink" title="map与unordered_map的区别"></a>map与unordered_map的区别</h1><p>&emsp;虽然两者在使用上几乎没什么区别，但是在用途上却有不小的差别。原因在于<strong>map的内部实现是二叉搜索树（<em>Binary Search Tree</em>）</strong>，而且是按键值有序的（可以自定义排序方法）。相对的<strong>unordered_map的内部实现是哈希表</strong>，而且是无序的。它们的内部实现让它们具有了各自的优缺点。<br>&emsp;我们知道二叉搜索树各种操作上的性能比较平均也可以接受。不管是查找的O（log N），插入的O（N）还是删除的O（N），虽然都不是最好的情况，但也都是不错的时间复杂度，再加上它是有序的。这使得map容器很常用。<br>&emsp;相比于BST的平均，哈希表则更擅长搜索，搜索的摊分时间复杂度达到O（1）。但是它的无序性影响了他的通用性。</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>编程语言</category>
+        <category>C/C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>STL</tag>
+        <tag>标准模板库</tag>
+        <tag>map</tag>
+        <tag>unordered_map</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode_1_TwoSum</title>
+    <url>/chinese/2018/11/15/leetcode/</url>
+    <content><![CDATA[<h1 id="1-Two-Sum"><a href="#1-Two-Sum" class="headerlink" title="1. Two Sum"></a>1. Two Sum</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>Given an array of integers, return <strong>indices</strong> of the two numbers such that they add up to a specific target.<br>You may assume that each input would have <strong>exactly</strong> one solution, and you may not use the same element twice.  </p>
+<a id="more"></a>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Given nums &#x3D; [2, 7, 11, 15], target &#x3D; 9,</span><br><span class="line"></span><br><span class="line">Because nums[0] + nums[1] &#x3D; 2 + 7 &#x3D; 9,</span><br><span class="line">return [0, 1].</span><br></pre></td></tr></table></figure>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="Brute-Force——暴力法"><a href="#Brute-Force——暴力法" class="headerlink" title="Brute Force——暴力法"></a>Brute Force——暴力法</h3><p>直接采用两层循环扫描所有元素，找到和为target的两个数，然后返回。<br><strong>时间复杂度：$O(N^2)$，空间复杂度：$O(1)$</strong>  </p>
+<h3 id="Two-pass-Hash-Table——两遍哈希表法"><a href="#Two-pass-Hash-Table——两遍哈希表法" class="headerlink" title="Two-pass Hash Table——两遍哈希表法"></a>Two-pass Hash Table——两遍哈希表法</h3><p>算法在很多时候就是在时间复杂度与空间复杂度的权衡（trade-off）。暴力法空间复杂度很小，时间复杂度却比较大，显然不适用于对时间要求较高的应用。两遍哈希表法就是牺牲一点空间来换取一些时间。之所以叫两遍哈希表法（Hash Table），是因为要循环（iteration）两遍。第一遍建立哈希表存储每个元素的值和索引（Index）。第二遍循环利用建好的哈希表快速查找（Look Up）每个元素是否存在互补元素（即与之相加和为target的元素），就能在$O(N)$的时间复杂度下找到答案。<br><strong>时间复杂度：$O(N)$，空间复杂度$O(N)$</strong><br>&emsp;注意：哈希表的查找速度接近$O(1)$的时间复杂度，但具有不确定性。如果哈希表构建的不够好，碰撞（Collision）很多的话，查找速度也可能退化(Degenerate)为$O(N)$，但是一般而言，哈希表的摊分时间复杂度（Amortized Time Complexity）可以达到$O(1)$。  </p>
+<h3 id="One-pass-Hash-Table——一遍哈希表法。"><a href="#One-pass-Hash-Table——一遍哈希表法。" class="headerlink" title="One-pass Hash Table——一遍哈希表法。"></a>One-pass Hash Table——一遍哈希表法。</h3><p>其实我们深入研究一下两遍哈希表法会发现，其实可以一次遍历做完<strong>插入</strong>和<strong>查找</strong>两件事。插入之前先看一下现在的哈希表中有没有待插入值的互补值，如果有，后面就不用继续执行了。既减少了遍历的次数，也减少了遍历的长度。当然，这两点只能影响到系数，并不会真正提升时间复杂度。<br><strong>时间复杂度：$O(N)$，空间复杂度：$O(N)$</strong></p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><h3 id="暴力法"><a href="#暴力法" class="headerlink" title="暴力法"></a>暴力法</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Brute Force</span></span><br><span class="line"><span class="comment">//leetcode表现：用时76ms</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">         <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line">        <span class="keyword">int</span> i,j;</span><br><span class="line">        <span class="keyword">int</span> length = nums.size();</span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; length;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(j = i + <span class="number">1</span>;j &lt; length;j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i] + nums[j] == target)</span><br><span class="line">                &#123;</span><br><span class="line">                    result.push_back(i);</span><br><span class="line">                    result.push_back(j);</span><br><span class="line">                    <span class="keyword">return</span> result;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="两遍哈希表法"><a href="#两遍哈希表法" class="headerlink" title="两遍哈希表法"></a>两遍哈希表法</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Two-pass Hash Table</span></span><br><span class="line"><span class="comment">//Leetcode表现：用时4ms</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">         <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; hash_table;</span><br><span class="line">        <span class="keyword">int</span> len = nums.size();</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; len;i++)</span><br><span class="line">            hash_table.insert(&#123;nums[i],i&#125;);</span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; len;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            it = hash_table.find(target - nums[i]);</span><br><span class="line">            <span class="keyword">if</span>(it != hash_table.end() &amp;&amp; (*it).second != i)</span><br><span class="line">            &#123;</span><br><span class="line">                result.push_back(i);</span><br><span class="line">                result.push_back((*it).second);</span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="一遍哈希表法"><a href="#一遍哈希表法" class="headerlink" title="一遍哈希表法"></a>一遍哈希表法</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;One-pass</span><br><span class="line">&#x2F;&#x2F;leetcode表现：用时4ms</span><br><span class="line">vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) &#123;</span><br><span class="line">         vector&lt;int&gt; result;</span><br><span class="line">        unordered_map&lt;int,int&gt; hash_table;</span><br><span class="line">        int len &#x3D; nums.size();</span><br><span class="line">        unordered_map&lt;int,int&gt;::iterator it;</span><br><span class="line">        int i;</span><br><span class="line">        for(i &#x3D; 0;i &lt; len;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            it &#x3D; hash_table.find(target - nums[i]);</span><br><span class="line">            if(it !&#x3D; hash_table.end())</span><br><span class="line">            &#123;</span><br><span class="line">                result.push_back(i);</span><br><span class="line">                result.push_back((*it).second);</span><br><span class="line">                return result;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                hash_table.insert(&#123;nums[i],i&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="超慢实现"><a href="#超慢实现" class="headerlink" title="超慢实现"></a>超慢实现</h2><ol>
+<li>其一：<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//leetcode表现：用时288ms</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; answer;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nums.size(); ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i != j &amp;&amp; (nums[i] + nums[j]) == target) &#123;</span><br><span class="line">                    answer.push_back(i);</span><br><span class="line">                    answer.push_back(j);</span><br><span class="line">                    <span class="keyword">return</span> answer;</span><br><span class="line">                &#125;   </span><br><span class="line">            &#125;   </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+同样是暴力法解决问题，却花费了上一种暴力法接近<strong>四倍</strong>的时间。其中原由我在啊<a href="https://freshmanhaner.github.io/2018/10/05/%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD/#more" target="_blank" rel="noopener">如何优化程序性能</a>一文中已经提过，这里简单说一下原因。主要原因是在<strong>循环中出现了低效代码*</strong>nums.size()*，每次循环（而且还是两层循环）都要调用这个函数，造成了时间上的浪费。这种浪费是非常可怕的，尤其是对于大型程序来说，这样一个简单算法就有数倍的差别，可想而知对于大量数据或者大型程序将有多么大的差别。如果提前把他赋予一个常量，就可以避免这种浪费。<br>你以为这已经差到不能更差了？你错了！</li>
+<li>其二：<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//leetcode表现：用时292ms</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; d;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;nums.size();j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (i!=j)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(nums[i]+nums[j]==target)</span><br><span class="line">                    &#123;</span><br><span class="line">                        d.emplace_back(i);</span><br><span class="line">                        d.emplace_back(j);</span><br><span class="line">                        <span class="keyword">return</span> d;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+你能找出这个解决方案比“最差”更差的原因吗？要知道<em>emplace_back()</em>是比<em>push_back()</em>要高效的。<br>上一种解决方案能别这一种快4ms，在于上一种解决方案少了一些判断。对于<em>if（断言1 &amp;&amp; 断言2）</em>这种形式，如果断言1不满足，后面的断言二就不会被判断了。上一种解决方案的一些情况中断言2不会被判断，一定程度上节省了时间，二这个解决方案无论什么情况下都会完成两个断言的判断。</li>
+</ol>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li>Leetcode国际版：<a href="https://leetcode.com/" target="_blank" rel="noopener">https://leetcode.com/</a></li>
+<li>可能漏掉某些参考文档，请作者联系添加引用或删除相关内容。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>专业学习</category>
+        <category>数据结构与算法</category>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+        <tag>算法</tag>
+        <tag>leetcode</tag>
+        <tag>领扣</tag>
+        <tag>easy</tag>
+        <tag>简单</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSE Lab2 RPC and Lock Server</title>
+    <url>/chinese/2018/11/10/CSE-Lab2-RPC-and-Lock-Server/</url>
+    <content><![CDATA[<p>从这个实验中我们可以学到：    </p>
+<ol>
+<li><a href="https://en.wikipedia.org/wiki/Remote_procedure_call" target="_blank" rel="noopener">远程过程调用（Remote procedure call）——RPC</a></li>
+<li>多线程并发，主要是下面四个函数：<ul>
+<li><em>pthread_mutex_lock(&amp;mutex)</em>&amp;<em>pthread_mutex_unlock(&amp;mutex)</em></li>
+<li><em>pthread_cond_wait(&amp;cond, &amp;mutex)</em>&amp;<em>pthread_cond_signal(&amp;cond)</em></li>
+</ul>
+</li>
+<li>用上面四个函数实现<em>acquire(lock_id)</em>&amp;_release(lock_id)_两个函数，用来实现互斥。<a id="more"></a>
+<h2 id="学习材料"><a href="#学习材料" class="headerlink" title="学习材料"></a>学习材料</h2></li>
+</ol>
+<ul>
+<li>上面四个函数是在_pthread.h_中实现的，详见<a href="http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread.h.html" target="_blank" rel="noopener">传送门</a>  </li>
+<li><a href="https://ipads.se.sjtu.edu.cn/courses/cse/labs/Lab-2.html" target="_blank" rel="noopener">lab2: RPC&amp;Lock Server</a>  </li>
+<li><a href="https://github.com/kururu002/CSE_Lab-MIT" target="_blank" rel="noopener">代码参考</a></li>
+</ul>
+<h2 id="远程过程调用-Remote-Procedure-Call"><a href="#远程过程调用-Remote-Procedure-Call" class="headerlink" title="远程过程调用 Remote Procedure Call"></a>远程过程调用 Remote Procedure Call</h2><p>&emsp;远程过程调用其实是一种进程间的通讯，它让进程可以像调用本地过程那样调用网路中另一地址空间中的过程。RPC是分布式计算的基础之一，简单易用，但是收到网络的影响。<br>&emsp;RPC 系统包含一下五个部分：</p>
+<ol>
+<li>RPC数据和信息的<strong>报文格式标准</strong></li>
+<li>打包(marshal)/解包(unmarshal)工具库</li>
+<li>RPC编译器</li>
+<li>服务端框架</li>
+<li>客户端框架</li>
+<li>捆绑方法</li>
+</ol>
+<p>&emsp;下图描绘了RPC的调用过程：<br><img src="https://upload-images.jianshu.io/upload_images/7143349-a9db3c3c85194c6e.png" alt="RPC_call"><br>&emsp;这里我们不讨论RPC的实现细节，知识了解RPC以及它的简单实用。RPC的使用如下</p>
+<ul>
+<li>RPC server使用RPC library创建一个RPC server对象去监听某个端口，并且用reg()函数记录不同的RPC handler。</li>
+<li>RPC client创建一个RPC client对象连接RPC server（利用地址+端口），然后调用RPC server上的远程过程。</li>
+<li>RPC有接口标准规定server和client之间参数的传递。</li>
+<li>server和client之间的数据传输需要经过mashal（发送端）和unmashal（接收端）。</li>
+</ul>
+<p>&emsp;因为实验对RPC不要求理解原理，大部分的代码已经实现，只需在extent_client.cc中去调用extent_server.cc中的函数就可以了。注意参数的类型和顺序，因为RPC库并不会检查传入参数的类型，如果传递了错误的类型也会被接受，进而出错。</p>
+<h2 id="Lock-Server-amp-Locking"><a href="#Lock-Server-amp-Locking" class="headerlink" title="Lock Server&amp;Locking"></a>Lock Server&amp;Locking</h2><h3 id="Lock-Server"><a href="#Lock-Server" class="headerlink" title="Lock Server"></a>Lock Server</h3><p>&emsp;Lock Server主要是由<em>acquire(lock_id)</em>&amp;<em>release(lock_id)_这两个函数组成的，Lock Server可以管理许多个“锁”每个“锁”有唯一的整数id，而且每把”锁“在同一时间只能分配给一个client。“锁”的数量是不限制的，如果传入_acquire(lock_id)_的lock_id之前没有出现过，Locker Server会默认加入管理。_acquire(lock_id)</em>&amp;_release(lock_id)_两个函数的代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">lockid_t</span>,<span class="keyword">bool</span>&gt; lock_table;<span class="comment">//全局变量，用来管理“锁”</span></span><br><span class="line"><span class="keyword">pthread_cond_t</span> cond;<span class="comment">//条件变量</span></span><br><span class="line"><span class="keyword">pthread_mutex_t</span> mutex;<span class="comment">//互斥变量</span></span><br><span class="line"></span><br><span class="line">lock_protocol::status</span><br><span class="line">lock_server::acquire(<span class="keyword">int</span> clt, lock_protocol::<span class="keyword">lockid_t</span> lid, <span class="keyword">int</span> &amp;r)</span><br><span class="line">&#123;<span class="comment">//clt是client_id</span></span><br><span class="line">  lock_protocol::status ret = lock_protocol::OK;</span><br><span class="line">        <span class="comment">// Your lab2 part2 code goes here</span></span><br><span class="line">  pthread_mutex_lock(&amp;mutex);<span class="comment">//用于对锁操作的互斥</span></span><br><span class="line">  <span class="keyword">if</span>(lock_table.find(lid) != lock_table.end())</span><br><span class="line">  &#123; </span><br><span class="line">    <span class="keyword">while</span>(lock_table[lid] == <span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">      pthread_cond_wait(&amp;cond,&amp;mutex);</span><br><span class="line">      <span class="comment">//这个函数需要理解一下，它是带锁wait的吗？它可以带锁wait吗？</span></span><br><span class="line">    &#125;</span><br><span class="line">    lock_table[lid] = <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    lock_table.insert(<span class="built_in">std</span>::pair&lt;lock_protocol::<span class="keyword">lockid_t</span>,<span class="keyword">bool</span>&gt;(lid,<span class="literal">true</span>));</span><br><span class="line">  &#125;</span><br><span class="line">  pthread_mutex_unlock(&amp;mutex);</span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">lock_protocol::status</span><br><span class="line">lock_server::release(<span class="keyword">int</span> clt, lock_protocol::<span class="keyword">lockid_t</span> lid, <span class="keyword">int</span> &amp;r)</span><br><span class="line">&#123;</span><br><span class="line">  lock_protocol::status ret = lock_protocol::OK;</span><br><span class="line">        <span class="comment">// Your lab2 part2 code goes here</span></span><br><span class="line">  pthread_mutex_lock(&amp;mutex);</span><br><span class="line">  <span class="keyword">if</span>(lock_table.find(lid) != lock_table.end())</span><br><span class="line">  &#123;</span><br><span class="line">    lock_table[lid] = <span class="literal">false</span>;</span><br><span class="line">    pthread_cond_signal(&amp;cond);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    pthread_mutex_unlock(&amp;mutex);</span><br><span class="line">    <span class="keyword">return</span> lock_protocol::NOENT;</span><br><span class="line">  &#125;</span><br><span class="line">  pthread_mutex_unlock(&amp;mutex);<span class="comment">//对于互斥变量的操作一定要非常小心，不然容易造成饥饿或死锁。</span></span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Locking"><a href="#Locking" class="headerlink" title="Locking"></a>Locking</h3><p>&emsp;有了<em>acquire(lock_id)</em>&amp;_release(lock_id)_这两个函数，我们就可以对yfs_client.cc中的函数（读写磁盘）的函数加锁以实现并行操作了。需要注意的是，有调用关系的函数在加锁是要格外注意。考虑下面两个函数的加锁情况，会出现死锁吗？    </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">isFileExist</span><span class="params">(<span class="keyword">int</span> inode_id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    acquire(inode_id);<span class="comment">//对inode的加锁，一般直接用inode number做id</span></span><br><span class="line">    Read(inode_id);</span><br><span class="line">    WriteDisk(inode_id);</span><br><span class="line">    release(inod_id);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">readFile</span><span class="params">(<span class="keyword">int</span> inode_id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    acquire(inode_id);</span><br><span class="line">    isFileExist(inode_id);</span><br><span class="line">    release(inode_id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;上面的代码明显是不可以的，readFile里已经对inode_id对应的锁加了锁，去查看该文件是否存在时又要这把锁的花，就已经被占用了，isFileExist()会等待readFile()放开这把锁，这在isFileExist()函数返回之前，明显是不可能发生的，这就造成了死锁。<br>&emsp;所以<strong>对于需要加锁的函数，应该尽量避免相互调用</strong>。因为这会是的加锁关系相当的复杂，要么不能保证互斥，要么会产生死锁。如果一定要存在调用关系的话，被调用的函数一般是不加锁的。当然你要仔细考量，保证互斥。</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>计算机系统</category>
+        <category>CSE</category>
+      </categories>
+      <tags>
+        <tag>实验</tag>
+        <tag>lab</tag>
+        <tag>计算机系统工程</tag>
+        <tag>CSE</tag>
+        <tag>计算机系统</tag>
+        <tag>RPC</tag>
+        <tag>Lock</tag>
+        <tag>并发</tag>
+        <tag>分布式计算</tag>
       </tags>
   </entry>
 </search>
