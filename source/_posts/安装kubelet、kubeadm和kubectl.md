@@ -1,6 +1,5 @@
 ---
 title: 安装kubelet、kubeadm和kubectl
-date: 2019-06-24 20:53:21
 tags:
   - k8s
   - kubernetes
@@ -11,7 +10,9 @@ categories:
   - DevOps
   - 容器
   - k8s
+date: 2019-06-24 20:53:21
 ---
+
 # 通过kubeadm部署k8s cluster
 
 Kubeadm 是一个工具，通过提供 `kubeadm init` 和 `kubeadm join` 来作为创建 Kubernetes 集群的最佳实践“快速路径”。

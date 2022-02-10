@@ -1,6 +1,5 @@
 ---
 title: 为k8s配置可视化
-date: 2019-06-24 20:53:54
 tags:
   - k8s
   - kubernetes
@@ -11,7 +10,9 @@ categories:
   - DevOps
   - 容器
   - k8s
+date: 2019-06-24 20:53:54
 ---
+
 # 为k8s配置可视化
 
 K8s dashboard是k8s集群的web-based UI工具，用户可以通过dashboard管理运行在集群上的应用以及集群自身。

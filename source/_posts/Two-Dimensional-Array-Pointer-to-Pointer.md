@@ -1,15 +1,16 @@
 ---
 title: Two-Dimensional Array & Pointer to Pointer
-date: 2018-10-29 10:54:50
 tags:
-	- C/C++
-	- 指针
+  - C/C++
+  - 指针
 categories:
-	- 学习
-	- 计算机及软件
-	- 编程语言
-	- C/C++
+  - 学习
+  - 计算机及软件
+  - 编程语言
+  - C/C++
+date: 2018-10-29 10:54:50
 ---
+
 &emsp;First of all, let's consider the difference of three functions as follow:    
 
 1.  void write(char a)

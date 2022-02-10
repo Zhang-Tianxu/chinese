@@ -1,17 +1,18 @@
 ---
 title: GNU利用关键字__attribute__设置变量属性
-tags: 
-	- c语言
-	- C++
-	- 字节对齐
-	- __attribute__
+tags:
+  - c语言
+  - C++
+  - 字节对齐
+  - __attribute__
 categories:
-	- 学习
-	- 计算机及软件
-	- 编程语言
-	- c/c++
+  - 学习
+  - 计算机及软件
+  - 编程语言
+  - c/c++
 date: 2019-01-23 19:42:39
 ---
+
 
 
 # GNU利用关键字__attribute__设置变量的属性

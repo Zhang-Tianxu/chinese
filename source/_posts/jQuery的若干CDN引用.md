@@ -13,6 +13,7 @@ categories:
 date: 2018-11-22 14:23:23
 ---
 
+
 ![jQuery](https://codecondo.com/wp-content/uploads/2016/12/jQuery.png)
 &emsp;许多人依据直觉认为把*jQuery*库放在服务器本地会更快，实际上从*CDN（Content Distribution Network）*引用*jQuery*往往会有更快的响应。原因有二：
 

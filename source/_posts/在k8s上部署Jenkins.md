@@ -1,6 +1,5 @@
 ---
 title: 在k8s上部署Jenkins
-date: 2019-06-26 21:04:50
 tags:
   - Jenkins
   - CI/CD
@@ -12,7 +11,9 @@ categories:
   - DevOps
   - CI&CD
   - Jenkins
+date: 2019-06-26 21:04:50
 ---
+
 # 在k8s上部署Jenkins
 
 谷歌在k8s上部署Jenkins的方法，都写的很复杂，各种配置文件一堆，还都失败了！**最终部署成功后发现只需要一句命令就可以了。**

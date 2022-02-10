@@ -14,6 +14,7 @@ categories:
 date: 2018-11-21 20:32:22
 ---
 
+
 # 创建Django项目
 &emsp;安装 Django 之后，我们就有了管理工具 django-admin.py。我们可以使用 django-admin.py 来创建一个项目：
 ```shell

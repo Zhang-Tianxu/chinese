@@ -1,16 +1,17 @@
 ---
 title: 用一个例子解释RSA原理
-date: 2019-11-15 19:18:28
 tags:
-    - encryption
-    - 加密
-    - secure
-    - RSA
+  - encryption
+  - 加密
+  - secure
+  - RSA
 categories:
-    - 专业学习
-    - 安全
+  - 专业学习
+  - 安全
 mathjax: true
+date: 2019-11-15 19:18:28
 ---
+
 
 RSA是一种非对称加密算法，是以三位发明者（Ron **R**ivest、Adi **S**hamir、Leonard **A**dleman）的last name的首字母组成的。（来自：[维基百科，RSA加密算法]([https://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95](https://zh.wikipedia.org/wiki/RSA加密演算法))）
 
