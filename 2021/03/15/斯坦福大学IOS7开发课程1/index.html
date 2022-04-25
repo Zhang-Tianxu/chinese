@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/chinese/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/chinese/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/chinese/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/chinese/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/chinese/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/chinese/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/chinese/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Objective-C,IOS开发入门,MVC," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="斯坦福大学IOS7开发课程1IOS7开发课程讲了如何利用Objective-C语言开发IOS App，而且涉及到很多必须的基础知识，非常值得学习。 课程1讲了一些关于课程安排和作业的事情，自学就不需要了，只选取下面三个知识点：  IOS里有什么 MVC开发模型 Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斯坦福大学IOS7开发课程1">
+<meta property="og:url" content="https://zhang-tianxu.github.io/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B1/index.html">
+<meta property="og:site_name" content="七夕先生的无聊生活">
+<meta property="og:description" content="斯坦福大学IOS7开发课程1IOS7开发课程讲了如何利用Objective-C语言开发IOS App，而且涉及到很多必须的基础知识，非常值得学习。 课程1讲了一些关于课程安排和作业的事情，自学就不需要了，只选取下面三个知识点：  IOS里有什么 MVC开发模型 Objective-C">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1gok87jp5hnj20lq15ctky.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1gok7sf8e9mj20xm0jadhu.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1gok7tedpf9j20wc0jstw6.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1gok7tphhwkj211q0mg4qp.jpg">
+<meta property="article:published_time" content="2021-03-15T07:13:41.000Z">
+<meta property="article:modified_time" content="2022-04-25T06:57:58.607Z">
+<meta property="article:author" content="七夕先生">
+<meta property="article:tag" content="Objective-C">
+<meta property="article:tag" content="IOS开发入门">
+<meta property="article:tag" content="MVC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1gok87jp5hnj20lq15ctky.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/chinese/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zhang-tianxu.github.io/chinese/2021/03/15/斯坦福大学IOS7开发课程1/"/>
+
+
+
+
+
+  <title>斯坦福大学IOS7开发课程1 | 七夕先生的无聊生活</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Zhang-Tianxu" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/chinese/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">七夕先生的无聊生活</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/chinese/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home //首页"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/chinese/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags //标签"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/chinese/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th // 目录"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/chinese/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive // 归档"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-english">
+          <a href="https://zhang-tianxu.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-language //英文"></i> <br />
+            
+            英文
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="七夕先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="七夕先生的无聊生活">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">斯坦福大学IOS7开发课程1</h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-15T07:13:41+00:00">
+                2021-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">客户端开发</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/IOS%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">IOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/IOS%E5%BC%80%E5%8F%91/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B1/" class="leancloud_visitors" data-flag-title="斯坦福大学IOS7开发课程1">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="斯坦福大学IOS7开发课程1"><a href="#斯坦福大学IOS7开发课程1" class="headerlink" title="斯坦福大学IOS7开发课程1"></a>斯坦福大学IOS7开发课程1</h1><p>IOS7开发课程讲了如何利用Objective-C语言开发IOS App，而且涉及到很多必须的基础知识，非常值得学习。</p>
+<p>课程1讲了一些关于课程安排和作业的事情，自学就不需要了，只选取下面三个<strong>知识点：</strong></p>
+<ul>
+<li>IOS里有什么</li>
+<li>MVC开发模型</li>
+<li>Objective-C</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="IOS里有什么"><a href="#IOS里有什么" class="headerlink" title="IOS里有什么"></a>IOS里有什么</h2><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1gok87jp5hnj20lq15ctky.jpg" class="inIOS" width="300" height="700" title="IOS里有什么" alt="加载失败">
+
+<p>总的来说，可以将IOS涉及的组件分为4组或者说4层：</p>
+<ul>
+<li><p>Core OS</p>
+<p>最接近硬件的一层，其实就是Unix操作系统，Unix内核中有的功能，Core OS都有，比如：</p>
+<ul>
+<li>OSX Kernel</li>
+<li>Power Management</li>
+<li>Sockets</li>
+<li>File System</li>
+</ul>
+<p>等等……</p>
+</li>
+<li><p>Core Services</p>
+<p>基于Core OS的面向对象层。</p>
+<p>Core OS层的API几乎都是用C写的，为了以<em>面向对象</em>的方式编程，加入了Core Services层。这一层包括：</p>
+<ul>
+<li>Collections</li>
+<li>File Access</li>
+<li>Networking</li>
+<li>Threading</li>
+<li>SQLite</li>
+<li>Core Location</li>
+</ul>
+<p>等等</p>
+</li>
+<li><p>Media</p>
+<p>用于展现多媒体，包括视频、图片、声音、文件等等，是非常重要的一层。</p>
+</li>
+<li><p>Cocoa Touch</p>
+<p>Cocoa的API起源于Mac OS X，已经有三十年左右的历史了，是UI层。对IOS开发者来说是需要花比较多时间来学习的一层。这一层可以用来构建按键、滑块、开关、文字输入、动画等等。包括：</p>
+<ul>
+<li>Multi-Touch</li>
+<li>Alerts</li>
+<li>Web View</li>
+<li>Camera</li>
+<li>Controls</li>
+</ul>
+<p>等等。</p>
+</li>
+</ul>
+<h2 id="MVC开发模型"><a href="#MVC开发模型" class="headerlink" title="MVC开发模型"></a>MVC开发模型</h2><p>Model View Controller是一种用于组织应用程序中所有类的策略，将每个类分成Model 阵营、Controller 阵营或者View 阵营中的额一个。</p>
+<p>Model用来描述你的程序是什么，以纸牌游戏为例，纸牌、牌桌甚至玩牌的规则都是独立于UI的，应该放在Model阵营中。至于纸牌是如何展示在屏幕上的，是由Controller负责的，Controller负责如何展现Model，以及展现Model的动画等。View是Controller的下属，是Controller用于构建UI的组件。</p>
+<p>View是通用的，比如按键、开关等，是所有程序通用的，而Contrller是针对程序设计的，Model则是完全独立于UI的。</p>
+<h3 id="MVC模型中三个阵营之间的通信"><a href="#MVC模型中三个阵营之间的通信" class="headerlink" title="MVC模型中三个阵营之间的通信"></a>MVC模型中三个阵营之间的通信</h3><h4 id="Controller-gt-Model"><a href="#Controller-gt-Model" class="headerlink" title="Controller -&gt; Model"></a>Controller -&gt; Model</h4><p>  Controller了解Model的一切，并且可以任意给Model发消息。</p>
+<h4 id="Controller-gt-View"><a href="#Controller-gt-View" class="headerlink" title="Controller -&gt; View"></a>Controller -&gt; View</h4><p>  Controller也可以任意给View发送消息，如果Controller有个property指向View，把这个property成为<strong><em>outlet</em></strong>。</p>
+<h4 id="Model-lt-gt-View"><a href="#Model-lt-gt-View" class="headerlink" title="Model &lt;-&gt; View"></a>Model &lt;-&gt; View</h4><p>  永远<strong>不要</strong>让Model和View之间直接通信。因为Model应该是完全独立于UI的，所以不应该给View发消息，而View是通用的，所以也不应该发消息给Model。</p>
+<h4 id="View-gt-Controller"><a href="#View-gt-Controller" class="headerlink" title="View -&gt; Controller"></a>View -&gt; Controller</h4><p>View能向Controller发消息么？可以是可以，但是因为View是通用的，它对Controller并不了解，所以他们只能通过约定好的形式向Controller发送消息，有两种方式：</p>
+<ul>
+<li><p>target action</p>
+<p>Controller在内部建立一个target，并给View一个action。当View执行一些操作，比如按键被按下的时候，view会向Controller内的target发射action，这种方式下，View可以不了解Controller，只需要知道某些操作被执行时向Controller发送action。</p>
+</li>
+<li><p>delegate</p>
+<p>target action方式没办法处理非常复杂的通信。比如在一个滚动框中，用户按下手指准备滚动，需要让Controller知道用户要滚动了。因为是否允许用户的滚动请求，View是不知道的，所以需要让Controller代理其执行。有一种特殊的delegate，称为data source。</p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1gok7sf8e9mj20xm0jadhu.jpg" alt="image-20210314123540992"></p>
+</li>
+</ul>
+<p>View并不拥有它们展示的数据</p>
+<h4 id="Model-gt-Controller"><a href="#Model-gt-Controller" class="headerlink" title="Model -&gt; Controller"></a>Model -&gt; Controller</h4><p>那么model能向Controller发送消息么？</p>
+<p>model应该是完全独立于UI的，所以不能直接向Controller发送消息。但有的时候确实有这样的需求，比如Model中数据变化了，需要告诉Controller，这时可以通过广播的方式，向所有感兴趣的人发送消息，其中当然可以包括Controller</p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1gok7tedpf9j20wc0jstw6.jpg" alt="image-20210314123951433"></p>
+<h3 id="MVCs模型"><a href="#MVCs模型" class="headerlink" title="MVCs模型"></a>MVCs模型</h3><p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1gok7tphhwkj211q0mg4qp.jpg" alt="image-20210314124445333"></p>
+<h2 id="Objective-C"><a href="#Objective-C" class="headerlink" title="Objective-C"></a>Objective-C</h2><p>Objective-C的一些基础语法可以到<a href="https://www.yiibai.com/objective_c/" target="_blank" rel="noopener">易百Objective-C教程</a>学习，本课程中只是讲了一些和C/C++等语言不通的地方。和常见的编程语言C++或java相比，Objective-C有个重要的概念“Properties”，在Objective-C中一般不直接读写实例的变量，properties是Objective-C中读写实例的变量的方法，一般由getter函数和setter函数组成。</p>
+<p>在Objective-C中，每个类由一个<code>.h</code>头文件的头文件和一个<code>.m</code>的实现文件。其中，<code>.h</code>中是公开的API，<code>.m</code>中是私密API和具体的实现。</p>
+<p>在<code>.h</code>中声明类时，必须给定类的父类，其中<code>NSObject</code>是几乎所有类的父类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Test.h</span><br><span class="line">@interface Test: NSObject</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<p>由于使用了<code>NSObject</code>作为父类，所以需要引入这个类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Test.h</span><br><span class="line">#import &lt;Foundation&#x2F;NSObject.h&gt;</span><br><span class="line">@interface Test: NSObject</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<p>在IOS中一般不会只引进这个类，而是将整个<code>Foundation</code>框架引进来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Test.h</span><br><span class="line">#import &lt;Foundation&#x2F;Foundation.h&gt;</span><br><span class="line">@interface Test: NSObject</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<p>在<code>.m</code>实现文件中当然要引入头文件，<code>@implementation</code>表示类的具体实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Test.m</span><br><span class="line">#import &quot;Test.h&quot;</span><br><span class="line">@implementation Test</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<p>同时<code>.m</code>中可以添加一些私密API</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Test.m</span><br><span class="line">#import &quot;Test.h&quot;</span><br><span class="line">@interface Test()&#x2F;&#x2F;添加私密API</span><br><span class="line">@end</span><br><span class="line">  </span><br><span class="line">@implementation Test</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<p>下面介绍Objective-C的Properties概念，通过<code>@property</code>在<code>.h</code>中添加一个属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Test.h</span><br><span class="line">#import &lt;Foundation&#x2F;Foundation.h&gt;</span><br><span class="line">@interface Test: NSObject</span><br><span class="line">  @property (strong nonatomic) NSString *name;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<p>下面详细说一下<code>property</code>这行代码的构成：</p>
+<p><strong>首先</strong>是关键字<code>(strong)</code>。在Objective-C中，所有的对象都被放在堆中，通过指针使用它们。通过这种方式，Objective-C不需要编程人员手动分配和释放内存地址，那么Objective-C如何知道何时释放内存呢？这就是属性声明中<code>(stong)</code>的作用，相应的还有<code>(weak)</code>。在内存管理时，只要有任意一个<code>strong</code>指针指向内存，内存就会被保留，最有一个<code>strong</code>指针被删除时，该地址会<strong>立即</strong>被回收，此时如果还有<code>weak</code>指针指向改地址，<code>weak</code>指针会被置为空。</p>
+<p>对于元类型（int、bool等）的属性，不需要声明<code>strong</code>或<code>weak</code>，因为这种类型的属性并不存储在堆中，不需要内存管理。</p>
+<p>与其他语言不通，在Objective-C中，引用空指针并不会导致程序崩溃，在Objective-C中你甚至可以给空指针发送数据，也不会导致程序崩溃，当然你给空指针发数据，虽然不会导致程序崩溃，也不会执行任何代码，如果发送的消息需要返回，返回值会被设为0。</p>
+<p><strong>然后</strong>是关键字<code>nonatomic</code>，非原子操作。这个关键字的意思是属性的getter和setter<strong>不是线程安全的</strong>，在IOS中一般并不需要属性是线程安全的。在声明属性的同时，Objective-C会自动创建getter和setter方法。如果添加了<code>nonatomic</code>关键字，自动生成的代码是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@synthesize name &#x3D; _name;</span><br><span class="line">- (NSString *)name</span><br><span class="line">&#123;</span><br><span class="line">  return _name;</span><br><span class="line">&#125;</span><br><span class="line">- (void)setName:(NSString *)name</span><br><span class="line">&#123;</span><br><span class="line">  _name &#x3D; name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>@synthesize</code>表示<code>_name</code>是<code>name</code>的别名。这些代码并不会显示出来，但可以直接使用。使用setter和getter的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myTest.name &#x3D; @&quot;Hello World&quot;;</span><br><span class="line">NSLog(@&quot;%@&quot;,myTest.name);</span><br></pre></td></tr></table></figure>
+
+<p>当然也可以用中括号的方式调用，但建议使用上面的方式调用setter和getter。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[myTest setName:@&quot;Hello World&quot;];</span><br><span class="line">NSLog(@&quot;%@&quot;,[myTest name]);</span><br></pre></td></tr></table></figure>
+
+<p>如果不添加<code>nonatomic</code>关键字，自动生成的代码会复杂很多，因为需要添加锁。为了简单，一般都会加上<code>nonatomic</code>关键字。</p>
+<p><strong>另外</strong>，如果想要重命名属性的getter和setter，可以通过一下方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, getter &#x3D; getName, setter &#x3D; setName) NSString name;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/chinese/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+            <a href="/chinese/tags/IOS%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/" rel="tag"># IOS开发入门</a>
+          
+            <a href="/chinese/tags/MVC/" rel="tag"># MVC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/chinese/2021/03/10/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BSQLite%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next" title="Objective-C IOS开发之SQLite数据库">
+                <i class="fa fa-chevron-left"></i> Objective-C IOS开发之SQLite数据库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B2/" rel="prev" title="斯坦福大学IOS7开发课程2">
+                斯坦福大学IOS7开发课程2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="musicPlayer">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=518012072&auto=1&height=66"></iframe>
+</div>
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/chinese/images/avatar.png"
+                alt="七夕先生" />
+            
+              <p class="site-author-name" itemprop="name">七夕先生</p>
+              <p class="site-description motion-element" itemprop="description">我像猫，但我喜欢狗</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/chinese/archives/%7C%7C%20archive%20/%20%E5%BD%92%E6%A1%A3">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/chinese/categories/index.html">
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/chinese/tags/index.html">
+                  <span class="site-state-item-count">95</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:hanerzamora@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/QiXiXianSheng" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/11525738/tianxu" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+            </div>
+          
+          
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+    <div class="links-of-blogroll-title">
+      <!-- modify icon to fire by szw -->
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      近期文章
+    </div>
+    <ul class="links-of-blogroll-list">
+      
+      
+        <li class="recent_posts_li">
+          <a href="/chinese/2022/02/10/ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" title="ssh免密登录" target="_blank">ssh免密登录</a>
+        </li>
+      
+        <li class="recent_posts_li">
+          <a href="/chinese/2021/04/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B5/" title="斯坦福大学IOS7开发课程5" target="_blank">斯坦福大学IOS7开发课程5</a>
+        </li>
+      
+        <li class="recent_posts_li">
+          <a href="/chinese/2021/03/29/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B4/" title="斯坦福大学IOS7开发课程4" target="_blank">斯坦福大学IOS7开发课程4</a>
+        </li>
+      
+        <li class="recent_posts_li">
+          <a href="/chinese/2021/03/22/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B3/" title="斯坦福大学IOS7开发课程3" target="_blank">斯坦福大学IOS7开发课程3</a>
+        </li>
+      
+        <li class="recent_posts_li">
+          <a href="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B2/" title="斯坦福大学IOS7开发课程2" target="_blank">斯坦福大学IOS7开发课程2</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#斯坦福大学IOS7开发课程1"><span class="nav-number">1.</span> <span class="nav-text">斯坦福大学IOS7开发课程1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IOS里有什么"><span class="nav-number">1.1.</span> <span class="nav-text">IOS里有什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVC开发模型"><span class="nav-number">1.2.</span> <span class="nav-text">MVC开发模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MVC模型中三个阵营之间的通信"><span class="nav-number">1.2.1.</span> <span class="nav-text">MVC模型中三个阵营之间的通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Controller-gt-Model"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">Controller -&gt; Model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Controller-gt-View"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">Controller -&gt; View</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Model-lt-gt-View"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">Model &lt;-&gt; View</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#View-gt-Controller"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">View -&gt; Controller</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Model-gt-Controller"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">Model -&gt; Controller</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVCs模型"><span class="nav-number">1.2.2.</span> <span class="nav-text">MVCs模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Objective-C"><span class="nav-number">1.3.</span> <span class="nav-text">Objective-C</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">七夕先生</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Hosted by <a target="_blank" href="https://pages.github.com">GitHub Pages</a></div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/chinese/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/chinese/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/chinese/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/chinese/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/chinese/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/chinese/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/chinese/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/chinese/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/chinese/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/chinese/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/chinese/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/chinese/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/chinese/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'J9BXJmWqzMh6EKYSfTJMILYb-gzGzoHsz',
+        appKey: 'Ix4QHOvXDAJMlMQQI3aovbF9',
+        placeholder: '评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/chinese/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('5');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("J9BXJmWqzMh6EKYSfTJMILYb-gzGzoHsz", "Ix4QHOvXDAJMlMQQI3aovbF9");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
