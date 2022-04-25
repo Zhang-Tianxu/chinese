@@ -9,7 +9,6 @@ categories:
   - 学习
   - 计算机及软件
   - 算法
-  - MIT 6.006
 mathjax: true
 top: -2
 date: 2019-02-22 11:33:58
@@ -19,8 +18,6 @@ date: 2019-02-22 11:33:58
 # MIT 6.006 Lecture3 插入排序和归并排序
 
 这是排序部分的第一讲，我们会**先**介绍一下排序问题及其应用，**然后**介绍**插入排序**和**归并排序**两种算法，并对比。**最后**用Python实现这两种算法。
-
-![MIT 6.006 Lecture3](https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_lecture3_1.png)
 
 <!--more-->
 
@@ -62,8 +59,6 @@ date: 2019-02-22 11:33:58
 3. 		将A[j]插入到已经排好序的子数组A[1..j-1]中
 4. 		通过调换位置讲A[j]放在正确的位置
 ```
-
-![插入排序图解](https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/insertion_sort.PNG)
 
 上述伪代码中第3行，将A[j]插入到已经排好序的子数组，这个过程中**有一定的优化空间**。因为子数组已经是排好序的，所以我们可以选择二分法插入。这样时间复杂度就变成了$\Theta(n)$变为$\Theta(log_2n)$。
 

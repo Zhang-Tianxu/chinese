@@ -8,7 +8,8 @@ tags:
   - medium
   - 中等
 categories:
-  - 专业学习
+  - 学习
+  - 计算机及软件
   - 数据结构与算法
   - leetcode
 mathjax: true

@@ -9,7 +9,6 @@ categories:
   - 学习
   - 计算机及软件
   - 算法
-  - MIT 6.006
 top: 1
 date: 2019-01-19 12:08:17
 ---
@@ -19,8 +18,6 @@ date: 2019-01-19 12:08:17
 # MIT 6.006 Lecture 1-a 笔记
 
 这是6.006课程的概述部分，主要是对课程的介绍。第一模块的问题讲解从Lecture 1-b开始。
-
-![MIT 6.006 Lecture 1-a](https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT6_006_1_a.png)
 
 <!--more-->
 

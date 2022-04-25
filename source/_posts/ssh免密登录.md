@@ -2,6 +2,9 @@
 title: ssh免密登录
 date: 2022-02-10 16:15:29
 tags:
+categories:
+  - 学习
+  - 计算机及软件
 ---
 
 # ssh 免密码登陆

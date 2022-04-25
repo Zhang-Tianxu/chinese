@@ -6,9 +6,10 @@ tags:
     - IOS开发入门
     - SQLite
 categories:
-    - 客户端开发
-    - IOS开发
-    - Objective-C
+  - 学习
+  - 计算机及软件
+  - 客户端开发
+  - IOS开发
 ---
 
 IDE: XCode Version 12.4 (12D4e)

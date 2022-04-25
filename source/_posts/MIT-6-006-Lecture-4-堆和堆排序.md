@@ -9,7 +9,6 @@ categories:
   - 学习
   - 计算机及软件
   - 算法
-  - MIT 6.006
 mathjax: true
 top: -3
 date: 2019-02-27 20:55:30
@@ -19,8 +18,6 @@ date: 2019-02-27 20:55:30
 # MIT 6.006 Lecture4 堆和堆排序
 
 由优先级队列来引出堆，然后用堆来实现堆排序。
-
-![MIT 6.006 Lecture4](https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_lecture_4_a.png)
 
 <!--more-->
 
