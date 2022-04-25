@@ -4,7 +4,8 @@ on:
     branches:
       - master
     paths:
-      - 'source/*'
+      - 'source/**'
+      - '.github/workflows/**' # 修改workflows也需要触发
 
 jobs:
   compile-hexo-and-deploy:
@@ -41,9 +42,8 @@ jobs:
         run: |
           cd chinese
           npm install
+          hexo clean
           hexo generate
-          pwd
-          cd -
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
