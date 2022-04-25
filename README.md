@@ -1,5 +1,16 @@
+## 如何从头开始
+1. clone本repo
+2. 安装依赖：
+	1. 安装npm
+	2. hexo:`npm install hexo-cli -g`
+3. 执行`npm install`/`cnpm install`
+4. 新建/修改文章
+5. push到master分支
+6. github Action/travis会自动完成（如果自动化失效，可以手动将public文件夹push到gh-pages分支）
+
 ## 如何新建文章
-直接在`/source/_posts/`中新建`.md`的文件
+hexo new [文章名]或者直接在`/source/_posts/`中新建`.md`的文件
+
 ```
 ---
 title: 文章标题
@@ -24,10 +35,5 @@ date: 2021-1-1 17:30:21
 `{% img 图片类名 图片链接 图片宽 图片高 '"图片标题" "加载失败时显示的文字"' %}`
 比如
 {% img my_img https://tva1.sinaimg.cn/large/008eGmZEgy1gocm3k2n6uj30ia0lujua.jpg 200 100 '"网易云音乐" "加载失败"' %}
-## 如何从头开始
-1. `npm install`/`cnpm install`
-2. 新建/修改文章
-3. push到master分支
-4. travis会自动完成
 
 
