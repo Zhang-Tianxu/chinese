@@ -3,13 +3,8 @@ title: 安装kubelet、kubeadm和kubectl
 tags:
   - k8s
   - kubernetes
-  - 环境配置
-  - DevOps
 categories:
-  - 专业学习
   - DevOps
-  - 容器
-  - k8s
 date: 2019-06-24 20:53:21
 ---
 

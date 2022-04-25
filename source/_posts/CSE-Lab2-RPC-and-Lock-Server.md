@@ -1,20 +1,12 @@
 ---
 title: CSE Lab2 RPC and Lock Server
 tags:
-  - 实验
-  - lab
-  - 计算机系统工程
-  - CSE
-  - 计算机系统
   - RPC
   - Lock
   - 并发
   - 分布式计算
 categories:
-  - 学习
-  - 计算机及软件
   - 计算机系统
-  - CSE
 date: 2018-11-10 18:16:01
 ---
 
@@ -26,7 +18,9 @@ date: 2018-11-10 18:16:01
     * _pthread_mutex_lock(&mutex)_&_pthread_mutex_unlock(&mutex)_
     * _pthread_cond_wait(&cond, &mutex)_&_pthread_cond_signal(&cond)_
 3. 用上面四个函数实现_acquire(lock_id)_&_release(lock_id)_两个函数，用来实现互斥。
+
 <!--more-->
+
 ## 学习材料
 * 上面四个函数是在_pthread.h_中实现的，详见[传送门](http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread.h.html)  
 * [lab2: RPC&Lock Server](https://ipads.se.sjtu.edu.cn/courses/cse/labs/Lab-2.html)  

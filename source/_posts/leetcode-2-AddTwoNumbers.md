@@ -2,15 +2,10 @@
 title: leetcode 2 AddTwoNumbers
 tags:
   - leetcode
-  - 力扣
   - algorithm
   - 算法
-  - medium
-  - 中等
 categories:
-  - 学习
-  - 计算机及软件
-  - 数据结构与算法
+  - 算法
   - leetcode
 mathjax: true
 date: 2019-02-10 22:11:01

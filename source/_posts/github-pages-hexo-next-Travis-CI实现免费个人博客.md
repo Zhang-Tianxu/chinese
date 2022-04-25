@@ -3,9 +3,6 @@ title: github pages + hexo + next + Travis CI实现免费个人博客
 date: 2021-03-08 14:55:09
 tags:
     - GitHub Pages
-    - Hexo
-    - NexT
-    - Travis
 categories:
     - 自媒体
     - 博客

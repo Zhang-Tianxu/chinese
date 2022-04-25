@@ -3,8 +3,6 @@ title: SGX的验证
 tags:
   - SGX
 categories:
-  - 学习
-  - 计算机及软件
   - 安全
   - 可信执行环境
 date: 2020-06-24 17:50:38

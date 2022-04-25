@@ -2,15 +2,10 @@
 title: leetcode 53 Maximum SubArray
 tags:
   - leetcode
-  - 领扣
   - algorithm
   - 算法
-  - easy
-  - 简单
 categories:
-  - 学习
-  - 计算机及软件
-  - 数据结构与算法
+  - 算法
   - leetcode
 mathjax: true
 date: 2019-02-26 18:38:34

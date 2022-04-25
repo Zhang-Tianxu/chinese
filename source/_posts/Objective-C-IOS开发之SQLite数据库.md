@@ -3,11 +3,8 @@ title: Objective-C IOS开发之SQLite数据库
 date: 2021-03-10 21:45:33
 tags:
     - Objective-C
-    - IOS开发入门
-    - SQLite
+    - IOS开发
 categories:
-  - 学习
-  - 计算机及软件
   - 客户端开发
   - IOS开发
 ---

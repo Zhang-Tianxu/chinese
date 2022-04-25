@@ -2,15 +2,10 @@
 title: leetcode 162 Find Peak Element
 tags:
   - leetcode
-  - 领扣
   - algorithm
   - 算法
-  - easy
-  - 中等
 categories:
-  - 学习
-  - 计算机及软件
-  - 数据结构与算法
+  - 算法
   - leetcode
 mathjax: true
 date: 2019-01-23 11:04:59

@@ -3,13 +3,8 @@ title: centos安装和配置Jenkins
 tags:
   - DevOps
   - Jenkins
-  - CI/CD
 categories:
-  - 学习
-  - 计算机及软件
   - DevOps
-  - CI&CD
-  - Jenkins
 date: 2019-03-21 16:19:28
 ---
 

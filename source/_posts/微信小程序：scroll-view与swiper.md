@@ -1,14 +1,9 @@
 ---
 title: 微信小程序：scroll-view与swiper
 tags:
-  - 微信
   - 微信小程序
-  - 小程序
-  - 组件
 categories:
-  - 专业学习
-  - 前端
-  - 小程序
+  - web
   - 微信小程序
 date: 2020-04-08 11:51:08
 ---

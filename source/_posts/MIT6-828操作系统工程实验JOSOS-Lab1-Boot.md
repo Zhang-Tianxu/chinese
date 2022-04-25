@@ -1,16 +1,12 @@
 ---
-title: MIT6.828操作系统工程实验JOSOS Lab1 Booting a PC
+title: MIT6.828操作系统工程实验 Lab1 Booting a PC
 tags:
+  - MIT
   - OS
   - 操作系统
-  - Lab
-  - 实验
-  - MIT
 categories:
-  - 学习
-  - 计算机及软件
-  - 计算机系统
-  - OS
+  - 操作系统
+
 date: 2018-11-29 10:33:36
 ---
 

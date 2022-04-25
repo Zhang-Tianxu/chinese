@@ -3,13 +3,9 @@ title: 为k8s配置可视化
 tags:
   - k8s
   - kubernetes
-  - 环境配置
   - DevOps
 categories:
-  - 学习
-  - 计算机及软件
   - DevOps
-  - k8s
 date: 2019-06-24 20:53:54
 ---
 

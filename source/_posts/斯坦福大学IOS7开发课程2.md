@@ -2,13 +2,11 @@
 title: 斯坦福大学IOS7开发课程2
 date: 2021-03-15 20:52:38
 tags:
-    - IOS开发入门
+    - IOS开发
     - Objective-C
-    - Xcode
 categories:
     - 客户端开发
     - IOS开发
-    - Objective-C
 ---
 # 斯坦福大学IOS7开发课程2
 

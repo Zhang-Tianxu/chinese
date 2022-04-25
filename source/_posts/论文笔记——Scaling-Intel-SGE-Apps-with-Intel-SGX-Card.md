@@ -1,14 +1,10 @@
 ---
 title: 论文笔记——Scaling Intel SGX Apps with Intel SGX Card
 tags:
-  - paper
   - SGX
-  - 论文
-  - 笔记
+  - 论文笔记
 categories:
-  - 专业学习
-  - 学术
-  - 论文阅读
+  - 论文笔记
 mathjax: true
 date: 2019-07-08 20:04:21
 ---

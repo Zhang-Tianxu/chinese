@@ -3,10 +3,8 @@ title: Objective-C IOS开发之HelloWorld
 date: 2021-03-9 17:15:11
 tags:
     - Objective-C
-    - IOS开发入门
+    - IOS开发
 categories:
-  - 学习
-  - 计算机及软件
   - 客户端开发
   - IOS开发
 ---

@@ -1,11 +1,10 @@
 ---
 title: 关于gcc编译器的一些内置宏定义
-tags: gcc 编译器 宏定义 __FILE__ __LINE__ __TIMESTAMP__
+tags:
+  - 编译器
 categories:
-  - 学习
-  - 计算机及软件
   - 编程语言
-  - c/c++
+  - C/C++
 date: 2019-01-23 20:00:29
 ---
 

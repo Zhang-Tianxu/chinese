@@ -1,15 +1,10 @@
 ---
 title: jQuery的若干CDN引用
 tags:
-  - jQuery
-  - Web
+  - web
   - JavaScript
 categories:
-  - 学习
-  - 计算机及软件
-  - Web开发
-  - JavaScript&HTML&CSS
-  - jQuery
+  - web
 date: 2018-11-22 14:23:23
 ---
 

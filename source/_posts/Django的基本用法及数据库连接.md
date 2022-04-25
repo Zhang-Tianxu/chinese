@@ -2,14 +2,11 @@
 title: Django的基本用法及数据库连接
 tags:
   - python
-  - python框架
   - Django
   - web
   - 数据库
 categories:
-  - 学习
-  - 计算机及软件
-  - Web开发
+  - web
   - Django
 date: 2018-11-21 20:32:22
 ---

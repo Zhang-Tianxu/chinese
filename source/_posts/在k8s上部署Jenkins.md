@@ -2,15 +2,10 @@
 title: 在k8s上部署Jenkins
 tags:
   - Jenkins
-  - CI/CD
   - k8s
-  - 环境配置
   - DevOps
 categories:
-  - 专业学习
   - DevOps
-  - CI&CD
-  - Jenkins
 date: 2019-06-26 21:04:50
 ---
 

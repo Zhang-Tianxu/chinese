@@ -4,10 +4,7 @@ tags:
   - algorithm
   - 算法
   - MIT
-  - 名校课程
 categories:
-  - 学习
-  - 计算机及软件
   - 算法
 mathjax: true
 top: -2

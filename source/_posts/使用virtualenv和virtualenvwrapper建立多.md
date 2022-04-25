@@ -6,9 +6,9 @@ tags:
   - virtualenvwrapper
   - 虚拟python环境
 categories:
-  - 专业学习
   - 编程语言
   - Python
+  - 环境配置
 date: 2019-01-22 11:00:19
 ---
 
