@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>C语言：多重指针和多重数组</title>
+    <url>/chinese/2022/04/25/C%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%A4%9A%E9%87%8D%E6%8C%87%E9%92%88%E5%92%8C%E5%A4%9A%E9%87%8D%E6%95%B0%E7%BB%84/</url>
+    <content><![CDATA[<a id="more"></a>
+
+<h2 id="一维数组和指针"><a href="#一维数组和指针" class="headerlink" title="一维数组和指针"></a>一维数组和指针</h2><p>我们直接看下面代码：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">10</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> *b = &amp;a[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">int</span> *c = a;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">9</span>;i++) &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%d "</span>, a[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">9</span>;i++) &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%d "</span>, b[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">9</span>;i++) &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%d "</span>, c[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>由于“维数组的名字等价于数组首元素的地址”，所以上面代码中a、b、c都是指向数组a[10]的首元素（a[0]）的地址，三者在用法上完全相同：</p>
+<p><code>a[i] == b[i] == c[i] == *(a + i) == *(b + i) == *(c + i)；</code></p>
+<p>可以看出<code>b + i == &amp;b[i]</code>。</p>
+<h2 id="多维数组和多重指针"><a href="#多维数组和多重指针" class="headerlink" title="多维数组和多重指针"></a>多维数组和多重指针</h2><p>一维数组的这个特点让我误以为，下面代码中a和b在用法上也是等价的。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">2</span>][<span class="number">3</span>] = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;, &#123;<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;&#125;;</span><br><span class="line"><span class="keyword">int</span> **b = a;</span><br></pre></td></tr></table></figure>
+
+<p>但其实不是的，他们的类型都不相同，a是int指针，而b是int指针的指针。<br>如果想让b和a的类型相同，应该是：<code>int *b = a;</code>，那么这种情况下可以认为a、b等价了吗？还是不行：<code>a[i][j] != b[i][j]</code></p>
+<p>两个值不想等的原因：</p>
+<p>对a来说： 二维数组本质上也是一维数组，只不过这个“一维数组”的每个元素，是一个一维数组。a[i]表示二维数组的第i个元素（一维数组），<code>a[i][j]</code>表示a[i]这个一维数组的第j个元素。</p>
+<p>对b来说：b本质是int指针。 <code>&amp;b[i] = b + i</code>，其中<code>b + i</code>表示指向b后第i个元素的地址，元素就是指针指向的类型，对b来说是int。<code>b[i]</code>表示b后第i个int的值，等价于<code>a[0][i]</code>。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">b[i] = a[<span class="number">0</span>][i];</span><br><span class="line">a[i][j] = b[i * <span class="number">2</span> + j];</span><br><span class="line">a[i][j] = *(b + i * <span class="number">2</span> + j);</span><br><span class="line"><span class="keyword">int</span> (*b)[<span class="number">3</span>] = a; <span class="comment">// pointer to array[13] of int</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="多维数组作为函数参数"><a href="#多维数组作为函数参数" class="headerlink" title="多维数组作为函数参数"></a>多维数组作为函数参数</h2><p>多维数组作为函数参数：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">f(<span class="keyword">int</span> daytab[<span class="number">2</span>][<span class="number">13</span>]) &#123; ... &#125;</span><br><span class="line"></span><br><span class="line">f(<span class="keyword">int</span> daytab[][<span class="number">13</span>]) &#123; ... &#125;</span><br><span class="line"></span><br><span class="line">f(<span class="keyword">int</span> (*daytab)[<span class="number">13</span>]) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面3中声明方式，在函数内都可以使用<code>a[i][j]</code>的方式访问数组元素。</p>
+<blockquote>
+<p>注意：<br><code>f(int *daytab[13]) { ... }</code>这种声明方式，无法使用<code>a[i][j]</code>的方式访问数组元素</p>
+</blockquote>
+<p> 那么f(int <em>a) { … }可以吗？严格说是可以的，只不过不能使用a[i][j]的方式访问元素，而应该使用</em>(a + 13 * i + j)的方式访问元素。</p>
+<p> 多重指针作为函数参数：</p>
+<p> 用数组做函数参数的方式，数组列数是固定的，如果想要实现动态分配内存，需要使用多重数组作为函数参数:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">f(<span class="keyword">int</span> **a) &#123; ... &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span>** <span class="built_in">array</span>, <span class="keyword">int</span> row_len, <span class="keyword">int</span> col_len)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; row_len;i++) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; col_len;j++) &#123;</span><br><span class="line"></span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"%d "</span>, <span class="built_in">array</span>[i][j]);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> **<span class="title">make2DArray</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">int</span> **arr = (<span class="keyword">int</span> **)<span class="built_in">malloc</span>(m * <span class="keyword">sizeof</span>(<span class="keyword">int</span> *));</span><br><span class="line"></span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> r = <span class="number">0</span>; r &lt; m; r++) &#123;</span><br><span class="line"></span><br><span class="line">  arr[r] = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(n * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; m;i++) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; n;j++) &#123;</span><br><span class="line"></span><br><span class="line">   arr[i][j] = i * <span class="number">2</span> + j;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">return</span> arr;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">int</span> **arr1 = make2DArray(<span class="number">5</span>,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">int</span> arr2[<span class="number">5</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>&#125;, &#123;<span class="number">5</span>, <span class="number">6</span>&#125;, &#123;<span class="number">7</span>, <span class="number">8</span>&#125;, &#123;<span class="number">9</span>, <span class="number">10</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> foo(arr1, <span class="number">5</span>, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line"></span><br><span class="line"> foo(arr2, <span class="number">5</span>, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+        <category>编程语言</category>
+        <category>C/C++</category>
+      </categories>
+      <tags>
+        <tag>C语言</tag>
+        <tag>指针</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ssh免密登录</title>
     <url>/chinese/2022/02/10/ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/</url>
     <content><![CDATA[<h1 id="ssh-免密码登陆"><a href="#ssh-免密码登陆" class="headerlink" title="ssh 免密码登陆"></a>ssh 免密码登陆</h1><p>在配置分布式系统时经常要实现系统内机器之间的ssh免密登陆，在按照网上某些教程实现时发现并非完全正确（尤其是你不是管理员时），现在把我能成功实现的方法列出：</p>
@@ -13,6 +56,10 @@
 </li>
 </ol>
 ]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
+      </categories>
   </entry>
   <entry>
     <title>斯坦福大学IOS7开发课程5</title>
@@ -897,9 +944,10 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
         <category>客户端开发</category>
         <category>IOS开发</category>
-        <category>Objective-C</category>
       </categories>
       <tags>
         <tag>Objective-C</tag>
@@ -939,9 +987,10 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p>至此，最简单的IOS App开发完成。</p>
 ]]></content>
       <categories>
+        <category>学习</category>
+        <category>计算机及软件</category>
         <category>客户端开发</category>
         <category>IOS开发</category>
-        <category>Objective-C</category>
       </categories>
       <tags>
         <tag>Objective-C</tag>
@@ -1114,7 +1163,8 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>专业学习</category>
+        <category>学习</category>
+        <category>计算机及软件</category>
         <category>安全</category>
         <category>可信执行环境</category>
       </categories>
@@ -1602,8 +1652,8 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 
 ]]></content>
       <categories>
-        <category>专业学习</category>
-        <category>后端</category>
+        <category>学习</category>
+        <category>计算机及软件</category>
         <category>网络编程</category>
       </categories>
       <tags>
@@ -1931,9 +1981,9 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>专业学习</category>
+        <category>学习</category>
+        <category>计算机及软件</category>
         <category>DevOps</category>
-        <category>容器</category>
         <category>k8s</category>
       </categories>
       <tags>
@@ -2204,7 +2254,8 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>专业学习</category>
+        <category>学习</category>
+        <category>计算机及软件</category>
         <category>DevOps</category>
         <category>CI&amp;CD</category>
         <category>Jenkins</category>
@@ -2219,7 +2270,6 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
     <title>MIT 6.006 Lecture 4 堆和堆排序</title>
     <url>/chinese/2019/02/27/MIT-6-006-Lecture-4-%E5%A0%86%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/</url>
     <content><![CDATA[<h1 id="MIT-6-006-Lecture4-堆和堆排序"><a href="#MIT-6-006-Lecture4-堆和堆排序" class="headerlink" title="MIT 6.006 Lecture4 堆和堆排序"></a>MIT 6.006 Lecture4 堆和堆排序</h1><p>由优先级队列来引出堆，然后用堆来实现堆排序。</p>
-<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_lecture_4_a.png" alt="MIT 6.006 Lecture4"></p>
 <a id="more"></a>
 
 <h2 id="优先级队列-Priority-Queue"><a href="#优先级队列-Priority-Queue" class="headerlink" title="优先级队列 Priority Queue"></a>优先级队列 Priority Queue</h2><p>优先级队列的维基定义：</p>
@@ -2250,7 +2300,6 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
         <category>学习</category>
         <category>计算机及软件</category>
         <category>算法</category>
-        <category>MIT 6.006</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
@@ -2313,7 +2362,8 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>专业学习</category>
+        <category>学习</category>
+        <category>计算机及软件</category>
         <category>数据结构与算法</category>
         <category>leetcode</category>
       </categories>
@@ -2330,7 +2380,6 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
     <title>MIT 6.006 Lecture3 插入排序和归并排序</title>
     <url>/chinese/2019/02/22/MIT-6-006-Lecture3-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</url>
     <content><![CDATA[<h1 id="MIT-6-006-Lecture3-插入排序和归并排序"><a href="#MIT-6-006-Lecture3-插入排序和归并排序" class="headerlink" title="MIT 6.006 Lecture3 插入排序和归并排序"></a>MIT 6.006 Lecture3 插入排序和归并排序</h1><p>这是排序部分的第一讲，我们会<strong>先</strong>介绍一下排序问题及其应用，<strong>然后</strong>介绍<strong>插入排序</strong>和<strong>归并排序</strong>两种算法，并对比。<strong>最后</strong>用Python实现这两种算法。</p>
-<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_lecture3_1.png" alt="MIT 6.006 Lecture3"></p>
 <a id="more"></a>
 
 <h2 id="排序问题及其应用"><a href="#排序问题及其应用" class="headerlink" title="排序问题及其应用"></a>排序问题及其应用</h2><h3 id="什么是排序问题"><a href="#什么是排序问题" class="headerlink" title="什么是排序问题"></a>什么是排序问题</h3><blockquote>
@@ -2348,7 +2397,6 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p>伪代码：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. Insertion-Sort(A[],n)</span><br><span class="line">2. 	for j &lt;-- 2 to n</span><br><span class="line">3. 		将A[j]插入到已经排好序的子数组A[1..j-1]中</span><br><span class="line">4. 		通过调换位置讲A[j]放在正确的位置</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/insertion_sort.PNG" alt="插入排序图解"></p>
 <p>上述伪代码中第3行，将A[j]插入到已经排好序的子数组，这个过程中<strong>有一定的优化空间</strong>。因为子数组已经是排好序的，所以我们可以选择二分法插入。这样时间复杂度就变成了$\Theta(n)$变为$\Theta(log_2n)$。</p>
 <p>即便是用二分查找法找到合适的位置，但是第4行伪代码中将A[j]插入到合适的位置依然要花费$\Theta(n)$。因为插入的过程是通过交换位置实现的。</p>
 <p>所以不难看出插入排序要遍历2..n-1元素，将每个元素插入到合适位置的时间复杂度是$\Theta(n)$。所以插入排序的<strong>整体时间复杂度是$\Theta(n^2)​$。</strong></p>
@@ -2381,7 +2429,6 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
         <category>学习</category>
         <category>计算机及软件</category>
         <category>算法</category>
-        <category>MIT 6.006</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
@@ -2438,7 +2485,8 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>专业学习</category>
+        <category>学习</category>
+        <category>计算机及软件</category>
         <category>数据结构与算法</category>
         <category>leetcode</category>
       </categories>
@@ -2489,7 +2537,8 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>专业学习</category>
+        <category>学习</category>
+        <category>计算机及软件</category>
         <category>数据结构与算法</category>
         <category>leetcode</category>
       </categories>
@@ -2881,7 +2930,7 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
         <category>学习</category>
         <category>计算机及软件</category>
         <category>编程语言</category>
-        <category>c/c++</category>
+        <category>C/C++</category>
       </categories>
       <tags>
         <tag>C++</tag>
@@ -2947,7 +2996,8 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>专业学习</category>
+        <category>学习</category>
+        <category>计算机及软件</category>
         <category>数据结构与算法</category>
         <category>leetcode</category>
       </categories>
@@ -3006,15 +3056,13 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
     <title>MIT 6.006 Lecture 1-b 笔记</title>
     <url>/chinese/2019/01/20/MIT-6-006-Lecture-1-b-%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="Lecture-1-b-笔记——Peak-finder"><a href="#Lecture-1-b-笔记——Peak-finder" class="headerlink" title="Lecture 1-b 笔记——Peak finder"></a>Lecture 1-b 笔记——Peak finder</h1><p>这节主要讲解”<strong>极值点问题</strong>“（Peak finder），通过不同解决思路之间的对比来理解如何设计高效算法。</p>
-<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT6_006_1_b.png" alt="MIT 6.006 Lecture 1-b"></p>
 <a id="more"></a>
 
 <blockquote>
 <p><em>We pick this problem, peak finder, because it’s so easy to understand, and there are fairly straightforward algorithms that are not particularly efficient to solve this problem. And so this is kind of toy problem but like a lot of toy problems, it’s very evocative, and that it points out the issue that involve in designing efficient algorithm.</em></p>
 <p>(<em>选择“极值点问题”，是因为它很容易理解，而且有很多虽不高效但简单的方法解决它。它就像一个练习问题，像其他练习问题一样具有启发性，会指出设计高效算法需要注意的点。</em>)</p>
 </blockquote>
-<h2 id="One-dimensional-version"><a href="#One-dimensional-version" class="headerlink" title="One-dimensional version"></a>One-dimensional version</h2><p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_1_b_2.png" alt="MIT 6.006 Lecture 1-b-2"></p>
-<blockquote>
+<h2 id="One-dimensional-version"><a href="#One-dimensional-version" class="headerlink" title="One-dimensional version"></a>One-dimensional version</h2><blockquote>
 <p>Position 2 is a peak if and only if b $\geq$ a and b $\geq$ c</p>
 <p>Position 11 is a peak if k $\geq​$ j</p>
 <p>(<em>位置2是极值点当且仅当</em> b $\geq$ a $\bigwedge$ b $\geq​$ c</p>
@@ -3022,7 +3070,6 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </blockquote>
 <p><strong>Problem:</strong> Find <strong>a</strong> peak if it exists.（极值点是否存在（值得思考的问题）？如果存在，找到其中一个。）</p>
 <h3 id="Straightforward-Algorithm"><a href="#Straightforward-Algorithm" class="headerlink" title="Straightforward Algorithm:"></a>Straightforward Algorithm:</h3><p>从左向右遍历</p>
-<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_1_b_3.png" alt="MIT 6.006 Lecture 1-b-3"></p>
 <ol>
 <li>如果位置$\frac{n}{2}​$左边的数从左向右增大，而右边从左向右减小，那位置$\frac{n}{2}​$就是一个极值点。</li>
 <li>如果整个数组从左向右一直增大，那位置$n$就是极值点。</li>
@@ -3030,8 +3077,7 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p>&emsp;上述第1中情况，我们遍历$\frac{n}{2}$个元素找到极值点。而第2中情况我们要遍历全部$n​$个元素才能找到极值点。</p>
 <p>所以<strong>最坏情况</strong>下的时间复杂度是$\Theta(n)​$。</p>
 <p><font color=red>注意符号$O(n)$、符号$\Theta(n)$和$\Omega(n)$在算法时间复杂度上的意义。</font></p>
-<h3 id="Divide-amp-Conquer-algorithm"><a href="#Divide-amp-Conquer-algorithm" class="headerlink" title="Divide&amp;Conquer algorithm:"></a>Divide&amp;Conquer algorithm:</h3><p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_1_b_4.png" alt=""></p>
-<p>这次我们从$\frac{n}{2}$位置开始分别和左右两个位置比较。</p>
+<h3 id="Divide-amp-Conquer-algorithm"><a href="#Divide-amp-Conquer-algorithm" class="headerlink" title="Divide&amp;Conquer algorithm:"></a>Divide&amp;Conquer algorithm:</h3><p>这次我们从$\frac{n}{2}$位置开始分别和左右两个位置比较。</p>
 <blockquote>
 <p>If $a[\frac{n}{2}] &lt; a[\frac{n}{2}-1]​$ then only look at left half 1 … $\frac{n}{2}-1​$ to look for <strong>a</strong> peak.</p>
 <p>Else if $a[\frac{n}{2}] &lt; a[\frac{n}{2}+1]$ then only look at right half $\frac{n}{2}+1$ … $n$ to look for <strong>a</strong> peak.</p>
@@ -3050,14 +3096,12 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><p>在Python环境下分别编写上面两个算法解决极值点问题，当$n = 10,000,000$时，线性时间复杂度算法用时约13秒，而对数时间复杂度算法用时仅0.001秒。当输入足够大时，两种时间复杂度的差别还是很大的。</p>
 <p>对于一维Peak Finder问题的具体解决，将看<a href="https://freshmanhaner.github.io/2019/01/23/leetcode-162-Find-Peak-Element/#more" target="_blank" rel="noopener">传送门</a>。</p>
 <p>这种差别在二维的情况下更为明显：</p>
-<h2 id="Two-dimensional-version"><a href="#Two-dimensional-version" class="headerlink" title="Two-dimensional version"></a>Two-dimensional version</h2><p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_1_b_5.png" alt="MIT 6.006 Lecture 1-b-5"></p>
-<blockquote>
+<h2 id="Two-dimensional-version"><a href="#Two-dimensional-version" class="headerlink" title="Two-dimensional version"></a>Two-dimensional version</h2><blockquote>
 <p>a is a 2-dimensional peak if and only if $a \geq b,a \geq c,a \geq d,a \geq e​$.</p>
 <p><em>二维极值点的定义：当且仅当$a \geq b,a \geq c,a \geq d,a \geq e$时 $a$是一个二维极值点。</em></p>
 </blockquote>
 <p><strong>Problem:</strong> Find <strong>a</strong> peak if it exists.（极值点是否存在（值得思考的问题）？如果存在，找到其中一个。）</p>
-<h3 id="Greedy-Ascent-alorithm"><a href="#Greedy-Ascent-alorithm" class="headerlink" title="Greedy Ascent alorithm:"></a>Greedy Ascent alorithm:</h3><p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_1_b_6.png" alt="MIT 6.006 Lecture 1-b-6"></p>
-<p>需要选择一个开始点，我们假设从二维数组的中间开始向右，当然你也可以选择其他的出发点。</p>
+<h3 id="Greedy-Ascent-alorithm"><a href="#Greedy-Ascent-alorithm" class="headerlink" title="Greedy Ascent alorithm:"></a>Greedy Ascent alorithm:</h3><p>需要选择一个开始点，我们假设从二维数组的中间开始向右，当然你也可以选择其他的出发点。</p>
 <p>我们从12开始向右，发现右边比12大，所以移动到13，然后是14，到边界转而向下……</p>
 <p>（其间如果遇到比当前位置小的，就转向其他方向）</p>
 <p>如图，我们一直到20的位置，发现20是一个极值点。不难发现<strong>最坏情况</strong>下的时间复杂度是$\Theta(m\times{n})$。</p>
@@ -3070,7 +3114,6 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p>再在$(i,j)$所在的$i$行找出一维极值，这个就是我们要找的二维极值。）</p>
 </blockquote>
 <p>如果这个算法是正确的，那么它的时间复杂度是$\Theta(\log_{2}n + \log_{2}m)$。这个算法是高效的，可惜并不正确，因为在第$i$行可能并不存在一个二维极值点。</p>
-<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT_6_006_1_b_7.PNG" alt="MIT 6.006 Lecture 1-b-7"></p>
 <p>如上图，假设从第3列开始，算法会结束在14这个位置，因为12是第3列的一维极值点，但是第2行中却不存在一个二维极值点。</p>
 <center><font color=red>Attempt Failed</font></center>
 
@@ -3101,7 +3144,6 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
         <category>学习</category>
         <category>计算机及软件</category>
         <category>算法</category>
-        <category>MIT 6.006</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
@@ -3114,7 +3156,6 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
     <title>MIT 6.006 Lecture 1-a 笔记</title>
     <url>/chinese/2019/01/19/MIT-6-006-Lecture-1-a-%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="MIT-6-006-Lecture-1-a-笔记"><a href="#MIT-6-006-Lecture-1-a-笔记" class="headerlink" title="MIT 6.006 Lecture 1-a 笔记"></a>MIT 6.006 Lecture 1-a 笔记</h1><p>这是6.006课程的概述部分，主要是对课程的介绍。第一模块的问题讲解从Lecture 1-b开始。</p>
-<p><img src="https://my-blog-1256501598.cos.ap-beijing.myqcloud.com/github-page/learn/CS/algorithm/MIT-6-006/MIT6_006_1_a.png" alt="MIT 6.006 Lecture 1-a"></p>
 <a id="more"></a>
 
 <h2 id="课程概述"><a href="#课程概述" class="headerlink" title="课程概述"></a>课程概述</h2><p>一句话概括这门课程：</p>
@@ -3163,7 +3204,6 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
         <category>学习</category>
         <category>计算机及软件</category>
         <category>算法</category>
-        <category>MIT 6.006</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
@@ -3381,7 +3421,8 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>专业学习</category>
+        <category>学习</category>
+        <category>计算机及软件</category>
         <category>数据结构与算法</category>
         <category>leetcode</category>
       </categories>
@@ -3443,7 +3484,8 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>专业学习</category>
+        <category>学习</category>
+        <category>计算机及软件</category>
         <category>数据结构与算法</category>
         <category>leetcode</category>
       </categories>
