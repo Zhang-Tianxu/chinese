@@ -33,8 +33,6 @@
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">f(<span class="keyword">int</span> **a) &#123; ... &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span>** <span class="built_in">array</span>, <span class="keyword">int</span> row_len, <span class="keyword">int</span> col_len)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; row_len;i++) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; col_len;j++) &#123;</span><br><span class="line"></span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"%d "</span>, <span class="built_in">array</span>[i][j]);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> **<span class="title">make2DArray</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">int</span> **arr = (<span class="keyword">int</span> **)<span class="built_in">malloc</span>(m * <span class="keyword">sizeof</span>(<span class="keyword">int</span> *));</span><br><span class="line"></span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> r = <span class="number">0</span>; r &lt; m; r++) &#123;</span><br><span class="line"></span><br><span class="line">  arr[r] = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(n * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; m;i++) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; n;j++) &#123;</span><br><span class="line"></span><br><span class="line">   arr[i][j] = i * <span class="number">2</span> + j;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">return</span> arr;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">int</span> **arr1 = make2DArray(<span class="number">5</span>,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">int</span> arr2[<span class="number">5</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>&#125;, &#123;<span class="number">5</span>, <span class="number">6</span>&#125;, &#123;<span class="number">7</span>, <span class="number">8</span>&#125;, &#123;<span class="number">9</span>, <span class="number">10</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> foo(arr1, <span class="number">5</span>, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line"></span><br><span class="line"> foo(arr2, <span class="number">5</span>, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>编程语言</category>
         <category>C/C++</category>
       </categories>
@@ -57,9 +55,11 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
+        <category>开发工具</category>
       </categories>
+      <tags>
+        <tag>ssh</tag>
+      </tags>
   </entry>
   <entry>
     <title>斯坦福大学IOS7开发课程5</title>
@@ -226,11 +226,10 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
       <categories>
         <category>客户端开发</category>
         <category>IOS开发</category>
-        <category>Objective-C</category>
       </categories>
       <tags>
         <tag>Objective-C</tag>
-        <tag>IOS开发入门</tag>
+        <tag>IOS开发</tag>
       </tags>
   </entry>
   <entry>
@@ -425,11 +424,10 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
       <categories>
         <category>客户端开发</category>
         <category>IOS开发</category>
-        <category>Objective-C</category>
       </categories>
       <tags>
         <tag>Objective-C</tag>
-        <tag>IOS开发入门</tag>
+        <tag>IOS开发</tag>
       </tags>
   </entry>
   <entry>
@@ -627,11 +625,10 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
       <categories>
         <category>客户端开发</category>
         <category>IOS开发</category>
-        <category>Objective-C</category>
       </categories>
       <tags>
         <tag>Objective-C</tag>
-        <tag>IOS开发入门</tag>
+        <tag>IOS开发</tag>
       </tags>
   </entry>
   <entry>
@@ -739,12 +736,10 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
       <categories>
         <category>客户端开发</category>
         <category>IOS开发</category>
-        <category>Objective-C</category>
       </categories>
       <tags>
         <tag>Objective-C</tag>
-        <tag>IOS开发入门</tag>
-        <tag>Xcode</tag>
+        <tag>IOS开发</tag>
       </tags>
   </entry>
   <entry>
@@ -862,12 +857,10 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
       <categories>
         <category>客户端开发</category>
         <category>IOS开发</category>
-        <category>Objective-C</category>
       </categories>
       <tags>
         <tag>Objective-C</tag>
-        <tag>IOS开发入门</tag>
-        <tag>MVC</tag>
+        <tag>IOS开发</tag>
       </tags>
   </entry>
   <entry>
@@ -944,15 +937,12 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>客户端开发</category>
         <category>IOS开发</category>
       </categories>
       <tags>
         <tag>Objective-C</tag>
-        <tag>IOS开发入门</tag>
-        <tag>SQLite</tag>
+        <tag>IOS开发</tag>
       </tags>
   </entry>
   <entry>
@@ -987,14 +977,12 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p>至此，最简单的IOS App开发完成。</p>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>客户端开发</category>
         <category>IOS开发</category>
       </categories>
       <tags>
         <tag>Objective-C</tag>
-        <tag>IOS开发入门</tag>
+        <tag>IOS开发</tag>
       </tags>
   </entry>
   <entry>
@@ -1074,10 +1062,7 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
         <category>博客</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
-        <tag>NexT</tag>
         <tag>GitHub Pages</tag>
-        <tag>Travis</tag>
       </tags>
   </entry>
   <entry>
@@ -1163,8 +1148,6 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>安全</category>
         <category>可信执行环境</category>
       </categories>
@@ -1264,14 +1247,10 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
       <categories>
         <category>语言</category>
         <category>英语</category>
-        <category>英语口语</category>
       </categories>
       <tags>
         <tag>English</tag>
-        <tag>英语</tag>
-        <tag>Spoken English</tag>
         <tag>英语口语</tag>
-        <tag>English Native Speaker</tag>
       </tags>
   </entry>
   <entry>
@@ -1351,14 +1330,10 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
       <categories>
         <category>语言</category>
         <category>英语</category>
-        <category>英语口语</category>
       </categories>
       <tags>
         <tag>English</tag>
-        <tag>英语</tag>
-        <tag>Spoken English</tag>
         <tag>英语口语</tag>
-        <tag>English Native Speaker</tag>
       </tags>
   </entry>
   <entry>
@@ -1376,15 +1351,11 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p><span id="foot_note_1"><sub>[1]:在chrome浏览器页面部分单击右键，选择“检查”</sub></span></p>
 ]]></content>
       <categories>
-        <category>专业学习</category>
-        <category>前端</category>
-        <category>小程序</category>
+        <category>web</category>
         <category>微信小程序</category>
       </categories>
       <tags>
-        <tag>微信</tag>
         <tag>微信小程序</tag>
-        <tag>小程序</tag>
       </tags>
   </entry>
   <entry>
@@ -1411,16 +1382,11 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ul>
 ]]></content>
       <categories>
-        <category>专业学习</category>
-        <category>前端</category>
-        <category>小程序</category>
+        <category>web</category>
         <category>微信小程序</category>
       </categories>
       <tags>
-        <tag>微信</tag>
         <tag>微信小程序</tag>
-        <tag>小程序</tag>
-        <tag>组件</tag>
       </tags>
   </entry>
   <entry>
@@ -1450,18 +1416,12 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p>到这之后就放弃了，毕竟只是好奇，想试一下。</p>
 ]]></content>
       <categories>
-        <category>专业学习</category>
         <category>编程语言</category>
         <category>Python</category>
-        <category>爬虫</category>
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Scrapy</tag>
-        <tag>Splash</tag>
-        <tag>scrapy_splash</tag>
         <tag>爬虫</tag>
-        <tag>反爬虫</tag>
       </tags>
   </entry>
   <entry>
@@ -1528,16 +1488,11 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p><span id="foot_note_4"><sub>[4]: Bitcoin: A Peer-to-Peer Electronic Cash System. Satoshi Nakamoto.<a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener">https://bitcoin.org/bitcoin.pdf</a></sub></span></p>
 ]]></content>
       <categories>
-        <category>专业学习</category>
-        <category>安全</category>
         <category>区块链</category>
       </categories>
       <tags>
-        <tag>bitcoin</tag>
-        <tag>blockchain</tag>
         <tag>比特币</tag>
         <tag>区块链</tag>
-        <tag>科普</tag>
       </tags>
   </entry>
   <entry>
@@ -1598,13 +1553,10 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p><strong>所以将N分解为两个素数就等同于破解了密码</strong>，好在大素数分解目前还没有多项式时间算法，只能用暴力法试。但是只要算力和时间足够，这并没有想象中的困难，而且密钥生成的过程中有很多因素会削弱密钥的安全性。想具体了解，大家可以看 <strong><em>trailofbits</em></strong> 的博客 <em><a href="https://blog.trailofbits.com/2019/07/08/fuck-rsa/" target="_blank" rel="noopener">Seriously, stop using RSA</a></em></p>
 ]]></content>
       <categories>
-        <category>专业学习</category>
         <category>安全</category>
       </categories>
       <tags>
-        <tag>encryption</tag>
         <tag>加密</tag>
-        <tag>secure</tag>
         <tag>RSA</tag>
       </tags>
   </entry>
@@ -1652,9 +1604,8 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>网络编程</category>
+        <category>编程语言</category>
+        <category>C/C++</category>
       </categories>
       <tags>
         <tag>C</tag>
@@ -1857,15 +1808,11 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>专业学习</category>
-        <category>学术</category>
-        <category>论文阅读</category>
+        <category>论文笔记</category>
       </categories>
       <tags>
         <tag>SGX</tag>
-        <tag>paper</tag>
-        <tag>论文</tag>
-        <tag>笔记</tag>
+        <tag>论文笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -1915,17 +1862,12 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><p>Jenkins官方文档：<a href="https://jenkins.io/zh/doc/book/installing/#setup-wizard" target="_blank" rel="noopener">https://jenkins.io/zh/doc/book/installing/#setup-wizard</a></p>
 ]]></content>
       <categories>
-        <category>专业学习</category>
         <category>DevOps</category>
-        <category>CI&amp;CD</category>
-        <category>Jenkins</category>
       </categories>
       <tags>
         <tag>DevOps</tag>
         <tag>Jenkins</tag>
-        <tag>CI/CD</tag>
         <tag>k8s</tag>
-        <tag>环境配置</tag>
       </tags>
   </entry>
   <entry>
@@ -1981,16 +1923,12 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>DevOps</category>
-        <category>k8s</category>
       </categories>
       <tags>
         <tag>DevOps</tag>
         <tag>k8s</tag>
         <tag>kubernetes</tag>
-        <tag>环境配置</tag>
       </tags>
   </entry>
   <entry>
@@ -2165,16 +2103,11 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>专业学习</category>
         <category>DevOps</category>
-        <category>容器</category>
-        <category>k8s</category>
       </categories>
       <tags>
-        <tag>DevOps</tag>
         <tag>k8s</tag>
         <tag>kubernetes</tag>
-        <tag>环境配置</tag>
       </tags>
   </entry>
   <entry>
@@ -2254,16 +2187,11 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>DevOps</category>
-        <category>CI&amp;CD</category>
-        <category>Jenkins</category>
       </categories>
       <tags>
         <tag>DevOps</tag>
         <tag>Jenkins</tag>
-        <tag>CI/CD</tag>
       </tags>
   </entry>
   <entry>
@@ -2297,15 +2225,12 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p><strong>优先级队列经常用堆来实现</strong>。</p>
 <h2 id="堆-Heaps"><a href="#堆-Heaps" class="headerlink" title="堆 Heaps"></a>堆 Heaps</h2><h2 id="堆排序-Heapsort"><a href="#堆排序-Heapsort" class="headerlink" title="堆排序 Heapsort"></a>堆排序 Heapsort</h2>]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>算法</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
         <tag>算法</tag>
         <tag>MIT</tag>
-        <tag>名校课程</tag>
       </tags>
   </entry>
   <entry>
@@ -2362,18 +2287,13 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>数据结构与算法</category>
+        <category>算法</category>
         <category>leetcode</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
         <tag>算法</tag>
         <tag>leetcode</tag>
-        <tag>领扣</tag>
-        <tag>easy</tag>
-        <tag>简单</tag>
       </tags>
   </entry>
   <entry>
@@ -2426,15 +2346,12 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>算法</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
         <tag>算法</tag>
         <tag>MIT</tag>
-        <tag>名校课程</tag>
       </tags>
   </entry>
   <entry>
@@ -2485,18 +2402,13 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>数据结构与算法</category>
+        <category>算法</category>
         <category>leetcode</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
         <tag>算法</tag>
         <tag>leetcode</tag>
-        <tag>领扣</tag>
-        <tag>中等</tag>
-        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2537,18 +2449,13 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>数据结构与算法</category>
+        <category>算法</category>
         <category>leetcode</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
         <tag>算法</tag>
         <tag>leetcode</tag>
-        <tag>中等</tag>
-        <tag>力扣</tag>
-        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2632,15 +2539,11 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>操作系统</category>
-        <category>硬件知识</category>
+        <category>编程语言</category>
+        <category>汇编语言</category>
       </categories>
       <tags>
-        <tag>OS</tag>
-        <tag>操作系统</tag>
-        <tag>系统指令</tag>
+        <tag>汇编语言</tag>
       </tags>
   </entry>
   <entry>
@@ -2869,8 +2772,6 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>操作系统</category>
         <category>硬件知识</category>
       </categories>
@@ -2903,13 +2804,11 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ul>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>编程语言</category>
-        <category>c/c++</category>
+        <category>C/C++</category>
       </categories>
       <tags>
-        <tag>gcc 编译器 宏定义 __FILE__ __LINE__ __TIMESTAMP__</tag>
+        <tag>编译器</tag>
       </tags>
   </entry>
   <entry>
@@ -2927,15 +2826,12 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p>关于属性的详细介绍请参考：<a href="https://gcc.gnu.org/onlinedocs/gcc/Attribute-Syntax.html" target="_blank" rel="noopener">参考资料——GNU官方文档</a></p>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>编程语言</category>
         <category>C/C++</category>
       </categories>
       <tags>
         <tag>C++</tag>
-        <tag>c语言</tag>
-        <tag>字节对齐</tag>
+        <tag>C语言</tag>
         <tag>__attribute__</tag>
       </tags>
   </entry>
@@ -2996,18 +2892,13 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>数据结构与算法</category>
+        <category>算法</category>
         <category>leetcode</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
         <tag>算法</tag>
         <tag>leetcode</tag>
-        <tag>领扣</tag>
-        <tag>easy</tag>
-        <tag>中等</tag>
       </tags>
   </entry>
   <entry>
@@ -3041,9 +2932,9 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>专业学习</category>
         <category>编程语言</category>
         <category>Python</category>
+        <category>环境配置</category>
       </categories>
       <tags>
         <tag>python</tag>
@@ -3141,15 +3032,12 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p>&emsp;分析上述算法，至少证明其中一个算法的正确性，或者找出例子证明不正确性。</p>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>算法</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
         <tag>算法</tag>
         <tag>MIT</tag>
-        <tag>名校课程</tag>
       </tags>
   </entry>
   <entry>
@@ -3201,19 +3089,16 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>算法</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
         <tag>算法</tag>
         <tag>MIT</tag>
-        <tag>名校课程</tag>
       </tags>
   </entry>
   <entry>
-    <title>MIT6.828操作系统工程实验JOSOS Lab1 Booting a PC</title>
+    <title>MIT6.828操作系统工程实验 Lab1 Booting a PC</title>
     <url>/chinese/2018/11/29/MIT6-828%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B%E5%AE%9E%E9%AA%8CJOSOS-Lab1-Boot/</url>
     <content><![CDATA[<p>先给出MIT的OS Lab1的网址，详细介绍和相关资源在里面都能找到，开始的配置可能要费些力气。<a href="https://pdos.csail.mit.edu/6.828/2018/labs/lab1/" target="_blank" rel="noopener">MIT 6.828 Lab1（没被墙）</a><br>这个实验要求你有比较多的预备知识，包括</p>
 <ol>
@@ -3274,17 +3159,12 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p>然后我们就进入了操作系统的entrypoint。<br>关于实验的各个练习及问题，<a href="https://github.com/Clann24/jos/" target="_blank" rel="noopener">这个连接</a>都给出了详细的答案。</p>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>计算机系统</category>
-        <category>OS</category>
+        <category>操作系统</category>
       </categories>
       <tags>
-        <tag>实验</tag>
         <tag>MIT</tag>
         <tag>OS</tag>
         <tag>操作系统</tag>
-        <tag>Lab</tag>
       </tags>
   </entry>
   <entry>
@@ -3308,15 +3188,10 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ul>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>Web开发</category>
-        <category>JavaScript&amp;HTML&amp;CSS</category>
-        <category>jQuery</category>
+        <category>web</category>
       </categories>
       <tags>
-        <tag>jQuery</tag>
-        <tag>Web</tag>
+        <tag>web</tag>
         <tag>JavaScript</tag>
       </tags>
   </entry>
@@ -3366,14 +3241,11 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>Web开发</category>
+        <category>web</category>
         <category>Django</category>
       </categories>
       <tags>
         <tag>python</tag>
-        <tag>python框架</tag>
         <tag>Django</tag>
         <tag>web</tag>
         <tag>数据库</tag>
@@ -3421,18 +3293,13 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>数据结构与算法</category>
+        <category>算法</category>
         <category>leetcode</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
         <tag>算法</tag>
         <tag>leetcode</tag>
-        <tag>领扣</tag>
-        <tag>easy</tag>
-        <tag>简单</tag>
       </tags>
   </entry>
   <entry>
@@ -3446,17 +3313,11 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <h1 id="map与unordered-map的区别"><a href="#map与unordered-map的区别" class="headerlink" title="map与unordered_map的区别"></a>map与unordered_map的区别</h1><p>&emsp;虽然两者在使用上几乎没什么区别，但是在用途上却有不小的差别。原因在于<strong>map的内部实现是二叉搜索树（<em>Binary Search Tree</em>）</strong>，而且是按键值有序的（可以自定义排序方法）。相对的<strong>unordered_map的内部实现是哈希表</strong>，而且是无序的。它们的内部实现让它们具有了各自的优缺点。<br>&emsp;我们知道二叉搜索树各种操作上的性能比较平均也可以接受。不管是查找的O（log N），插入的O（N）还是删除的O（N），虽然都不是最好的情况，但也都是不错的时间复杂度，再加上它是有序的。这使得map容器很常用。<br>&emsp;相比于BST的平均，哈希表则更擅长搜索，搜索的摊分时间复杂度达到O（1）。但是它的无序性影响了他的通用性。</p>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>编程语言</category>
         <category>C/C++</category>
       </categories>
       <tags>
         <tag>C++</tag>
-        <tag>STL</tag>
-        <tag>标准模板库</tag>
-        <tag>map</tag>
-        <tag>unordered_map</tag>
       </tags>
   </entry>
   <entry>
@@ -3484,18 +3345,13 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>数据结构与算法</category>
+        <category>算法</category>
         <category>leetcode</category>
       </categories>
       <tags>
         <tag>algorithm</tag>
         <tag>算法</tag>
         <tag>leetcode</tag>
-        <tag>领扣</tag>
-        <tag>easy</tag>
-        <tag>简单</tag>
       </tags>
   </entry>
   <entry>
@@ -3509,10 +3365,11 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <li><em>pthread_cond_wait(&amp;cond, &amp;mutex)</em>&amp;<em>pthread_cond_signal(&amp;cond)</em></li>
 </ul>
 </li>
-<li>用上面四个函数实现<em>acquire(lock_id)</em>&amp;_release(lock_id)_两个函数，用来实现互斥。<a id="more"></a>
-<h2 id="学习材料"><a href="#学习材料" class="headerlink" title="学习材料"></a>学习材料</h2></li>
+<li>用上面四个函数实现<em>acquire(lock_id)</em>&amp;_release(lock_id)_两个函数，用来实现互斥。</li>
 </ol>
-<ul>
+<a id="more"></a>
+
+<h2 id="学习材料"><a href="#学习材料" class="headerlink" title="学习材料"></a>学习材料</h2><ul>
 <li>上面四个函数是在_pthread.h_中实现的，详见<a href="http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread.h.html" target="_blank" rel="noopener">传送门</a>  </li>
 <li><a href="https://ipads.se.sjtu.edu.cn/courses/cse/labs/Lab-2.html" target="_blank" rel="noopener">lab2: RPC&amp;Lock Server</a>  </li>
 <li><a href="https://github.com/kururu002/CSE_Lab-MIT" target="_blank" rel="noopener">代码参考</a></li>
@@ -3541,17 +3398,9 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p>&emsp;上面的代码明显是不可以的，readFile里已经对inode_id对应的锁加了锁，去查看该文件是否存在时又要这把锁的花，就已经被占用了，isFileExist()会等待readFile()放开这把锁，这在isFileExist()函数返回之前，明显是不可能发生的，这就造成了死锁。<br>&emsp;所以<strong>对于需要加锁的函数，应该尽量避免相互调用</strong>。因为这会是的加锁关系相当的复杂，要么不能保证互斥，要么会产生死锁。如果一定要存在调用关系的话，被调用的函数一般是不加锁的。当然你要仔细考量，保证互斥。</p>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>计算机系统</category>
-        <category>CSE</category>
       </categories>
       <tags>
-        <tag>实验</tag>
-        <tag>lab</tag>
-        <tag>计算机系统工程</tag>
-        <tag>CSE</tag>
-        <tag>计算机系统</tag>
         <tag>RPC</tag>
         <tag>Lock</tag>
         <tag>并发</tag>
@@ -3580,8 +3429,6 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p>&emsp;The answer is incorrect. Do you know the reason?</p>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
         <category>编程语言</category>
         <category>C/C++</category>
       </categories>
@@ -3629,9 +3476,7 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
 <p>这个方法既使用了两次循环展开，以使每次迭代完成更多的计算，也使用两路并行，提高了并行性。我们称这种方法为<strong><em>2×2循环展开</em></strong>。</p>
 ]]></content>
       <categories>
-        <category>学习</category>
-        <category>计算机及软件</category>
-        <category>技巧&amp;工具</category>
+        <category>性能优化</category>
       </categories>
       <tags>
         <tag>程序优化</tag>

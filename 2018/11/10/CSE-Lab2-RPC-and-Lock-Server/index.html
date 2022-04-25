@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="实验,lab,计算机系统工程,CSE,计算机系统,RPC,Lock,并发,分布式计算," />
+  <meta name="keywords" content="RPC,Lock,并发,分布式计算," />
 
 
 
@@ -87,13 +87,8 @@
 <meta property="og:description" content="从这个实验中我们可以学到：      远程过程调用（Remote procedure call）——RPC 多线程并发，主要是下面四个函数： pthread_mutex_lock(&amp;mutex)&amp;pthread_mutex_unlock(&amp;mutex) pthread_cond_wait(&amp;cond, &amp;mutex)&amp;pthread_cond_sig">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/7143349-a9db3c3c85194c6e.png">
 <meta property="article:published_time" content="2018-11-10T18:16:01.000Z">
-<meta property="article:modified_time" content="2022-04-25T08:23:57.040Z">
+<meta property="article:modified_time" content="2022-04-25T09:20:13.750Z">
 <meta property="article:author" content="七夕先生">
-<meta property="article:tag" content="实验">
-<meta property="article:tag" content="lab">
-<meta property="article:tag" content="计算机系统工程">
-<meta property="article:tag" content="CSE">
-<meta property="article:tag" content="计算机系统">
 <meta property="article:tag" content="RPC">
 <meta property="article:tag" content="Lock">
 <meta property="article:tag" content="并发">
@@ -360,41 +355,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机及软件</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
+                  <a href="/chinese/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
                     <span itemprop="name">计算机系统</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/chinese/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E8%BD%AF%E4%BB%B6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/CSE/" itemprop="url" rel="index">
-                    <span itemprop="name">CSE</span>
                   </a>
                 </span>
 
@@ -490,10 +452,11 @@
 <li><em>pthread_cond_wait(&amp;cond, &amp;mutex)</em>&amp;<em>pthread_cond_signal(&amp;cond)</em></li>
 </ul>
 </li>
-<li>用上面四个函数实现<em>acquire(lock_id)</em>&amp;_release(lock_id)_两个函数，用来实现互斥。<a id="more"></a>
-<h2 id="学习材料"><a href="#学习材料" class="headerlink" title="学习材料"></a>学习材料</h2></li>
+<li>用上面四个函数实现<em>acquire(lock_id)</em>&amp;_release(lock_id)_两个函数，用来实现互斥。</li>
 </ol>
-<ul>
+<a id="more"></a>
+
+<h2 id="学习材料"><a href="#学习材料" class="headerlink" title="学习材料"></a>学习材料</h2><ul>
 <li>上面四个函数是在_pthread.h_中实现的，详见<a href="http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread.h.html" target="_blank" rel="noopener">传送门</a>  </li>
 <li><a href="https://ipads.se.sjtu.edu.cn/courses/cse/labs/Lab-2.html" target="_blank" rel="noopener">lab2: RPC&amp;Lock Server</a>  </li>
 <li><a href="https://github.com/kururu002/CSE_Lab-MIT" target="_blank" rel="noopener">代码参考</a></li>
@@ -536,16 +499,6 @@
     <footer class="post-footer">
       
         <div class="post-tags">
-          
-            <a href="/chinese/tags/%E5%AE%9E%E9%AA%8C/" rel="tag"># 实验</a>
-          
-            <a href="/chinese/tags/lab/" rel="tag"># lab</a>
-          
-            <a href="/chinese/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/" rel="tag"># 计算机系统工程</a>
-          
-            <a href="/chinese/tags/CSE/" rel="tag"># CSE</a>
-          
-            <a href="/chinese/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/" rel="tag"># 计算机系统</a>
           
             <a href="/chinese/tags/RPC/" rel="tag"># RPC</a>
           
@@ -676,7 +629,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/chinese/categories/index.html">
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -687,7 +640,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/chinese/tags/index.html">
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
