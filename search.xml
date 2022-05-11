@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>NFT之ERC721接口简介</title>
+    <url>/chinese/2022/05/11/NFT%E4%B9%8BERC721%E6%8E%A5%E5%8F%A3%E7%AE%80%E4%BB%8B/</url>
+    <content><![CDATA[<p>NFT是<em>non-fungible tokens<em>的缩写，与之对应的是可互换代币</em>fungible tokens</em></p>
+<p>NFT标准<strong>草案</strong>ERC721是可互换代币标准ERC20的扩展，了解ERC20有利于了解ERC721。</p>
+<p>本文主要内容</p>
+<ul>
+<li>ERC20接口简介</li>
+<li>ERC721接口简介</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="ERC20"><a href="#ERC20" class="headerlink" title="ERC20"></a>ERC20</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function name() public view returns (string)</span><br><span class="line">function symbol() public view returns (string)</span><br><span class="line">function decimals() public view returns (uint8)</span><br><span class="line">function totalSupply() public view returns (uint256)</span><br><span class="line">function balanceOf(address _owner) public view returns (uint256 balance)</span><br><span class="line">function transfer(address _to, uint256 _value) public returns (bool success)</span><br><span class="line">function transferFrom(address _from, address _to, uint256 _value) public returns (bool success)</span><br><span class="line">function approve(address _spender, uint256 _value) public returns (bool success)</span><br><span class="line">function allowance(address _owner, address _spender) public view returns (uint256 remaining)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>name()<br>  代币名称，比如“人民币”</li>
+<li>symbol()<br>  代币符号，比如RMB</li>
+<li>decimals()<br>  代币小数位，代币都是以uint256表示的，小数位只影响显示</li>
+<li>totalSupply()<br>  代币的发行总量</li>
+<li>balanceOf()<br>  某人（某地址）拥有的代币数量</li>
+<li>transfer()<br>  代币拥有者向某人（某地址）转若干代币</li>
+<li>transferFrom<br>  代币拥有者的代理人，想某人（某地址）转若干代币。注意这里的<strong>代理人</strong></li>
+<li>approve()<br>  代币拥有者授权某人（某地址）为代理人，同时指定代理额度。</li>
+<li>allowance()<br>  查询某代理人的剩余代理额度</li>
+</ul>
+<p>所谓<strong>代理人</strong>，是代替代币拥有者进行操作的人，在ERC721也延续了这类接口。</p>
+<h2 id="ERC721"><a href="#ERC721" class="headerlink" title="ERC721"></a>ERC721</h2><p>开始了解ERC721的时候，容易有两个疑问：</p>
+<ol>
+<li>approve是什么意思</li>
+<li>为什么没有用来mint的接口</li>
+</ol>
+<p>下面来试着解答这两个问题</p>
+<p>Methods</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function balanceOf(address _owner) external view returns (uint256);</span><br><span class="line">function ownerOf(uint256 _tokenId) external view returns (address);</span><br><span class="line">function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes data) external payable;</span><br><span class="line">function safeTransferFrom(address _from, address _to, uint256 _tokenId) external payable;</span><br><span class="line">function transferFrom(address _from, address _to, uint256 _tokenId) external payable;</span><br><span class="line">function approve(address _approved, uint256 _tokenId) external payable;</span><br><span class="line">function setApprovalForAll(address _operator, bool _approved) external;</span><br><span class="line">function getApproved(uint256 _tokenId) external view returns (address);</span><br><span class="line">function isApprovedForAll(address _owner, address _operator) external view returns (bool);</span><br></pre></td></tr></table></figure>
+
+<p>Events</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);</span><br><span class="line">event Approval(address indexed _owner, address indexed _approved, uint256 indexed _tokenId);</span><br><span class="line">event ApprovalForAll(address indexed _owner, address indexed _operator, bool _approved);</span><br></pre></td></tr></table></figure>
+
+<p>了解ERC20后，也就了解了ERC721中很多接口。如<code>balanceOf</code>、<code>Transfer    、</code>trasferFrom<code>、</code>approve`等。</p>
+<ul>
+<li>balanceOf()<br>  获取某人（某地址）拥有的所有NFT</li>
+<li>ownerOf()<br>  查看某NFT的拥有者</li>
+<li>transfer()<br>  转移NFT</li>
+<li>safeTransferFrom()<br>  安全转移，会检查to、tokenId等参数的有效性</li>
+<li>approve()<br>  NFT拥有者将某NFT授权给某代理人</li>
+<li>getApproved()<br>  查询某NFT的代理人</li>
+<li>setApprovalForAll<br>  撤销/指定某代理人的权限</li>
+<li>approveForAll()<br>  NFT拥有者将自己所有NFT授权给某代理人</li>
+</ul>
+<h3 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h3><p>现在，<strong>第1个问题</strong>很容易回答了，approve其实是在做授权操作，授权给代理人进行操作。</p>
+<p>至于<strong>第2个问题</strong>，ERC721本身没有加入mint操作，需要在编写合约的时候按需加入。</p>
+<p>比如cryptopunks项目，其“mint”函数是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function getPunk(uint punkIndex) &#123;</span><br><span class="line">        if (!allPunksAssigned) throw;</span><br><span class="line">        if (punksRemainingToAssign &#x3D;&#x3D; 0) throw;</span><br><span class="line">        if (punkIndexToAddress[punkIndex] !&#x3D; 0x0) throw;</span><br><span class="line">        if (punkIndex &gt;&#x3D; 10000) throw;</span><br><span class="line">        punkIndexToAddress[punkIndex] &#x3D; msg.sender;</span><br><span class="line">        balanceOf[msg.sender]++;</span><br><span class="line">        punksRemainingToAssign--;</span><br><span class="line">        Assign(msg.sender, punkIndex);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>也就是通过调用该函数直接免费认领NFT</p>
+<p>笔者写文章时，下图NFT价值两千三百多万美元，<br>早知今日，悔不当初，猛狗落泪……<br><img src="https://cryptopunks.app/public/images/cryptopunks/punk5822.png" alt=""></p>
+<p>在比如房产NFT <em>otherside</em>的mint函数,采用了白名单的方式</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function mintLands(uint256 numLands, bytes32[] calldata merkleProof) external whenPublicSaleActive nonReentrant &#123;</span><br><span class="line">        require(numLands &gt; 0, &quot;Must mint at least one beta&quot;);</span><br><span class="line">        require(currentNumLandsMintedPublicSale + numLands &lt;&#x3D; MAX_PUBLIC_SALE_AMOUNT, &quot;Minting would exceed max supply&quot;);</span><br><span class="line">        require(numLands &lt;&#x3D; maxMintPerTx, &quot;numLands should not exceed maxMintPerTx&quot;);</span><br><span class="line">        require(numLands + mintedPerAddress[msg.sender] &lt;&#x3D; maxMintPerAddress, &quot;sender address cannot mint more than maxMintPerAddress lands&quot;);</span><br><span class="line">        if(isKycCheckRequired) &#123;</span><br><span class="line">            require(MerkleProof.verify(merkleProof, kycMerkleRoot, keccak256(abi.encodePacked(msg.sender))), &quot;Sender address is not in KYC allowlist&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            require(msg.sender &#x3D;&#x3D; tx.origin, &quot;Minting from smart contracts is disallowed&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">     </span><br><span class="line">        uint256 mintPrice &#x3D; getMintPrice();</span><br><span class="line">        IERC20(tokenContract).safeTransferFrom(msg.sender, address(this), mintPrice * numLands);</span><br><span class="line">        currentNumLandsMintedPublicSale +&#x3D; numLands;</span><br><span class="line">        mintedPerAddress[msg.sender] +&#x3D; numLands;</span><br><span class="line">        emit PublicSaleMint(msg.sender, numLands, mintPrice);</span><br><span class="line">        mintLandsCommon(numLands, msg.sender);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然也可以采用和上述不同的方案，看合约需求而定。</p>
+]]></content>
+      <categories>
+        <category>区块链</category>
+      </categories>
+      <tags>
+        <tag>区块链</tag>
+        <tag>NFT</tag>
+        <tag>ERC721</tag>
+        <tag>ERC20</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C语言：多重指针和多重数组</title>
     <url>/chinese/2022/04/25/C%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%A4%9A%E9%87%8D%E6%8C%87%E9%92%88%E5%92%8C%E5%A4%9A%E9%87%8D%E6%95%B0%E7%BB%84/</url>
     <content><![CDATA[<p>笔者在学习C语言后，对C语言还没有深入理解，紧接着就学习了C++。这导致对C语言的理解，长期存在偏差，比如C和C++都有<code>&amp;</code>运算符，C++中<code>&amp;</code>除了取变量地址，还表示引用，导致我一直以为C中也有引用。</p>
@@ -1505,8 +1576,8 @@ st->op->op2->op3->op4->op5->op6->op7->op8->op9->op10->e</textarea><textarea id="
         <category>区块链</category>
       </categories>
       <tags>
-        <tag>比特币</tag>
         <tag>区块链</tag>
+        <tag>比特币</tag>
       </tags>
   </entry>
   <entry>
