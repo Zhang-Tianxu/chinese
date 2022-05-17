@@ -81,9 +81,9 @@
 
 <meta name="description" content="我像猫，但我喜欢狗">
 <meta property="og:type" content="website">
-<meta property="og:title" content="七夕先生的无聊生活">
+<meta property="og:title" content="天天爱学习">
 <meta property="og:url" content="https://zhang-tianxu.github.io/chinese/page/7/index.html">
-<meta property="og:site_name" content="七夕先生的无聊生活">
+<meta property="og:site_name" content="天天爱学习">
 <meta property="og:description" content="我像猫，但我喜欢狗">
 <meta property="article:author" content="七夕先生">
 <meta name="twitter:card" content="summary">
@@ -122,7 +122,7 @@
 
 
 
-  <title>七夕先生的无聊生活</title>
+  <title>天天爱学习</title>
   
 
 
@@ -154,7 +154,7 @@
     <div class="custom-logo-site-title">
       <a href="/chinese/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">七夕先生的无聊生活</span>
+        <span class="site-title">天天爱学习</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -338,6 +338,223 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/02/26/leetcode-53-Maximum-SubArray/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="七夕先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天天爱学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2019/02/26/leetcode-53-Maximum-SubArray/" itemprop="url">leetcode 53 Maximum SubArray</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-26T18:38:34+00:00">
+                2019-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/chinese/2019/02/26/leetcode-53-Maximum-SubArray/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2019/02/26/leetcode-53-Maximum-SubArray/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/chinese/2019/02/26/leetcode-53-Maximum-SubArray/" class="leancloud_visitors" data-flag-title="leetcode 53 Maximum SubArray">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="leetcode-53-Maximum-Subarray"><a href="#leetcode-53-Maximum-Subarray" class="headerlink" title="leetcode 53 Maximum Subarray"></a>leetcode 53 Maximum Subarray</h1><p><strong>最大子序列和</strong>问题是用于讲解<strong>分治策略</strong>的一个经典例题，这个例题可以帮助我们很好的理解分治策略。但对于这个问题，分治策略并不是最高效的算法。</p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>给定一个整数数组 <code>nums</code> ，找到<strong>其中一个</strong>具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+<p><strong>示例:</strong></p>
+<blockquote>
+<p>输入: [-2,1,-3,4,-1,2,1,-5,4],</p>
+<p>输出: 6</p>
+<p>解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2019/02/26/leetcode-53-Maximum-SubArray/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/02/13/leetcode-56-Merge-Intervals/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -347,7 +564,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="七夕先生的无聊生活">
+      <meta itemprop="name" content="天天爱学习">
     </span>
 
     
@@ -568,7 +785,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="七夕先生的无聊生活">
+      <meta itemprop="name" content="天天爱学习">
     </span>
 
     
@@ -784,7 +1001,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="七夕先生的无聊生活">
+      <meta itemprop="name" content="天天爱学习">
     </span>
 
     
@@ -1006,7 +1223,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="七夕先生的无聊生活">
+      <meta itemprop="name" content="天天爱学习">
     </span>
 
     
@@ -1164,220 +1381,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/chinese/2019/01/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84%E5%9B%9B%E7%B1%BB%E5%AF%84%E5%AD%98%E5%99%A8/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/01/23/%E5%85%B3%E4%BA%8Egcc%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E5%86%85%E7%BD%AE%E5%AE%8F%E5%AE%9A%E4%B9%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="七夕先生">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/chinese/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="七夕先生的无聊生活">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/chinese/2019/01/23/%E5%85%B3%E4%BA%8Egcc%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E5%86%85%E7%BD%AE%E5%AE%8F%E5%AE%9A%E4%B9%89/" itemprop="url">关于gcc编译器的一些内置宏定义</a></h1>
-        
-
-        <div class="post-meta">
-        
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-23T20:00:29+00:00">
-                2019-01-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/chinese/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index">
-                    <span itemprop="name">编程语言</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/chinese/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C-C/" itemprop="url" rel="index">
-                    <span itemprop="name">C/C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/chinese/2019/01/23/%E5%85%B3%E4%BA%8Egcc%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E5%86%85%E7%BD%AE%E5%AE%8F%E5%AE%9A%E4%B9%89/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2019/01/23/%E5%85%B3%E4%BA%8Egcc%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E5%86%85%E7%BD%AE%E5%AE%8F%E5%AE%9A%E4%B9%89/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/chinese/2019/01/23/%E5%85%B3%E4%BA%8Egcc%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E5%86%85%E7%BD%AE%E5%AE%8F%E5%AE%9A%E4%B9%89/" class="leancloud_visitors" data-flag-title="关于gcc编译器的一些内置宏定义">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="gcc内置宏"><a href="#gcc内置宏" class="headerlink" title="gcc内置宏"></a>gcc内置宏</h1><p>在看一些c语言代码时经常突然冒出一些宏，比如<code>__FILE__</code>、<code>__TIME__</code>等。前面也没有出现相关的定义，一直都没想着弄清楚是什么。这次又看到了这些宏，花了一点时间看了下是什么。</p>
-<p>发现这些其实都是编译器内置的宏定义，所以代码中没有给出定义就能直接使用。这样的宏还不少，列出几个常见的，例如：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"__FILE__ is %s \n"</span>,__FILE__);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"__LINE__ is %d \n"</span>,__LINE__);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"__FUNCTION__ is %s \n"</span>,__FUNCTION__);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"__DATE__ is %s \n"</span>,__DATE__);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"__TIME__ is %s \n"</span>,__TIME__);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"__TIMESTAMP__ is %s \n"</span>,__TIMESTAMP__);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出结果是：</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/chinese/2019/01/23/%E5%85%B3%E4%BA%8Egcc%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E5%86%85%E7%BD%AE%E5%AE%8F%E5%AE%9A%E4%B9%89/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
