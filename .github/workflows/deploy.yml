@@ -4,6 +4,7 @@ on:
     branches:
       - master
     paths:
+      - '_config.yml'
       - 'source/**'
       - '.github/workflows/**' # 修改workflows也需要触发
 
