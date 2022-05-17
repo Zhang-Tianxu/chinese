@@ -1375,11 +1375,1038 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/02/22/MIT-6-006-Lecture3-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="七夕先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天天爱学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2019/02/22/MIT-6-006-Lecture3-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" itemprop="url">MIT 6.006 Lecture3 插入排序和归并排序</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <i class="fa fa-thumb-tack"></i>
+          <font color=7D26CD>置顶</font>
+          <span class="post-meta-divider">|</span>
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-22T11:33:58+00:00">
+                2019-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/chinese/2019/02/22/MIT-6-006-Lecture3-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2019/02/22/MIT-6-006-Lecture3-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/chinese/2019/02/22/MIT-6-006-Lecture3-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="leancloud_visitors" data-flag-title="MIT 6.006 Lecture3 插入排序和归并排序">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="MIT-6-006-Lecture3-插入排序和归并排序"><a href="#MIT-6-006-Lecture3-插入排序和归并排序" class="headerlink" title="MIT 6.006 Lecture3 插入排序和归并排序"></a>MIT 6.006 Lecture3 插入排序和归并排序</h1><p>这是排序部分的第一讲，我们会<strong>先</strong>介绍一下排序问题及其应用，<strong>然后</strong>介绍<strong>插入排序</strong>和<strong>归并排序</strong>两种算法，并对比。<strong>最后</strong>用Python实现这两种算法。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2019/02/22/MIT-6-006-Lecture3-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2018/11/10/CSE-Lab2-RPC-and-Lock-Server/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="七夕先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天天爱学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2018/11/10/CSE-Lab2-RPC-and-Lock-Server/" itemprop="url">CSE Lab2 RPC and Lock Server</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <i class="fa fa-thumb-tack"></i>
+          <font color=7D26CD>置顶</font>
+          <span class="post-meta-divider">|</span>
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-10T18:16:01+00:00">
+                2018-11-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/chinese/2018/11/10/CSE-Lab2-RPC-and-Lock-Server/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2018/11/10/CSE-Lab2-RPC-and-Lock-Server/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/chinese/2018/11/10/CSE-Lab2-RPC-and-Lock-Server/" class="leancloud_visitors" data-flag-title="CSE Lab2 RPC and Lock Server">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>从这个实验中我们可以学到：    </p>
+<ol>
+<li><a href="https://en.wikipedia.org/wiki/Remote_procedure_call" target="_blank" rel="noopener">远程过程调用（Remote procedure call）——RPC</a></li>
+<li>多线程并发，主要是下面四个函数：<ul>
+<li><em>pthread_mutex_lock(&amp;mutex)</em>&amp;<em>pthread_mutex_unlock(&amp;mutex)</em></li>
+<li><em>pthread_cond_wait(&amp;cond, &amp;mutex)</em>&amp;<em>pthread_cond_signal(&amp;cond)</em></li>
+</ul>
+</li>
+<li>用上面四个函数实现<em>acquire(lock_id)</em>&amp;_release(lock_id)_两个函数，用来实现互斥。</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2018/11/10/CSE-Lab2-RPC-and-Lock-Server/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/11/17/%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="七夕先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天天爱学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2019/11/17/%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/" itemprop="url">比特币和区块链的运行原理</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <i class="fa fa-thumb-tack"></i>
+          <font color=7D26CD>置顶</font>
+          <span class="post-meta-divider">|</span>
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-17T11:13:13+00:00">
+                2019-11-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index">
+                    <span itemprop="name">区块链</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/chinese/2019/11/17/%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2019/11/17/%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/chinese/2019/11/17/%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/" class="leancloud_visitors" data-flag-title="比特币和区块链的运行原理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>比特币和区块链技术出现很久了，大家或多或少都有耳闻。不管是对比特币暴涨的羡慕，还是对背后技术的科普。笔者也是一样多少看过一些相关资料，但最近读区块链支付领域的顶会<sup><a href="#foot_note_1">[1]</a></sup>论文<sup><a href="#foot_note_2">[2]</a></sup>时还是发现自己对技术细节了解太少，甚至存在一些误解。</p>
+<p>本文会介绍一些比特区块链的技术细节，同时尽力使其容易理解。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2019/11/17/%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/02/27/MIT-6-006-Lecture-4-%E5%A0%86%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="七夕先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天天爱学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2019/02/27/MIT-6-006-Lecture-4-%E5%A0%86%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/" itemprop="url">MIT 6.006 Lecture 4 堆和堆排序</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <i class="fa fa-thumb-tack"></i>
+          <font color=7D26CD>置顶</font>
+          <span class="post-meta-divider">|</span>
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-27T20:55:30+00:00">
+                2019-02-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/chinese/2019/02/27/MIT-6-006-Lecture-4-%E5%A0%86%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2019/02/27/MIT-6-006-Lecture-4-%E5%A0%86%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/chinese/2019/02/27/MIT-6-006-Lecture-4-%E5%A0%86%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/" class="leancloud_visitors" data-flag-title="MIT 6.006 Lecture 4 堆和堆排序">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="MIT-6-006-Lecture4-堆和堆排序"><a href="#MIT-6-006-Lecture4-堆和堆排序" class="headerlink" title="MIT 6.006 Lecture4 堆和堆排序"></a>MIT 6.006 Lecture4 堆和堆排序</h1><p>由优先级队列来引出堆，然后用堆来实现堆排序。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2019/02/27/MIT-6-006-Lecture-4-%E5%A0%86%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2022/05/11/NFT%E4%B9%8BERC721%E6%8E%A5%E5%8F%A3%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="七夕先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天天爱学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2022/05/11/NFT%E4%B9%8BERC721%E6%8E%A5%E5%8F%A3%E7%AE%80%E4%BB%8B/" itemprop="url">NFT之ERC721接口简介</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-11T10:50:37+00:00">
+                2022-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index">
+                    <span itemprop="name">区块链</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/chinese/2022/05/11/NFT%E4%B9%8BERC721%E6%8E%A5%E5%8F%A3%E7%AE%80%E4%BB%8B/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2022/05/11/NFT%E4%B9%8BERC721%E6%8E%A5%E5%8F%A3%E7%AE%80%E4%BB%8B/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/chinese/2022/05/11/NFT%E4%B9%8BERC721%E6%8E%A5%E5%8F%A3%E7%AE%80%E4%BB%8B/" class="leancloud_visitors" data-flag-title="NFT之ERC721接口简介">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>NFT是<em>non-fungible tokens<em>的缩写，与之对应的是可互换代币</em>fungible tokens</em></p>
+<p>NFT标准<strong>草案</strong>ERC721是可互换代币标准ERC20的扩展，了解ERC20有利于了解ERC721。</p>
+<p>本文主要内容</p>
+<ul>
+<li>ERC20接口简介</li>
+<li>ERC721接口简介</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2022/05/11/NFT%E4%B9%8BERC721%E6%8E%A5%E5%8F%A3%E7%AE%80%E4%BB%8B/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/chinese/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/chinese/page/10/">10</a><a class="extend next" rel="next" href="/chinese/page/2/">下一页</a>
+    <span class="page-number current">1</span><a class="page-number" href="/chinese/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/chinese/page/5/">5</a><a class="extend next" rel="next" href="/chinese/page/2/">下一页</a>
   </nav>
 
 

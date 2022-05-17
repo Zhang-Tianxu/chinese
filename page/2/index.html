@@ -338,7 +338,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/02/22/MIT-6-006-Lecture3-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2022/02/10/ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="七夕先生">
@@ -357,14 +357,10 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/chinese/2019/02/22/MIT-6-006-Lecture3-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" itemprop="url">MIT 6.006 Lecture3 插入排序和归并排序</a></h1>
+                <a class="post-title-link" href="/chinese/2022/02/10/ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" itemprop="url">ssh免密登录</a></h1>
         
 
         <div class="post-meta">
-        
-          <i class="fa fa-thumb-tack"></i>
-          <font color=7D26CD>置顶</font>
-          <span class="post-meta-divider">|</span>
         
           <span class="post-time">
             
@@ -374,8 +370,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-22T11:33:58+00:00">
-                2019-02-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-10T16:15:29+00:00">
+                2022-02-10
               </time>
             
 
@@ -397,8 +393,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/chinese/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
+                  <a href="/chinese/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index">
+                    <span itemprop="name">开发工具</span>
                   </a>
                 </span>
 
@@ -415,8 +411,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/chinese/2019/02/22/MIT-6-006-Lecture3-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2019/02/22/MIT-6-006-Lecture3-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" itemprop="commentCount"></span>
+                <a href="/chinese/2022/02/10/ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2022/02/10/ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -424,7 +420,7 @@
 
           
           
-             <span id="/chinese/2019/02/22/MIT-6-006-Lecture3-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="leancloud_visitors" data-flag-title="MIT 6.006 Lecture3 插入排序和归并排序">
+             <span id="/chinese/2022/02/10/ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" class="leancloud_visitors" data-flag-title="ssh免密登录">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -487,10 +483,230 @@
 
       
         
-          <h1 id="MIT-6-006-Lecture3-插入排序和归并排序"><a href="#MIT-6-006-Lecture3-插入排序和归并排序" class="headerlink" title="MIT 6.006 Lecture3 插入排序和归并排序"></a>MIT 6.006 Lecture3 插入排序和归并排序</h1><p>这是排序部分的第一讲，我们会<strong>先</strong>介绍一下排序问题及其应用，<strong>然后</strong>介绍<strong>插入排序</strong>和<strong>归并排序</strong>两种算法，并对比。<strong>最后</strong>用Python实现这两种算法。</p>
+          
+            <h1 id="ssh-免密码登陆"><a href="#ssh-免密码登陆" class="headerlink" title="ssh 免密码登陆"></a>ssh 免密码登陆</h1><p>在配置分布式系统时经常要实现系统内机器之间的ssh免密登陆，在按照网上某些教程实现时发现并非完全正确（尤其是你不是管理员时），现在把我能成功实现的方法列出：</p>
+<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><ol>
+<li><p>在用户机上生成密钥</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将生成的密钥的公钥复制到目标机的<code>.ssh/authorized_keys</code>内</p>
+<pre><code class="shell">cat .ssh</code></pre>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2021/04/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="七夕先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天天爱学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2021/04/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B5/" itemprop="url">斯坦福大学IOS7开发课程5</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-25T13:37:05+00:00">
+                2021-04-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">客户端开发</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/IOS%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">IOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/chinese/2021/04/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B5/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2021/04/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B5/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/chinese/2021/04/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B5/" class="leancloud_visitors" data-flag-title="斯坦福大学IOS7开发课程5">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>这节课主要讲解：</p>
+<ol>
+<li>View Controller的<strong>生命周期</strong></li>
+<li><strong>NotificationCenter</strong>的相关知识</li>
+<li>组件UITextView的简单使用</li>
+</ol>
+<p>并通过Demo展示</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/chinese/2019/02/22/MIT-6-006-Lecture3-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/#more" rel="contents">
+            <a class="btn" href="/chinese/2021/04/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B5/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -541,7 +757,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2018/11/10/CSE-Lab2-RPC-and-Lock-Server/">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2021/03/29/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="七夕先生">
@@ -560,14 +776,10 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/chinese/2018/11/10/CSE-Lab2-RPC-and-Lock-Server/" itemprop="url">CSE Lab2 RPC and Lock Server</a></h1>
+                <a class="post-title-link" href="/chinese/2021/03/29/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B4/" itemprop="url">斯坦福大学IOS7开发课程4</a></h1>
         
 
         <div class="post-meta">
-        
-          <i class="fa fa-thumb-tack"></i>
-          <font color=7D26CD>置顶</font>
-          <span class="post-meta-divider">|</span>
         
           <span class="post-time">
             
@@ -577,8 +789,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-10T18:16:01+00:00">
-                2018-11-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-29T22:27:07+00:00">
+                2021-03-29
               </time>
             
 
@@ -600,8 +812,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/chinese/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机系统</span>
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">客户端开发</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/IOS%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">IOS开发</span>
                   </a>
                 </span>
 
@@ -618,8 +841,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/chinese/2018/11/10/CSE-Lab2-RPC-and-Lock-Server/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2018/11/10/CSE-Lab2-RPC-and-Lock-Server/" itemprop="commentCount"></span>
+                <a href="/chinese/2021/03/29/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B4/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2021/03/29/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B4/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -627,7 +850,7 @@
 
           
           
-             <span id="/chinese/2018/11/10/CSE-Lab2-RPC-and-Lock-Server/" class="leancloud_visitors" data-flag-title="CSE Lab2 RPC and Lock Server">
+             <span id="/chinese/2021/03/29/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B4/" class="leancloud_visitors" data-flag-title="斯坦福大学IOS7开发课程4">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -690,19 +913,249 @@
 
       
         
-          <p>从这个实验中我们可以学到：    </p>
-<ol>
-<li><a href="https://en.wikipedia.org/wiki/Remote_procedure_call" target="_blank" rel="noopener">远程过程调用（Remote procedure call）——RPC</a></li>
-<li>多线程并发，主要是下面四个函数：<ul>
-<li><em>pthread_mutex_lock(&amp;mutex)</em>&amp;<em>pthread_mutex_unlock(&amp;mutex)</em></li>
-<li><em>pthread_cond_wait(&amp;cond, &amp;mutex)</em>&amp;<em>pthread_cond_signal(&amp;cond)</em></li>
+          <p>这节课主要讲了<strong>Objecitive-C的几个细节</strong>和<strong>Foundation</strong>库中的一些类</p>
+<p>本节课主要介绍iOS开发</p>
+<ul>
+<li>NSObject</li>
+<li>NSArray</li>
+<li>NSMutableArray</li>
+<li>NSNumber</li>
+<li>NSValue</li>
+<li>NSData</li>
+<li>NSDate</li>
+<li>NSSet</li>
+<li>NSMutableSet</li>
+<li>NSOrderedSet</li>
+<li>NSMutableOrderedSet</li>
+<li>NSDictionary</li>
+<li>NSMutableDictionary</li>
+<li>NSUserDefaults</li>
+<li>NSRange</li>
+<li>UIColor</li>
+<li>UIFont</li>
+<li>UIFontDescriptor</li>
+<li>NSAttributedString</li>
+<li>NSMutableAttributedString</li>
 </ul>
-</li>
-<li>用上面四个函数实现<em>acquire(lock_id)</em>&amp;_release(lock_id)_两个函数，用来实现互斥。</li>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2021/03/29/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B4/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2021/03/22/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="七夕先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天天爱学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2021/03/22/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B3/" itemprop="url">斯坦福大学IOS7开发课程3</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-22T15:04:47+00:00">
+                2021-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">客户端开发</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/IOS%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">IOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/chinese/2021/03/22/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2021/03/22/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/chinese/2021/03/22/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B3/" class="leancloud_visitors" data-flag-title="斯坦福大学IOS7开发课程3">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="斯坦福大学IOS7开发课程3"><a href="#斯坦福大学IOS7开发课程3" class="headerlink" title="斯坦福大学IOS7开发课程3"></a>斯坦福大学IOS7开发课程3</h1><p>课程3主要内容是继续之前的纸牌游戏。上节课实现的纸牌游戏App只是实现了简单的纸牌翻转，这节课使其变得真正可玩。</p>
+<p>主要分为三个部分：</p>
+<ol>
+<li>先回顾上节课编写的App</li>
+<li>对上节课的App改进</li>
+<li>使游戏变得可玩</li>
 </ol>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/chinese/2018/11/10/CSE-Lab2-RPC-and-Lock-Server/#more" rel="contents">
+            <a class="btn" href="/chinese/2021/03/22/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B3/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -753,7 +1206,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/11/17/%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="七夕先生">
@@ -772,14 +1225,10 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/chinese/2019/11/17/%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/" itemprop="url">比特币和区块链的运行原理</a></h1>
+                <a class="post-title-link" href="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B2/" itemprop="url">斯坦福大学IOS7开发课程2</a></h1>
         
 
         <div class="post-meta">
-        
-          <i class="fa fa-thumb-tack"></i>
-          <font color=7D26CD>置顶</font>
-          <span class="post-meta-divider">|</span>
         
           <span class="post-time">
             
@@ -789,8 +1238,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-17T11:13:13+00:00">
-                2019-11-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-15T20:52:38+00:00">
+                2021-03-15
               </time>
             
 
@@ -812,8 +1261,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/chinese/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index">
-                    <span itemprop="name">区块链</span>
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">客户端开发</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/IOS%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">IOS开发</span>
                   </a>
                 </span>
 
@@ -830,8 +1290,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/chinese/2019/11/17/%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2019/11/17/%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/" itemprop="commentCount"></span>
+                <a href="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -839,7 +1299,7 @@
 
           
           
-             <span id="/chinese/2019/11/17/%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/" class="leancloud_visitors" data-flag-title="比特币和区块链的运行原理">
+             <span id="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B2/" class="leancloud_visitors" data-flag-title="斯坦福大学IOS7开发课程2">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -902,11 +1362,11 @@
 
       
         
-          <p>比特币和区块链技术出现很久了，大家或多或少都有耳闻。不管是对比特币暴涨的羡慕，还是对背后技术的科普。笔者也是一样多少看过一些相关资料，但最近读区块链支付领域的顶会<sup><a href="#foot_note_1">[1]</a></sup>论文<sup><a href="#foot_note_2">[2]</a></sup>时还是发现自己对技术细节了解太少，甚至存在一些误解。</p>
-<p>本文会介绍一些比特区块链的技术细节，同时尽力使其容易理解。</p>
+          <h1 id="斯坦福大学IOS7开发课程2"><a href="#斯坦福大学IOS7开发课程2" class="headerlink" title="斯坦福大学IOS7开发课程2"></a>斯坦福大学IOS7开发课程2</h1><p>这节课就着手开始实现”Card Matching Game”，纸牌匹配游戏。</p>
+<p>具体来说就是实现涉及的各种类，以及XCode的简单使用。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/chinese/2019/11/17/%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/#more" rel="contents">
+            <a class="btn" href="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B2/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -957,7 +1417,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2019/02/27/MIT-6-006-Lecture-4-%E5%A0%86%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="七夕先生">
@@ -976,14 +1436,10 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/chinese/2019/02/27/MIT-6-006-Lecture-4-%E5%A0%86%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/" itemprop="url">MIT 6.006 Lecture 4 堆和堆排序</a></h1>
+                <a class="post-title-link" href="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B1/" itemprop="url">斯坦福大学IOS7开发课程1</a></h1>
         
 
         <div class="post-meta">
-        
-          <i class="fa fa-thumb-tack"></i>
-          <font color=7D26CD>置顶</font>
-          <span class="post-meta-divider">|</span>
         
           <span class="post-time">
             
@@ -993,8 +1449,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-27T20:55:30+00:00">
-                2019-02-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-15T07:13:41+00:00">
+                2021-03-15
               </time>
             
 
@@ -1016,8 +1472,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/chinese/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">客户端开发</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/IOS%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">IOS开发</span>
                   </a>
                 </span>
 
@@ -1034,8 +1501,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/chinese/2019/02/27/MIT-6-006-Lecture-4-%E5%A0%86%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2019/02/27/MIT-6-006-Lecture-4-%E5%A0%86%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/" itemprop="commentCount"></span>
+                <a href="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B1/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1043,7 +1510,7 @@
 
           
           
-             <span id="/chinese/2019/02/27/MIT-6-006-Lecture-4-%E5%A0%86%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/" class="leancloud_visitors" data-flag-title="MIT 6.006 Lecture 4 堆和堆排序">
+             <span id="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B1/" class="leancloud_visitors" data-flag-title="斯坦福大学IOS7开发课程1">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1106,215 +1573,872 @@
 
       
         
-          <h1 id="MIT-6-006-Lecture4-堆和堆排序"><a href="#MIT-6-006-Lecture4-堆和堆排序" class="headerlink" title="MIT 6.006 Lecture4 堆和堆排序"></a>MIT 6.006 Lecture4 堆和堆排序</h1><p>由优先级队列来引出堆，然后用堆来实现堆排序。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/chinese/2019/02/27/MIT-6-006-Lecture-4-%E5%A0%86%E5%92%8C%E5%A0%86%E6%8E%92%E5%BA%8F/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2022/05/11/NFT%E4%B9%8BERC721%E6%8E%A5%E5%8F%A3%E7%AE%80%E4%BB%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="七夕先生">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/chinese/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天天爱学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/chinese/2022/05/11/NFT%E4%B9%8BERC721%E6%8E%A5%E5%8F%A3%E7%AE%80%E4%BB%8B/" itemprop="url">NFT之ERC721接口简介</a></h1>
-        
-
-        <div class="post-meta">
-        
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-11T10:50:37+00:00">
-                2022-05-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/chinese/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index">
-                    <span itemprop="name">区块链</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/chinese/2022/05/11/NFT%E4%B9%8BERC721%E6%8E%A5%E5%8F%A3%E7%AE%80%E4%BB%8B/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2022/05/11/NFT%E4%B9%8BERC721%E6%8E%A5%E5%8F%A3%E7%AE%80%E4%BB%8B/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/chinese/2022/05/11/NFT%E4%B9%8BERC721%E6%8E%A5%E5%8F%A3%E7%AE%80%E4%BB%8B/" class="leancloud_visitors" data-flag-title="NFT之ERC721接口简介">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>NFT是<em>non-fungible tokens<em>的缩写，与之对应的是可互换代币</em>fungible tokens</em></p>
-<p>NFT标准<strong>草案</strong>ERC721是可互换代币标准ERC20的扩展，了解ERC20有利于了解ERC721。</p>
-<p>本文主要内容</p>
+          <h1 id="斯坦福大学IOS7开发课程1"><a href="#斯坦福大学IOS7开发课程1" class="headerlink" title="斯坦福大学IOS7开发课程1"></a>斯坦福大学IOS7开发课程1</h1><p>IOS7开发课程讲了如何利用Objective-C语言开发IOS App，而且涉及到很多必须的基础知识，非常值得学习。</p>
+<p>课程1讲了一些关于课程安排和作业的事情，自学就不需要了，只选取下面三个<strong>知识点：</strong></p>
 <ul>
-<li>ERC20接口简介</li>
-<li>ERC721接口简介</li>
+<li>IOS里有什么</li>
+<li>MVC开发模型</li>
+<li>Objective-C</li>
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/chinese/2022/05/11/NFT%E4%B9%8BERC721%E6%8E%A5%E5%8F%A3%E7%AE%80%E4%BB%8B/#more" rel="contents">
+            <a class="btn" href="/chinese/2021/03/15/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6IOS7%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2021/03/10/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BSQLite%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="七夕先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天天爱学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2021/03/10/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BSQLite%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url">Objective-C IOS开发之SQLite数据库</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-10T21:45:33+00:00">
+                2021-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">客户端开发</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/IOS%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">IOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/chinese/2021/03/10/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BSQLite%E6%95%B0%E6%8D%AE%E5%BA%93/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2021/03/10/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BSQLite%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/chinese/2021/03/10/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BSQLite%E6%95%B0%E6%8D%AE%E5%BA%93/" class="leancloud_visitors" data-flag-title="Objective-C IOS开发之SQLite数据库">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>IDE: XCode Version 12.4 (12D4e)</p>
+<p>参考<a href="https://www.tutorialspoint.com/ios/ios_sqlite_database.htm" target="_blank" rel="noopener">IOS开发教程</a></p>
+<h2 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h2>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2021/03/10/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BSQLite%E6%95%B0%E6%8D%AE%E5%BA%93/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2021/03/09/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BHelloWorld/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="七夕先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天天爱学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2021/03/09/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BHelloWorld/" itemprop="url">Objective-C IOS开发之HelloWorld</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-09T17:15:11+00:00">
+                2021-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">客户端开发</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91/IOS%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">IOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/chinese/2021/03/09/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BHelloWorld/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2021/03/09/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BHelloWorld/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/chinese/2021/03/09/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BHelloWorld/" class="leancloud_visitors" data-flag-title="Objective-C IOS开发之HelloWorld">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>IDE: XCode Version 12.4 (12D4e)</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2021/03/09/Objective-C-IOS%E5%BC%80%E5%8F%91%E4%B9%8BHelloWorld/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2021/03/08/github-pages-hexo-next-Travis-CI%E5%AE%9E%E7%8E%B0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="七夕先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天天爱学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2021/03/08/github-pages-hexo-next-Travis-CI%E5%AE%9E%E7%8E%B0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" itemprop="url">github pages + hexo + next + Travis CI实现免费个人博客</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-08T14:55:09+00:00">
+                2021-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E8%87%AA%E5%AA%92%E4%BD%93/" itemprop="url" rel="index">
+                    <span itemprop="name">自媒体</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E8%87%AA%E5%AA%92%E4%BD%93/%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index">
+                    <span itemprop="name">博客</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/chinese/2021/03/08/github-pages-hexo-next-Travis-CI%E5%AE%9E%E7%8E%B0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2021/03/08/github-pages-hexo-next-Travis-CI%E5%AE%9E%E7%8E%B0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/chinese/2021/03/08/github-pages-hexo-next-Travis-CI%E5%AE%9E%E7%8E%B0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="leancloud_visitors" data-flag-title="github pages + hexo + next + Travis CI实现免费个人博客">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>是GitHub提供的静态网页托管工具，可以用来建立个人网页，也可以建立网页介绍某个项目。</p>
+<p><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">Hexo</a>是一个博客框架，而<a href="https://theme-next.iissnan.com/" target="_blank" rel="noopener">NexT</a>是Hexo的一个主题。</p>
+<p>最后Travis CI是针对GitHub的一款持续集成工具，这里用来完成网站的自动化部署。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2021/03/08/github-pages-hexo-next-Travis-CI%E5%AE%9E%E7%8E%B0%E5%85%8D%E8%B4%B9%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhang-tianxu.github.io/chinese/chinese/2020/04/14/%E8%8B%B1%E8%AF%AD%E5%8F%A3%E8%AF%AD%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AF%B4%E7%9A%84%E6%9B%B4%E5%BF%AB%EF%BC%88%E4%BA%8C%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="七夕先生">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/chinese/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天天爱学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/chinese/2020/04/14/%E8%8B%B1%E8%AF%AD%E5%8F%A3%E8%AF%AD%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AF%B4%E7%9A%84%E6%9B%B4%E5%BF%AB%EF%BC%88%E4%BA%8C%EF%BC%89/" itemprop="url">英语口语：如何说的更快（二）</a></h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-14T10:43:32+00:00">
+                2020-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index">
+                    <span itemprop="name">语言</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/chinese/categories/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/" itemprop="url" rel="index">
+                    <span itemprop="name">英语</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/chinese/2020/04/14/%E8%8B%B1%E8%AF%AD%E5%8F%A3%E8%AF%AD%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AF%B4%E7%9A%84%E6%9B%B4%E5%BF%AB%EF%BC%88%E4%BA%8C%EF%BC%89/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/chinese/2020/04/14/%E8%8B%B1%E8%AF%AD%E5%8F%A3%E8%AF%AD%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AF%B4%E7%9A%84%E6%9B%B4%E5%BF%AB%EF%BC%88%E4%BA%8C%EF%BC%89/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/chinese/2020/04/14/%E8%8B%B1%E8%AF%AD%E5%8F%A3%E8%AF%AD%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AF%B4%E7%9A%84%E6%9B%B4%E5%BF%AB%EF%BC%88%E4%BA%8C%EF%BC%89/" class="leancloud_visitors" data-flag-title="英语口语：如何说的更快（二）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>内容参考<a href="https://youtu.be/5wr44LGmIaw" target="_blank" rel="noopener">How to speak English fast and understand natives (Part II)</a> From <a href="https://www.youtube.com/channel/UCAQg09FkoobmLquNNoO4ulg" target="_blank" rel="noopener">linguamarina</a></p>
+<p>要点：</p>
+<ul>
+<li>口语中的简化：<ul>
+<li>Want to -&gt; wanna</li>
+<li>Going to -&gt; gonna</li>
+<li>Don’t know -&gt; dunno know</li>
+<li>got to -&gt; gotta</li>
+</ul>
+</li>
+<li>忽略无意义词句</li>
+<li>使用缩写</li>
+<li>重音、俚语和习语
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/chinese/2020/04/14/%E8%8B%B1%E8%AF%AD%E5%8F%A3%E8%AF%AD%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AF%B4%E7%9A%84%E6%9B%B4%E5%BF%AB%EF%BC%88%E4%BA%8C%EF%BC%89/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1356,7 +2480,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/chinese/">上一页</a><a class="page-number" href="/chinese/">1</a><span class="page-number current">2</span><a class="page-number" href="/chinese/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/chinese/page/10/">10</a><a class="extend next" rel="next" href="/chinese/page/3/">下一页</a>
+    <a class="extend prev" rel="prev" href="/chinese/">上一页</a><a class="page-number" href="/chinese/">1</a><span class="page-number current">2</span><a class="page-number" href="/chinese/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/chinese/page/5/">5</a><a class="extend next" rel="next" href="/chinese/page/3/">下一页</a>
   </nav>
 
 
